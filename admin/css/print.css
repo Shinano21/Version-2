@@ -1,0 +1,137 @@
+@page header {
+  display: none; /* Hide header */
+}
+
+@page footer {
+  display: none; /* Hide footer */
+}
+
+* {
+  font-family: Arial, Helvetica, sans-serif;
+  box-sizing: border-box;
+}
+.printTemplate {
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+}
+/* header */
+.header {
+  width: 100%;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  border-bottom: solid 1px #0c0c0c;
+  padding: 0 25px;
+  margin-bottom: 25px;
+}
+.header p {
+  font-size: 20px;
+  font-weight: 600;
+}
+.options {
+  display: flex;
+  justify-content: end;
+  /* padding: 25px; */
+}
+.options button {
+  margin: 8px;
+  width: 150px;
+  background-color: rgba(92, 84, 243, 0.7);
+  color: white;
+  font-weight: 500;
+  padding: 6px 10px;
+  border: none;
+  border-radius: 10px;
+}
+.options button:hover {
+  color: white;
+  background-color: rgba(92, 84, 243, 1);
+}
+#pdf-btn {
+  background-color: rgba(34, 139, 34, 0.7);
+}
+#pdf-btn:hover {
+  background-color: rgba(34, 139, 34, 1);
+}
+
+/* contents */
+.contents {
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+}
+.tableContents {
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+.contents .docuHeader {
+  display: flex;
+  align-items: center;
+  margin: 0 0 25px;
+}
+.contents .docuHeader .img,
+.contents .docuHeader .space {
+  width: 25%;
+  display: flex;
+  justify-content: end;
+  align-items: center;
+}
+.contents .docuHeader .img img {
+  width: 100px;
+  height: auto;
+  object-fit: cover;
+}
+.contents .docuHeader .mid {
+  width: 50%;
+}
+.contents .docuHeader .mid p {
+  margin: 2px;
+  text-align: center;
+}
+
+/* table style */
+.contents .tables {
+  width: 100%;
+  display: flex;
+  justify-content: center;
+  flex-direction: column;
+  align-items: center;
+}
+table {
+  border-collapse: collapse;
+  width: 90%;
+  text-align: center;
+}
+td,
+th {
+  padding: 10px;
+}
+.tableContainer {
+  width: 80%;
+  min-height: 500px;
+  display: flex;
+  flex-direction: column;
+}
+@media print {
+  .hide-on-print {
+    display: none;
+  }
+  table {
+    font-size: 11px;
+  }
+  .address-col {
+    text-align: center;
+  }
+}
+
+/* other styles */
+.filterText {
+  display: flex;
+}
+.filterText p {
+  color: rgb(14, 14, 14);
+  font-weight: bold;
+}

@@ -1,0 +1,2 @@
+const map = L.map("map").setView([13.143991203443381, 123.71526002883913], 16); // Set the initial view and zoom level
+// L.tileLayer("https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png").addTo(map); // Add a basemap (OpenStreetMap)

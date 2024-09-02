@@ -1,0 +1,272 @@
+* {
+  box-sizing: border-box;
+  padding: 0;
+  margin: 0;
+}
+
+#main-content {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  padding: 30px 0;
+}
+
+.table tr .table-row,
+.table tr .table-body {
+  color: black;
+}
+.table-row {
+  text-align: center;
+}
+.table tr .table-body {
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+.actions {
+  height: 70px;
+  width: 100%;
+  border: none;
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  justify-content: center;
+}
+.tabcontent form {
+  width: 100%;
+  display: block;
+}
+form {
+  width: 100%;
+  display: flex;
+}
+/* Style the tab buttons */
+.tab {
+  width: 90%;
+  display: flex;
+  overflow: hidden;
+  background: linear-gradient(to bottom, #3a8ef6, #6eb8fc);
+  /* background: linear-gradient(to bottom, #5C54F3, #3A8EF6); */
+  padding: 0 30px;
+  border-radius: 10px 10px 0 0;
+  box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.2);
+  z-index: 99;
+}
+
+.tab button {
+  background: none;
+  color: #ffffffb2;
+  border: none;
+  outline: none;
+  cursor: pointer;
+  padding: 15px 15px;
+  transition: 0.3s;
+  font-size: 15px;
+  text-transform: uppercase;
+}
+
+.tab button:hover {
+  color: #fff;
+  font-weight: 600;
+}
+
+/* Hide all tab content by default */
+.tabcontent {
+  display: none;
+  width: 90%;
+  box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.2);
+  background-color: #fff;
+  padding: 30px;
+}
+
+/* Style the active tab */
+.tablinks.active {
+  color: #fff;
+  font-weight: 600;
+}
+
+/* Show the active tab content */
+.tabcontent {
+  display: none;
+}
+.tabcontent.show {
+  display: block;
+}
+.form {
+  display: flex;
+  justify-content: space-between;
+  flex-wrap: wrap;
+}
+.form h5 {
+  width: 100%;
+  padding: 25px 0;
+  border-bottom: solid 1.5px #6eb8fc;
+}
+
+.form .formInput {
+  width: 45%;
+  margin-top: 25px;
+}
+.form .formInput input {
+  width: 100%;
+  border: solid 1px #ccc;
+  padding: 10px;
+  border-radius: 10px;
+}
+.form .formInput label,
+.form .photo label {
+  margin: 10px 0;
+  color: #000;
+}
+
+.form .photo {
+  width: 100%;
+  padding: 10px;
+  border-radius: 5px;
+  border: solid 1px #d1d1d1;
+  border-radius: 10px;
+  margin-top: 25px;
+}
+.form .photo .preview {
+  width: 100%;
+  height: auto;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+.form button {
+  border: none;
+  width: 150px;
+  height: 50px;
+  color: white !important;
+  background-color: #5c54f3;
+  border-radius: 10px;
+  margin: 25px 0;
+}
+
+.form .formInput textarea,
+.form .formInput select {
+  width: 100%;
+  border: solid 1px #ccc;
+  padding: 10px;
+  border-radius: 10px;
+}
+
+/* Tablesssss */
+.addUser {
+  width: 100%;
+  display: flex;
+  justify-content: end;
+}
+.addUs {
+  display: flex;
+  align-items: center;
+  padding: 10px 20px;
+  border: 1px solid #ccc;
+  border-radius: 5px;
+  cursor: pointer;
+}
+.addUs p {
+  margin: 0;
+  padding: 0px 5px;
+  text-decoration: none;
+  color: #000;
+  cursor: pointer;
+}
+.table {
+  width: 100%;
+  margin: 25px 0px;
+}
+.table th {
+  border-bottom: none;
+  border-top: none;
+}
+table {
+  width: 100%;
+  table-layout: fixed;
+  border-collapse: collapse;
+  border: 1px solid #000;
+}
+th,
+td {
+  width: 10%;
+  padding: 8px;
+  text-align: center !important;
+  border: 1px solid #000;
+  font-size: small;
+}
+.options {
+  height: 30px;
+  width: 30px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin: 2px;
+}
+.showSearch {
+  width: 100%;
+  display: flex;
+  justify-content: space-between;
+  margin: 10px 0px;
+}
+
+.showPages{
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 100px;
+}
+.page-indicator {
+  display: flex;
+  justify-content: center;
+}
+
+.indicator {
+  padding: 10px 20px;
+  border: 1px solid #ccc;
+  cursor: pointer;
+}
+
+.indicator:hover {
+  background-color: #E4EFFD;
+}
+.num{
+  padding: 10px 20px;
+  background-color: #006BDD;
+  color: white;
+}
+
+.previous {
+  border-radius: 5px 0 0 5px;
+}
+
+.next {
+  border-radius: 0 5px 5px 0;
+}
+
+.showSearch{
+  width: 100%;
+  display: flex;
+  justify-content: space-between;
+  margin: 10px 0px;
+}
+.showSearch p{
+  margin: auto 5px;
+}
+.showEntries{
+  display: flex;
+}
+.showEntries input{
+  width: 40px;
+}
+
+.searchTable{
+  display: flex;
+}
+.searchBar{
+  height: 100%;
+  padding: 10px;
+  width: 200px;
+  border: 1px solid #ccc;
+  border-radius: 5px;
+}

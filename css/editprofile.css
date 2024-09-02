@@ -1,0 +1,128 @@
+.banner {
+  width: 100%;
+  height: 100px;
+  display: flex;
+  align-items: center;
+  padding: 0 30px;
+  background-color: #3a8ef6;
+  color: white;
+  margin-top: 80px;
+  padding: 0 5%;
+}
+.banner p {
+  font-weight: 600;
+  font-size: 18px;
+}
+.banner p a {
+  color: rgb(255, 255, 255);
+}
+
+.editForm {
+  width: 100%;
+  min-height: 100%;
+  display: flex;
+  align-items: center;
+  flex-direction: column;
+}
+
+.editForm .information,
+.editForm .password {
+  width: 80%;
+  margin: 3vw 0;
+  box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.2);
+  border-radius: 10px;
+}
+
+.editForm .password {
+  margin-top: 0;
+  margin-bottom: 5vw;
+}
+
+.editForm .information .photoBackdrop {
+  position: relative;
+}
+.editForm .information .photoBackdrop .rect {
+  height: 100px;
+  width: 100%;
+  background: linear-gradient(to bottom, #5c54f3, #3a8ef6);
+  border-radius: 10px 10px 0 0;
+}
+.editForm .information .photoBackdrop .image {
+  width: 100%;
+  display: flex;
+  justify-content: center;
+  position: absolute;
+  top: 50px;
+  z-index: 1;
+}
+.editForm .information .photoBackdrop .image img {
+  width: 125px;
+  height: 125px;
+  object-fit: cover;
+  border-radius: 50%;
+  border: solid 3px white;
+}
+
+.form {
+  width: 100%;
+  margin-top: 75px;
+  padding: 25px;
+  display: flex;
+  flex-wrap: wrap;
+}
+.form .formInput {
+  width: 30%;
+  margin-bottom: 25px;
+  margin-right: 3.3%;
+}
+
+.form .formInput input {
+  width: 100%;
+  border: none;
+  border-bottom: solid 1px black;
+  padding: 10px 0;
+}
+.form .formInput input:focus {
+  outline: none;
+}
+.form .formInput p {
+  margin: 0;
+  font-weight: bold;
+  font-size: small;
+}
+
+.password h3 {
+  width: 100%;
+  border-bottom: solid 1.5px #3a8ef6;
+  padding: 25px;
+}
+
+button {
+  width: 100%;
+  height: 50px;
+  background-color: #3a8ef6;
+  border: none;
+  border-radius: 0 0 10px 10px;
+  color: white;
+}
+
+@media only screen and (max-width: 768px) {
+  
+  .editForm .information,
+  .editForm .password {
+    width: 90%;
+  }
+  .form .formInput p {
+    font-size: 12px;
+  }
+  .form .formInput input {
+    font-size: 12px;
+  }
+  .banner {
+    height: 90%;
+  }
+  .banner p {
+    font-size: 14px;
+  }
+
+}

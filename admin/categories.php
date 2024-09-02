@@ -1,0 +1,90 @@
+<?php
+$categories = [
+    [
+        "name" => "Purok",
+        "value" => "zone",
+        "options" => [
+            "Purok 1",
+            "Purok 2",
+            "Purok 3",
+            "Purok 4",
+            "Purok 5",
+            "Purok 6",
+        ],
+    ],
+    [
+        "name" => "Sex",
+        "value" => "sex",
+        "options" => ["Female", "Male"],
+    ],
+    [
+        "name" => "Age Group",
+        "value" => "bday",
+        "options" => [
+            "0-11 Months",
+            "1-5",
+            "6-12",
+            "13-19",
+            "20-29",
+            "30-39",
+            "40-49",
+            "50-59",
+            "60-69",
+            "70-79",
+            "80+",
+        ],
+    ],
+    [
+        "name" => "Educational Level",
+        "value" => "educational",
+        "options" => [
+            "Preschool",
+            "Elementary",
+            "Elementary Graduate",
+            "Junior High School",
+            "Junior High School Graduate",
+            "Senior High School",
+            "Senior High School Graduate",
+            "Undergraduate",
+            "Some College Units",
+            "College Degree",
+            "Some Masteral Units",
+            "Master's Degree",
+            "Some Doctoral Units",
+            "Doctoral Degree",
+            "No Formal Education",
+            "Not Applicable",
+        ],
+    ],
+    [
+        "name" => "Civil Status",
+        "value" => "civil_status",
+        "options" => ["Single", "Married", "Separated", "Divorced", "Widowed"],
+    ],
+    [
+        "name" => "Labor Force Status",
+        "value" => "labor_status",
+        "options" => [
+            "Employed",
+            "Unemployed",
+            "Not in the Labor Force",
+            "Not Applicable",
+        ],
+    ],
+    [
+        "name" => "4P's Beneficiary",
+        "value" => "four_p",
+        "options" => ["Yes", "No"],
+    ],
+    [
+        "name" => "Voter Status",
+        "value" => "voter_status",
+        "options" => ["Yes", "No", "Not Applicable"],
+    ],
+    [
+        "name" => "PWD",
+        "value" => "pwd_status",
+        "options" => ["Yes", "No"],
+    ],
+];
+?>

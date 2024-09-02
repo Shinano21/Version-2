@@ -1,0 +1,229 @@
+* {
+    box-sizing: border-box;
+}
+
+.container-fluid{
+    padding: 0;
+}
+.user{
+    display: flex;
+    padding: 10px;
+    align-items: center;
+}
+.user img{
+    height: 100%;
+    width: auto;
+}
+.userDits{
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    padding: 0px 10px;
+}
+
+/* Content */
+.contentBg{
+    background: linear-gradient(to bottom, rgba(223, 223, 223, 0.5) 0%, rgba(223, 223, 223, 0.10) 100%);
+    width: 100%;
+    height: 100%;
+    display: flex;
+    justify-content: center;
+}
+.contentBox{
+    width: 90%;
+    height: auto;
+    margin: 3vw;
+    background-color: white;
+    border-radius: 10px;
+    padding: 3%;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+}
+.addUser{
+    width: 100%;
+    display: flex;
+    justify-content: end;
+}
+.addUs{
+    display: flex;
+    align-items: center;
+    padding: 10px 20px;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+}
+.addUs p {
+    margin: 0;
+    padding: 0px 5px;
+    text-decoration: none;
+    color: #000;
+}
+.contentBox .titles{
+    width: 100%;
+    border-bottom: solid 2px #E4EFFD;
+    margin-bottom: 2%;
+    font-weight: bold;
+
+}
+.table{
+    width: 100%;
+    margin: 25px 0px;
+}
+table{
+    width: 100%;
+    table-layout: fixed;
+    border-collapse: collapse;
+}
+th, td {
+    width: 10%;
+    padding: 8px;
+    text-align: center;
+    border: 1px solid #000 !important;
+    border-top: 1px solid #000 !important;
+    font-size: small;
+}
+.options{
+    height: 30px;
+    width: 30px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    margin: 2px;
+}
+.showPages{
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 100px;
+}
+.page-indicator {
+    display: flex;
+    justify-content: center;
+}
+
+.indicator {
+    padding: 10px 20px;
+    border: 1px solid #ccc;
+    cursor: pointer;
+}
+
+.indicator:hover {
+    background-color: #E4EFFD;
+}
+.num{
+    padding: 10px 20px;
+    background-color: #006BDD;
+    color: white;
+}
+
+.previous {
+    border-radius: 5px 0 0 5px;
+}
+
+.next {
+    border-radius: 0 5px 5px 0;
+}
+.saveBtn{
+    background-color: #5C54F3;
+    border: none;
+    padding: 10px 30px;
+    font-weight: bold;
+    float: right;
+    border-radius: 5px;
+    color: white;
+}
+.showSearch{
+    width: 100%;
+    display: flex;
+    justify-content: space-between;
+    margin: 10px 0px;
+}
+.showSearch p{
+    margin: 5px;
+}
+.showEntries{
+    display: flex;
+}
+.showEntries input{
+    width: 40px;
+}
+
+.searchTable{
+    display: flex;
+}
+.searchBar{
+    height: 100%;
+    padding: 10px;
+    width: 200px;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+}
+
+
+
+/* addUsers css */
+.form{
+    display: flex;
+    width: 100%;
+}
+form{
+    width: 100%;
+    display: flex;
+    flex-wrap: wrap;
+}
+.form-group{
+    width: 50%;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    padding: 10px;
+}
+.form-group label,
+.position label,
+.photo label {
+    font-weight: bold;
+    font-size: small;
+    margin-bottom: 5px;
+}
+.form-group input{
+    width: 100%;
+    padding: 10px;
+    border-radius: 5px;
+    border: solid 1px #D1D1D1;
+}
+form .position{
+    width: 100%;
+    padding: 10px;
+}
+form .position select{
+    width: 100%;
+    padding: 10px;
+    border-radius: 5px;
+    border: solid 1px #D1D1D1;
+}
+form .photo{
+    width: 100%;
+    padding: 10px;
+    border-radius: 5px;
+    border: solid 1px #D1D1D1;
+    margin: 10px;
+}
+.photo .preview{
+    width: 100%;
+    height: auto;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+.subBtn{
+    width: 100%;
+    height: auto;
+    display: flex;
+    justify-content: end;
+}
+.subBtn button{
+    background-color: #5C54F3;
+    border: none;
+    padding: 10px 30px;
+    font-weight: bold;
+    border-radius: 5px;
+    color: white;
+}

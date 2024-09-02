@@ -1,0 +1,150 @@
+@import url('https://fonts.googleapis.com/css2?family=Poppins:wght@100;300;400;500;600;700;800;900&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Urbanist:wght@300;400;500;600;700&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Manrope:wght@200;300;400;500;600;700;800&family=Poppins:wght@100;300;400;500;600;700;800;900&display=swap');
+:root {
+  --black:#000000;
+  --white: #ffffff;
+  --gradient: linear-gradient(to right,rgb(93,86,244),rgb(106,170,243));
+  --main-color: rgb(93, 86, 244);
+  --sky-blue: rgb(106,170,243);
+}
+* {
+  box-sizing: border-box;
+  font-family: 'Manrope', sans-serif;
+}
+
+body {
+  margin: 0px;
+  background-size:cover;
+  background-repeat: no-repeat;
+}
+
+html{
+  overflow-x: hidden;
+  scroll-padding-top: 9rem;
+  scroll-behavior: smooth;
+}
+html::-webkit-scrollbar{
+  width: .8rem;
+}
+html::-webkit-scrollbar-track{
+  background: var(--white);
+}
+html::-webkit-scrollbar-thumb{
+  background: var(--sky-blue);
+  border-radius: 0;
+}
+html::-webkit-scrollbar-thumb:hover{
+  background: var(--main-color);
+}
+
+
+#bg {
+  background-image: var(--gradient);
+}
+#main {
+  background-color: white;
+  width: 60vw;
+  height: auto;
+  box-shadow: 0px 0px 3px gray;
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  padding: 50px 70px 50px 70px;
+  border-radius: 30px;
+}
+#left {
+  width: 45%;
+  height: 100%;
+  float: left;
+}
+#right {
+  width: 55%;
+  height: 100%;
+  float: right;
+}
+a > img {
+  width: 85%;
+  height: 10%;
+}
+#left > img {
+  width: 85%;
+  height: 10%;
+}
+#left > #bhs {
+  width: 100%;
+  height: 81%;
+  margin-top: 10%;
+}
+#title {
+  width: 100%;
+  height: 10%;
+}
+#lgn-form {
+  height: 90%;
+  width: 100%;
+  margin-left: 20px;
+}
+#lgn-form > text {
+  color: rgba(110, 99, 98, 0.877);
+  font-size: 18px;
+  margin-top: 0;
+}
+#title > p {
+  text-align: right;
+  color: rgb(106, 170, 243);
+  font-weight: bold;
+  letter-spacing: 1px;
+}
+input {
+  margin-left: 10%;
+  width: 100%;
+  padding: 10px;
+  border-radius: 5px;
+  border-width: 0px 0px 2px 0px;
+  border-style: solid;
+  font-size: 1rem;
+  border-color: rgb(106, 170, 243);
+  text-indent: 30px;
+}
+input[type="submit"] {
+  text-indent: 0;
+  width: 40%;
+  border: none;
+  color: white;
+  font-weight: bold;
+  border-radius: 20px;
+  background-color: rgb(93, 86, 244);
+  margin: 20px 0
+}
+::placeholder {
+  color: rgba(0, 0, 0, 0.747);
+
+}
+
+::-ms-input-placeholder {
+  /* Edge 12 -18 */
+  color: rgba(0, 0, 0, 0.747);
+}
+#user {
+  background-image: url("../src/user1.png");
+  background-size: 20px 20px;
+  background-repeat: no-repeat;
+  background-position: 10px 8px;
+}
+#password {
+  background-image: url("../src/pass1.png");
+  background-size: 18px 20px;
+  background-repeat: no-repeat;
+  background-position: 10px 8px;
+}
+div > #dsd {
+  font-size: 14px;
+  color: black;
+}
+
+#user,
+#password {
+  margin: 10px 0;
+}

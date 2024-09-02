@@ -1,0 +1,77 @@
+#map {
+  width: 100%;
+}
+.formCont {
+  width: 100%;
+  height: 95vh;
+  display: flex;
+  align-items: center;
+  flex-direction: column;
+  background-color: rgba(217, 217, 217, 0.3);
+  padding: 2.5vw 0;
+  padding-top: 100px;
+}
+.formCont p {
+  margin: 0;
+}
+.formCont h1 {
+  margin: 0 0 5px;
+  color: #3a8ef6;
+  font-weight: bold;
+}
+.formDits {
+  width: 70%;
+  display: flex;
+  background-color: white;
+  margin-top: 15px;
+}
+.formDits .contactInfo {
+  width: 40%;
+  background-color: #3a8ef6;
+  border-radius: 10px 0px 0px 10px;
+  color: white;
+  padding: 25px;
+}
+.formDits .contactInfo .wIcons {
+  display: flex;
+  align-items: center;
+  margin-top: 25px;
+}
+.formDits .contactInfo .wIcons i {
+  padding-right: 15px;
+  font-size: 23px;
+}
+.formDits .form {
+  width: 60%;
+  padding: 25px;
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: space-between;
+}
+.formDits .form button {
+  width: 180px;
+  height: 50px;
+  background-color: #3a8ef6;
+  border: none;
+  border-radius: 5px;
+  color: white;
+}
+.formDits .form .formInput {
+  width: 45%;
+  margin-bottom: 25px;
+}
+
+.formDits .form .formInput input {
+  width: 100%;
+  border: none;
+  border-bottom: solid 1px black;
+  padding: 10px 0;
+}
+.formDits .form .formInput input:focus {
+  outline: none;
+}
+.formDits .form .formInput p {
+  margin: 0;
+  font-weight: bold;
+  font-size: small;
+}

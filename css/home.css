@@ -1,0 +1,679 @@
+/* Main Body */
+.main {
+  height: calc(100vh - 80px);
+  width: 100%;
+  position: relative;
+  background-size: 100% 230%;
+  background-position: 0 50%;
+  display: flex;
+  align-items: center; 
+  margin-top: 20px;
+}
+
+.contentbg {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background-color: rgba(0, 0, 0, 0.6);
+  display: flex;
+  align-items: center;
+}
+.content {
+  height: auto;
+  width: 90%;
+  margin: 0 35px;
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%,-50%);
+  z-index: 4;
+  justify-content: space-between;
+}
+.texts {
+  height: 100%;
+  color: white;
+  float: left;
+}
+.texts>h1 {
+  font-weight: bold;
+  font-size: 45px;
+  font-family: 'Poppins', 'sans-serif';
+  margin-top: -5px;
+  text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.5);
+  text-transform: uppercase;
+}
+.texts>h2 {
+  font-weight: 400;
+  font-size: 28px;
+  margin-bottom: -5px;
+  text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.5);
+}
+.texts .address {
+  margin-top: -15px;
+  text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.4);
+}
+.texts .contactInfo{
+  margin-top: -10px;
+  text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.4);
+}
+.contactInfo>a {
+  text-decoration: none;
+  color: white;
+}
+.brgy img {
+  height: 50%;
+  width: auto;
+  position: relative;
+  width: 300px;
+  height: 250px;
+  float: right;
+}
+.content button{
+    background-color:#3A8EF6;
+    padding: 12px 28px;
+    color:white;
+    border-radius: 25px;
+    border: 1px solid #3A8EF6;
+    font-size: 16px;
+    font-family: 'Urbanist', sans-serif;
+    margin-top: 15px;
+  }
+  button a {
+    color: white;
+    text-decoration: none;
+  }
+  button #i {
+    margin-left: 5px;
+  }
+  button:hover {
+    background-color: transparent;
+  }
+
+/* Responsive Layout */
+@media only screen and (max-width: 768px) {
+  .content {
+    margin: 0 10px; /* Adjusted margin for smaller screens */
+  }
+  .texts {
+    float: none; /* Remove float for better responsiveness */
+    text-align: center; /* Center text for better responsiveness */
+  }
+  .texts > h1,
+  .texts > h2,
+  .texts .address,
+  .texts .contactInfo {
+    margin: 0; /* Remove margin for better spacing on smaller screens */
+  }
+  .texts > h1 {
+    font-size: 30px; /* Adjusted font size for smaller screens */
+    margin-top: 0; /* Removed margin top for better spacing */
+  }
+  .texts > h2 {
+    font-size: 18px; /* Adjusted font size for smaller screens */
+  }
+  .texts .address,
+  .texts .contactInfo {
+    margin-top: 5px; /* Adjusted margin top for better spacing */
+    font-size: 14px;
+  }
+  .contactInfo > a {
+    display: block; /* Ensure each link is on a new line */
+    margin-top: 5px; /* Adjusted margin top for better spacing */
+  }
+  .brgy img {
+    display: none;
+  }
+  .content button {
+    background-color: #3A8EF6;
+    padding: 10px 18px; /* Adjusted padding for smaller screens */
+    font-size: 14px; /* Adjusted font size for smaller screens */
+    margin-top: 20px;
+  }
+  button:hover {
+    background-color: transparent;
+  }
+}
+  
+
+
+/* Schedule */
+.divide {
+  height: 60px;
+  color: white;
+  width: 100%;
+  line-height: 60px;
+  background-image: linear-gradient(
+    to right,
+    rgb(93, 86, 244),
+    rgb(106, 170, 243)
+  );
+  text-align: center;
+}
+
+/* Responsive Layout */
+@media only screen and (max-width: 768px) {
+  .divide {
+    font-size: 12px;
+  }
+}
+
+/* About Us Section */
+.abtUs {
+  width: 100%;
+  margin: 5vw 0;
+  display: flex;
+  justify-content: center;
+}
+.abtImg {
+  margin-left: 5vw;
+}
+
+.abtDetails {
+  display: flex;
+  justify-content: space-between;
+  flex-direction: column;
+  margin: 0 5vw;
+}
+.abtDetails h2 {
+  font-size: 35px;
+  margin: 0;
+}
+.mvg {
+  background-color: rgba(211, 211, 211, 0.2);
+  border: none;
+  padding: 12px 30px;
+  border-top-left-radius: 10px;
+  border-top-right-radius: 10px;
+  cursor: pointer;
+}
+.mvg:hover {
+  background-color: rgba(211, 211, 211, 0.1);
+}
+.mvgDetails {
+  height: 50%;
+  padding: 20px 0;
+}
+.per {
+  display: flex;
+  justify-content: space-between;
+  height: 70px;
+  width: 100%;
+}
+.per1,
+.per2 {
+  display: flex;
+  overflow: hidden;
+  margin-right: 15px;
+  width: 50%;
+}
+.per1 img,
+.per2 img {
+  width: 70px;
+  height: auto;
+  object-fit: cover;
+  margin-right: 5%;
+  max-height: 300px;
+}
+.perText {
+  display: flex;
+  flex-direction: column;
+  justify-content: space-evenly;
+  font-size: 1.5em;
+}
+.perText p {
+  margin: 0;
+}
+.title {
+  font-size: small;
+}
+.name {
+  font-size: medium;
+  color: rgb(106, 170, 243);
+  font-weight: 500;
+}
+
+/*responsive styles*/
+@media only screen and (max-width: 768px) {
+  .abtUs {
+    width: 100%;
+    margin: 50px 0 0 0;
+    display: flex;
+    flex-direction: column; /* Stack items vertically on mobile */
+    padding: 0;
+  }  
+  .abtImg {
+    margin-left: 0; /* No left margin on mobile */
+    margin-bottom: 15px; /* Add bottom margin on mobile for spacing */
+  }
+  .abtImg img {
+    width: 100%;
+    margin: auto;
+    padding: 0 30px;
+    display: block;
+  } 
+  .abtDetails {
+    display: block;
+    flex-direction: column;
+    justify-content: center; /* Center content vertically */
+    margin: 0 0 3vw 0; /* Adjusted margin for spacing on mobile */
+    padding: 0 30px;
+  } 
+  .abtDetails h2 {
+    font-size: 24px; /* Adjusted font size for smaller screens */
+    margin: 10px 0; /* Adjusted margin for spacing on mobile */
+    text-align: left;
+  } 
+  .mvg {
+    border-top-left-radius: 0;
+    border-top-right-radius: 0;
+    padding: 10px 20px; /* Adjusted padding for smaller screens */
+  }
+  .mvgDetails {
+    padding: 10px 0 25px 0; /* Adjusted padding for smaller screens */
+  } 
+  .per {
+    flex-direction: column; /* Stack items vertically on mobile */
+    height: auto;
+  }
+  .per1,
+  .per2 {
+    width: 100%;
+    margin-right: 0;
+    margin-bottom: 10px; /* Add bottom margin on mobile for spacing */
+  }  
+  .per1 img,
+  .per2 img {
+    width: 15%;
+    height: auto;
+    margin-right: 10px;
+    max-height: none; /* Reset max-height for mobile */
+  }
+  .perText {
+    text-align: left;
+  }
+}
+
+
+/* Health Team */
+.healthPersonnel {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-direction: column;
+  padding: 0 30px;
+  margin-bottom: 5vw;
+}
+.htTitle {
+  text-align: center;
+  margin: 0;
+}
+.htTitle h2 {
+  font-size: 30px;
+}
+.htTitle p {
+  color: #666;
+  margin-top: -20px;
+}
+.wrapper {
+  max-width: 1108px;
+  width: 100%;
+  position: relative;
+}
+.wrapper i {
+  height: 50px;
+  width: 50px;
+  background-color: white;
+  text-align: center;
+  line-height: 50px;
+  border-radius: 50%;
+  position: absolute;
+  font-size: 1.25rem;
+  top: 50%;
+  transform: translateY(-50%);
+  box-shadow: 0 3px 6px rgba(0, 0, 0, 0.3);
+}
+.wrapper i:first-child {
+  left: -22px;
+}
+.wrapper i:last-child {
+  right: -22px;
+}
+.wrapper .carousel {
+  display: grid;
+  grid-auto-flow: column;
+  grid-auto-columns: calc((100% / 4) - 12px);
+  gap: 16px;
+  overflow-x: auto;
+  scroll-snap-type: mandatory;
+  padding: 15px 5px;
+  scroll-behavior: smooth;
+  scrollbar-width: 0;
+}
+.carousel::-webkit-scrollbar {
+  display: none;
+}
+.carousel.dragging {
+  scroll-snap-type: none;
+  scroll-behavior: auto;
+}
+.carousel.dragging .card {
+  cursor: grab;
+  user-select: none;
+}
+.carousel .card {
+  scroll-snap-align: start;
+  height: 342px;
+  list-style: none;
+  background: white;
+  border-radius: 8px;
+  display: flex;
+  cursor: pointer;
+  padding-bottom: 15px;
+  align-items: center;
+  justify-content: center;
+  flex-direction: column;
+  box-shadow: 0 3px 6px rgba(0, 0, 0, 0.3);
+}
+.card .img img {
+  width: 180px;
+  height: 180px;
+  object-fit: cover;
+}
+.card h2 {
+  font-weight: 500;
+  font-size: 18px;
+  margin: 30px 0 5px;
+}
+.card span {
+  color: var(--sky-blue);
+  font-size: 16px;
+}
+@media screen and (max-width: 900px) {
+  .wrapper .carousel {
+    grid-auto-columns: calc((100% / 3) - 12px);
+  }
+}
+@media screen and (max-width: 768px) {
+  .wrapper .carousel {
+    grid-auto-columns: calc((100% / 2) - 9px);
+  }
+  .card h2 {
+    font-size: 15px;
+  }
+  .card span {
+    font-size: 14px;
+  }
+  .htTitle {
+    text-align: left;
+    margin: 10px 0 0 0;
+  }
+  .htTitle h2 {
+    font-size: 24px;
+  }
+  .htTitle p {
+    font-size: 14px;
+    margin-top: -15px;
+  }
+}
+@media screen and (max-width: 425px) {
+  .wrapper .carousel {
+    grid-auto-columns: 100%;
+  }
+  .card h2 {
+    font-size: 15px;
+  }
+  .card span {
+    font-size: 14px;
+  }
+}
+
+/* Bar of Programs */
+.program-container {
+  background-color: #f4f8ff;
+  width: 100%;
+  height: auto;
+  display: flex;
+  justify-content: center;
+}
+.prog {
+  width: 90%;
+  display: flex;
+  justify-content: space-around;
+}
+.program {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+}
+.program img {
+  height: 50%;
+}
+/* Responsive Layout */
+@media only screen and (max-width: 768px) {
+  .prog {
+    flex-direction: column; /* Stack items vertically on small screens */
+    align-items: center;
+  }
+
+  .program {
+    width: 80%; /* Adjusted width for better spacing on small screens */
+  }
+}
+
+/* Health Programs Container */
+.hpCont {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  margin: 0 35px;
+}
+
+/* Health Programs Title */
+.hpTitle {
+  text-align: center;
+  margin: 60px 0 20px 0;
+}
+
+.hpTitle h2 {
+  font-size: 30px;
+}
+
+.hpTitle p {
+  color: #666;
+  margin-top: -20px;
+}
+
+/* Health Program Cards Container */
+.hpCardCont {
+  display: flex;
+  flex-wrap: nowrap;
+  justify-content: center;
+  margin: 0 30px;
+}
+
+/* Health Program Card */
+.hpCard {
+  background-color: #fff;
+  border: 1px solid #ddd;
+  border-radius: 8px;
+  margin: 10px;
+  padding: 20px;
+  text-align: center;
+  transition: transform 0.3s ease-in-out;
+}
+
+.hpCard:hover {
+  transform: scale(1.05);
+}
+
+/* Health Program Card Image Container */
+.imgCont {
+  width: 100%;
+  max-height: 400px;
+  overflow: hidden;
+  border-radius: 8px;
+}
+
+/* Health Program Card Image */
+.imgCont img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  border-radius: 8px;
+}
+
+/* Health Program Card Text */
+.hpCard .pgHeading {
+  font-size: 16px;
+  font-weight: 700;
+  margin: 15px 0;
+  color: #333;
+  text-align: left;
+}
+.hpCard .postDate {
+  font-size: 11px;
+  margin-top: -10px;
+  text-align: left;
+}
+
+/* Health Program Card Button */
+.hpCard button {
+  border: none;
+  padding: 12px 90px;
+  color: white;
+  border-radius: 100px;
+  background: linear-gradient(96deg, #3a8ef6 -10.84%, #6f3afa 196.74%);
+  box-shadow: 0px 8px 23px 0px rgba(65, 132, 247, 0.24);
+  cursor: pointer;
+  font-size: 15px;
+  transition: background-color 0.3s ease-in-out;
+}
+
+/* Responsive Layout */
+@media only screen and (max-width: 768px) {
+  .imgCont {
+    max-height: 200px;
+  }
+  .hpTitle {
+    text-align: left;
+    margin: 10px 0 10px 0;
+  }
+  .hpTitle h2 {
+    font-size: 24px;
+  }
+  .hpTitle p {
+    font-size: 14px;
+    padding: 0;
+    margin-top: -15px;
+  }
+  .hpCard .pgHeading {
+    font-size: 14px;
+  }
+  .hpCard .postDate {
+    font-size: 10px;
+  }
+  .hpCard button {
+    font-size: 14px;
+  }
+  .hpCardCont {
+    flex-wrap: wrap;
+    margin: 0;
+  }
+}
+
+/* Contact Us Container */
+/* Default Styles */
+.cusCont {
+  width: 100%;
+  display: flex;
+  justify-content: center;
+  margin: 5vw 0;
+}
+
+.getCont {
+  background-color: rgb(58, 142, 246);
+  width: 60%;
+  height: auto;
+  display: flex;
+  justify-content: space-around;
+  align-items: center;
+  padding: 20px;
+  border-radius: 25px;
+}
+
+.getText {
+  display: flex;
+  flex-direction: column;
+  justify-content: space-around;
+  color: white;
+  width: 60%;
+}
+
+.getText p {
+  font-size: x-large;
+  font-weight: bold;
+  margin: 0 0 15px;
+}
+
+.sccu {
+  width: 100%;
+  display: flex;
+  justify-content: space-between;
+  font-size: small;
+  margin: 35px 0 0;
+}
+
+.sch,
+.cu {
+  text-align: center;
+  width: 45%;
+  padding: 15px;
+  border-radius: 25px;
+}
+
+.sch {
+  border: solid 2px white;
+}
+
+.cu {
+  background-color: white;
+  color: rgb(58, 142, 246);
+  font-weight: bold;
+  text-decoration: none;
+  font-size: 16px;
+  cursor: pointer;
+}
+
+/* Responsive Layout */
+@media only screen and (max-width: 768px) {
+  .getCont {
+    width: 80%;
+    flex-direction: column;
+    align-items: center;
+  }
+
+  .getText {
+    width: 80%;
+    text-align: center;
+  }
+
+  .sccu {
+    flex-direction: column;
+    align-items: center;
+    margin: 20px 0 0;
+  }
+
+  .sch,
+  .cu {
+    width: 100%;
+    margin-top: 15px;
+  }
+
+  .getCont img {
+    order: -1; /* Set order to -1 to move the image to the top */
+    margin-bottom: 15px; /* Add margin for spacing */
+  }
+}

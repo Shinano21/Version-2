@@ -1,0 +1,40 @@
+@import url('https://fonts.googleapis.com/css2?family=Poppins:wght@100;300;400;500;600;700;800;900&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Urbanist:wght@300;400;500;600;700&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Manrope:wght@200;300;400;500;600;700;800&family=Poppins:wght@100;300;400;500;600;700;800;900&display=swap');
+:root {
+  --black:#000000;
+  --white: #ffffff;
+  --gradient: linear-gradient(to right,rgb(93,86,244),rgb(106,170,243));
+  --main-color: rgb(93, 86, 244);
+  --sky-blue: rgb(106,170,243);
+}
+* {
+  box-sizing: border-box;
+  font-family: 'Manrope', sans-serif;
+}
+
+body {
+  margin: 0px;
+  background-size:cover;
+  background-repeat: no-repeat;
+}
+
+html{
+  overflow-x: hidden;
+  scroll-padding-top: 9rem;
+  scroll-behavior: smooth;
+}
+html::-webkit-scrollbar{
+  width: .8rem;
+}
+html::-webkit-scrollbar-track{
+  background: var(--white);
+}
+html::-webkit-scrollbar-thumb{
+  background: var(--sky-blue);
+  border-radius: 0;
+}
+html::-webkit-scrollbar-thumb:hover{
+  background: var(--main-color);
+}
+

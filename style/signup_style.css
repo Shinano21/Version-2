@@ -1,0 +1,249 @@
+@import url('https://fonts.googleapis.com/css2?family=Poppins:wght@100;300;400;500;600;700;800;900&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Urbanist:wght@300;400;500;600;700&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Manrope:wght@200;300;400;500;600;700;800&family=Poppins:wght@100;300;400;500;600;700;800;900&display=swap');
+:root {
+  --black:#000000;
+  --white: #ffffff;
+  --gradient: linear-gradient(to right,rgb(93,86,244),rgb(106,170,243));
+  --main-color: rgb(93, 86, 244);
+  --sky-blue: rgb(106,170,243);
+}
+* {
+  box-sizing: border-box;
+  font-family: 'Manrope', sans-serif;
+}
+
+body {
+  margin: 0px;
+  background-size:cover;
+  background-repeat: no-repeat;
+}
+
+html{
+  overflow-x: hidden;
+  scroll-padding-top: 9rem;
+  scroll-behavior: smooth;
+}
+html::-webkit-scrollbar{
+  width: .8rem;
+}
+html::-webkit-scrollbar-track{
+  background: var(--white);
+}
+html::-webkit-scrollbar-thumb{
+  background: var(--sky-blue);
+  border-radius: 0;
+}
+html::-webkit-scrollbar-thumb:hover{
+  background: var(--main-color);
+}
+
+#s {
+  background-image: linear-gradient(
+    to right,
+    rgb(93, 86, 244),
+    rgb(106, 170, 243)
+  );
+}
+main {
+  width: 100vw;
+  height: 100vh;
+}
+#main {
+  background-color: rgb(245, 245, 245);
+  width: 60vw;
+  height: auto;
+  box-shadow: 0px 0px 3px gray;
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  border-radius: 30px;
+  background-color: rgb(93, 86, 244);
+}
+#left {
+  border-radius: 30px 0px 0px 30px;
+  width: 80%;
+  height: 100%;
+  float: left;
+  background-color: white;
+  padding: 40px 70px 20px 70px;
+}
+#left > h1 {
+  font-size: 24px;
+  margin: 10px 0 0 0;
+  padding: 0;
+}
+#left > .subheading {
+  font-size: 16px;
+  margin: 5px 0 0 0;
+  padding: 0;
+}
+
+.divs {
+  width: 48%;
+  font-size: 15px;
+  padding: 10px;
+  margin: 1% 1% 1.5% 0%;
+  background: transparent;
+  box-shadow: 0px 0px 3px gray;
+  border: none;
+  border-radius: 5px;
+}
+
+#left .labelImg {
+  font-size: 15px;
+  color: rgba(0, 0, 0, 0.747);
+  text-align: left;
+}
+#left .dp {
+  width: 97.5%;
+  padding: 10px;
+  margin: 1% 1% 3% 0%;
+  background: transparent;
+  box-shadow: 0px 0px 3px gray;
+  border: none;
+  border-radius: 5px;
+  text-align: left;
+}
+
+input[type="email"] {
+  width: 97.5%;
+}
+
+.btn {
+  border-radius: 15px;
+  padding: 15px 35px 15px 35px;
+  border: none;
+  color: white;
+  background-color: rgb(93, 86, 244);
+  margin-bottom: 30px;
+  font-size: 15px;
+}
+.loginLink {
+  font-size: 14px;
+  margin-left: 20px;
+}
+
+a {
+  text-decoration: none;
+}
+::placeholder {
+  color: rgba(0, 0, 0, 0.747);
+}
+
+::-ms-input-placeholder {
+  /* Edge 12 -18 */
+  color: rgba(0, 0, 0, 0.747);
+}
+#logo {
+  width: 100%;
+  height: auto;
+}
+
+.checkBox {
+  display: flex;
+  align-items: center;
+  text-align: left;
+  margin: 3px 0;
+}
+
+.checkBox .check {
+  margin-right: 5px; /* Adjust the margin as needed */
+}
+
+.showText {
+  font-size: 14px;
+  color: rgba(0, 0, 0, 0.747);
+  margin: 5px 0;
+}
+
+
+@media only screen and (max-width: 768px) {
+
+  main {
+    width: 100vw;
+    min-height: 100vh;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+  }
+  
+  #main {
+    background-color: var(--white);
+    width: 90%;
+    box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.1);
+    border-radius: 15px;
+    overflow: hidden;
+    display: flex;
+    flex-direction: column;
+    margin: 0;
+  }
+  
+  #left {
+    border-radius: 15px 15px 0 0;
+    width: 100%;
+    padding: 30px;
+    background-color: var(--white);
+    text-align: center;
+    padding: 20px 70px 20px 70px;
+  }
+  
+  #left h1 {
+    font-size: 18px;
+    margin-top: 0;
+  }
+  
+  #left .subheading {
+    font-size: 14px;
+    margin: 5px 0 0 0;
+    padding: 0;
+  }
+  
+  .divs,
+  .dp,
+  .button,
+  .loginLink,
+  .showText {
+    width: 100%;
+    font-size: 12px;
+  }
+  #left .dp,  
+  input[type="email"] {
+    width: 100%;
+  }
+  #left .dp .labelImg {
+    font-size: 12px;
+  }
+  input[type="file"] {
+    font-size: 12px;
+  }
+  
+  .divs,
+  .dp {
+    margin-bottom: 1.5%;
+  }
+  
+  .btn {
+    border-radius: 20px;
+    padding: 8px 35px;
+    margin: 10px 0 10px 0;
+    font-size: 12px;
+  }
+  
+  .loginLink {
+    margin-left: 0;
+    display: block;
+    margin-top: 0;
+  }
+  #logo {
+    width: 60%;
+    height: auto;
+  }
+  #right {
+    display: none;
+  }
+  .checkBox {
+    margin: 1px 0;
+  }
+}
