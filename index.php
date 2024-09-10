@@ -198,41 +198,56 @@
     </div>
 
     <!-- Health Team -->
-    <div class="healthPersonnel">
-        <div class="htTitle">
-            <h2>Barangay Health Team</h2>
-            <p>Meet the <?php echo $centerName ?> Team</p>
-        </div>
-        <div class="wrapper">
-            <i id="left" class="fas fa-chevron-left"></i>
-            <ul class="carousel">
-
-            <?php
-            include "dbcon.php";
-
-            $sql = "SELECT * FROM brgy_health";
-            $result = mysqli_query($conn, $sql);
-            if (mysqli_num_rows($result) > 0) {
-                while ($row = mysqli_fetch_assoc($result)) {
-                    echo "<li class='card'>";
-                    echo "<div class='img'>";
-                    if ($row["pic"] !== null) {
-                        $imageType = strpos($row["pic"], '/png') !== false ? 'png' : 'jpeg';
-                        echo "<img src='data:image/{$imageType};base64," . base64_encode($row["pic"]). "' alt='Image' draggable='false' />";
-                    } else {
-                        echo "No image available";
-                    }
-                    echo "</div>";
-                    echo "<h2>" . $row["name"] . "</h2>";
-                    echo "<span>" . $row["position"] . "</span>";
-                    echo "</li>";
-                }
+<div class="healthPersonnel">
+    <div class="htTitle">
+        <h2>Barangay Health Team</h2>
+        <p>
+            <?php 
+            if (isset($centerName) && !empty($centerName)) {
+                echo "Meet the " . $centerName . " Team";
+            } else {
+                echo "Center name unavailable";
             }
             ?>
-            </ul>
-            <i id="right" class="fas fa-chevron-right"></i>
-        </div>
+        </p>
     </div>
+    <div class="wrapper">
+        <i id="left" class="fas fa-chevron-left"></i>
+        <ul class="carousel">
+
+        <?php
+        include "dbcon.php";
+
+        $sql = "SELECT * FROM brgy_health";
+        $result = mysqli_query($conn, $sql);
+        
+        // Check if there are any results
+        if (mysqli_num_rows($result) > 0) {
+            while ($row = mysqli_fetch_assoc($result)) {
+                echo "<li class='card'>";
+                echo "<div class='img'>";
+                if ($row["pic"] !== null) {
+                    $imageType = strpos($row["pic"], '/png') !== false ? 'png' : 'jpeg';
+                    echo "<img src='data:image/{$imageType};base64," . base64_encode($row["pic"]). "' alt='Image' draggable='false' />";
+                } else {
+                    // If no image is available, display the message
+                    echo "<p>Image unavailable</p>";
+                }
+                echo "</div>";
+                echo "<h2>" . $row["name"] . "</h2>";
+                echo "<span>" . $row["position"] . "</span>";
+                echo "</li>";
+            }
+        } else {
+            // If no personnel found, display an error message
+            echo "<p>No health personnel available at the moment.</p>";
+        }
+        ?>
+        </ul>
+        <i id="right" class="fas fa-chevron-right"></i>
+    </div>
+</div>
+
 
     <!-- Bar of Programs -->
     <div class="program-container">
@@ -260,46 +275,61 @@
         </div>
     </div>
 
-    <!-- Health Programs -->
-    <div class="hpCont">
-        <div class="hpTitle">
-            <h2>Health Programs</h2>
-            <p>Latest Health Programs of <?php echo $centerName ?> </p>
-        </div>
-        <div class="hpCardCont">
-            <?php
-            $sql = "SELECT * FROM programs ORDER BY post_date DESC LIMIT 3";
-            $result = mysqli_query($conn, $sql);
-
-            while ($row = mysqli_fetch_assoc($result)) {
+   <!-- Health Programs -->
+<div class="hpCont">
+    <div class="hpTitle">
+        <h2>Health Programs</h2>
+        <p>
+            <?php 
+            if (isset($centerName) && !empty($centerName)) {
+                echo "Latest Health Programs of " . $centerName;
+            } else {
+                echo "Center name unavailable";
+            }
             ?>
-            <div class="hpCard">
-                <div class="imgCont">
-                    <?php
+        </p>
+    </div>
+    <div class="hpCardCont">
+        <?php
+        $sql = "SELECT * FROM programs ORDER BY post_date DESC LIMIT 3";
+        $result = mysqli_query($conn, $sql);
+
+        // Check if there are any programs
+        if (mysqli_num_rows($result) > 0) {
+            while ($row = mysqli_fetch_assoc($result)) {
+        ?>
+        <div class="hpCard">
+            <div class="imgCont">
+                <?php
                 if ($row["prog_pic"] !== null) {
                     $imageType = strpos($row["prog_pic"], '/png') !== false ? 'png' : 'jpeg';
                     echo "<img src='data:image/{$imageType};base64," . base64_encode($row["prog_pic"]) . "' alt='Program Image'>";
                 } else {
+                    // Display a default image if program image is not available
                     echo "<img src='src/default_image.png' alt='Default Image'>";
                 }
                 ?>
-                </div>
-                <p class="pgHeading"><?php echo $row["prog_heading"]; ?></p>
-                <p class="postDate">
-                    <?php 
-                        // Convert military time to 12-hour format
-                        $post_datetime_12hr = date("Y-m-d h:i A", strtotime($row['post_date']));
-                        echo $post_datetime_12hr; 
-                    ?>
-                </p>
-                <button onclick="window.location.href='programContent.php?id=<?php echo $row['id']?>'">View More</button>
             </div>
-            <?php
-            }
-            ?>
+            <p class="pgHeading"><?php echo $row["prog_heading"]; ?></p>
+            <p class="postDate">
+                <?php 
+                    // Convert military time to 12-hour format
+                    $post_datetime_12hr = date("Y-m-d h:i A", strtotime($row['post_date']));
+                    echo $post_datetime_12hr; 
+                ?>
+            </p>
+            <button onclick="window.location.href='programContent.php?id=<?php echo $row['id']?>'">View More</button>
         </div>
-
+        <?php
+            }
+        } else {
+            // Display a message if no health programs are available
+            echo "<p>No health programs available at the moment.</p>";
+        }
+        ?>
     </div>
+</div>
+
 
     <!-- Contact Us -->
     <div class="cusCont">
