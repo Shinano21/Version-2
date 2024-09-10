@@ -4,7 +4,7 @@
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>Create Account - TechCare</title>
-     <style>
+    <style>
       body {
         font-family: Arial, sans-serif;
         margin: 0;
@@ -181,8 +181,112 @@
       function validateForm() {
         const password = document.forms["createAccount"]["password"].value;
         const email = document.forms["createAccount"]["email"].value;
+        const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+        const passwordRegex =
+          /^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[@$!%*?&])[A-Za-z\d@$!%*?&]{8,}$/;
 
-        // Email regex to allow only @gmail.com or @yahoo.com
+        const errorMessage = document.getElementById("error-message");
+
+        if (!emailRegex.test(email)) {
+          errorMessage.innerText = "Invalid email address.";
+          return false;
+        }
+
+        if (!passwordRegex.test(password)) {
+          errorMessage.innerText =
+            "Password should be at least 8 characters and contain an uppercase letter, a lowercase letter, a number, and a special character.";
+          return false;
+        }
+
+        return true;
+      }
+
+      function togglePasswordVisibility() {
+        const passwordField = document.getElementById("password");
+        if (passwordField.type === "password") {
+          passwordField.type = "text";
+        } else {
+          passwordField.type = "password";
+        }
+      }
+
+      window.onload = function () {
+        const urlParams = new URLSearchParams(window.location.search);
+        const message = urlParams.get("message");
+
+        if (message === "success") {
+          document.getElementById("success-popup").style.display = "block";
+        } else if (message) {
+          document.getElementById("error-message").innerText = message;
+        }
+      };
+    </script>
+  </head>
+  <body>
+    <div class="create-account-container">
+      <div class="create-account-image">
+        <img src="images/manWithLaptop.jpg" alt="Working on a laptop" />
+      </div>
+      <div class="create-account-form">
+        <h2>Create Account</h2>
+        <p>Fill in your details to create an account</p>
+        <form
+          name="createAccount"
+          action="create_account.php"
+          method="post"
+          onsubmit="return validateForm()"
+        >
+          <input
+            type="text"
+            name="first_name"
+            placeholder="First Name"
+            required
+          />
+          <input
+            type="text"
+            name="last_name"
+            placeholder="Last Name"
+            required
+          />
+          <input type="email" name="email" placeholder="Email" required />
+          <input
+            type="password"
+            name="password"
+            id="password"
+            placeholder="Password"
+            required
+          />
+          <div id="error-message" class="error-message"></div>
+          <div class="show-password">
+            <label for="show-password">Show Password</label>
+            <input
+              type="checkbox"
+              id="show-password"
+              onclick="togglePasswordVisibility()"
+            />
+          </div>
+          <div class="button-container">
+            <button type="submit">Create Account</button>
+          </div>
+          <div class="login-link">
+            <p>Already have an account? <a href="index.html">Login</a></p>
+          </div>
+        </form>
+      </div>
+    </div>
+
+    <div id="success-popup" class="success-popup">
+      <img src="images/happy.png" alt="Success Icon" />
+      <h2>Success!</h2>
+      <p>Your account has been successfully created.</p>
+      <button onclick="window.location.href='index.html'">Back to Login</button>
+    </div>
+    <script>
+      function validateForm() {
+        const password = document.forms["createAccount"]["password"].value;
+        const email = document.forms["createAccount"]["email"].value;
+
+        // Updated email regex to allow only @gmail.com or @yahoo.com
         const emailRegex = /^[^\s@]+@(gmail\.com|yahoo\.com)$/;
         const passwordRegex =
           /^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[@$!%*?&-_#])[A-Za-z\d@$!%*?&-_#]{8,}$/;
@@ -224,141 +328,5 @@
         }
       };
     </script>
-  </head>
-  <body>
-    <?php
-    $servername = "localhost";
-    $username = "root";
-    $password = "";
-    $dbname = "carevisio";
-
-    // Create connection
-    $conn = new mysqli($servername, $username, $password, $dbname);
-
-    // Check connection
-    if ($conn->connect_error) {
-        die("Connection failed: " . $conn->connect_error);
-    }
-
-    $message = "";
-
-    if ($_SERVER["REQUEST_METHOD"] == "POST") {
-        $first_name = $_POST['first_name'];
-        $middle_name = $_POST['middle_name'];
-        $last_name = $_POST['last_name'];
-        $birthday = $_POST['birthday'];
-        $email = $_POST['email'];
-        $password = password_hash($_POST['password'], PASSWORD_DEFAULT);
-        $user_type = 'resident'; // Set user_type to 'resident'
-
-        // Profile image upload handling
-        $profile_image = $_FILES['profile_image']['name'];
-        $target_dir = "uploads/";
-        $target_file = $target_dir . basename($profile_image);
-
-        if (move_uploaded_file($_FILES['profile_image']['tmp_name'], $target_file)) {
-            // Check if email already exists
-            $sql = "SELECT * FROM users WHERE email = ?";
-            $stmt = $conn->prepare($sql);
-            $stmt->bind_param("s", $email);
-            $stmt->execute();
-            $result = $stmt->get_result();
-
-            if ($result->num_rows > 0) {
-                $message = "An account with this email already exists!";
-            } else {
-                // Insert new account into the database
-                $sql = "INSERT INTO users (first_name, middle_name, last_name, birthday, email, password, user_type, profile_image) VALUES (?, ?, ?, ?, ?, ?, ?, ?)";
-                $stmt = $conn->prepare($sql);
-                $stmt->bind_param("ssssssss", $first_name, $middle_name, $last_name, $birthday, $email, $password, $user_type, $target_file);
-                if ($stmt->execute()) {
-                    $message = "success";
-                } else {
-                    $message = "Error: " . $stmt->error;
-                }
-            }
-            $stmt->close();
-        } else {
-            $message = "Error uploading profile image.";
-        }
-    }
-
-    $conn->close();
-    ?>
-
-    <div class="create-account-container">
-      <div class="create-account-image">
-        <img src="images/manWithLaptop.jpg" alt="Working on a laptop" />
-      </div>
-      <div class="create-account-form">
-        <h2>Create Account</h2>
-        <p>Fill in your details to create an account</p>
-        <form
-          name="createAccount"
-          method="post"
-          enctype="multipart/form-data"
-          onsubmit="return validateForm()"
-        >
-          <input
-            type="text"
-            name="first_name"
-            placeholder="First Name"
-            required
-          />
-          <input
-            type="text"
-            name="middle_name"
-            placeholder="Middle Name"
-          />
-          <input
-            type="text"
-            name="last_name"
-            placeholder="Last Name"
-            required
-          />
-          <input
-            type="date"
-            name="birthday"
-            placeholder="Birthday"
-            required
-          />
-          <input type="email" name="email" placeholder="Email" required />
-          <input
-            type="password"
-            name="password"
-            id="password"
-            placeholder="Password"
-            required
-          />
-          <input type="file" name="profile_image" required />
-          <div id="error-message" class="error-message"></div>
-          <div class="show-password">
-            <label for="show-password">Show Password</label>
-            <input
-              type="checkbox"
-              id="show-password"
-              onclick="togglePasswordVisibility()"
-            />
-          </div>
-          <div class="button-container">
-            <button type="submit">Create Account</button>
-          </div>
-          <div class="login-link">
-            <p>Already have an account? <a href="index.html">Login</a></p>
-          </div>
-        </form>
-      </div>
-    </div>
-
-    <?php if ($message === "success"): ?>
-      <div id="success-popup" class="success-popup" style="display:block;">
-        <img src="images/happy.png" alt="Success Icon" />
-        <h2>Success!</h2>
-        <p>Your account has been successfully created.</p>
-        <button onclick="window.location.href='index.html'">Back to Login</button>
-      </div>
-    <?php elseif ($message): ?>
-      <div id="error-message" class="error-message"><?php echo $message; ?></div>
-    <?php endif; ?>
   </body>
 </html>
