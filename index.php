@@ -13,16 +13,16 @@
 </head>
 
 <body>
-    <!-- Navbar -->
+     <!-- Navbar -->
     <?php include 'navbar.php' ?>
     <?php include "user/data/home.php" ?>
+
     <!-- Header -->
     <div class="main">
         <script>
         let bg_img = document.querySelector('.main');
         <?php
-            // Assuming $bgImg contains the image data
-            if ($bgImg !== null) {
+            if (isset($bgImg) && $bgImg !== null) {
                 $imageType = strpos($bgImg, '/png') !== false ? 'png' : 'jpeg';
                 echo "bg_img.style.backgroundImage = 'url(\'data:image/{$imageType};base64," . base64_encode($bgImg) . "\')';";
             } else {
@@ -30,25 +30,35 @@
             }
         ?>
         </script>
+
         <div class="contentbg">
             <div class="content">
                 <div class="texts">
                     <h2>OFFICIAL WEBSITE OF</h2>
-                    <h1><?php echo $centerName ?></h1>
-                    <p class="address"><a href="http://maps.google.com/?q=<?php echo $address; ?>" target="_blank" style="text-decoration:none;color:white;"><?php echo $address; ?></a></p>
+                    <h1><?php echo isset($centerName) ? $centerName : "Center Name unavailable"; ?></h1>
+                    <p class="address">
+                        <a href="http://maps.google.com/?q=<?php echo isset($address) ? $address : '#'; ?>" target="_blank" style="text-decoration:none;color:white;">
+                            <?php echo isset($address) ? $address : "Address unavailable"; ?>
+                        </a>
+                    </p>
                     <p class="contactInfo">
-                        <a href="mailto:<?php echo $email; ?>"> <?php echo $email; ?></a> /
-                        <a href="tel:<?php echo str_replace([' ', '-', '(', ')'], '', $contact); ?>"><?php echo $contact; ?></a>
-                    </p> 
+                        <a href="mailto:<?php echo isset($email) ? $email : '#'; ?>">
+                            <?php echo isset($email) ? $email : "Email unavailable"; ?>
+                        </a> /
+                        <a href="tel:<?php echo isset($contact) ? str_replace([' ', '-', '(', ')'], '', $contact) : '#'; ?>">
+                            <?php echo isset($contact) ? $contact : "Contact unavailable"; ?>
+                        </a>
+                    </p>
                     <button><a href="aboutUs.php">Learn More <i class="fas fa-arrow-right" id="i"></i></a></button>
                 </div>
+
                 <div class="brgy">
                     <?php
-                    if ($logoPic !== null) {
+                    if (isset($logoPic) && $logoPic !== null) {
                         $imageType = strpos($logoPic, '/png') !== false ? 'png' : 'jpeg';
-                        echo "<img src='data:image/{$imageType};base64," . base64_encode($logoPic). "' />";
+                        echo "<img src='data:image/{$imageType};base64," . base64_encode($logoPic) . "' />";
                     } else {
-                        echo "No image available";
+                        echo "<p>No image available</p>";
                     }
                     ?>
                 </div>
@@ -57,23 +67,24 @@
     </div>
 
     <!-- Schedule -->
-    <div class="divide"><?php echo $openHours ?></div>
+    <div class="divide"><?php echo isset($openHours) ? $openHours : "Opening hours unavailable"; ?></div>
 
     <!-- About Us -->
     <div class="abtUs">
         <div class="abtImg">
             <?php
-              if ($sectionPic !== null) {
+            if (isset($sectionPic) && $sectionPic !== null) {
                 $imageType = strpos($sectionPic, '/png') !== false ? 'png' : 'jpeg';
-                echo "<img src='data:image/{$imageType};base64," . base64_encode($sectionPic). "' />";
-              } else {
-                echo "No image available";
-              }
-              ?>
+                echo "<img src='data:image/{$imageType};base64," . base64_encode($sectionPic) . "' />";
+            } else {
+                echo "<p>No image available</p>";
+            }
+            ?>
         </div>
+
         <div class="abtDetails">
             <h2>About us</h2>
-            <p class="gray_text"><?php echo $shortDesc ?></p>
+            <p class="gray_text"><?php echo isset($shortDesc) ? $shortDesc : "Description unavailable"; ?></p>
             <div style="margin-top: 5%;">
                 <button onclick="showContent(0)" class="mvg">Our Mission</button>
                 <button onclick="showContent(1)" class="mvg">Our Vision</button>
@@ -81,49 +92,107 @@
             </div>
 
             <div class="mvgDetails">
-                <p>
-                    <?php echo $mission ?>
-                </p>
+                <p><?php echo isset($mission) ? $mission : "Mission unavailable"; ?></p>
             </div>
             <div class="mvgDetails">
-                <p>
-                    <?php echo $vision ?>
-                </p>
+                <p><?php echo isset($vision) ? $vision : "Vision unavailable"; ?></p>
             </div>
             <div class="mvgDetails">
-                <p>
-                    <?php echo $goal ?>
-                </p>
+                <p><?php echo isset($goal) ? $goal : "Goal unavailable"; ?></p>
             </div>
+
             <div class="per">
                 <div class="per1">
                     <?php
-              if ($chairmanPic !== null) {
-                $imageType = strpos($chairmanPic, '/png') !== false ? 'png' : 'jpeg';
-                echo "<img src='data:image/{$imageType};base64," . base64_encode($chairmanPic). "' />";
-              } else {
-                echo "No image available";
-              }
-              ?>
+                    if (isset($chairmanPic) && $chairmanPic !== null) {
+                        $imageType = strpos($chairmanPic, '/png') !== false ? 'png' : 'jpeg';
+                        echo "<img src='data:image/{$imageType};base64," . base64_encode($chairmanPic) . "' />";
+                    } else {
+                        echo "<p>No image available</p>";
+                    }
+                    ?>
                     <div class="perText">
                         <p class="title">Chairman</p>
-                        <p class="name"><?php echo $chairman ?></p>
+                        <p class="name"><?php echo isset($chairman) ? $chairman : "Name unavailable"; ?></p>
                     </div>
                 </div>
+
                 <div class="per2">
                     <?php
-                    if ($chairmanCommPic !== null) {
-                      $imageType = strpos($chairmanCommPic, '/png') !== false ? 'png' : 'jpeg';
-                      echo "<img src='data:image/{$imageType};base64," . base64_encode($chairmanCommPic). "' />";
+                    if (isset($chairmanCommPic) && $chairmanCommPic !== null) {
+                        $imageType = strpos($chairmanCommPic, '/png') !== false ? 'png' : 'jpeg';
+                        echo "<img src='data:image/{$imageType};base64," . base64_encode($chairmanCommPic) . "' />";
                     } else {
-                      echo "No image available";
+                        echo "<p>No image available</p>";
                     }
                     ?>
                     <div class="perText">
                         <p class="title">Chairman Committee on Health</p>
-                        <p class="name"><?php echo $chairmanComm ?></p>
+                        <p class="name"><?php echo isset($chairmanComm) ? $chairmanComm : "Name unavailable"; ?></p>
                     </div>
                 </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Health Team -->
+    <div class="healthPersonnel">
+        <div class="htTitle">
+            <h2>Barangay Health Team</h2>
+            <p>Meet the <?php echo isset($centerName) ? $centerName : "Center Name unavailable"; ?> Team</p>
+        </div>
+        <div class="wrapper">
+            <i id="left" class="fas fa-chevron-left"></i>
+            <ul class="carousel">
+                <?php
+                include "dbcon.php";
+
+                $sql = "SELECT * FROM brgy_health";
+                $result = mysqli_query($conn, $sql);
+                if (mysqli_num_rows($result) > 0) {
+                    while ($row = mysqli_fetch_assoc($result)) {
+                        echo "<li class='card'>";
+                        echo "<div class='img'>";
+                        if (isset($row["pic"]) && $row["pic"] !== null) {
+                            $imageType = strpos($row["pic"], '/png') !== false ? 'png' : 'jpeg';
+                            echo "<img src='data:image/{$imageType};base64," . base64_encode($row["pic"]) . "' alt='Image' draggable='false' />";
+                        } else {
+                            echo "<p>No image available</p>";
+                        }
+                        echo "</div>";
+                        echo "<h2>" . (isset($row["name"]) ? $row["name"] : "Name unavailable") . "</h2>";
+                        echo "<span>" . (isset($row["position"]) ? $row["position"] : "Position unavailable") . "</span>";
+                        echo "</li>";
+                    }
+                }
+                ?>
+            </ul>
+            <i id="right" class="fas fa-chevron-right"></i>
+        </div>
+    </div>
+
+    <!-- Bar of Programs -->
+    <div class="program-container">
+        <div class="prog">
+            <div class="program">
+                <img src="src/healthcare.png">
+                <p>Basic Healthcare</p>
+            </div>
+            <div class="program">
+                <img src="src/maternal.png">
+                <p>Post-natal Care</p>
+            </div>
+            <div class="program">
+                <img src="src/family.png">
+                <p>Family Planning</p>
+            </div>
+            <div class="program">
+                <img src="src/vaccination.png">
+                <p>Immunizations and Vaccinations</p>
+            </div>
+            <div class="program">
+                <img src="src/nutrition.png">
+                <p>Nutrition Program</p>
             </div>
         </div>
     </div>
