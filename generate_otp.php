@@ -80,7 +80,7 @@ function sendOTPEmail($email, $otp) {
         $mail->Port       = 465;                                    //TCP port to connect to
 
         //Recipients
-        $mail->setFrom('janjan9925@gmail.com', 'TechCare');
+        $mail->setFrom('techcare4ever@gmail.com', 'TechCare');
         $mail->addAddress($email);                                  //Add a recipient
 
         //Content
