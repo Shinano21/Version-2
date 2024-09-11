@@ -112,7 +112,7 @@
 
             <div id="main">
                 <div id="left">
-                    <a href="../index.php"><img src="../src/logo.png"></a>
+                    <a href="../index.php"><img src="../src/LOGO.svg"></a>
                     <br>
                     <img src="../src/login_img.avif" id="bhs">
                 </div>
@@ -123,7 +123,7 @@
                     <div id="lgn-form">
                       <br>
                         <h1>Welcome Back!</h1>
-                        <p class="text">Login your account</p>
+                        <p class="text">Enter your details to login</p>
 
                         <?php if(isset($_GET["error"])): ?>
                         <p style="

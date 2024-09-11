@@ -14,9 +14,11 @@
 }
 
 body {
-  margin: 0px;
-  background-size:cover;
+  margin: 0;
+  background-image: linear-gradient(135deg, #C2FFD8 10%, #465EFB 100%);
+  background-size: cover;
   background-repeat: no-repeat;
+  height: 100vh; /* Ensure the body takes full height */
 }
 
 html{
@@ -112,11 +114,11 @@ input[type="submit"] {
   text-indent: 0;
   width: 40%;
   border: none;
-  color: white;
+  color: white; /* Text color of the button */
   font-weight: bold;
   border-radius: 20px;
-  background-color: rgb(93, 86, 244);
-  margin: 20px 0
+  background-color: #4D869C; /* Change the background color here */
+  margin: 20px 0;
 }
 ::placeholder {
   color: rgba(0, 0, 0, 0.747);
