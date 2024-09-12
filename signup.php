@@ -344,7 +344,7 @@
             <button type="submit">Create Account</button>
           </div>
           <div class="login-link">
-            <p>Already have an account? <a href="login.php">Login</a></p>
+            <p>Already have an account? <a href="../user/login.php">Login</a></p>
           </div>
         </form>
       </div>
@@ -355,7 +355,7 @@
         <img src="images/happy.png" alt="Success Icon" />
         <h2>Success!</h2>
         <p>Your account has been successfully created.</p>
-        <button onclick="window.location.href='login.php'">Back to Login</button>
+        <button onclick="window.location.href='../user/login.php'">Back to Login</button>
       </div>
     <?php elseif ($message): ?>
       <div id="error-message" class="error-message"><?php echo $message; ?></div>
