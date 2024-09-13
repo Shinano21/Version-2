@@ -60,10 +60,10 @@
       }
       .forgot-password-form button {
         margin-top: 50px;
-        padding: 15px 30px; 
+        padding: 15px 30px;
         font-size: 18px;
         width: 150px;
-        background-color: #4D869C;
+        background-color: #4d869c;
         color: #fff;
         border: none;
         padding: 10px 20px;
@@ -95,11 +95,11 @@
     <script>
       function getQueryParams() {
         const params = new URLSearchParams(window.location.search);
-        const error = params.get('error');
+        const error = params.get("error");
         if (error) {
-          const errorMessage = document.getElementById('error-message');
+          const errorMessage = document.getElementById("error-message");
           errorMessage.textContent = decodeURIComponent(error);
-          errorMessage.style.display = 'block';
+          errorMessage.style.display = "block";
         }
       }
       window.onload = getQueryParams;
@@ -118,12 +118,16 @@
         </p>
         <form action="generate_otp.php" method="post">
           <input type="email" name="email" placeholder="Email" required />
-          <div id="error-message" class="error-message" style="display: none;"></div>
+          <div
+            id="error-message"
+            class="error-message"
+            style="display: none"
+          ></div>
           <div class="button-container">
             <button type="submit">Send</button>
           </div>
           <div class="back-to-login">
-            <p><a href="index.html">Back to login</a></p>
+            <p><a href="../user/login.php">Back to login</a></p>
           </div>
         </form>
       </div>
