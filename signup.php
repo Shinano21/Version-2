@@ -24,7 +24,7 @@
         background-color: #ffffff;
         max-width: 800px; /* Adjust this value as needed */
         width: 90%;
-        height: 550px; /* Adjust this value as needed */
+        height: auto; /* Adjust this value as needed */
       }
 
       .create-account-image {
