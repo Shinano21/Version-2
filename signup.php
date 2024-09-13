@@ -355,7 +355,7 @@
         <img src="images/happy.png" alt="Success Icon" />
         <h2>Success!</h2>
         <p>Your account has been successfully created.</p>
-        <button onclick="window.location.href='../user/login.php'">Back to Login</button>
+        <button onclick="window.location.href='user/login.php'">Back to Login</button>
       </div>
     <?php elseif ($message): ?>
       <div id="error-message" class="error-message"><?php echo $message; ?></div>
