@@ -671,13 +671,19 @@ CREATE TABLE `residents` (
 -- Table structure for table `users`
 --
 
-CREATE TABLE `users` (
-  `id` int(11) NOT NULL,
-  `fname` varchar(255) NOT NULL,
-  `mname` varchar(255) NOT NULL,
-  `lname` varchar(255) NOT NULL,
-  `email` varchar(255) NOT NULL,
-  `password` varchar(255) NOT NULL
+CREATE TABLE users (
+  id int(11) UNSIGNED NOT NULL,
+  unique_id varchar(100) DEFAULT NULL,
+  first_name varchar(100) NOT NULL,
+  middle_name varchar(100) DEFAULT NULL,
+  last_name varchar(100) NOT NULL,
+  birthday date NOT NULL,
+  email varchar(100) NOT NULL,
+  password varchar(255) NOT NULL,
+  user_type varchar(50) NOT NULL DEFAULT 'resident',
+  profile_image varchar(255) NOT NULL,
+  created_at timestamp NOT NULL DEFAULT current_timestamp(),
+  updated_at timestamp NOT NULL DEFAULT current_timestamp() ON UPDATE current_timestamp()
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
 -- --------------------------------------------------------
