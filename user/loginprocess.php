@@ -23,9 +23,9 @@ if(isset($_POST["submit"])){
     // Check if the entered password matches the stored hashed password
     if (password_verify($password, $storedPassword)) {
         // Passwords match, set session variables and redirect to home.php
-        $_SESSION["firstname"] = $row["firstname"];
-        $_SESSION["lastname"] = $row["lastname"];
-        $_SESSION["user"] = $row["user"];
+        $_SESSION["firstname"] = $row["first_name"];
+        $_SESSION["lastname"] = $row["last_name"];
+        $_SESSION["user"] = $row["email"];
         $_SESSION["unique_id"] = $row["unique_id"];
         $status = "Active now";
         $sql2 = mysqli_query($conn, "UPDATE users SET status = '{$status}' WHERE unique_id = {$row['unique_id']}");
