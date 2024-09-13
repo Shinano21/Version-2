@@ -148,6 +148,8 @@
                         <input type="submit" value="Login" name="submit">
                         <p id="dsd">Don't have an account? <a href="../signup.php" style="text-decoration: none;font-weight:600;">Sign up
                                 here</a></p>
+                                 <p id="dsd">Forgot Password <a href="Forgot.html" style="text-decoration: none;font-weight:600;">Forgot Password
+              </a></p>
                     </div>
                 </div>
             </div>

@@ -14,7 +14,7 @@
 
 <body>
     <!-- Navbar -->
-    <?php include 'navbar.php' ?>
+    <?php include '../navbar.php' ?>
     <?php include "data/about_us.php" ?>
     <!-- Header -->
     <div class="main">

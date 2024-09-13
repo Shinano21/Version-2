@@ -1,0 +1,20 @@
+-- Create otp table
+CREATE TABLE `otp` (
+  `id` int(11) NOT NULL AUTO_INCREMENT,
+  `otp_number` int(6) NOT NULL,
+  `email` varchar(100) NOT NULL,
+  `created_at` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP,
+  PRIMARY KEY (`id`),
+  KEY `email` (`email`),
+  CONSTRAINT `otp_ibfk_1` FOREIGN KEY (`email`) REFERENCES `users` (`email`) ON DELETE CASCADE
+);
+
+-- Create procedure to generate and insert OTP
+DELIMITER $$
+CREATE PROCEDURE `generate_and_insert_otp` (IN `user_email` VARCHAR(100))
+BEGIN
+    DECLARE otp INT;
+    SET otp = FLOOR(100000 + RAND() * 900000);
+    INSERT INTO otp (otp_number, email) VALUES (otp, user_email);
+END$$
+DELIMITER ;
