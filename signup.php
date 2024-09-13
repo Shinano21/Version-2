@@ -226,7 +226,7 @@
     </script>
   </head>
   <body>
-    <?php
+ <?php
     $servername = "localhost";
     $username = "root";
     $password = "";
@@ -267,10 +267,11 @@
             if ($result->num_rows > 0) {
                 $message = "An account with this email already exists!";
             } else {
-                // Insert new account into the database
-                $sql = "INSERT INTO users (first_name, middle_name, last_name, birthday, email, password, user_type, profile_image) VALUES (?, ?, ?, ?, ?, ?, ?, ?)";
+                // Insert new account into the database with unique_id = 1
+                $unique_id = 1; // Set unique_id to 1
+                $sql = "INSERT INTO users (first_name, middle_name, last_name, birthday, email, password, user_type, profile_image, unique_id) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?)";
                 $stmt = $conn->prepare($sql);
-                $stmt->bind_param("ssssssss", $first_name, $middle_name, $last_name, $birthday, $email, $password, $user_type, $target_file);
+                $stmt->bind_param("ssssssssi", $first_name, $middle_name, $last_name, $birthday, $email, $password, $user_type, $target_file, $unique_id);
                 if ($stmt->execute()) {
                     $message = "success";
                 } else {
@@ -284,7 +285,8 @@
     }
 
     $conn->close();
-    ?>
+?>
+
 
     <div class="create-account-container">
       <div class="create-account-image">
@@ -344,7 +346,7 @@
             <button type="submit">Create Account</button>
           </div>
           <div class="login-link">
-            <p>Already have an account? <a href="../user/login.php">Login</a></p>
+            <p>Already have an account? <a href="user/login.php">Login</a></p>
           </div>
         </form>
       </div>
