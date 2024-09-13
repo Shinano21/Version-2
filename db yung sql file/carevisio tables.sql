@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Generation Time: Sep 07, 2024 at 03:29 PM
+-- Generation Time: Sep 13, 2024 at 09:15 AM
 -- Server version: 10.4.32-MariaDB
 -- PHP Version: 8.0.30
 
@@ -58,7 +58,12 @@ CREATE TABLE `administrator` (
   `pfp` longblob NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
--- --------------------------------------------------------
+--
+-- Dumping data for table `administrator`
+--
+
+
+
 
 --
 -- Table structure for table `announcements`
@@ -269,6 +274,8 @@ CREATE TABLE `immunization` (
 
 INSERT INTO `immunization` (`id`, `reg`, `bday`, `serial`, `se_status`, `sex`, `fname`, `mname`, `lname`, `suffix`, `zone`, `brgy`, `mun`, `prov`, `cpab`, `mother_fname`, `mother_mname`, `mother_lname`) VALUES
 (4, '2023-12-29', '2023-12-27', '', 'Non-NHTS', 'Female', 'asd', 'sa', 'dsad', '', 'Purok 1', 'Bagumbayan', 'Daraga', 'Albay', 'TT2/Td2', 'dasd', 'dasd', 'sadas'),
+(6, '2023-12-08', '2023-12-13', '342', 'NHTS', 'Male', 'ca', 'asdas', 'das', '', 'Purok 1', 'Bagumbayan', 'Daraga', 'Albay', 'TT2/Td2', 'mning', 'king', 'cande'),
+(4, '2023-12-29', '2023-12-27', '', 'Non-NHTS', 'Female', 'asd', 'sa', 'dsad', '', 'Purok 1', 'Bagumbayan', 'Daraga', 'Albay', 'TT2/Td2', 'dasd', 'dasd', 'sadas'),
 (6, '2023-12-08', '2023-12-13', '342', 'NHTS', 'Male', 'ca', 'asdas', 'das', '', 'Purok 1', 'Bagumbayan', 'Daraga', 'Albay', 'TT2/Td2', 'mning', 'king', 'cande');
 
 -- --------------------------------------------------------
@@ -293,6 +300,8 @@ CREATE TABLE `immunization_1` (
 --
 
 INSERT INTO `immunization_1` (`id`, `length`, `weight`, `bf`, `bcg`, `hepa`, `immu_id`, `bw`) VALUES
+(6, '34', '43', '', '', '', 4, 'N'),
+(8, '3', '34', '', '', '', 6, 'N'),
 (6, '34', '43', '', '', '', 4, 'N'),
 (8, '3', '34', '', '', '', 6, 'N');
 
@@ -346,6 +355,8 @@ CREATE TABLE `immunization_2` (
 
 INSERT INTO `immunization_2` (`id`, `length_at_birth`, `weight_at_birth`, `birth_weight_status`, `breastfeeding_initiation_date`, `bcg_date`, `hepa_b_bd_date`, `age_in_months_1`, `length_cm_1`, `date_taken_1`, `weight_kg_1`, `date_taken_2`, `sst_1`, `lbw_given_iron_1`, `lbw_given_iron_2`, `lbw_given_iron_3`, `dpt_hib_hepb_1st_dose_2`, `dpt_hib_hepb_2nd_dose_2`, `dpt_hib_hepb_3rd_dose_2`, `opb_1st_dose_2`, `opb_2nd_dose_2`, `opb_3rd_dose_2`, `pcb_1st_dose_2`, `pcb_2nd_dose_2`, `pcb_3rd_dose_2`, `ipv_3rd_dose_2`, `ebf_1_5_months_2`, `date_assessed_1_5_months_2`, `ebf_2_5_months_2`, `date_assessed_2_5_months_2`, `ebf_3_5_months_2`, `date_assessed_3_5_months_2`, `ebf_4_5_months_2`, `date_assessed_4_5_months_2`, `immu_id`) VALUES
 (6, 34.00, 43.00, 'N', '0000-00-00', '0000-00-00', '0000-00-00', 0, 0.00, '0000-00-00', 0.00, '0000-00-00', 'N', '0000-00-00', '0000-00-00', '0000-00-00', '0000-00-00', '0000-00-00', '0000-00-00', '0000-00-00', '0000-00-00', '0000-00-00', '0000-00-00', '0000-00-00', '0000-00-00', '0000-00-00', 'Yes', '0000-00-00', 'Yes', '0000-00-00', 'Yes', '0000-00-00', 'Yes', '0000-00-00', 4),
+(8, 3.00, 34.00, 'N', '0000-00-00', '0000-00-00', '0000-00-00', 0, 0.00, '0000-00-00', 0.00, '0000-00-00', 'N', '0000-00-00', '0000-00-00', '0000-00-00', '0000-00-00', '0000-00-00', '0000-00-00', '0000-00-00', '0000-00-00', '0000-00-00', '0000-00-00', '0000-00-00', '0000-00-00', '0000-00-00', 'Yes', '0000-00-00', 'Yes', '0000-00-00', 'Yes', '0000-00-00', 'Yes', '0000-00-00', 6),
+(6, 34.00, 43.00, 'N', '0000-00-00', '0000-00-00', '0000-00-00', 0, 0.00, '0000-00-00', 0.00, '0000-00-00', 'N', '0000-00-00', '0000-00-00', '0000-00-00', '0000-00-00', '0000-00-00', '0000-00-00', '0000-00-00', '0000-00-00', '0000-00-00', '0000-00-00', '0000-00-00', '0000-00-00', '0000-00-00', 'Yes', '0000-00-00', 'Yes', '0000-00-00', 'Yes', '0000-00-00', 'Yes', '0000-00-00', 4),
 (8, 3.00, 34.00, 'N', '0000-00-00', '0000-00-00', '0000-00-00', 0, 0.00, '0000-00-00', 0.00, '0000-00-00', 'N', '0000-00-00', '0000-00-00', '0000-00-00', '0000-00-00', '0000-00-00', '0000-00-00', '0000-00-00', '0000-00-00', '0000-00-00', '0000-00-00', '0000-00-00', '0000-00-00', '0000-00-00', 'Yes', '0000-00-00', 'Yes', '0000-00-00', 'Yes', '0000-00-00', 'Yes', '0000-00-00', 6);
 
 -- --------------------------------------------------------
@@ -371,6 +382,8 @@ CREATE TABLE `immunization_3` (
 --
 
 INSERT INTO `immunization_3` (`id`, `ebf_6_months`, `date_assessed_ebf_6_months`, `complementary_feeding_6_months`, `bfed_6_months`, `vitamin_a_date`, `mnp_date`, `mmr_dose1_date`, `immu_id`) VALUES
+(6, 'Yes', '0000-00-00', 'Yes', 2, '0000-00-00', '0000-00-00', '0000-00-00', 4),
+(8, 'Yes', '0000-00-00', 'Yes', 2, '0000-00-00', '0000-00-00', '0000-00-00', 6),
 (6, 'Yes', '0000-00-00', 'Yes', 2, '0000-00-00', '0000-00-00', '0000-00-00', 4),
 (8, 'Yes', '0000-00-00', 'Yes', 2, '0000-00-00', '0000-00-00', '0000-00-00', 6);
 
@@ -399,6 +412,8 @@ CREATE TABLE `immunization_4` (
 
 INSERT INTO `immunization_4` (`id`, `age_in_months`, `length_cm`, `date_taken_length`, `weight_kg`, `date_taken_weight`, `status`, `mmr_dose2_date`, `fic_date`, `immu_id`) VALUES
 (6, 0, 0, '0000-00-00', 0, '0000-00-00', 'N', '0000-00-00', '0000-00-00', 4),
+(8, 0, 0, '0000-00-00', 0, '0000-00-00', 'N', '0000-00-00', '0000-00-00', 6),
+(6, 0, 0, '0000-00-00', 0, '0000-00-00', 'N', '0000-00-00', '0000-00-00', 4),
 (8, 0, 0, '0000-00-00', 0, '0000-00-00', 'N', '0000-00-00', '0000-00-00', 6);
 
 -- --------------------------------------------------------
@@ -421,6 +436,8 @@ CREATE TABLE `immunization_5` (
 --
 
 INSERT INTO `immunization_5` (`id`, `cic_date`, `mam_status`, `sam_status`, `immu_id`, `remarks`) VALUES
+(6, '0000-00-00', '', '', 4, ''),
+(8, '0000-00-00', '', '', 6, ''),
 (6, '0000-00-00', '', '', 4, ''),
 (8, '0000-00-00', '', '', 6, '');
 
@@ -492,6 +509,7 @@ CREATE TABLE `nutrition` (
 --
 
 INSERT INTO `nutrition` (`id`, `reg`, `bday`, `serial`, `se_status`, `sex`, `length`, `weight`, `fname`, `mname`, `lname`, `suffix`, `zone`, `brgy`, `city`, `province`) VALUES
+(1, '2023-12-01', '2023-12-28', '4324', 'Non-NHTS', 'Male', '34', '43', 's', 'dasd', 'sdsd', 'jr', 'Purok 1', 'Bagumbayan', 'Daraga', 'Albay'),
 (1, '2023-12-01', '2023-12-28', '4324', 'Non-NHTS', 'Male', '34', '43', 's', 'dasd', 'sdsd', 'jr', 'Purok 1', 'Bagumbayan', 'Daraga', 'Albay');
 
 -- --------------------------------------------------------
@@ -517,6 +535,7 @@ CREATE TABLE `nutrition_1` (
 --
 
 INSERT INTO `nutrition_1` (`id`, `nutritional_status`, `mnp_date`, `vitamin_a_1st_dose_date`, `vitamin_a_2nd_dose_date`, `deworming_1st_dose_date`, `deworming_2nd_dose_date`, `deworming_yn`, `nutrition_id`) VALUES
+(2, 'W-MAM', '2024-01-05', '2023-12-19', '2023-12-19', '2023-12-05', '2023-11-27', 'Yes', 1),
 (2, 'W-MAM', '2024-01-05', '2023-12-19', '2023-12-19', '2023-12-05', '2023-11-27', 'Yes', 1);
 
 -- --------------------------------------------------------
@@ -541,6 +560,7 @@ CREATE TABLE `nutrition_2` (
 --
 
 INSERT INTO `nutrition_2` (`id`, `nutrition_id`, `vitamin_a_1st_dose_date`, `vitamin_a_2nd_dose_date`, `deworming_1st_dose_date`, `deworming_2nd_dose_date`, `deworming_yn`, `nutritional_status2`) VALUES
+(2, 1, '2023-12-20', '2023-12-19', '2023-12-05', '2023-11-28', 'Yes', 'W-MAM'),
 (2, 1, '2023-12-20', '2023-12-19', '2023-12-05', '2023-11-28', 'Yes', 'W-MAM');
 
 -- --------------------------------------------------------
@@ -565,6 +585,7 @@ CREATE TABLE `nutrition_3` (
 --
 
 INSERT INTO `nutrition_3` (`id`, `nutrition_id`, `vitamin_a_1st_dose_date`, `vitamin_a_2nd_dose_date`, `deworming_1st_dose_date`, `deworming_2nd_dose_date`, `deworming_yn`, `nutritional_status3`) VALUES
+(2, 1, '2023-12-21', '2023-12-19', '2023-12-13', '2023-12-12', 'Yes', 'W-MAM'),
 (2, 1, '2023-12-21', '2023-12-19', '2023-12-13', '2023-12-12', 'Yes', 'W-MAM');
 
 -- --------------------------------------------------------
@@ -589,6 +610,7 @@ CREATE TABLE `nutrition_4` (
 --
 
 INSERT INTO `nutrition_4` (`id`, `nutrition_id`, `vitamin_a_1st_dose_date`, `vitamin_a_2nd_dose_date`, `deworming_1st_dose_date`, `deworming_2nd_dose_date`, `deworming_yn`, `nutritional_status4`) VALUES
+(2, 1, '2023-12-20', '2023-12-21', '2023-12-29', '2023-12-26', 'Yes', 'W-MAM'),
 (2, 1, '2023-12-20', '2023-12-21', '2023-12-29', '2023-12-26', 'Yes', 'W-MAM');
 
 -- --------------------------------------------------------
@@ -610,7 +632,21 @@ CREATE TABLE `nutrition_5` (
 --
 
 INSERT INTO `nutrition_5` (`id`, `mam_status`, `sam_status`, `remarks`, `nutrition_id`) VALUES
+(2, 'Cured', 'Defaulted', 'fuckyou', 1),
 (2, 'Cured', 'Defaulted', 'fuckyou', 1);
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `otp`
+--
+
+CREATE TABLE `otp` (
+  `id` int(11) NOT NULL,
+  `otp_number` int(6) NOT NULL,
+  `email` varchar(100) NOT NULL,
+  `created_at` timestamp NOT NULL DEFAULT current_timestamp()
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
 -- --------------------------------------------------------
 
@@ -671,40 +707,30 @@ CREATE TABLE `residents` (
 -- Table structure for table `users`
 --
 
-CREATE TABLE users (
-  id int(11) UNSIGNED NOT NULL,
-  unique_id varchar(100) DEFAULT NULL,
-  first_name varchar(100) NOT NULL,
-  middle_name varchar(100) DEFAULT NULL,
-  last_name varchar(100) NOT NULL,
-  birthday date NOT NULL,
-  email varchar(100) NOT NULL,
-  password varchar(255) NOT NULL,
-  user_type varchar(50) NOT NULL DEFAULT 'resident',
-  profile_image varchar(255) NOT NULL,
-  created_at timestamp NOT NULL DEFAULT current_timestamp(),
-  updated_at timestamp NOT NULL DEFAULT current_timestamp() ON UPDATE current_timestamp()
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
-
--- --------------------------------------------------------
-
---
--- Table structure for table `user_type`
---
-
-CREATE TABLE `user_type` (
-  `id` int(11) NOT NULL,
-  `u_type` varchar(255) NOT NULL
+CREATE TABLE `users` (
+  `id` int(11) UNSIGNED NOT NULL,
+  `unique_id` varchar(100) DEFAULT NULL,
+  `first_name` varchar(100) NOT NULL,
+  `middle_name` varchar(100) DEFAULT NULL,
+  `last_name` varchar(100) NOT NULL,
+  `birthday` date NOT NULL,
+  `email` varchar(100) NOT NULL,
+  `password` varchar(255) NOT NULL,
+  `user_type` varchar(50) NOT NULL DEFAULT 'resident',
+  `profile_image` varchar(255) NOT NULL,
+  `created_at` timestamp NOT NULL DEFAULT current_timestamp(),
+  `updated_at` timestamp NOT NULL DEFAULT current_timestamp() ON UPDATE current_timestamp()
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
 --
--- Dumping data for table `user_type`
+-- Dumping data for table `users`
 --
 
-INSERT INTO `user_type` (`id`, `u_type`) VALUES
-(1, 'system administrator'),
-(2, 'barangay secretary'),
-(3, 'barangay healthworker');
+INSERT INTO `users` (`id`, `unique_id`, `first_name`, `middle_name`, `last_name`, `birthday`, `email`, `password`, `user_type`, `profile_image`, `created_at`, `updated_at`) VALUES
+(1, '1', 'Furina', 'Focalors', 'De Fontaine', '2002-10-13', 'ayaya28@gmail.com', '$2y$10$JNtgFl5XUT2ewDcnmBWMQOuq1Lp1CZnsrJXDAR.zPpovgDMoa5Su2', 'resident', 'uploads/furi.jpg', '2024-09-12 10:38:29', '2024-09-12 17:03:57'),
+(2, NULL, 'Navia', 'sakosako', 'Rosula', '2002-09-29', 'spinaderosula@gmail.com', '$2y$10$DmQUkL7E7xE1zOGwCvNj3OtJtKKJ9nMfcIlU9SO1zjGKA0V80ZF0q', 'resident', 'uploads/hot ayaka.jpeg', '2024-09-12 16:51:40', '2024-09-12 16:51:40'),
+(3, '1', 'Mike', 'Reyes', 'Ogaban', '2002-02-22', 'alaka@gmail.com', '$2y$10$TCUpXVLJiULxy3ZEUOCoyuBl4TePkHn7ZH/M3a7w0m3egt/VIe01q', 'resident', 'uploads/stelle.png', '2024-09-13 06:33:48', '2024-09-13 06:34:39'),
+(4, '1', 'Ren', 'Malupet', 'Tofu', '2002-08-27', 'ayakaaa28@gmail.com', '$2y$10$wMqU2YdoyY6wbfVFUu2nueqAewDVI/QDJmKRPhuV33nYdeKHSirIy', 'resident', 'uploads/furi.jpg', '2024-09-13 06:39:08', '2024-09-13 06:39:08');
 
 --
 -- Indexes for dumped tables
@@ -759,10 +785,24 @@ ALTER TABLE `logo`
   ADD PRIMARY KEY (`id`);
 
 --
+-- Indexes for table `otp`
+--
+ALTER TABLE `otp`
+  ADD PRIMARY KEY (`id`),
+  ADD KEY `email` (`email`);
+
+--
 -- Indexes for table `programs`
 --
 ALTER TABLE `programs`
   ADD PRIMARY KEY (`id`);
+
+--
+-- Indexes for table `users`
+--
+ALTER TABLE `users`
+  ADD PRIMARY KEY (`id`),
+  ADD UNIQUE KEY `email` (`email`);
 
 --
 -- AUTO_INCREMENT for dumped tables
@@ -805,10 +845,32 @@ ALTER TABLE `logo`
   MODIFY `id` int(11) NOT NULL AUTO_INCREMENT;
 
 --
+-- AUTO_INCREMENT for table `otp`
+--
+ALTER TABLE `otp`
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT;
+
+--
 -- AUTO_INCREMENT for table `programs`
 --
 ALTER TABLE `programs`
   MODIFY `id` int(11) NOT NULL AUTO_INCREMENT;
+
+--
+-- AUTO_INCREMENT for table `users`
+--
+ALTER TABLE `users`
+  MODIFY `id` int(11) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=5;
+
+--
+-- Constraints for dumped tables
+--
+
+--
+-- Constraints for table `otp`
+--
+ALTER TABLE `otp`
+  ADD CONSTRAINT `otp_ibfk_1` FOREIGN KEY (`email`) REFERENCES `users` (`email`) ON DELETE CASCADE;
 COMMIT;
 
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;
