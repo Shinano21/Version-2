@@ -9,7 +9,6 @@ if (!isset($_SESSION["user"]) || $_SESSION["user_type"] !== "System Administrato
 }
 ?>
 
-
 <!DOCTYPE html>
 <html lang="en">
 
@@ -46,149 +45,136 @@ if (!isset($_SESSION["user"]) || $_SESSION["user_type"] !== "System Administrato
                                 <p>Edit Admin User</p>
                             </div>
                             <?php
+                            // Check if the ID is provided in the URL
+                            if (isset($_GET['id'])) {
+                                $userId = $_GET['id'];
 
-            // Check if the ID is provided in the URL
-            if (isset($_GET['id'])) {
-                $userId = $_GET['id'];
+                                // Retrieve user data from the database
+                                $sql = "SELECT * FROM administrator WHERE id = ?";
+                                $stmt = mysqli_prepare($conn, $sql);
 
-                // Retrieve user data from the database
-                $sql = "SELECT * FROM administrator WHERE id = ?";
-                $stmt = mysqli_prepare($conn, $sql);
+                                if ($stmt) {
+                                    mysqli_stmt_bind_param($stmt, "i", $userId);
+                                    mysqli_stmt_execute($stmt);
+                                    $result = mysqli_stmt_get_result($stmt);
 
-                if ($stmt) {
-                    mysqli_stmt_bind_param($stmt, "i", $userId);
-                    mysqli_stmt_execute($stmt);
-                    $result = mysqli_stmt_get_result($stmt);
-
-                    if ($result->num_rows > 0) {
-                        $row = $result->fetch_assoc();
-                        // Populate the form fields with the user's current data
-                    ?>
-                            <div class="form">
-                                <form action="asUpdate_user.php" method="post" enctype="multipart/form-data">
-                                    <input type="hidden" name="user_id" value="<?php echo $row['id']; ?>">
-                                    <input type="hidden" name="unique_id" value="<?php echo $row['unique_id']; ?>">
-                                    <div class="form-group">
-                                        <label for="name">First Name</label>
-                                        <input type="text" name="fname" value="<?php echo $row['fname']; ?>"
-                                            required>
-                                    </div>
-                                    <div class="form-group">
-                                        <label for="name">Middle Name</label>
-                                        <input type="text" name="mname" value="<?php echo $row['mname']; ?>"
-                                            placeholder="Enter middle name">
-                                    </div>
-                                    <div class="form-group">
-                                        <label for="name">Last Name</label>
-                                        <input type="text" name="lname" value="<?php echo $row['lname']; ?>"
-                                            placeholder="Enter last name" required>
-                                    </div>
-                                    <div class="form-group">
-                                        <label for="contact">Contact Number</label>
-                                        <input type="tel" name="contact" value="<?php echo $row['cpnumber']; ?>"
-                                            placeholder="Enter contact number" required>
-                                    </div>
-                                    <div class="form-group">
-                                        <label for="email">Email</label>
-                                        <input type="email" name="email" value="<?php echo $row['email']; ?>"
-                                            placeholder="Enter email address" required>
-                                    </div>
-                                    <div class="form-group">
-                                        <label for="password">Password</label>
-                                        <input type="password" name="password" value="<?php echo $row['password']; ?>"
-                                            placeholder="Enter password" required>
-                                    </div>
-                                    <div class="position">
-                                        <label for="position">Position:</label>
-                                        <select name="position" id="position" required>
-                                            <option value="">Select a position</option>
-                                            <option value="System Administrator"
-                                                <?php if ($row['user_type'] === 'System Administrator') echo 'selected'; ?>>
-                                                System Admin
-                                            </option>
-                                            <option value="Barangay Nurse"
-                                                <?php if ($row['user_type'] === 'Barangay Secretary') echo 'selected'; ?>>
-                                                Barangay
-                                                Nurse</option>
-                                            <option value="Barangay Health Worker"
-                                                <?php if ($row['user_type'] === 'Barangay Health Worker') echo 'selected'; ?>>
-                                                Barangay
-                                                Health Worker</option>
-                                        </select>
-                                    </div>
-                                    <div class="position">
-                                        <label for="position">
-                                            Account Status: <span style="color: <?php echo ($row['a_status'] == 'Deactivated') ? 'red' : 'green'; ?>;">
-                                                <?php echo $row['a_status']; ?>
-                                            </span>
-                                        </label>
-                                    </div>
-                                    <div class="subBtn">
-                                        <button type="submit" name="submit">Update</button>
-                                    </div>
-                                </form>
-                            </div>
+                                    if ($result->num_rows > 0) {
+                                        $row = $result->fetch_assoc();
+                                        // Populate the form fields with the user's current data
+                            ?>
+                                        <div class="form">
+                                            <form action="asUpdate_user.php" method="post" enctype="multipart/form-data">
+                                                <input type="hidden" name="user_id" value="<?php echo $row['id']; ?>">
+                                                <div class="form-group">
+                                                    <label for="name">First Name</label>
+                                                    <input type="text" name="fname" value="<?php echo $row['firstname']; ?>" required>
+                                                </div>
+                                                <div class="form-group">
+                                                    <label for="name">Middle Name</label>
+                                                    <input type="text" name="mname" value="<?php echo $row['midname']; ?>" placeholder="Enter middle name">
+                                                </div>
+                                                <div class="form-group">
+                                                    <label for="name">Last Name</label>
+                                                    <input type="text" name="lname" value="<?php echo $row['lastname']; ?>" placeholder="Enter last name" required>
+                                                </div>
+                                                <div class="form-group">
+                                                    <label for="contact">Contact Number</label>
+                                                    <input type="tel" name="contact" value="<?php echo $row['cpnumber']; ?>" placeholder="Enter contact number" required>
+                                                </div>
+                                                <div class="form-group">
+                                                    <label for="email">Email</label>
+                                                    <input type="email" name="email" value="<?php echo $row['email']; ?>" placeholder="Enter email address" required>
+                                                </div>
+                                                <div class="form-group">
+                                                    <label for="password">Password</label>
+                                                    <input type="password" name="password" value="<?php echo $row['password']; ?>" placeholder="Enter password" required>
+                                                </div>
+                                                <div class="position">
+                                                    <label for="position">Position:</label>
+                                                    <select name="position" id="position" required>
+                                                        <option value="">Select a position</option>
+                                                        <option value="System Administrator" <?php if ($row['user_type'] === 'System Administrator') echo 'selected'; ?>>
+                                                            System Admin
+                                                        </option>
+                                                        <option value="Barangay Nurse" <?php if ($row['user_type'] === 'Barangay Nurse') echo 'selected'; ?>>
+                                                            Barangay Nurse
+                                                        </option>
+                                                        <option value="Barangay Health Worker" <?php if ($row['user_type'] === 'Barangay Health Worker') echo 'selected'; ?>>
+                                                            Barangay Health Worker
+                                                        </option>
+                                                    </select>
+                                                </div>
+                                                <div class="position">
+                                                    <label for="position">
+                                                        Account Status: <span style="color: <?php echo ($row['a_status'] == 'Deactivated') ? 'red' : 'green'; ?>;">
+                                                            <?php echo $row['a_status']; ?>
+                                                        </span>
+                                                    </label>
+                                                </div>
+                                                <div class="subBtn">
+                                                    <button type="submit" name="submit">Update</button>
+                                                </div>
+                                            </form>
+                                        </div>
                             <?php
+                                    } else {
+                                        echo "User not found!";
+                                    }
+                                } else {
+                                    echo "Database error!";
+                                }
                             } else {
-                                echo "User not found!";
+                                echo "No user ID provided!";
                             }
-                        } else {
-                            echo "Database error!";
-                        }
-                    } else {
-                        echo "No user ID provided!";
-                    }
-                    ?>
+                            ?>
                         </div>
 
                         <div class="contentBox" style="display: block;">
                             <?php
+                            // Check if the ID is provided in the URL
+                            if (isset($_GET['id'])) {
+                                $userId = $_GET['id'];
 
-            // Check if the ID is provided in the URL
-            if (isset($_GET['id'])) {
-                $userId = $_GET['id'];
+                                // Retrieve user data from the database
+                                $sql = "SELECT * FROM administrator WHERE id = ?";
+                                $stmt = mysqli_prepare($conn, $sql);
 
-                // Retrieve user data from the database
-                $sql = "SELECT * FROM administrator WHERE id = ?";
-                $stmt = mysqli_prepare($conn, $sql);
+                                if ($stmt) {
+                                    mysqli_stmt_bind_param($stmt, "i", $userId);
+                                    mysqli_stmt_execute($stmt);
+                                    $result = mysqli_stmt_get_result($stmt);
 
-                if ($stmt) {
-                    mysqli_stmt_bind_param($stmt, "i", $userId);
-                    mysqli_stmt_execute($stmt);
-                    $result = mysqli_stmt_get_result($stmt);
-
-                    if ($result->num_rows > 0) {
-                        $row = $result->fetch_assoc();
-                        // Populate the form fields with the user's current data
-                    ?>
-                            <div class="form">
-                                <form action="asBan_user.php" method="post" enctype="multipart/form-data">
-                                    <input type="hidden" name="user_id" value="<?php echo $row['id']; ?>">
-                                    <input type="hidden" name="unique_id" value="<?php echo $row['unique_id']; ?>">
-                                    <div class="position">
-                                        <label for="status">Manage Account Status</label>
-                                        <select name="status" id="status" required>
-                                            <option value="">Select an option</option>
-                                            <option value="Deactivated">Deactivate</option>
-                                            <option value="Active">Reactivate</option>
-                                        </select>
-                                    </div>
-                                    <div class="subBtn">
-                                        <button type="submit" name="submit">Update</button>
-                                    </div>
-                                </form>
-                            </div>
+                                    if ($result->num_rows > 0) {
+                                        $row = $result->fetch_assoc();
+                                        // Populate the form fields with the user's current data
+                            ?>
+                                        <div class="form">
+                                            <form action="asBan_user.php" method="post" enctype="multipart/form-data">
+                                                <input type="hidden" name="user_id" value="<?php echo $row['id']; ?>">
+                                                <div class="position">
+                                                    <label for="status">Manage Account Status</label>
+                                                    <select name="status" id="status" required>
+                                                        <option value="">Select an option</option>
+                                                        <option value="Deactivated">Deactivate</option>
+                                                        <option value="Active">Reactivate</option>
+                                                    </select>
+                                                </div>
+                                                <div class="subBtn">
+                                                    <button type="submit" name="submit">Update</button>
+                                                </div>
+                                            </form>
+                                        </div>
                             <?php
+                                    } else {
+                                        echo "User not found!";
+                                    }
+                                } else {
+                                    echo "Database error!";
+                                }
                             } else {
-                                echo "User not found!";
+                                echo "No user ID provided!";
                             }
-                        } else {
-                            echo "Database error!";
-                        }
-                    } else {
-                        echo "No user ID provided!";
-                    }
-                    ?>
+                            ?>
                         </div>
                     </div>
                 </section>
