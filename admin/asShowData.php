@@ -6,9 +6,9 @@
                         if ($result->num_rows > 0) {
                             while ($row = $result->fetch_assoc()) {
                                 echo "<tr>";
-                                echo "<td  style='width: 100px; overflow: hidden; text-overflow: ellipsis;'>" . $row['fname'] . "</td>";
-                                echo "<td  style='width: 100px; overflow: hidden; text-overflow: ellipsis;'>" . $row['mname'] . "</td>";
-                                echo "<td  style='width: 100px; overflow: hidden; text-overflow: ellipsis;'>" . $row['lname'] . "</td>";
+                                echo "<td  style='width: 100px; overflow: hidden; text-overflow: ellipsis;'>" . $row['firstname'] . "</td>";
+                                echo "<td  style='width: 100px; overflow: hidden; text-overflow: ellipsis;'>" . $row['midname'] . "</td>";
+                                echo "<td  style='width: 100px; overflow: hidden; text-overflow: ellipsis;'>" . $row['lastname'] . "</td>";
                                 echo "<td  style='width: 100px; overflow: hidden; text-overflow: ellipsis;'>" . $row['user_type'] . "</td>";
                                 echo "<td style='width: 100px; overflow: hidden; text-overflow: ellipsis;'>" . $row['email'] . "</td>";
                                 echo "<td style='width: 100px; overflow: hidden; text-overflow: ellipsis;'>" . $row['a_status'] . "</td>";

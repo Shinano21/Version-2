@@ -35,7 +35,7 @@ if(!isset($_SESSION["user"])){
                         <div class="page-header">
                             <div class="page-title">
                                 <h1>DASHBOARD</h1>
-                                <span>Welcome back, <?php echo $_SESSION["fname"] ?></span>
+                                <span>Welcome back, <?php echo $_SESSION["firstname"] ?></span>
                             </div>
                         </div>
                     </div>
