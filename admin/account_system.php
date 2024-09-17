@@ -20,20 +20,19 @@ if (isset($_POST["submit"])) {
     $hashedPassword = password_hash($password, PASSWORD_BCRYPT);
     $position = $_POST["position"];
     $user_type = $_POST["type"];
-    $time = time(); 
     $ran_id = rand(time(), 100000000);
 
     // Insert into 'administrator' table
-    $sqlAdmin = "INSERT INTO `administrator` (`fname`, `mname`, `lname`, `cpnumber`, `email`, `password`, `user_type`, `unique_id`, `a_status`) VALUES (?, IFNULL(?, ''), ?, ?, ?, ?, ?, ?, ?)";
+    $sqlAdmin = "INSERT INTO `administrator` (`firstname`, `midname`, `lastname`, `cpnumber`, `email`, `password`, `user_type`, `a_status`) VALUES (?, IFNULL(?, ''), ?, ?, ?, ?, ?, ?)";
     $stmtAdmin = mysqli_prepare($conn, $sqlAdmin);
 
     if ($stmtAdmin) {
-        mysqli_stmt_bind_param($stmtAdmin, "sssssssss", $firstName, $midName, $lastName, $cpNum, $email, $hashedPassword, $position, $ran_id, $status);
+        mysqli_stmt_bind_param($stmtAdmin, "ssssssss", $firstName, $midName, $lastName, $cpNum, $email, $hashedPassword, $position, $status);
         mysqli_stmt_execute($stmtAdmin);
 
         if (mysqli_stmt_affected_rows($stmtAdmin) > 0) {
             // Insert into 'users' table
-            $sqlUsers = "INSERT INTO `users` (`fname`, `mname`, `lname`, `email`, `password`, `unique_id`, `user_type`) VALUES (?, IFNULL(?, ''), ?, ?, ?, ?, ?)";
+            $sqlUsers = "INSERT INTO `users` (`first_name`, `middle_name`, `last_name`, `email`, `password`, `unique_id`, `user_type`) VALUES (?, IFNULL(?, ''), ?, ?, ?, ?, ?)";
             $stmtUsers = mysqli_prepare($conn, $sqlUsers);
 
             if ($stmtUsers) {
@@ -47,22 +46,18 @@ if (isset($_POST["submit"])) {
                     echo '</script>';
                     exit();
                 } else {
-                    // Redirect with an error message or appropriate handling
                     echo "Error: " . mysqli_error($conn);
                     exit();
                 }
             } else {
-                // Handle prepared statement error for 'users' table
-                echo "Prepared statement error: " . mysqli_error($conn);
+                echo "Prepared statement error for 'users' table: " . mysqli_error($conn);
                 exit();
             }
         } else {
-            // Redirect with an error message or appropriate handling
             header("Location: account_system.php?error=Error creating account");
             exit();
         }
     } else {
-        // Handle prepared statement error for 'administrator' table
         header("Location: account_system.php?error=Database error");
         exit();
     }
