@@ -24,6 +24,8 @@
                                     class="fa fa-heart-o" style="font-size:9px;"></i>Influenza Vaccination</a></li>
                         <li style="font-size:0.7rem;text-indent:2%;"><a href="services5.php"><i
                                     class="fa fa-heart-o" style="font-size:9px;"></i>Anti-pneumonia Vaccination</a></li>
+                                    <li style="font-size:0.7rem;text-indent:2%;"><a href="services6.php"><i
+                                    class="fa fa-heart-o" style="font-size:9px;"></i>Animal bite</a></li>
                     </ul>
                 </li>
                 <li><a href="visualization.php"><i class="fa fa-bar-chart"></i>Data Visualization</a></li>

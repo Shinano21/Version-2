@@ -879,3 +879,13 @@ COMMIT;
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;
 /*!40101 SET CHARACTER_SET_RESULTS=@OLD_CHARACTER_SET_RESULTS */;
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
+CREATE TABLE animal_bite_records (
+    id INT AUTO_INCREMENT PRIMARY KEY,
+    resident_id INT,
+    bite_date DATE,
+    treatment_date DATE,
+    bite_location VARCHAR(255),
+    treatment_center VARCHAR(255),
+    remarks TEXT,
+    FOREIGN KEY (resident_id) REFERENCES residents(resident_id)
+);
