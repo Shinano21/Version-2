@@ -669,8 +669,10 @@ CREATE TABLE `programs` (
 -- Table structure for table `residents`
 --
 
+DROP TABLE IF EXISTS `residents`;
+
 CREATE TABLE `residents` (
-  `id` int(11) NOT NULL,
+  `id` int(11) NOT NULL AUTO_INCREMENT,
   `fname` varchar(255) NOT NULL,
   `mname` varchar(255) NOT NULL,
   `lname` varchar(255) NOT NULL,
@@ -698,8 +700,10 @@ CREATE TABLE `residents` (
   `status` varchar(255) NOT NULL,
   `longitude` varchar(255) NOT NULL,
   `latitude` varchar(255) NOT NULL,
-  `profile` longblob DEFAULT NULL
+  `profile` longblob DEFAULT NULL,
+  PRIMARY KEY (`id`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+
 
 -- --------------------------------------------------------
 
