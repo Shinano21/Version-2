@@ -18,3 +18,27 @@ BEGIN
     INSERT INTO otp (otp_number, email) VALUES (otp, user_email);
 END$$
 DELIMITER ;
+
+
+
+CREATE TABLE prenatal (
+    prenatal_id INT(11) AUTO_INCREMENT PRIMARY KEY,
+    resident_id INT(11) NOT NULL,
+    checkup_date DATE NOT NULL,
+    gestational_age INT(11),
+    blood_pressure VARCHAR(50),
+    weight DECIMAL(10, 2),
+    fetal_heartbeat VARCHAR(50),
+    remarks TEXT,
+    FOREIGN KEY (resident_id) REFERENCES residents(id)
+);
+
+CREATE TABLE hypertension (
+    hypertension_id INT(11) AUTO_INCREMENT PRIMARY KEY,
+    resident_id INT(11) NOT NULL,
+    checkup_date DATE NOT NULL,
+    medicine_type VARCHAR(255),
+    blood_pressure VARCHAR(50),
+    remarks_type TEXT,
+    FOREIGN KEY (resident_id) REFERENCES residents(id)
+);
