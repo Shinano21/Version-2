@@ -1,5 +1,6 @@
 <?php
 include "dbcon.php";
+
 if ($_SERVER["REQUEST_METHOD"] == "POST") {
     // Check if the file was uploaded without errors
     $fname = $_POST["fname"];
@@ -38,6 +39,9 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
     $longitude = $_POST["longitude"];
     $latitude = $_POST["Latitude"];
 
+    // Initialize the image variable
+    $new_img_name = NULL;
+
     // Handle image upload
     if (!empty($_FILES['image']['name'])) {
         $img_name = $_FILES['image']['name'];
@@ -60,9 +64,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
             $new_img_name = uniqid() . '.' . $img_ext;
 
             // Move the uploaded file to the target directory
-            if (move_uploaded_file($tmp_name, $target_dir . $new_img_name)) {
-                // Continue with your existing code
-            } else {
+            if (!move_uploaded_file($tmp_name, $target_dir . $new_img_name)) {
                 echo "Image upload failed!";
                 exit();
             }
@@ -71,15 +73,18 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
             exit();
         }
     }
-  
-$sql = "INSERT INTO `residents` (`fname`, `mname`, `lname`, `suffix`, `sex`, `bday`, `pob`, `religion`, `citizenship`, `street`, `zone`, `brgy`, `mun`, `province`, `zipcode`, `contact`, `educational`, `occupation`, `civil_status`, `labor_status`, `voter_status`, `pwd_status`, `four_p`, `vac_status`, `status`, `longitude`, `latitude`, `profile`) VALUES ('$fname', '$mname', '$lname', '$suffix', '$sex', '$dateOfBirth', '$placeOfBirth', '$religion', '$citizenship', '$street', '$zone', '$brgy', '$city', '$province', '$zipcode', '$contact', '$educational', '$occupation', '$civilStatus', '$laborStatus', '$voterStatus', '$pwdStatus', '$fourPStatus', '$covidVaccinationStatus', '$status', '$longitude', '$latitude', '$new_img_name')";
 
-// Execute the query
-if (mysqli_query($conn, $sql)) {
-    header("Location: residents.php?added=Saved Successfully");
-} else {
-    echo "Error: " . $sql . "<br>" . mysqli_error($conn);
-}
-}
+    // Prepare SQL query to insert data
+    $sql = "INSERT INTO `residents` 
+            (`fname`, `mname`, `lname`, `suffix`, `sex`, `bday`, `pob`, `religion`, `citizenship`, `street`, `zone`, `brgy`, `mun`, `province`, `zipcode`, `contact`, `educational`, `occupation`, `civil_status`, `labor_status`, `voter_status`, `pwd_status`, `four_p`, `vac_status`, `status`, `longitude`, `latitude`, `profile`) 
+            VALUES 
+            ('$fname', '$mname', '$lname', '$suffix', '$sex', '$dateOfBirth', '$placeOfBirth', '$religion', '$citizenship', '$street', '$zone', '$brgy', '$city', '$province', '$zipcode', '$contact', '$educational', '$occupation', '$civilStatus', '$laborStatus', '$voterStatus', '$pwdStatus', '$fourPStatus', '$covidVaccinationStatus', '$status', '$longitude', '$latitude', '$new_img_name')";
 
+    // Execute the query
+    if (mysqli_query($conn, $sql)) {
+        header("Location: residents.php?added=Saved Successfully");
+    } else {
+        echo "Error: " . $sql . "<br>" . mysqli_error($conn);
+    }
+}
 ?>
