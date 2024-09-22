@@ -1,8 +1,9 @@
 <?php
 include "dbcon.php";
+include "phpqrcode/qrlib.php"; // Include PHP QR Code library
 
 if ($_SERVER["REQUEST_METHOD"] == "POST") {
-    // Check if the file was uploaded without errors
+    // Collect resident data from the form
     $fname = $_POST["fname"];
     $mname = $_POST["mname"];
     $lname = $_POST["lname"];
@@ -74,14 +75,37 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
         }
     }
 
-    // Prepare SQL query to insert data
+    // Prepare SQL query to insert resident data into the database
     $sql = "INSERT INTO `residents` 
-            (`fname`, `mname`, `lname`, `suffix`, `sex`, `bday`, `pob`, `religion`, `citizenship`, `street`, `zone`, `brgy`, `mun`, `province`, `zipcode`, `contact`, `educational`, `occupation`, `civil_status`, `labor_status`, `voter_status`, `pwd_status`, `four_p`, `vac_status`, `status`, `longitude`, `latitude`, `profile`) 
-            VALUES 
-            ('$fname', '$mname', '$lname', '$suffix', '$sex', '$dateOfBirth', '$placeOfBirth', '$religion', '$citizenship', '$street', '$zone', '$brgy', '$city', '$province', '$zipcode', '$contact', '$educational', '$occupation', '$civilStatus', '$laborStatus', '$voterStatus', '$pwdStatus', '$fourPStatus', '$covidVaccinationStatus', '$status', '$longitude', '$latitude', '$new_img_name')";
+    (`fname`, `mname`, `lname`, `suffix`, `sex`, `bday`, `pob`, `religion`, `citizenship`, `street`, `zone`, `brgy`, `mun`, `province`, `zipcode`, `contact`, `educational`, `occupation`, `civil_status`, `labor_status`, `voter_status`, `pwd_status`, `four_p`, `vac_status`, `status`, `longitude`, `latitude`, `profile`, `qr_code`) 
+    VALUES 
+    ('$fname', '$mname', '$lname', '$suffix', '$sex', '$dateOfBirth', '$placeOfBirth', '$religion', '$citizenship', '$street', '$zone', '$brgy', '$city', '$province', '$zipcode', '$contact', '$educational', '$occupation', '$civilStatus', '$laborStatus', '$voterStatus', '$pwdStatus', '$fourPStatus', '$covidVaccinationStatus', '$status', '$longitude', '$latitude', '$new_img_name', '$qr_code_file')";
 
     // Execute the query
     if (mysqli_query($conn, $sql)) {
+        // Get the last inserted resident ID
+        $resident_id = mysqli_insert_id($conn);
+
+        // Generate QR Code
+        $qrContent = "Resident: $fname $lname, ID: $resident_id";
+        
+        // Directory to save QR codes
+        $qrDir = 'qrcodes/';
+        if (!file_exists($qrDir)) {
+            mkdir($qrDir, 0777, true);
+        }
+
+        // File name for the QR code
+        $qrFileName = $qrDir . $resident_id . '.png';
+
+        // Generate the QR code
+        QRcode::png($qrContent, $qrFileName, QR_ECLEVEL_L, 10);
+
+        // Update the resident record with the QR code file path
+        $update_sql = "UPDATE residents SET qr_code='$qrFileName' WHERE id='$resident_id'";
+        mysqli_query($conn, $update_sql);
+
+        // Redirect or display a success message
         header("Location: residents.php?added=Saved Successfully");
     } else {
         echo "Error: " . $sql . "<br>" . mysqli_error($conn);
