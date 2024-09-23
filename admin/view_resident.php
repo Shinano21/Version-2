@@ -14,6 +14,7 @@ if (!isset($_SESSION["user"]) || $_SESSION["user_type"] == "System Administrator
 <head>
     <title>View Resident Record | CareVisio</title>
     <?php include "partials/head.php"; ?>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-QWTKZyjpPEjISv5WaRU9OFeRpok6YctnYmDr5pNlyT2bRjXh0JMhjY6hW+ALEwIH" crossorigin="anonymous">
 </head>
 
 <body onload="display_ct();">
@@ -384,8 +385,32 @@ if (mysqli_num_rows($result) > 0) {
         }?>" readonly style="display:none;" name="id">
     <div id="map" style="height: 400px; width: 100%;"></div>
     <br>
-    <button class="aa save" type="submit"> SAVE</button>
-    <a href="residents.php"><button class="aa cancel" id="cancel1" type="button"> CANCEL</button></a>
+    <button id="viewQrCode" type="button" data-toggle="modal" data-target="#qrCodeModal">View QR Code</button>
+    </form>
+
+    <!-- Modal Structure -->
+<div class="modal fade" id="qrCodeModal" tabindex="-1" role="dialog" aria-labelledby="qrCodeModalLabel" aria-hidden="true">
+   <div class="modal-dialog" role="document">
+       <div class="modal-content">
+           <div class="modal-header">
+               <h5 class="modal-title" id="qrCodeModalLabel">QR Code</h5>
+               <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                   <span aria-hidden="true">&times;</span>
+               </button>
+           </div>
+           <div class="modal-body">
+               <img id="qrCodeImage" src="" alt="QR Code" style="width: 100%;">
+           </div>
+       </div>
+   </div>
+</div>
+
+<script>
+   document.getElementById('viewQrCode').addEventListener('click', function() {
+       const qrCodeFile = '<?php echo isset($row["qr_code"]) ? $row["qr_code"] : ""; ?>';
+       document.getElementById('qrCodeImage').src = qrCodeFile;
+   });
+</script>
 
   <!--<p id="coordinates">Coordinates: 13.142307, 123.71827</p>-->
 
@@ -752,6 +777,7 @@ if (mysqli_num_rows($result) > 0) {
         display_c();
     </script>
     <?php include "partials/scripts.php"?>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js" integrity="sha384-YvpcrYf0tY3lHB60NNkmXc5s9fDVZLESaAA55NDzOxhy9GkcIdslK1eN7N6jIeHz" crossorigin="anonymous"></script>
 </body>
 
 </html>
