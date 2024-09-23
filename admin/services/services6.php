@@ -76,7 +76,7 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
                     <div class="bc-page">
                         <ol class="bc">
                             <li class="breadcrumb-item"><a href="../home.php">Dashboard</a></li>
-                            <li class="breadcrumb-item"><a href="../animal_bite.php">Animal Bite Records</a></li>
+                            <li class="breadcrumb-item"><a href="../services6.php">Animal Bite Records</a></li>
                             <li class="breadcrumb-item active">Add Record</li>
                         </ol>
                     </div>
