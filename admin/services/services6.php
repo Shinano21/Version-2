@@ -1,139 +1,199 @@
-<?php 
+<?php
 session_start();
-include "../dbcon.php";
 
+include "../dbcon.php";  // Database connection
 if (!isset($_SESSION["user"]) || $_SESSION["user_type"] == "System Administrator") {
-    header("Location: ../index.php");
+    header("Location: index.php");
     exit();
 }
 
-$resident_name = ''; // Initialize an empty variable for the resident's name
-
-// Check if form is submitted
-if ($_SERVER['REQUEST_METHOD'] == 'POST') {
-    // Check if resident ID is set and valid
-    if (isset($_POST['resident_id']) && !empty($_POST['resident_id'])) {
-        $resident_id = $_POST['resident_id'];
-
-        // Fetch resident name for display purposes
-        $resident_query = "SELECT fname, mname, lname, suffix FROM residents WHERE id = '$resident_id'";
-        $result = mysqli_query($conn, $resident_query);
-        
-        if (mysqli_num_rows($result) > 0) {
-            $row = mysqli_fetch_assoc($result);
-            $resident_name = $row['fname'] . ' ' . $row['mname'] . ' ' . $row['lname'] . ' ' . $row['suffix'];
-        } else {
-            $resident_name = 'Resident not found';
-        }
-
-        // Collect all form data
-        $bite_date = $_POST['bite_date'];
-        $treatment_date = $_POST['treatment_date'];
-        $bite_location = $_POST['bite_location'];
-        $treatment_center = $_POST['treatment_center'];
-        $remarks = $_POST['remarks'];
-
-        // Debugging: Check if data is being posted correctly
-        if (!empty($resident_id) && !empty($bite_date)) {
-            // Insert data into the animal_bite_records table
-            $query = "INSERT INTO animal_bite_records (resident_id, bite_date, treatment_date, bite_location, treatment_center, remarks)
-                      VALUES ('$resident_id', '$bite_date', '$treatment_date', '$bite_location', '$treatment_center', '$remarks')";
-            
-            if (mysqli_query($conn, $query)) {
-                // Redirect on success
-                header("Location: ../services6.php?msg=Record added successfully");
-                exit();
-            } else {
-                // Error handling: Display the error message for debugging
-                echo "Error inserting record: " . mysqli_error($conn);
-            }
-        } else {
-            echo "Error: Resident ID or Bite Date is missing!";
-        }
-    } else {
-        echo "Error: No Resident ID selected!";
-    }
-}
+// Query to fetch residents from the database
+$query = "SELECT id, fname, lname FROM residents";  // Assuming your residents table is called "residents"
+$result = mysqli_query($conn, $query);
 ?>
-
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
     <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1">
+    <!-- theme meta -->
+    <meta name="theme-name" content="focus" />
     <title>Add Animal Bite Record | CareVisio</title>
-    <link href="https://cdnjs.cloudflare.com/ajax/libs/select2/4.1.0-beta.1/css/select2.min.css" rel="stylesheet" />
+    <?php include "head.php"; ?>
 </head>
 
-<body>
+<body onload="display_ct();">
+
+    <?php include "header.php"; ?>
+    <?php include "sidebar.php"; ?>
+
     <div class="content-wrap">
         <div class="main">
             <div class="container-fluid">
-                <div class="row" id="header-row">
-                    <div class="title-page">
-                        <h1>Add Animal Bite Record</h1>
+                <div class="row">
+                    <div class="col-lg-8 p-r-0 title-margin-right">
+                        <div class="page-header">
+                            <div class="page-title">
+                                <a href="../services6.php">
+                                    <h7><i class="fa fa-long-arrow-left">&nbsp;&nbsp;</i> Back to Animal Bite Records</h7>
+                                </a>
+                                <h1>New Animal Bite Record</h1>
+                            </div>
+                        </div>
                     </div>
-                    <div class="bc-page">
-                        <ol class="bc">
-                            <li class="breadcrumb-item"><a href="../home.php">Dashboard</a></li>
-                            <li class="breadcrumb-item"><a href="../services6.php">Animal Bite Records</a></li>
-                            <li class="breadcrumb-item active">Add Record</li>
-                        </ol>
+                    <div class="col-lg-4 p-l-0 title-margin-left">
+                        <div class="page-header">
+                            <div class="page-title">
+                                <ol class="breadcrumb">
+                                    <li class="breadcrumb-item"><a href="../home.php">Dashboard</a></li>
+                                    <li class="breadcrumb-item active">Services</li>
+                                </ol>
+                            </div>
+                        </div>
                     </div>
                 </div>
 
                 <section id="main-content">
-                    <div class="row">
-                        <form method="POST" action="">
-                            <label for="resident_id">Resident Name:</label>
-                            <select id="resident_id" name="resident_id" class="resident-select" required>
-                                <option value="">Select a Resident</option>
-                                <?php
-                                    // Fetch all residents to populate the dropdown
-                                    $resident_query = "SELECT id, fname, mname, lname, suffix FROM residents";
-                                    $residents = mysqli_query($conn, $resident_query);
-                                    
-                                    while ($row = mysqli_fetch_assoc($residents)) {
-                                        $resident_fullname = $row['fname'] . ' ' . $row['mname'] . ' ' . $row['lname'] . ' ' . $row['suffix'];
-                                        echo "<option value='" . $row['id'] . "'>" . $resident_fullname . "</option>";
-                                    }
-                                ?>
-                            </select><br>
+                    <form action="add_animal_bite_record.php" method="post">
+                        <div class="row">
+                            <div class="sectioning">
+                                <br>
+                                <p>Please fill out all fields marked by asterisks (<span class="req">*</span>)</p>
+                                <hr>
+                                <table>
+                                    <tr>
+                                        <th><b>Resident Name<span class="req">*</span></b></th>
+                                    </tr>
+                                    <tr>
+                                        <th>
+                                            <label for="resident_name">Resident Name<span class="req">*</span></label><br>
+                                            <select name="resident_name" id="resident_name" required>
+                                                <option value="">Select Resident</option>
+                                                <?php
+                                                // Loop through the fetched data and populate the dropdown
+                                                while($row = mysqli_fetch_assoc($result)) {
+                                                    echo '<option value="' . $row['id'] . '">' . $row['fname'] . ' ' . $row['lname'] . '</option>';
+                                                }
+                                                ?>
+                                            </select>
+                                        </th>
+                                    </tr>
+                                    <tr>
+                                        <th><b>Bite Details</b></th>
+                                    </tr>
+                                    <tr>
+                                        <th>
+                                            <label for="bite_date">Bite Date<span class="req">*</span></label><br>
+                                            <input type="date" name="bite_date" id="bite_date" required>
+                                        </th>
+                                        <th>
+                                            <label for="treatment_date">Treatment Date<span class="req">*</span></label><br>
+                                            <input type="date" name="treatment_date" id="treatment_date" required>
+                                        </th>
+                                    </tr>
+                                    <tr>
+                                        <th>
+                                            <label for="bite_location">Bite Location<span class="req">*</span></label><br>
+                                            <input type="text" name="bite_location" id="bite_location" required>
+                                        </th>
+                                        <th>
+                                            <label for="treatment_center">Treatment Center<span class="req">*</span></label><br>
+                                            <input type="text" name="treatment_center" id="treatment_center" required>
+                                        </th>
+                                    </tr>
+                                    <tr>
+                                        <th>
+                                            <label for="remarks">Remarks</label><br>
+                                            <textarea name="remarks" id="remarks"></textarea>
+                                        </th>
+                                    </tr>
+                                </table>
+                                <br>
+                                <button type="submit" name="add_bite_record">Save</button>
+                                <br><br>
+                                <hr>
+                            </div>
+                        </div>
 
-                            <label for="bite_date">Bite Date:</label>
-                            <input type="date" name="bite_date" required><br>
+                        <style>
+                            body{
+                                overflow-x: hidden;
+                            }
+                            button[type="submit"] {
+                                padding: 10px 40px;
+                                border: none;
+                                box-shadow: 0px 0px 3px gray;
+                                color: white;
+                                background-color: rgb(92, 84, 243);
+                                border-radius: 10px;
+                                float: right;
+                                margin: 1%;
+                            }
 
-                            <label for="treatment_date">Treatment Date:</label>
-                            <input type="date" name="treatment_date"><br>
+                            textarea, input, select {
+                                border: none;
+                                box-shadow: 0px 0px 2px gray;
+                                border-radius: 10px;
+                                padding: 7px;
+                                width: 90%;
+                            }
 
-                            <label for="bite_location">Bite Location:</label>
-                            <input type="text" name="bite_location"><br>
+                            .req {
+                                color: red;
+                            }
 
-                            <label for="treatment_center">Treatment Center:</label>
-                            <input type="text" name="treatment_center"><br>
+                            table {
+                                width: 100%;
+                            }
 
-                            <label for="remarks">Remarks:</label>
-                            <textarea name="remarks"></textarea><br>
+                            th {
+                                padding: 10px;
+                            }
 
-                            <button type="submit">Add Record</button>
-                        </form>
-                    </div>
+                            .sectioning {
+                                padding: 20px;
+                                background-color: #f9f9fd;
+                                box-shadow: 0px 0px 2px gray;
+                                border-radius: 10px;
+                                width: 100%;
+                            }
+
+                            .row {
+                                position: relative;
+                            }
+                        </style>
+                    </form>
                 </section>
             </div>
         </div>
     </div>
 
-    <!-- Scripts for Select2 -->
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/select2/4.1.0-beta.1/js/select2.min.js"></script>
     <script>
-        $(document).ready(function() {
-            // Initialize Select2 on the resident dropdown
-            $('.resident-select').select2({
-                placeholder: "Select or search for a resident",
-                allowClear: true
-            });
-        });
+        function display_ct() {
+            var refresh = 1000; // Refresh rate in milliseconds
+            setTimeout(display_ct, refresh);
+            var x = new Date();
+            var options = { timeZone: 'Asia/Manila', hour12: true, hour: '2-digit', minute: '2-digit', second: '2-digit' };
+            var timeString = x.toLocaleTimeString('en-US', options);
+            var datePart = x.toLocaleDateString('en-US', { weekday: 'short', day: '2-digit', month: 'short', year: 'numeric' });
+            var x1 = datePart + ' - ' + timeString;
+            document.getElementById('ct').innerHTML = x1;
+        }
+        display_ct();
     </script>
+
+    <!-- jquery vendor -->
+    <script src="../js/lib/jquery.min.js"></script>
+    <script src="../js/lib/jquery.nanoscroller.min.js"></script>
+    <!-- nano scroller -->
+    <script src="../js/lib/menubar/sidebar.js"></script>
+    <script src="../js/lib/preloader/pace.min.js"></script>
+    <!-- sidebar -->
+    <script src="../js/lib/bootstrap.min.js"></script>
+    <script src="../js/scripts.js"></script>
+
 </body>
+
 </html>
