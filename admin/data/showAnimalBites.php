@@ -27,8 +27,11 @@ while ($row = mysqli_fetch_assoc($result)) {
     echo "<td>{$row['treatment_center']}</td>";
     echo "<td>{$row['remarks']}</td>";
     echo "<td>
-            <a href='edit_animal_bite.php?id={$row['id']}'>Edit</a> |
-            <a href='delete_animal_bite.php?id={$row['id']}'>Delete</a>
+            <select style='background-color:#1e80c1;color:white;border:none;padding:10px 20px;' onchange='location = this.value;'>
+                <option value='' selected hidden>Action</option>
+                <option value='edit_animal_bite.php?id={$row['id']}'>Edit</option>
+                <option value='delete_animal_bite.php?id={$row['id']}'>Delete</option>
+            </select>
           </td>";
     echo "</tr>";
 }
