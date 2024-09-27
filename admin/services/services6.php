@@ -22,6 +22,9 @@ $result = mysqli_query($conn, $query);
     <meta name="theme-name" content="focus" />
     <title>Add Animal Bite Record | CareVisio</title>
     <?php include "head.php"; ?>
+    <!-- Include Select2 CSS -->
+<link href="https://cdn.jsdelivr.net/npm/select2@4.1.0-rc.0/dist/css/select2.min.css" rel="stylesheet" />
+
 </head>
 
 <body onload="display_ct();">
@@ -68,8 +71,8 @@ $result = mysqli_query($conn, $query);
                                     </tr>
                                     <tr>
                                         <th>
-                                            <label for="resident_name">Resident Name<span class="req">*</span></label><br>
-                                            <select name="resident_name" id="resident_name" required>
+                                        <label for="resident_name">Resident Name<span class="req">*</span></label><br>
+                                            <select name="resident_name" id="resident_name" class="select2" required>
                                                 <option value="">Select Resident</option>
                                                 <?php
                                                 // Loop through the fetched data and populate the dropdown
@@ -78,6 +81,7 @@ $result = mysqli_query($conn, $query);
                                                 }
                                                 ?>
                                             </select>
+
                                         </th>
                                     </tr>
                                     <tr>
@@ -184,16 +188,25 @@ $result = mysqli_query($conn, $query);
         display_ct();
     </script>
 
-    <!-- jquery vendor -->
-    <script src="../js/lib/jquery.min.js"></script>
+ <!-- Initialize Select2 on the resident dropdown -->
+ <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/select2@4.1.0-rc.0/dist/js/select2.min.js"></script>
+    <script>
+        $(document).ready(function() {
+            // Initialize Select2
+            $('.select2').select2({
+                placeholder: "Select a resident",
+                allowClear: true
+            });
+        });
+    </script>
+
+    <!-- Additional scripts -->
     <script src="../js/lib/jquery.nanoscroller.min.js"></script>
-    <!-- nano scroller -->
     <script src="../js/lib/menubar/sidebar.js"></script>
     <script src="../js/lib/preloader/pace.min.js"></script>
-    <!-- sidebar -->
     <script src="../js/lib/bootstrap.min.js"></script>
     <script src="../js/scripts.js"></script>
-
 </body>
 
 </html>
