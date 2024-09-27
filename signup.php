@@ -290,7 +290,7 @@
 
     <div class="create-account-container">
       <div class="create-account-image">
-        <img src="images/manWithLaptop.jpg" alt="Working on a laptop" />
+        <img src="src/manWithLaptop.jpg" alt="Working on a laptop" />
       </div>
       <div class="create-account-form">
         <h2>Create Account</h2>

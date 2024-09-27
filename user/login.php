@@ -112,9 +112,9 @@
 
             <div id="main">
                 <div id="left">
-                    <a href="../index.php"><img src="../src/LOGO.svg"></a>
+                    <!-- <a href="../index.php"><img src="../src/LOGO.svg"></a> -->
                     <br>
-                    <img src="../src/login_img.avif" id="bhs">
+                    <img src="../src/v78_4.png" id="bhs">
                 </div>
                 <div id="right">
                     <div id="title">
