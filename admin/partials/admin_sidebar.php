@@ -3,7 +3,7 @@
         <div class="nano-content" style="text-align:justify;text-indent:15%; " style="background-color: white;">
             <ul>
                 <div class="logo"><a href="home.php">
-                        <img src="src/logo.png" style="width:80%;margin-left:-50%;" alt="" />
+                        <img src="src/logo.svg" style="width:80%;margin-left:-50%;" alt="" />
                     </a></div>
                 <li>
                     <a class="sidebar-sub-toggle" style="background-color: white;" onclick="window.location.href='home.php'">
