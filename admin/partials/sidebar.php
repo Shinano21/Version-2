@@ -28,6 +28,8 @@
                                     class="fa fa-heart-o" style="font-size:9px;"></i>Animal bite</a></li>
                         <li style="font-size:0.7rem;text-indent:2%;"><a href="services7.php"><i
                                     class="fa fa-heart-o" style="font-size:9px;"></i>Prenatal</a></li>
+                         <li style="font-size:0.7rem;text-indent:2%;"><a href="services8.php"><i
+                                    class="fa fa-heart-o" style="font-size:9px;"></i>Hypertension</a></li>
 
                                     
                     </ul>

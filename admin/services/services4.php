@@ -25,7 +25,7 @@ if (!isset($_SESSION["user"]) || $_SESSION["user_type"] == "System Administrator
 <body onload="display_ct();">
 
     <?php include "header.php"?>
-    <?php include "sidebar.php"?>
+    <?php include "../partials/sidebar.php"?>
 
     <div class="content-wrap">
         <div class="main">
