@@ -1,61 +1,52 @@
-
 <div class="header">
     <div class="container-fluid">
-        <div class="row">
-            <div class="col-lg-12" style="margin-right: 0;">
-                <div class="float-left">
-                    <div class="hamburger sidebar-toggle">
-                        <span class="line"></span>
-                        <span class="line"></span>
-                        <span class="line"></span>
-                    </div>
-                    <div id="ccc"
-                        style="position:relative;margin:1%;height:50px;position:absolute;top:0;left:5%;width:50%;">
-                        <img src="src/brgy.png" style="height:50px;">
-                        <b><span style="margin-left: 3px;margin-top: 8px;position: absolute;">Brgy. Bagumbayan Health
-                                Center</span></b><br>
-                        <span id="ct" style="margin-left: 67px;margin-top: -23px;position: absolute;"></span>
-                    </div>
-
-                </div>
-                <div class="float-right">
-
-                <?php
-                    if(isset($_SESSION["user_type"]) && $_SESSION["user_type"] !== "System Administrator") {
-                        echo "<div class='dropdown dib'>
-                            <div class='header-icon' data-toggle='dropdown'>
-                                <a href='#' onclick='redirectToHead()' style='text-decoration: none; color: inherit;font-size:28px;'><i class='ti-comments'></i></a>
+        <div class="row align-items-center">
+            <div class="col-lg-12">
+                <div class="d-flex justify-content-between">
+                    <div class="d-flex align-items-center">
+                        <div class="hamburger sidebar-toggle">
+                            <span class="line"></span>
+                            <span class="line"></span>
+                            <span class="line"></span>
+                        </div>
+                        <div id="ccc" style="display: flex; align-items: center; margin-left: 20px;">
+                            <img src="src/brgy.png" style="height:50px;">
+                            <div style="margin-left: 10px;">
+                                <b>Brgy. Bagumbayan Health Center</b>
+                                <span id="ct" style="display: block; font-size: 12px;">Date/Time here</span>
                             </div>
-                        </div>";
-                    }
-                ?>
-                <script>
-                    function redirectToHead() {
-                        window.location.href = 'chat.php';
-                    }
-                </script>
-
-                    <div class="dropdown dib">
+                        </div>
+                    </div>
+                    <div class="user-info">
+                        <?php
+                            if(isset($_SESSION["user_type"]) && $_SESSION["user_type"] !== "System Administrator") {
+                                echo "<div class='dropdown dib'>
+                                        <div class='header-icon' data-toggle='dropdown'>
+                                            <a href='chat.php' style='text-decoration: none; color: inherit;font-size:28px;'><i class='ti-comments'></i></a>
+                                        </div>
+                                      </div>";
+                            }
+                        ?>
+                        <div class="dropdown dib">
                             <div class="header-icon" data-toggle="dropdown">
                                 <span class="user-avatar">
-                                    <b2><?php echo $_SESSION["firstname"] . " " .$_SESSION["midname"]. " " . $_SESSION["lastname"] ?></b2>
+                                    <b><?php echo $_SESSION["firstname"] . " " . $_SESSION["midname"] . " " . $_SESSION["lastname"]; ?></b>
                                     <i class="ti-angle-down f-s-10"></i>
-                                    <b2 style="color: gray;cursor:text;display:block">
-                                    <?php echo $_SESSION["user_type"] ?>
-                                </b2>
+                                    <span style="color: gray;cursor:text;display:block">
+                                        <?php echo $_SESSION["user_type"]; ?>
+                                    </span>
                                 </span>
                                 <div class="drop-down dropdown-profile dropdown-menu dropdown-menu-right">
-
                                     <div class="dropdown-content-body">
                                         <ul>
                                             <li>
-                                                <a href="#" onclick=" window.location.href='edit_admin_profile.php';">
+                                                <a href="edit_admin_profile.php">
                                                     <i class="ti-user"></i>
                                                     <span>Edit Profile</span>
                                                 </a>
                                             </li>
                                             <li>
-                                                <a href="logout.php" onclick=" window.location.href='logout.php';">
+                                                <a href="logout.php">
                                                     <i class="ti-power-off"></i>
                                                     <span>Logout</span>
                                                 </a>
@@ -65,9 +56,9 @@
                                 </div>
                             </div>
                         </div>
+                    </div>
                 </div>
             </div>
         </div>
     </div>
 </div>
-
