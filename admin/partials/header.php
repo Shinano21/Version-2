@@ -2,18 +2,19 @@
     <div class="container-fluid">
         <div class="row align-items-center">
             <div class="col-lg-12">
-                <div class="d-flex justify-content-between">
+                <div class="d-flex justify-content-between align-items-center">
                     <div class="d-flex align-items-center">
-                        <div class="hamburger sidebar-toggle">
+                        <!-- Fix hamburger alignment -->
+                        <div class="hamburger sidebar-toggle d-flex align-items-center" style="margin-right: 10px;">
                             <span class="line"></span>
                             <span class="line"></span>
                             <span class="line"></span>
                         </div>
-                        <div id="ccc" style="display: flex; align-items: center; margin-left: 20px;">
+                        <div id="ccc" class="d-flex align-items-center" style="margin-left: 20px;">
                             <img src="src/brgy.png" style="height:50px;">
                             <div style="margin-left: 10px;">
                                 <b>Brgy. Bagumbayan Health Center</b>
-                                <span id="ct" style="display: block; font-size: 12px;">Date/Time here</span>
+                                <span id="ct" style="display: block; font-size: 12px; color: gray;">Mon, Sep 30, 2024 - 09:01:01 PM</span>
                             </div>
                         </div>
                     </div>
@@ -32,7 +33,7 @@
                                 <span class="user-avatar">
                                     <b><?php echo $_SESSION["firstname"] . " " . $_SESSION["midname"] . " " . $_SESSION["lastname"]; ?></b>
                                     <i class="ti-angle-down f-s-10"></i>
-                                    <span style="color: gray;cursor:text;display:block">
+                                    <span style="color: gray; cursor:text; display:block">
                                         <?php echo $_SESSION["user_type"]; ?>
                                     </span>
                                 </span>
@@ -62,3 +63,37 @@
         </div>
     </div>
 </div>
+
+<style>
+   /* Adjust hamburger menu alignment */
+.hamburger {
+    display: flex;
+    align-items: center;
+    height: 50px; /* Same as logo height */
+    cursor: pointer;
+}
+
+.hamburger .line {
+    width: 25px;
+    height: 2px;
+    background-color: #333;
+    margin: 5px 0;
+}
+
+/* Align logo and text */
+#ccc img {
+    vertical-align: middle;
+}
+
+#ccc b {
+    font-size: 16px;
+    margin-left: 10px;
+}
+
+/* Align text and user section */
+.user-avatar b {
+    font-size: 16px;
+    margin-right: 5px;
+}
+
+</style>
