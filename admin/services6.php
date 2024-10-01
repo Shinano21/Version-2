@@ -93,11 +93,12 @@ if (!isset($_SESSION["user"]) || $_SESSION["user_type"] == "System Administrator
                         <table id="residentTable" class="tableResidents">
                             <thead class="head">
                                 <tr>
-                                    <th class="names" style="padding-left: 10px;">Full Name</th>
+                                    <th class="names" style="display: flex; justify-content:center">Full Name</th>
                                     <th>Age</th>
                                     <th>Bite Date</th>
-                                    <th>Site</th>
-                                    <th>Date of Birth</th>
+                                    <th>Bite Location</th>
+                                    <th>Treatment Center</th>
+                                    <th>Remarks</th>
                                     <th class="lastCol">Action</th>
                                 </tr>
                             </thead>
