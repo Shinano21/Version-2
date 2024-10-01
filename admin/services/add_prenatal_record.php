@@ -1,17 +1,21 @@
 <?php
 session_start();
-include "../dbcon.php"; // Database connection
+include "../dbcon.php";  // Database connection
 
-// Check if the user is logged in and not a System Administrator
-if (!isset($_SESSION["user"]) || $_SESSION["user_type"] == "System Administrator") {
+// Check if the user is logged in and is not a System Administrator
+if (!isset($_SESSION["user"])) {
     header("Location: index.php");
+    exit();
+} elseif ($_SESSION["user_type"] == "System Administrator") {
+    // Redirect System Administrators away from this page
+    header("Location: ../admin_dashboard.php");
     exit();
 }
 
-// Check if the form is submitted
-if ($_SERVER["REQUEST_METHOD"] == "POST") {
-    // Sanitize and retrieve form data
-    $resident_id = mysqli_real_escape_string($conn, $_POST['resident_id']);
+// Check if the form has been submitted
+if (isset($_POST['add_prenatal_record'])) {
+    // Retrieve and sanitize the form data
+    $resident_id = mysqli_real_escape_string($conn, $_POST['resident_name']);
     $checkup_date = mysqli_real_escape_string($conn, $_POST['checkup_date']);
     $gestational_age = mysqli_real_escape_string($conn, $_POST['gestational_age']);
     $blood_pressure = mysqli_real_escape_string($conn, $_POST['blood_pressure']);
@@ -19,29 +23,31 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
     $fetal_heartbeat = mysqli_real_escape_string($conn, $_POST['fetal_heartbeat']);
     $remarks = mysqli_real_escape_string($conn, $_POST['remarks']);
 
-    // Validate required fields
-    if (!empty($resident_id) && !empty($checkup_date)) {
-        // Prepare and execute SQL query to insert the new record
-        $query = "INSERT INTO prenatal (resident_id, checkup_date, gestational_age, blood_pressure, weight, fetal_heartbeat, remarks) 
-                  VALUES ('$resident_id', '$checkup_date', '$gestational_age', '$blood_pressure', '$weight', '$fetal_heartbeat', '$remarks')";
-
-        if (mysqli_query($conn, $query)) {
-            // Redirect to prenatal records page after successful insertion
-            $_SESSION['message'] = "Prenatal record added successfully!";
-            header("Location: ../prenatal_records.php");
-            exit();
-        } else {
-            // Handle SQL error
-            echo "Error: " . $query . "<br>" . mysqli_error($conn);
-        }
-    } else {
-        // Handle missing required fields
-        $_SESSION['error'] = "Please fill in all the required fields.";
-        header("Location: ../services7.php");
+    // Validation: Ensure required fields are filled
+    if (empty($resident_id) || empty($checkup_date)) {
+        $_SESSION['error'] = "Please fill out all required fields.";
+        header("Location: ../services/services7.php"); // Redirect back to the form
         exit();
     }
-}
 
-// Close the database connection
-mysqli_close($conn);
+    // Insert the prenatal record into the database
+    $sql = "INSERT INTO prenatal (resident_id, checkup_date, gestational_age, blood_pressure, weight, fetal_heartbeat, remarks)
+            VALUES ('$resident_id', '$checkup_date', '$gestational_age', '$blood_pressure', '$weight', '$fetal_heartbeat', '$remarks')";
+
+    if (mysqli_query($conn, $sql)) {
+        // Success: Record successfully inserted
+        $_SESSION['success'] = "Prenatal record added successfully.";
+        header("Location: ../services7.php");  // Redirect to the prenatal records list
+        exit();
+    } else {
+        // Error during insertion
+        $_SESSION['error'] = "Error adding prenatal record: " . mysqli_error($conn);
+        header("Location: ../services/services7.php"); // Redirect back to the form
+        exit();
+    }
+} else {
+    // If accessed directly without form submission, redirect back to the form
+    header("Location: ../services/services7.php");
+    exit();
+}
 ?>

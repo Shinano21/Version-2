@@ -26,7 +26,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
         if (mysqli_query($conn, $query)) {
             // Redirect to the hypertension records page after successful insertion
             $_SESSION['message'] = "Hypertension Record added successfully!";
-            header("Location: ../services_hypertension.php");
+            header("Location: ../services8.php");
             exit();
         } else {
             // Handle SQL error
