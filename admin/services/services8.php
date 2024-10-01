@@ -1,6 +1,6 @@
 <?php
 session_start();
-include "dbcon.php";
+include "../dbcon.php";
 
 // Redirect if user is not logged in or user type is System Administrator
 if (!isset($_SESSION["user"]) || $_SESSION["user_type"] == "System Administrator") {
@@ -42,7 +42,7 @@ $result = mysqli_query($conn, $query);
 
                 <section id="main-content">
                     <div class="form-container">
-                        <form action="addHypertension.php" method="POST">
+                        <form action="add_hypertension.php" method="POST">
                             <div class="form-group">
                                 <label for="resident_name">Resident Name:<span class="req">*</span></label>
                                 <select name="resident_id" id="resident_name" required>
@@ -76,25 +76,7 @@ $result = mysqli_query($conn, $query);
                         </form>
                     </div>
 
-                    <!-- Displaying Records -->
-                    <div class="record-display">
-                        <h2>Hypertension Records</h2>
-                        <table class="table-records">
-                            <thead>
-                                <tr>
-                                    <th>Resident Name</th>
-                                    <th>Checkup Date</th>
-                                    <th>Medicine Type</th>
-                                    <th>Blood Pressure</th>
-                                    <th>Remarks</th>
-                                    <th>Action</th>
-                                </tr>
-                            </thead>
-                            <tbody>
-                                <?php include "data/showHypertension.php"; ?> <!-- Fetch and display hypertension records -->
-                            </tbody>
-                        </table>
-                    </div>
+                   
                 </section>
             </div>
         </div>
