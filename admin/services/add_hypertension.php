@@ -35,7 +35,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
     } else {
         // Handle missing required fields
         $_SESSION['error'] = "Please fill in all the required fields.";
-        header("Location: services_hypertension.php");
+        header("Location: ../services8.php");
         exit();
     }
 }
