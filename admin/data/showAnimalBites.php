@@ -30,7 +30,7 @@ while ($row = mysqli_fetch_assoc($result)) {
             <select style='background-color:#1e80c1;color:white;border:none;padding:10px 20px;' onchange='location = this.value;'>
                 <option value='' selected hidden>Action</option>
                 <option value='edit_animal_bite.php?id={$row['id']}'>Edit</option>
-                <option value='delete_animal_bite.php?id={$row['id']}'>Delete</option>
+                <option value='view/delete_animal_bite.php?id={$row['id']}'>Delete</option>
             </select>
           </td>";
     echo "</tr>";

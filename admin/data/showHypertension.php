@@ -21,7 +21,7 @@ if ($result->num_rows > 0) {
         echo "<td>" . $row['blood_pressure'] . "</td>";
         echo "<td>" . $row['remarks_type'] . "</td>";
         echo "<td><a href='editHypertension.php?id=" . $row['hypertension_id'] . "' class='edit-btn'>Edit</a> | 
-                     <a href='deleteHypertension.php?id=" . $row['hypertension_id'] . "' class='delete-btn'>Delete</a></td>";
+                     <a href='view/deleteHypertension.php?id=" . $row['hypertension_id'] . "' class='delete-btn'>Delete</a></td>";
         echo "</tr>";
     }
 } else {

@@ -20,7 +20,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
     // Validate required fields
     if (!empty($resident_id) && !empty($checkup_date) && !empty($blood_pressure)) {
         // Prepare and execute SQL query to insert the new record
-        $query = "INSERT INTO hypertension_records (resident_id, checkup_date, medicine_type, blood_pressure, remarks_type) 
+        $query = "INSERT INTO hypertension (resident_id, checkup_date, medicine_type, blood_pressure, remarks_type) 
                   VALUES ('$resident_id', '$checkup_date', '$medicine_type', '$blood_pressure', '$remarks_type')";
 
         if (mysqli_query($conn, $query)) {
