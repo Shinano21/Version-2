@@ -8,28 +8,25 @@
     <link rel="stylesheet" href="css/home.css">
     <link rel="stylesheet" href="css/global.css">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css">
-
     <link rel="shortcut icon" href="src/favicon.png" type="image/x-icon">
 </head>
 
 <body>
-     <!-- Navbar -->
-    <?php include 'navbar.php' ?>
-    <?php include "user/data/home.php" ?>
+    <!-- Navbar -->
+    <?php include 'navbar.php'; ?>
+    <?php include "user/data/home.php"; ?>
 
-    <!-- Header -->
-    <div class="main">
-        <script>
-        let bg_img = document.querySelector('.main');
-        <?php
-            if (isset($bgImg) && $bgImg !== null) {
-                $imageType = strpos($bgImg, '/png') !== false ? 'png' : 'jpeg';
-                echo "bg_img.style.backgroundImage = 'url(\'data:image/{$imageType};base64," . base64_encode($bgImg) . "\')';";
-            } else {
-                echo "// Handle case when no image is available";
-            }
-        ?>
-        </script>
+<!-- Header -->
+<div class="main" id="mainHeader" style="
+    background-image: url('<?php
+        // Adjusting the path for the background image
+        if (isset($bgImg) && !empty($bgImg)) {
+            echo 'http://localhost/Version-2/admin/cms/' . $bgImg; // Update the path to match your directory structure
+        } else {
+            echo 'default-image.png'; // Use a default image if no image is found
+        }
+    ?>'); background-size: cover; background-position: center; background-repeat: no-repeat;">
+
 
         <div class="contentbg">
             <div class="content">
@@ -71,16 +68,17 @@
 
     <!-- About Us -->
     <div class="abtUs">
-        <div class="abtImg">
-            <?php
-            if (isset($sectionPic) && $sectionPic !== null) {
-                $imageType = strpos($sectionPic, '/png') !== false ? 'png' : 'jpeg';
-                echo "<img src='data:image/{$imageType};base64," . base64_encode($sectionPic) . "' />";
-            } else {
-                echo "<p>No image available</p>";
-            }
-            ?>
-        </div>
+    <div class="abtImg">
+        <?php
+        if (isset($sectionPic) && $sectionPic !== null) {
+            // Update the path to use the correct directory structure
+            $imageType = strpos($sectionPic, '/png') !== false ? 'png' : 'jpeg';
+            echo "<img src='http://localhost/Version-2/admin/cms/{$sectionPic}' style='max-width: 100%; height: auto;' />";
+        } else {
+            echo "<p>No image available</p>";
+        }
+        ?>
+    </div>
 
         <div class="abtDetails">
             <h2>About us</h2>

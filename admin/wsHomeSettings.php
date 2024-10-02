@@ -7,6 +7,23 @@ if (!isset($_SESSION["user"]) || $_SESSION["user_type"] == "System Administrator
     exit();
 }
 ?>
+<?php
+// Define variables with default empty values
+$centerName = '';
+$address = '';
+$email = '';
+$contact = '';
+$openHours = '';
+$shortDesc = '';
+$mission = '';
+$vision = '';
+$goal = '';
+$chairman = '';
+$chairmanComm = '';
+$contactMess = '';
+$officeHrs = '';
+?>
+
 <!DOCTYPE html>
 <html lang="en">
 
@@ -227,7 +244,18 @@ if (!isset($_SESSION["user"]) || $_SESSION["user_type"] == "System Administrator
         console.log(document.getElementById(tabName));
     }
     </script>
-    <script src="js/preview.js"></script>
+    <script>
+        document.getElementById('imageInput').onchange = function (event) {
+    const [file] = event.target.files;
+    if (file) {
+        const preview = document.getElementById('preview');
+        preview.src = URL.createObjectURL(file);
+        preview.style.display = 'block'; // Show the preview image
+    }
+};
+
+    </script>
+    <!-- <script src="js/preview.js"></script> -->
 </body>
 
 </html>
