@@ -1,19 +1,33 @@
 <?php
 include "../dbcon.php";
-$idx = $_GET["id"];
-$sql = "DELETE FROM immunization WHERE id = '$idx'";
-mysqli_query($conn, $sql);
-$sql = "DELETE FROM immunization_1 WHERE immu_id = '$idx'";
-mysqli_query($conn, $sql);
-$sql = "DELETE FROM immunization_2 WHERE immu_id = '$idx'";
-mysqli_query($conn, $sql);
-$sql = "DELETE FROM immunization_3 WHERE immu_id = '$idx'";
-mysqli_query($conn, $sql);
-$sql = "DELETE FROM immunization_4 WHERE immu_id = '$idx'";
-mysqli_query($conn, $sql);
-$sql = "DELETE FROM immunization_5 WHERE immu_id = '$idx'";
-mysqli_query($conn, $sql);
 
-header("Location: ../services1.php?deleted=success");
+// Check if the id is set in the query string
+if (isset($_GET["id"])) {
+    $idx = $_GET["id"];
 
+    // Prepare and execute the DELETE query for the main table (immunization)
+    $stmt = $conn->prepare("DELETE FROM immunization WHERE id = ?");
+    $stmt->bind_param("i", $idx); // Bind the id as an integer
+    $stmt->execute();
+    $stmt->close();
+
+    // Prepare and execute the DELETE queries for the related tables
+    $relatedTables = ['immunization_1', 'immunization_2', 'immunization_3', 'immunization_4', 'immunization_5'];
+
+    foreach ($relatedTables as $table) {
+        $stmt = $conn->prepare("DELETE FROM $table WHERE immu_id = ?");
+        $stmt->bind_param("i", $idx); // Bind the id as an integer
+        $stmt->execute();
+        $stmt->close();
+    }
+
+    // Redirect after successful deletion
+    header("Location: ../services1.php?deleted=success");
+} else {
+    // Handle case when id is not set
+    header("Location: ../services1.php?deleted=error");
+}
+
+// Close the database connection
+$conn->close();
 ?>
