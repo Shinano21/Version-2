@@ -8,14 +8,14 @@ if (!isset($_SESSION["user"]) || $_SESSION["user_type"] == "System Administrator
     exit();
 }
 
-// Get the prenatal record ID from the query string
+// Get the hypertension record ID from the query string
 if (isset($_GET['id'])) {
-    $prenatal_id = $_GET['id'];
+    $hypertension_id = $_GET['id'];
 
-    // Fetch the existing prenatal record based on ID
-    $query = "SELECT * FROM prenatal WHERE prenatal_id = ?";
+    // Fetch the existing hypertension record based on ID
+    $query = "SELECT * FROM hypertension WHERE hypertension_id = ?";
     $stmt = $conn->prepare($query);
-    $stmt->bind_param("i", $prenatal_id);
+    $stmt->bind_param("i", $hypertension_id);
     $stmt->execute();
     $result = $stmt->get_result();
 
@@ -39,19 +39,17 @@ if (isset($_GET['id'])) {
 if ($_SERVER['REQUEST_METHOD'] == 'POST') {
     $resident_id = $_POST['resident_id'];
     $checkup_date = $_POST['checkup_date'];
-    $gestational_age = $_POST['gestational_age'];
+    $medicine_type = $_POST['medicine_type'];
     $blood_pressure = $_POST['blood_pressure'];
-    $weight = $_POST['weight'];
-    $fetal_heartbeat = $_POST['fetal_heartbeat'];
-    $remarks = $_POST['remarks'];
+    $remarks_type = $_POST['remarks_type'];
 
-    // Update the prenatal record
-    $update_query = "UPDATE prenatal SET resident_id = ?, checkup_date = ?, gestational_age = ?, blood_pressure = ?, weight = ?, fetal_heartbeat = ?, remarks = ? WHERE prenatal_id = ?";
+    // Update the hypertension record
+    $update_query = "UPDATE hypertension SET resident_id = ?, checkup_date = ?, medicine_type = ?, blood_pressure = ?, remarks_type = ? WHERE hypertension_id = ?";
     $update_stmt = $conn->prepare($update_query);
-    $update_stmt->bind_param("isissdsi", $resident_id, $checkup_date, $gestational_age, $blood_pressure, $weight, $fetal_heartbeat, $remarks, $prenatal_id);
+    $update_stmt->bind_param("issssi", $resident_id, $checkup_date, $medicine_type, $blood_pressure, $remarks_type, $hypertension_id);
 
     if ($update_stmt->execute()) {
-        header("Location: ../services7.php"); // Redirect after update
+        header("Location: ../services8.php"); // Redirect after update
         exit();
     } else {
         echo "Error updating record: " . $conn->error;
@@ -66,7 +64,7 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <meta name="theme-name" content="focus" />
-    <title>Update Prenatal Record | CareVisio</title>
+    <title>Update Hypertension Record | CareVisio</title>
     <?php include "head.php"; ?>
 </head>
 
@@ -79,8 +77,8 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
             <div class="container-fluid">
                 <div class="row" id="header-row">
                     <div class="title-page">
-                        <h1>Prenatal Record</h1>
-                        <h6>Update Prenatal Record</h6>
+                        <h1>Hypertension Record</h1>
+                        <h6>Update Hypertension Record</h6>
                     </div>
                 </div>
 
@@ -104,24 +102,16 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
                                 <input type="date" id="checkup_date" name="checkup_date" value="<?php echo $row['checkup_date']; ?>" required>
                             </div>
                             <div class="form-group">
-                                <label for="gestational_age">Gestational Age (in weeks):</label>
-                                <input type="number" id="gestational_age" name="gestational_age" value="<?php echo $row['gestational_age']; ?>">
+                                <label for="medicine_type">Medicine Type:</label>
+                                <input type="text" id="medicine_type" name="medicine_type" value="<?php echo $row['medicine_type']; ?>">
                             </div>
                             <div class="form-group">
                                 <label for="blood_pressure">Blood Pressure:<span class="req">*</span></label>
                                 <input type="text" id="blood_pressure" name="blood_pressure" value="<?php echo $row['blood_pressure']; ?>" required>
                             </div>
                             <div class="form-group">
-                                <label for="weight">Weight (in kg):</label>
-                                <input type="number" step="0.01" id="weight" name="weight" value="<?php echo $row['weight']; ?>">
-                            </div>
-                            <div class="form-group">
-                                <label for="fetal_heartbeat">Fetal Heartbeat (bpm):</label>
-                                <input type="text" id="fetal_heartbeat" name="fetal_heartbeat" value="<?php echo $row['fetal_heartbeat']; ?>">
-                            </div>
-                            <div class="form-group">
-                                <label for="remarks">Remarks:</label>
-                                <textarea id="remarks" name="remarks"><?php echo $row['remarks']; ?></textarea>
+                                <label for="remarks_type">Remarks:</label>
+                                <textarea id="remarks_type" name="remarks_type"><?php echo $row['remarks_type']; ?></textarea>
                             </div>
                             <div class="form-group">
                                 <button type="submit" class="submit-btn">Update Record</button>

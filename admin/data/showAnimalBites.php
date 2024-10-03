@@ -27,11 +27,13 @@ while ($row = mysqli_fetch_assoc($result)) {
     echo "<td>{$row['treatment_center']}</td>";
     echo "<td>{$row['remarks']}</td>";
     echo "<td style='display: flex; justify-content:center;'>
-            <select style='background-color:#1e80c1;color:white;border:none;padding:10px 20px;' onchange='location = this.value;'>
-                <option value='' selected hidden>Action</option>
-                <option value='edit_animal_bite.php?id={$row['id']}'>Edit</option>
-                <option value='view/delete_animal_bite.php?id={$row['id']}'>Delete</option>
-            </select>
+           <select style='background-color:#1e80c1;color:white;border:none;padding:10px 20px;' onchange='location = this.value;'>
+    <option value='' selected hidden>Action</option>
+    <option value='view_animal_bite.php?id={$row['id']}'>View</option>
+    <option value='view/services6.php?id={$row['id']}'>Update</option>
+    <option value='view/delete_animal_bite.php?id={$row['id']}'>Delete</option>
+</select>
+
           </td>";
     echo "</tr>";
 }

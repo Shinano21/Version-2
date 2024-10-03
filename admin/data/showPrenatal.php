@@ -58,7 +58,7 @@ if (mysqli_num_rows($result) > 0) {
                 <select style='background-color:#006BDD;color:white;border:none;padding:10px 20px;' onchange='location = this.value;'>
                     <option value='' selected hidden>Action</option>
                     <option value='view/view_prenatal.php?view=" . $row['prenatal_id'] . "'>View</option>
-                    <option value='view/update_prenatal.php?id=" . $row['prenatal_id'] . "'>Update</option>
+                    <option value='view/services7.php?id=" . $row['prenatal_id'] . "'>Update</option>
                     <option value='view/delete_prenatal.php?id=" . $row['prenatal_id'] . "'>Delete</option>
                 </select>
               </td>";
