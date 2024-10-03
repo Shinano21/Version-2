@@ -1,3 +1,5 @@
+
+
 <!DOCTYPE html>
 <html lang="en">
 
@@ -49,7 +51,7 @@
                     <button><a href="aboutUs.php">Learn More <i class="fas fa-arrow-right" id="i"></i></a></button>
                 </div>
 
-                <div class="brgy">
+                <!-- <div class="brgy">
                     <?php
                     if (isset($logoPic) && $logoPic !== null) {
                         $imageType = strpos($logoPic, '/png') !== false ? 'png' : 'jpeg';
@@ -58,7 +60,7 @@
                         echo "<p>No image available</p>";
                     }
                     ?>
-                </div>
+                </div> -->
             </div>
         </div>
     </div>
@@ -100,35 +102,37 @@
             </div>
 
             <div class="per">
-                <div class="per1">
+            <div class="per1" style="display: flex; align-items: center;">
                     <?php
                     if (isset($chairmanPic) && $chairmanPic !== null) {
-                        $imageType = strpos($chairmanPic, '/png') !== false ? 'png' : 'jpeg';
-                        echo "<img src='data:image/{$imageType};base64," . base64_encode($chairmanPic) . "' />";
+                        // Update the path to use the correct directory structure
+                        echo "<img src='http://localhost/Version-2/admin/cms/{$chairmanPic}' style='width: 150px; height: 150px; object-fit: contain;' />";
                     } else {
                         echo "<p>No image available</p>";
                     }
                     ?>
-                    <div class="perText">
+                    <div class="perText" style="margin-left: 20px;">
                         <p class="title">Chairman</p>
-                        <p class="name"><?php echo isset($chairman) ? $chairman : "Name unavailable"; ?></p>
+                        <p class="name"><?php echo isset($chairman) ? $chairman : 'Name unavailable'; ?></p>
                     </div>
                 </div>
 
-                <div class="per2">
+
+                <div class="per2" style="display: flex; align-items: center;">
                     <?php
                     if (isset($chairmanCommPic) && $chairmanCommPic !== null) {
-                        $imageType = strpos($chairmanCommPic, '/png') !== false ? 'png' : 'jpeg';
-                        echo "<img src='data:image/{$imageType};base64," . base64_encode($chairmanCommPic) . "' />";
+                        // Update the path to use the correct directory structure
+                        echo "<img src='http://localhost/Version-2/admin/cms/{$chairmanCommPic}' style='width: 150px; height: 150px; object-fit: contain;' />";
                     } else {
                         echo "<p>No image available</p>";
                     }
                     ?>
-                    <div class="perText">
+                    <div class="perText" style="margin-left: 20px;">
                         <p class="title">Chairman Committee on Health</p>
-                        <p class="name"><?php echo isset($chairmanComm) ? $chairmanComm : "Name unavailable"; ?></p>
+                        <p class="name"><?php echo isset($chairmanComm) ? $chairmanComm : 'Name unavailable'; ?></p>
                     </div>
                 </div>
+
             </div>
         </div>
     </div>

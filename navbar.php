@@ -148,16 +148,18 @@
 <header class="nav">
     <?php include "user/data/logo.php" ?>
     <div class="nav-container">
-        <a class="logo" href="index.php">
-            <?php
-        if ($navbarLogo !== null) {
-            $imageType = strpos($navbarLogo, '/png') !== false ? 'png' : 'jpeg';
-            echo "<img src='data:image/{$imageType};base64," . base64_encode($navbarLogo). "' />";
-        } else {
-            echo "No image available";
-        }
-        ?>
-        </a>
+    <a class="logo" href="index.php">
+    <?php
+    // Assuming $navbarLogo stores the logo file name (like "logo.png")
+    if (!empty($navbarLogo)) {
+        echo "<img src='/Version-2/admin/uploads/{$navbarLogo}' alt='Logo' />";
+    } else {
+        echo "No image available";
+    }
+    ?>
+</a>
+
+
         <div class="nav-links">
             <a href="index.php"
                 <?php if(strpos($_SERVER['REQUEST_URI'], 'index.php') !== false) echo 'class="active"'; ?>>HOME</a>
