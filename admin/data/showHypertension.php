@@ -22,18 +22,15 @@ if ($result->num_rows > 0) {
         echo "<td>" . $row['remarks_type'] . "</td>";
         echo "<td>
                 <select onchange='window.location.href=this.value'>
-    <option value=''>Select Action</option>
-    <option value='view/view_services8.php?view=" . $row['hypertension_id'] . "'>View</option>
-    <option value='view/services8.php?id=" . $row['hypertension_id'] . "'>Update</option>
-    <option value='view/delete_services8.php?id=" . $row['hypertension_id'] . "'>Delete</option>
-</select>
-
+                    <option value=''>Select Action</option>
+                    <option value='view/view_services8.php?id=" . $row['hypertension_id'] . "'>View</option>
+                    <option value='view/services8.php?id=" . $row['hypertension_id'] . "'>Update</option>
+                    <option value='view/delete_services8.php?id=" . $row['hypertension_id'] . "'>Delete</option>
+                </select>
               </td>";
         echo "</tr>";
     }
-}
-
- else {
+} else {
     echo "<tr><td colspan='6'>No records found</td></tr>";
 }
 
