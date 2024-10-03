@@ -7,6 +7,10 @@ if (!isset($_SESSION["user"]) || $_SESSION["user_type"] == "System Administrator
     exit();
 }
 ?>
+<?php
+$navbarLogo = null; // Define a default value for $navbarLogo
+?>
+
 <!DOCTYPE html>
 <html lang="en">
 
@@ -94,9 +98,16 @@ if (!isset($_SESSION["user"]) || $_SESSION["user_type"] == "System Administrator
                                     <label for="imageInput">Barangay Health Center Logo:</label>
                                     <input type="file" id="imageInput" name="center_logo" accept="image/*" required>
                                     <div class="preview">
-                                        <img id="preview" src="#" alt="Preview"
-                                            style="display:none; max-width:250px; max-height:250px;">
-                                    </div>
+    <?php
+    if (isset($navbarLogo) && $navbarLogo !== null) {
+        $imageType = strpos($navbarLogo, '/png') !== false ? 'png' : 'jpeg';
+        echo "<img id='preview' src='data:image/{$imageType};base64," . base64_encode($navbarLogo) . "' alt='Preview' style='max-width:250px; max-height:250px;'>";
+    } else {
+        echo "<img id='preview' src='#' alt='Preview' style='display:none; max-width:250px; max-height:250px;'>";
+    }
+    ?>
+</div>
+
                                 </div>
                                 <div style="width: 100%; display: flex; justify-content: end; align-items: end;">
                                     <button type="submit" name="submit">Save</button>
