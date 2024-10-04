@@ -100,11 +100,11 @@ $result = mysqli_query($conn, $query);
                                     <tr>
                                         <th>
                                             <label for="bite_location">Bite Location<span class="req">*</span></label><br>
-                                            <input type="text" name="bite_location" id="bite_location" required>
+                                            <input type="text" name="bite_location" id="bite_location" placeholder="ex: index finger" required>
                                         </th>
                                         <th>
                                             <label for="treatment_center">Treatment Center<span class="req">*</span></label><br>
-                                            <input type="text" name="treatment_center" id="treatment_center" required>
+                                            <input type="text" name="treatment_center" id="treatment_center" placeholder="ex: Rabaxx Animal treatment center" required>
                                         </th>
                                     </tr>
                                     <tr>
