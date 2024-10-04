@@ -29,17 +29,17 @@ $result = mysqli_query($conn, $sql);
 // Check if there are results
 if (mysqli_num_rows($result) > 0) {
     $even = 0; // To alternate row colors
-    echo '<table>';
-    echo '<tr>
-            <th>Name</th>
-            <th>Checkup Date</th>
-            <th>Gestational Age</th>
-            <th>Blood Pressure</th>
-            <th>Weight</th>
-            <th>Fetal Heartbeat</th>
-            <th>Remarks</th>
-            <th>Actions</th>
-          </tr>';
+    // echo '<table>';
+    // echo '<tr>
+    //         <th>Name</th>
+    //         <th>Checkup Date</th>
+    //         <th>Gestational Age</th>
+    //         <th>Blood Pressure</th>
+    //         <th>Weight</th>
+    //         <th>Fetal Heartbeat</th>
+    //         <th>Remarks</th>
+    //         <th>Actions</th>
+    //       </tr>';
 
     while ($row = mysqli_fetch_assoc($result)) {
         echo "<tr ";

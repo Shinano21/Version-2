@@ -121,11 +121,26 @@ if (!isset($_SESSION["user"]) || $_SESSION["user_type"] == "System Administrator
     </div>
 </div>
 
-<!-- The same JavaScript as in the previous code -->
 <script>
-// JavaScript functions for filtering, search, pagination, etc. 
-// Can be copied from the previous code for anti-pneumonia vaccination records
-</script>
+        function display_ct() {
+            var refresh = 1000; // Refresh rate in milliseconds
+            setTimeout(display_ct, refresh);
+            var x = new Date();
+            var options = { timeZone: 'Asia/Manila', hour12: true, hour: '2-digit', minute: '2-digit', second: '2-digit' };
+            var timeString = x.toLocaleTimeString('en-US', options);
+            var datePart = x.toLocaleDateString('en-US', { weekday: 'short', day: '2-digit', month: 'short', year: 'numeric' });
+            var x1 = datePart + ' - ' + timeString;
+            document.getElementById('ct').innerHTML = x1;
+        }
+        display_ct();
+    </script>
+
+    <!-- Script imports -->
+    <script src="../js/lib/jquery.min.js"></script>
+    <script src="../js/lib/jquery.nanoscroller.min.js"></script>
+    <script src="../js/lib/menubar/sidebar.js"></script>
+    <script src="../js/lib/preloader/pace.min.js"></script>
+    <script src="../js/scripts.js"></script>
 <?php include "partials/scripts.php"?>
 </body>
 </html>

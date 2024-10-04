@@ -21,8 +21,8 @@ if ($result->num_rows > 0) {
         echo "<td>" . $row['blood_pressure'] . "</td>";
         echo "<td>" . $row['remarks_type'] . "</td>";
         echo "<td>
-                <select onchange='window.location.href=this.value'>
-                    <option value=''>Select Action</option>
+                <select style='background-color:#006BDD;color:white;border:none;padding:10px 20px;' onchange='window.location.href=this.value''>
+                    <option value=''>Action</option>
                     <option value='view/view_services8.php?id=" . $row['hypertension_id'] . "'>View</option>
                     <option value='view/services8.php?id=" . $row['hypertension_id'] . "'>Update</option>
                     <option value='view/delete_services8.php?id=" . $row['hypertension_id'] . "'>Delete</option>

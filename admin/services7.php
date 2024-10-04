@@ -18,6 +18,7 @@ if (!isset($_SESSION["user"]) || $_SESSION["user_type"] == "System Administrator
     <title>Prenatal Records | CareVisio</title>
     <?php include "partials/head.php"; ?>
     <link rel="stylesheet" href="css/tables.css">
+
 </head>
 <body onload="display_ct();">
 
@@ -91,7 +92,7 @@ if (!isset($_SESSION["user"]) || $_SESSION["user_type"] == "System Administrator
                                 </div>
                             </div>
 
-                            <table id="prenatalTable" class="tablePrenatal">
+                            <table id="residentTable" class="tableResidents">
                                 <thead class="head">
                                     <tr>
                                         <th>Full Name</th>
@@ -127,6 +128,27 @@ if (!isset($_SESSION["user"]) || $_SESSION["user_type"] == "System Administrator
     <script>
         // Similar JS functionality as your previous script for table filtering and pagination
     </script>
+
+<script>
+        function display_ct() {
+            var refresh = 1000; // Refresh rate in milliseconds
+            setTimeout(display_ct, refresh);
+            var x = new Date();
+            var options = { timeZone: 'Asia/Manila', hour12: true, hour: '2-digit', minute: '2-digit', second: '2-digit' };
+            var timeString = x.toLocaleTimeString('en-US', options);
+            var datePart = x.toLocaleDateString('en-US', { weekday: 'short', day: '2-digit', month: 'short', year: 'numeric' });
+            var x1 = datePart + ' - ' + timeString;
+            document.getElementById('ct').innerHTML = x1;
+        }
+        display_ct();
+    </script>
+
+    <!-- Script imports -->
+    <script src="../js/lib/jquery.min.js"></script>
+    <script src="../js/lib/jquery.nanoscroller.min.js"></script>
+    <script src="../js/lib/menubar/sidebar.js"></script>
+    <script src="../js/lib/preloader/pace.min.js"></script>
+    <script src="../js/scripts.js"></script>
 
     <?php include "partials/scripts.php"; ?>
 </body>

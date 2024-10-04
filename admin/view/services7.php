@@ -67,19 +67,22 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <meta name="theme-name" content="focus" />
     <title>Update Prenatal Record | CareVisio</title>
-    <?php include "head.php"; ?>
+    <?php include "../services/head.php"; ?>
 </head>
 
 <body>
-    <?php include "header.php"; ?>
-    <?php include "sidebar.php"; ?>
+    <?php include "../services/header.php"; ?>
+    <?php include "../services/sidebar.php"; ?>
 
     <div class="content-wrap">
         <div class="main">
             <div class="container-fluid">
                 <div class="row" id="header-row">
                     <div class="title-page">
-                        <h1>Prenatal Record</h1>
+                    <a href="../services7.php">
+                                    <h7><i class="fa fa-long-arrow-left">&nbsp;&nbsp;</i> Back to Animal Bite Records</h7>
+                                </a>
+                        <h3>Prenatal Record</h3>
                         <h6>Update Prenatal Record</h6>
                     </div>
                 </div>
@@ -164,7 +167,31 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
             border-radius: 10px;
             width: 100%;
         }
+        #header-row{
+            padding: 20px;
+        }
     </style>
+
+<script>
+        function display_ct() {
+            var refresh = 1000; // Refresh rate in milliseconds
+            setTimeout(display_ct, refresh);
+            var x = new Date();
+            var options = { timeZone: 'Asia/Manila', hour12: true, hour: '2-digit', minute: '2-digit', second: '2-digit' };
+            var timeString = x.toLocaleTimeString('en-US', options);
+            var datePart = x.toLocaleDateString('en-US', { weekday: 'short', day: '2-digit', month: 'short', year: 'numeric' });
+            var x1 = datePart + ' - ' + timeString;
+            document.getElementById('ct').innerHTML = x1;
+        }
+        display_ct();
+    </script>
+
+    <!-- Script imports -->
+    <script src="../js/lib/jquery.min.js"></script>
+    <script src="../js/lib/jquery.nanoscroller.min.js"></script>
+    <script src="../js/lib/menubar/sidebar.js"></script>
+    <script src="../js/lib/preloader/pace.min.js"></script>
+    <script src="../js/scripts.js"></script>
 
 </body>
 </html>

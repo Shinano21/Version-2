@@ -30,7 +30,7 @@ if (!isset($_SESSION["user"]) || $_SESSION["user_type"] == "System Administrator
                     <div class="col-lg-8 p-r-0 title-margin-right">
                         <div class="page-header">
                             <div class="page-title">
-                                <a href="../services5.php"><h7><i class="fa fa-long-arrow-left">&nbsp;&nbsp;</i>Back to Hypertension Records</h7></a>
+                                <a href="../services8.php"><h7><i class="fa fa-long-arrow-left">&nbsp;&nbsp;</i>Back to Hypertension Records</h7></a>
                                 <h1>View Record</h1>
                             </div>
                         </div>
