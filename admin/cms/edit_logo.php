@@ -1,112 +1,106 @@
 <?php
 include "../dbcon.php";
-$data = $_POST["submit"];
-
-$result = $conn->query("SELECT COUNT(*) FROM logo");
-$row = $result->fetch_assoc();
 
 if (isset($_POST["submit"])) {
     $header = $_POST["header"];
+    $allowedExtensions = ['jpg', 'jpeg', 'png'];
 
+    // Handling Navbar Logo Upload
     if ($header == "Navbar Logo") {
-        // Check if an image is uploaded
         if (isset($_FILES["navbar_logo"]) && $_FILES["navbar_logo"]["error"] == 0) {
-            // Validate the file type (for example, only allowing PNG or JPG)
-            $allowedExtensions = ['jpg', 'jpeg', 'png'];
             $fileExtension = strtolower(pathinfo($_FILES["navbar_logo"]["name"], PATHINFO_EXTENSION));
 
             if (in_array($fileExtension, $allowedExtensions)) {
-                $uploadDirectory = "../uploads/"; // Folder to save the image (moved to the parent directory for better structure)
                 $fileName = basename($_FILES["navbar_logo"]["name"]);
+                $uploadDirectory = "../uploads/";
                 $uploadFile = $uploadDirectory . $fileName;
 
-                // Move the uploaded file to the uploads folder
                 if (move_uploaded_file($_FILES["navbar_logo"]["tmp_name"], $uploadFile)) {
-                    $navbarLogoPath = $uploadFile;  // Save the file path
-
-                    if ($row['COUNT(*)'] == 0) {
-                        // Insert if no records exist
-                        $sql = "INSERT INTO `logo` (`navbar_logo`) VALUES (?)";
+                    // Check if we already have a record in the logo table
+                    $existingRecordQuery = "SELECT * FROM logo LIMIT 1"; // Fetch the first record
+                    $result = $conn->query($existingRecordQuery);
+                    
+                    if ($result->num_rows > 0) {
+                        // Update existing record
+                        $sql = "UPDATE `logo` SET `navbar_logo` = ? WHERE `id` = (SELECT MIN(`id`) FROM logo)";
+                        $stmt = mysqli_prepare($conn, $sql);
+                        mysqli_stmt_bind_param($stmt, "s", $fileName);
                     } else {
-                        // Update the existing record
-                        $sql = "UPDATE `logo` SET `navbar_logo` = ? WHERE `id` = 1";  // Assuming a single row in the logo table, we update based on the `id`
+                        // Insert new record
+                        $sql = "INSERT INTO `logo` (`navbar_logo`) VALUES (?)";
+                        $stmt = mysqli_prepare($conn, $sql);
+                        mysqli_stmt_bind_param($stmt, "s", $fileName);
                     }
 
-                    $stmt = mysqli_prepare($conn, $sql);
-                    mysqli_stmt_bind_param($stmt, "s", $navbarLogoPath); // Bind the file path
                     mysqli_stmt_execute($stmt);
                 } else {
-                    // Handle file upload failure
-                    echo '<script>';
-                    echo 'alert("File upload failed!");';
-                    echo '</script>';
+                    echo '<script>alert("File upload failed!");</script>';
                 }
             } else {
-                // Handle invalid file type
-                echo '<script>';
-                echo 'alert("Invalid file type. Only JPG, JPEG, PNG allowed.");';
-                echo '</script>';
+                echo '<script>alert("Invalid file type. Only JPG, JPEG, PNG allowed.");</script>';
             }
         } else {
-            // Handle if no file is uploaded
-            echo '<script>';
-            echo 'alert("Please upload a logo image.");';
-            echo '</script>';
+            echo '<script>alert("Please upload a logo image.");</script>';
         }
-    } else if ($header == "Footer") {
-        // Handle footer information
+    }
+
+    // Handling Footer Form Data
+    else if ($header == "Footer") {
         $centerName = $_POST["center_name"];
         $shortDesc = $_POST["short_desc"];
         $email = $_POST["email"];
         $contact = $_POST["contact"];
         $address = $_POST["address"];
         
-        // Handle the center logo image upload (if provided)
-        if (isset($_FILES["center_logo"]) && $_FILES["center_logo"]["error"] == 0) {
-            $centerLogoFile = basename($_FILES["center_logo"]["name"]);
-            $centerLogoPath = "../uploads/" . $centerLogoFile;
+        // Fetch existing logo from the database in case no new logo is uploaded
+        $existingLogo = null;
+        $existingLogoQuery = "SELECT `logo_pic` FROM `logo` LIMIT 1";
+        $existingLogoResult = $conn->query($existingLogoQuery);
+        if ($existingLogoResult && $existingLogoResult->num_rows > 0) {
+            $existingLogo = $existingLogoResult->fetch_assoc()["logo_pic"];
+        }
 
-            // Validate file extension
+        // Check if a new logo is uploaded
+        $centerLogoFile = $existingLogo; // Default to the existing logo
+        if (isset($_FILES["center_logo"]) && $_FILES["center_logo"]["error"] == 0) {
             $fileExtension = strtolower(pathinfo($_FILES["center_logo"]["name"], PATHINFO_EXTENSION));
             if (in_array($fileExtension, $allowedExtensions)) {
-                // Move the uploaded file
-                if (move_uploaded_file($_FILES["center_logo"]["tmp_name"], $centerLogoPath)) {
-                    if ($row['COUNT(*)'] == 0) {
-                        $sql = "INSERT INTO `logo` (`center_name`, `short_desc`, `email`, `contact`, `address`, `logo_pic`) 
-                                VALUES (?, ?, ?, ?, ?, ?)";
-                    } else {
-                        // Update the existing record (again using the `id` to target the correct record)
-                        $sql = "UPDATE `logo` SET `center_name` = ?, `short_desc` = ?, `email` = ?, `contact` = ?, 
-                                `address` = ?, `logo_pic` = ? WHERE `id` = 1";
-                    }
+                $centerLogoFile = basename($_FILES["center_logo"]["name"]);
+                $centerLogoPath = "../uploads/" . $centerLogoFile;
 
-                    $stmt = mysqli_prepare($conn, $sql);
-                    mysqli_stmt_bind_param($stmt, "ssssss", $centerName, $shortDesc, $email, $contact, $address, $centerLogoPath);
-                    mysqli_stmt_execute($stmt);
-                } else {
-                    echo '<script>';
-                    echo 'alert("Center logo upload failed!");';
-                    echo '</script>';
+                if (!move_uploaded_file($_FILES["center_logo"]["tmp_name"], $centerLogoPath)) {
+                    echo '<script>alert("Center logo upload failed!");</script>';
                 }
             } else {
-                echo '<script>';
-                echo 'alert("Invalid file type. Only JPG, JPEG, PNG allowed.");';
-                echo '</script>';
+                echo '<script>alert("Invalid file type for center logo. Only JPG, JPEG, PNG allowed.");</script>';
             }
         }
+
+        // Check if we already have a record in the logo table
+        $existingRecordQuery = "SELECT * FROM logo LIMIT 1";
+        $result = $conn->query($existingRecordQuery);
+        
+        if ($result->num_rows > 0) {
+            // Update existing record
+            $sql = "UPDATE `logo` SET `center_name` = ?, `short_desc` = ?, `email` = ?, `contact` = ?, `address` = ?, `logo_pic` = ? WHERE `id` = (SELECT MIN(`id`) FROM logo)";
+            $stmt = mysqli_prepare($conn, $sql);
+            mysqli_stmt_bind_param($stmt, "ssssss", $centerName, $shortDesc, $email, $contact, $address, $centerLogoFile);
+        } else {
+            // Insert new record
+            $sql = "INSERT INTO `logo` (`center_name`, `short_desc`, `email`, `contact`, `address`, `logo_pic`) 
+                    VALUES (?, ?, ?, ?, ?, ?)";
+            $stmt = mysqli_prepare($conn, $sql);
+            mysqli_stmt_bind_param($stmt, "ssssss", $centerName, $shortDesc, $email, $contact, $address, $centerLogoFile);
+        }
+
+        mysqli_stmt_execute($stmt);
     }
 
-    // Check if the update was successful
+    // Final Check
     if (mysqli_stmt_affected_rows($stmt) > 0) {
-        echo '<script>';
-        echo 'alert("Saved successfully!");';
-        echo 'window.location.href = "../wsLogoandFooterSettings.php";';  // Optional: Redirect after alert
-        echo '</script>';
+        echo '<script>alert("Saved successfully!"); window.location.href = "../wsLogoandFooterSettings.php";</script>';
     } else {
-        // If no rows affected, possibly an error
-        echo '<script>';
-        echo 'alert("No changes were made.");';
-        echo '</script>';
+        echo '<script>alert("No changes were made.");</script>';
     }
 }
 ?>

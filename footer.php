@@ -96,13 +96,16 @@
   }
 </style>
 <footer>
-    <?php include "user/data/logo.php" ?>
+    <?php include "user/data/logo.php" ;
+    // Assuming your logo data is stored in a variable called $navbarLogo
+$logoFileName = $logoPic; // Adjust this to the variable that holds your logo filename
+$logoPath = "/Version-2/admin/uploads/{$logoFileName}"; // Use the relative path to the logo
+    ?>
     <div class="footer-content">
         <div class="foot1">
-            <?php
-            if ($logoPic !== null) {
-                $imageType = strpos($logoPic, '/png') !== false ? 'png' : 'jpeg';
-                echo "<img src='data:image/{$imageType};base64," . base64_encode($logoPic). "' />";
+        <?php
+            if (!empty($logoFileName)) {
+                echo "<img src='{$logoPath}' alt='Logo' style='height: 100px; width: auto;' />";
             } else {
                 echo "No image available";
             }
@@ -147,6 +150,6 @@
             </div>
         </div>
     </div>
-    <p style="text-align: center; color: rgba(255, 255, 255, .3); margin: 25px 0px 5px; font-size: small;">&copy; 2023 |
-        CAREVISIO</p>
+    <p style="text-align: center; color: rgba(255, 255, 255, .3); margin: 25px 0px 5px; font-size: small;">&copy; 2024 |
+        Techcare</p>
 </footer>

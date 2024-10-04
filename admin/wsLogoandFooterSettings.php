@@ -97,16 +97,15 @@ $navbarLogo = null; // Define a default value for $navbarLogo
                                 <div class="photo">
                                     <label for="imageInput">Barangay Health Center Logo:</label>
                                     <input type="file" id="imageInput" name="center_logo" accept="image/*" required>
-                                    <div class="preview">
+<div class="preview">
     <?php
-    if (isset($navbarLogo) && $navbarLogo !== null) {
-        $imageType = strpos($navbarLogo, '/png') !== false ? 'png' : 'jpeg';
-        echo "<img id='preview' src='data:image/{$imageType};base64," . base64_encode($navbarLogo) . "' alt='Preview' style='max-width:250px; max-height:250px;'>";
-    } else {
-        echo "<img id='preview' src='#' alt='Preview' style='display:none; max-width:250px; max-height:250px;'>";
+    if (isset($footerLogo)) {
+        $imageType = strpos($footerLogo, '/png') !== false ? 'png' : 'jpeg';
+        echo "<img id='preview' src='data:image/{$imageType};base64," . base64_encode($footerLogo) . "' alt='Preview' style='max-width:250px; max-height:250px;'>";
     }
     ?>
 </div>
+
 
                                 </div>
                                 <div style="width: 100%; display: flex; justify-content: end; align-items: end;">
