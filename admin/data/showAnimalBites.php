@@ -31,8 +31,8 @@ if (mysqli_num_rows($result) > 0) {
         echo "<td>{$row['bite_location']}</td>";
         echo "<td>{$row['treatment_center']}</td>";
         echo "<td>{$row['remarks']}</td>";
-        echo "<td>{$birthdate}</td>";
-        echo "<td>{$sex}</td>";
+        // echo "<td>{$birthdate}</td>";
+        // echo "<td>{$sex}</td>";
         echo "<td style='display: flex; justify-content:center;'>
                <select style='background-color:#1e80c1;color:white;border:none;padding:10px 20px;' onchange='location = this.value;'>
                    <option value='' selected hidden>Action</option>

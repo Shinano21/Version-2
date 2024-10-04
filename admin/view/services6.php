@@ -66,13 +66,13 @@ $residents_result = mysqli_query($conn, $residents_query);
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <meta name="theme-name" content="focus" />
     <title>Update Animal Bite Record | CareVisio</title>
-    <?php include "head.php"; ?>
+    <?php include "../services/head.php"; ?>
 </head>
 
 <body onload="display_ct();">
 
-    <?php include "header.php"; ?>
-    <?php include "sidebar.php"; ?>
+    <?php include "../services/header.php"; ?>
+    <?php include "../services/sidebar.php"; ?>
 
     <div class="content-wrap">
         <div class="main">
@@ -203,6 +203,7 @@ $residents_result = mysqli_query($conn, $residents_query);
                             .row {
                                 position: relative;
                             }
+                            
                         </style>
                     </form>
                 </section>
