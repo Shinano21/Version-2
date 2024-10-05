@@ -125,7 +125,7 @@ if(!isset($_SESSION["user"])){
                         <div class="dropdown dib">
                             <div class="header-icon" data-toggle="dropdown">
                                 <span class="user-avatar">
-                                    <b2><?php echo $_SESSION["fname"] . " " . $_SESSION["lname"] ?></b2>
+                                    <b2><?php echo $_SESSION["firstname"] . " " . $_SESSION["lastname"] ?></b2>
                                     <i class="ti-angle-down f-s-10"></i>
                                     <b2 style="color: gray;cursor:text;display:block">
                                     <?php echo $_SESSION["user_type"] ?>
