@@ -19,16 +19,20 @@
 
                 </div>
                 <div class="float-right">
-                    <div class="dropdown dib">
-                        <div class="header-icon" data-toggle="dropdown">
-                            <a href='../chat.php' onclick='redirectToHead()' style='text-decoration: none; color: inherit;font-size:30px;' title="Chats"> <i class="ti-comments"></i></a>
-                        </div>
-                    </div>
-                    <script>
-                        function redirectToHead() {
-                        window.location.href = '../chat.php';
-                        }
-                    </script>
+                <div class="dropdown dib">
+    <div class="header-icon" data-toggle="dropdown">
+        <a href='./chat.php' onclick='redirectToHead(event)' style='text-decoration: none; color: inherit; font-size: 30px;' title="Chats">
+            <i class="ti-comments"></i>
+        </a>
+    </div>
+</div>
+<script>
+    function redirectToHead(event) {
+        event.preventDefault(); // Prevent default anchor behavior
+        window.location.href = './chat.php'; // Correct path to chat.php
+    }
+</script>
+
                     <div class="dropdown dib">
                             <div class="header-icon" data-toggle="dropdown">
                                 <span class="user-avatar">
