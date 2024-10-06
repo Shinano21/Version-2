@@ -1,15 +1,19 @@
 <?php
 session_start();
+
+// Ensure only system administrators can access
 if (!isset($_SESSION["user"]) || $_SESSION["user_type"] !== "System Administrator") {
     header("Location: index.php");
     exit();
 }
 
 include "dbcon.php";
-$query = "SET GLOBAL max_allowed_packet=1000000000";
-mysqli_query($conn, $query);
+
+$modalMessage = "";
+$modalType = "";  // This will help us define success or failure
 
 if (isset($_POST["submit"])) {
+    // Collect form input safely
     $status = $_POST["status"];
     $firstName = $_POST["fname"];
     $midName = isset($_POST["mname"]) ? $_POST["mname"] : null;
@@ -17,12 +21,12 @@ if (isset($_POST["submit"])) {
     $cpNum = $_POST["contact"];
     $email = $_POST["email"];
     $password = $_POST["password"];
-    $hashedPassword = password_hash($password, PASSWORD_BCRYPT);
+    $hashedPassword = password_hash($password, PASSWORD_BCRYPT);  // Hash password securely
     $position = $_POST["position"];
     $user_type = $_POST["type"];
     $ran_id = rand(time(), 100000000);
 
-    // Insert into 'administrator' table
+    // Prepared statement for 'administrator' table
     $sqlAdmin = "INSERT INTO `administrator` (`firstname`, `midname`, `lastname`, `cpnumber`, `email`, `password`, `user_type`, `a_status`) VALUES (?, IFNULL(?, ''), ?, ?, ?, ?, ?, ?)";
     $stmtAdmin = mysqli_prepare($conn, $sqlAdmin);
 
@@ -31,7 +35,7 @@ if (isset($_POST["submit"])) {
         mysqli_stmt_execute($stmtAdmin);
 
         if (mysqli_stmt_affected_rows($stmtAdmin) > 0) {
-            // Insert into 'users' table
+            // Prepared statement for 'users' table
             $sqlUsers = "INSERT INTO `users` (`first_name`, `middle_name`, `last_name`, `email`, `password`, `unique_id`, `user_type`) VALUES (?, IFNULL(?, ''), ?, ?, ?, ?, ?)";
             $stmtUsers = mysqli_prepare($conn, $sqlUsers);
 
@@ -40,26 +44,38 @@ if (isset($_POST["submit"])) {
                 mysqli_stmt_execute($stmtUsers);
 
                 if (mysqli_stmt_affected_rows($stmtUsers) > 0) {
-                    echo '<script>';
-                    echo 'alert("Account created successfully!");';
-                    echo 'window.location.href = "asManageUsers.php";';  // Optional: Redirect after displaying the alert
-                    echo '</script>';
-                    exit();
+                    $modalMessage = "Account created successfully!";
+                    $modalType = "success";  // For success modal
                 } else {
-                    echo "Error: " . mysqli_error($conn);
-                    exit();
+                    $modalMessage = "Error inserting into 'users' table: " . mysqli_error($conn);
+                    $modalType = "error";  // For error modal
                 }
             } else {
-                echo "Prepared statement error for 'users' table: " . mysqli_error($conn);
-                exit();
+                $modalMessage = "Prepared statement error for 'users' table: " . mysqli_error($conn);
+                $modalType = "error";  // For error modal
             }
         } else {
-            header("Location: account_system.php?error=Error creating account");
-            exit();
+            $modalMessage = "Error creating administrator account.";
+            $modalType = "error";  // For error modal
         }
     } else {
-        header("Location: account_system.php?error=Database error");
-        exit();
+        $modalMessage = "Database error.";
+        $modalType = "error";  // For error modal
     }
+
+    // Close statements
+    if ($stmtAdmin) mysqli_stmt_close($stmtAdmin);
+    if (isset($stmtUsers)) mysqli_stmt_close($stmtUsers);  // Ensure $stmtUsers is defined before closing
 }
+
+// Close the database connection
+mysqli_close($conn);
+
+// Redirect back to the asAddUsers.php with success or error messages
+if ($modalType === "success") {
+    header("Location: asAddUsers.php?success=" . urlencode($modalMessage));
+} else {
+    header("Location: asAddUsers.php?error=" . urlencode($modalMessage));
+}
+exit();
 ?>

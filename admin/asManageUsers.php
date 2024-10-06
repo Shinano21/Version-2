@@ -7,6 +7,10 @@ if (!isset($_SESSION["user"]) || $_SESSION["user_type"] !== "System Administrato
     header("Location: index.php");
     exit();
 }
+
+// Handle success or error messages passed via URL
+$modalMessage = isset($_GET['message']) ? $_GET['message'] : "";
+$modalType = isset($_GET['type']) ? $_GET['type'] : "";
 ?>
 
 <!DOCTYPE html>
@@ -21,7 +25,7 @@ if (!isset($_SESSION["user"]) || $_SESSION["user_type"] !== "System Administrato
 
 <body onload="display_ct();">
 
-    <?php include "partials/admin_sidebar.php"?>
+    <?php include "partials/admin_sidebar.php" ?>
     <!-- Sidebar -->
     <?php include "partials/header.php" ?>
     <!-- Header -->
@@ -86,6 +90,25 @@ if (!isset($_SESSION["user"]) || $_SESSION["user_type"] !== "System Administrato
             </div>
         </div>
     </div>
+
+    <!-- Success/Error Modal -->
+    <div class="modal fade" id="resultModal" tabindex="-1" aria-labelledby="resultModalLabel" aria-hidden="true">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="resultModalLabel"></h5>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                </div>
+                <div class="modal-body" id="resultModalMessage">
+                    <!-- Modal message will be injected here -->
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-primary" id="modalButtonAction" data-bs-dismiss="modal">Close</button>
+                </div>
+            </div>
+        </div>
+    </div>
+
     <script>
         function display_c() {
             var refresh = 1000; // Refresh rate in milliseconds
@@ -95,94 +118,83 @@ if (!isset($_SESSION["user"]) || $_SESSION["user_type"] !== "System Administrato
         function display_ct() {
             var x = new Date();
             
-            // Set the time zone to Philippine Time (PHT)
             var options = { timeZone: 'Asia/Manila', hour12: true, hour: '2-digit', minute: '2-digit', second: '2-digit' };
             var timeString = x.toLocaleTimeString('en-US', options);
 
-            // Extract the date part in the format "Day, DD Mon YYYY"
             var datePart = x.toLocaleDateString('en-US', { weekday: 'short', day: '2-digit', month: 'short', year: 'numeric' });
 
-            // Combine date and time in the desired format
             var x1 = datePart + ' - ' + timeString;
 
             document.getElementById('ct').innerHTML = x1;
             tt = display_c();
         }
 
-        // Initial call to start displaying time
-        display_c();
+        // Check for PHP modal messages
+        var modalMessage = "<?php echo $modalMessage; ?>";
+        var modalType = "<?php echo $modalType; ?>";
+
+        if (modalMessage !== "") {
+            var modalLabel = document.getElementById('resultModalLabel');
+            var modalBody = document.getElementById('resultModalMessage');
+            var modalButton = document.getElementById('modalButtonAction');
+            
+            if (modalType === "success") {
+                modalLabel.innerText = "Success";
+                modalBody.innerText = modalMessage;
+            } else {
+                modalLabel.innerText = "Error";
+                modalBody.innerText = modalMessage;
+            }
+
+            var myModal = new bootstrap.Modal(document.getElementById('resultModal'), {});
+            myModal.show();
+        }
     </script>
-    <?php include "partials/scripts.php"; ?>
-    <script src="js/preview.js"></script>
+
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/js/bootstrap.bundle.min.js"></script>
     <script src="https://code.jquery.com/jquery-3.6.4.min.js"></script>
+    <script src="js/preview.js"></script>
 
     <script>
         $(document).ready(function () {
-            var entriesPerPage = 10; // default entries per page
+            var entriesPerPage = 10; 
             var currentPage = 1;
 
             function showEntries() {
-                // Logic to display the specified number of entries per page
                 var startIndex = (currentPage - 1) * entriesPerPage;
                 var endIndex = startIndex + entriesPerPage;
 
-                // Hide all rows first
                 $('#userTable tbody tr').hide();
 
-                // Filter rows based on the search keyword
                 var keyword = $('#searchInput').val().toLowerCase();
                 var filteredRows = $('#userTable tbody tr').filter(function () {
                     var rowText = $(this).text().toLowerCase();
                     return rowText.includes(keyword);
                 });
 
-                // Show the filtered rows within the specified range
                 filteredRows.slice(startIndex, endIndex).show();
 
-                // Update the "Showing X to Y of Z entries" text
                 var totalEntries = filteredRows.length;
                 var showingTo = Math.min(endIndex, totalEntries);
                 var showingFrom = Math.min(startIndex + 1, showingTo);
                 $('.showPages p').text('Showing ' + showingFrom + ' to ' + showingTo + ' of ' + totalEntries + ' entries');
 
-                // Update the page number indicator
                 $('.page-indicator .num').text(currentPage);
             }
 
-
-            // Search input keyup event
             $('#searchInput').on('keyup', function () {
                 currentPage = 1;
                 showEntries();
-                updatePagination();
             });
 
-            function updatePagination() {
-                // Update the page number indicator
-                $('.page-indicator .num').text(currentPage);
-            }
-
-            // Show entries change event
             $('.numberInput').on('input', function () {
-                // Get the entered value
                 var enteredValue = parseInt($(this).val(), 10);
-
-                // Set a maximum limit (e.g., 10)
                 var maxLimit = 10;
-
-                // Update the entriesPerPage variable
                 entriesPerPage = enteredValue <= maxLimit ? enteredValue : maxLimit;
-
-                // Reset the current page to 1
                 currentPage = 1;
-
-                // Show entries and update pagination
                 showEntries();
-                updatePagination();
             });
 
-
-            // Next button click event
             $('#next').on('click', function () {
                 var totalEntries = $('#userTable tbody tr').length;
                 var totalPages = Math.ceil(totalEntries / entriesPerPage);
@@ -190,26 +202,19 @@ if (!isset($_SESSION["user"]) || $_SESSION["user_type"] !== "System Administrato
                 if (currentPage < totalPages) {
                     currentPage++;
                     showEntries();
-                    updatePagination();
                 }
             });
 
-            // Previous button click event
             $('#prev').on('click', function () {
                 if (currentPage > 1) {
                     currentPage--;
                     showEntries();
-                    updatePagination();
                 }
             });
 
-            // Initial setup
             showEntries();
-            updatePagination();
         });
     </script>
-
-
 </body>
 
 </html>
