@@ -6,9 +6,10 @@ header("X-Frame-Options: DENY");
 header("X-XSS-Protection: 1; mode=block");
 
 // Include PHPMailer classes
-require 'phpmailer/src/Exception.php';
-require 'phpmailer/src/PHPMailer.php';
-require 'phpmailer/src/SMTP.php';
+require '../phpmailer/src/Exception.php';
+require '../phpmailer/src/PHPMailer.php';
+require '../phpmailer/src/SMTP.php';
+
 
 use PHPMailer\PHPMailer\PHPMailer;
 use PHPMailer\PHPMailer\Exception;
@@ -75,12 +76,12 @@ function sendOTPEmail($email, $otp) {
         $mail->Host       = 'smtp.gmail.com';                       //Set the SMTP server to send through
         $mail->SMTPAuth   = true;                                   //Enable SMTP authentication
         $mail->Username   = 'techcare4ever@gmail.com';                 //SMTP username
-        $mail->Password   = 'clortcmydzqkaxfh';                     //SMTP password
+        $mail->Password   = 'Capstone2';                     //SMTP password
         $mail->SMTPSecure = PHPMailer::ENCRYPTION_SMTPS;            //Enable implicit TLS encryption
         $mail->Port       = 465;                                    //TCP port to connect to
 
         //Recipients
-        $mail->setFrom('techcare4ever@gmail.com', 'TechCare');
+        $mail->setFrom('janjan9925@gmail.com', 'TechCare');
         $mail->addAddress($email);                                  //Add a recipient
 
         //Content
