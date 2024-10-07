@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Generation Time: Sep 13, 2024 at 09:15 AM
+-- Generation Time: Oct 07, 2024 at 05:20 PM
 -- Server version: 10.4.32-MariaDB
 -- PHP Version: 8.0.30
 
@@ -20,6 +20,18 @@ SET time_zone = "+00:00";
 --
 -- Database: `carevisio`
 --
+
+DELIMITER $$
+--
+-- Procedures
+--
+CREATE DEFINER=`root`@`localhost` PROCEDURE `generate_and_insert_otp` (IN `user_email` VARCHAR(100))   BEGIN
+    DECLARE otp INT;
+    SET otp = FLOOR(100000 + RAND() * 900000);
+    INSERT INTO otp (otp_number, email) VALUES (otp, user_email);
+END$$
+
+DELIMITER ;
 
 -- --------------------------------------------------------
 
@@ -55,15 +67,44 @@ CREATE TABLE `administrator` (
   `email` varchar(255) NOT NULL,
   `password` varchar(255) NOT NULL,
   `user_type` varchar(255) NOT NULL,
-  `pfp` longblob NOT NULL
+  `pfp` longblob NOT NULL,
+  `a_status` varchar(20) DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
 --
 -- Dumping data for table `administrator`
 --
 
+INSERT INTO `administrator` (`id`, `firstname`, `midname`, `lastname`, `cpnumber`, `email`, `password`, `user_type`, `pfp`, `a_status`) VALUES
+(1, 'Juan', NULL, 'Dela Cruz', '091234567890', 'admin@gmail.com', '$2y$10$meRTBQGo1MvYRoUrzZAjCuAJ.Knit8dduTFpHVfw0NptDChAx7Xm6', 'System Administrator', '', 'Active'),
+(11, 'Furina', 'Focalors', 'De Fontaine', '09467812431', 'furina500@gmail.com', '$2y$10$3bERnFGvPMcBragnBpf4HeFiZCqb2Y8L8nD7rEhcFX9RJGsaAxhxW', 'Barangay Health Worker', '', 'Active'),
+(13, 'Agnes', 'Villaranda', 'Ogaban', '09467812431', 'agnesogaban08@gmail.com', '$2y$10$Lcj3urTMu8PkdGPtazMTAOPWPfqz9W2FJy0yawNNHrfkC5H6RCzVe', 'Barangay Health Worker', '', 'Active');
 
+-- --------------------------------------------------------
 
+--
+-- Table structure for table `animal_bite_records`
+--
+
+CREATE TABLE `animal_bite_records` (
+  `id` int(11) NOT NULL,
+  `resident_id` int(11) DEFAULT NULL,
+  `bite_date` date DEFAULT NULL,
+  `treatment_date` date DEFAULT NULL,
+  `bite_location` varchar(255) DEFAULT NULL,
+  `treatment_center` varchar(255) DEFAULT NULL,
+  `remarks` text DEFAULT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+
+--
+-- Dumping data for table `animal_bite_records`
+--
+
+INSERT INTO `animal_bite_records` (`id`, `resident_id`, `bite_date`, `treatment_date`, `bite_location`, `treatment_center`, `remarks`) VALUES
+(1, 2, '2024-09-21', '2024-09-21', 'index finger', 'Rabaxx', 'edgg'),
+(3, 4, '2024-10-04', '2024-10-23', 'index finger', 'Rabaxx', '');
+
+-- --------------------------------------------------------
 
 --
 -- Table structure for table `announcements`
@@ -241,6 +282,35 @@ CREATE TABLE `home` (
   `announce_pic` varchar(255) DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
+--
+-- Dumping data for table `home`
+--
+
+INSERT INTO `home` (`id`, `center_name`, `address`, `email`, `contact`, `open_hours`, `bg_img`, `short_desc`, `mission`, `vision`, `goal`, `chairman`, `chairman_pic`, `chairman_comm`, `chairman_comm_pic`, `section_pic`, `contact_mess`, `office_hrs`, `programs_pic`, `announce_pic`) VALUES
+(1, 'Rawis', 'N/A', 'alaka@gmail.com', '09467812431', '8;00am - 5;00pm', 'uploads/brgyHallEstanza.png', NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL);
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `hypertension`
+--
+
+CREATE TABLE `hypertension` (
+  `hypertension_id` int(11) NOT NULL,
+  `resident_id` int(11) NOT NULL,
+  `checkup_date` date NOT NULL,
+  `medicine_type` varchar(255) DEFAULT NULL,
+  `blood_pressure` varchar(50) DEFAULT NULL,
+  `remarks_type` text DEFAULT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+
+--
+-- Dumping data for table `hypertension`
+--
+
+INSERT INTO `hypertension` (`hypertension_id`, `resident_id`, `checkup_date`, `medicine_type`, `blood_pressure`, `remarks_type`) VALUES
+(2, 2, '2024-10-04', 'amox', '85/1159', 'hfgdgfghdwdwwfwfddd');
+
 -- --------------------------------------------------------
 
 --
@@ -268,16 +338,6 @@ CREATE TABLE `immunization` (
   `mother_lname` varchar(60) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
---
--- Dumping data for table `immunization`
---
-
-INSERT INTO `immunization` (`id`, `reg`, `bday`, `serial`, `se_status`, `sex`, `fname`, `mname`, `lname`, `suffix`, `zone`, `brgy`, `mun`, `prov`, `cpab`, `mother_fname`, `mother_mname`, `mother_lname`) VALUES
-(4, '2023-12-29', '2023-12-27', '', 'Non-NHTS', 'Female', 'asd', 'sa', 'dsad', '', 'Purok 1', 'Bagumbayan', 'Daraga', 'Albay', 'TT2/Td2', 'dasd', 'dasd', 'sadas'),
-(6, '2023-12-08', '2023-12-13', '342', 'NHTS', 'Male', 'ca', 'asdas', 'das', '', 'Purok 1', 'Bagumbayan', 'Daraga', 'Albay', 'TT2/Td2', 'mning', 'king', 'cande'),
-(4, '2023-12-29', '2023-12-27', '', 'Non-NHTS', 'Female', 'asd', 'sa', 'dsad', '', 'Purok 1', 'Bagumbayan', 'Daraga', 'Albay', 'TT2/Td2', 'dasd', 'dasd', 'sadas'),
-(6, '2023-12-08', '2023-12-13', '342', 'NHTS', 'Male', 'ca', 'asdas', 'das', '', 'Purok 1', 'Bagumbayan', 'Daraga', 'Albay', 'TT2/Td2', 'mning', 'king', 'cande');
-
 -- --------------------------------------------------------
 
 --
@@ -294,16 +354,6 @@ CREATE TABLE `immunization_1` (
   `immu_id` int(11) NOT NULL,
   `bw` varchar(50) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
-
---
--- Dumping data for table `immunization_1`
---
-
-INSERT INTO `immunization_1` (`id`, `length`, `weight`, `bf`, `bcg`, `hepa`, `immu_id`, `bw`) VALUES
-(6, '34', '43', '', '', '', 4, 'N'),
-(8, '3', '34', '', '', '', 6, 'N'),
-(6, '34', '43', '', '', '', 4, 'N'),
-(8, '3', '34', '', '', '', 6, 'N');
 
 -- --------------------------------------------------------
 
@@ -349,16 +399,6 @@ CREATE TABLE `immunization_2` (
   `immu_id` int(11) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
---
--- Dumping data for table `immunization_2`
---
-
-INSERT INTO `immunization_2` (`id`, `length_at_birth`, `weight_at_birth`, `birth_weight_status`, `breastfeeding_initiation_date`, `bcg_date`, `hepa_b_bd_date`, `age_in_months_1`, `length_cm_1`, `date_taken_1`, `weight_kg_1`, `date_taken_2`, `sst_1`, `lbw_given_iron_1`, `lbw_given_iron_2`, `lbw_given_iron_3`, `dpt_hib_hepb_1st_dose_2`, `dpt_hib_hepb_2nd_dose_2`, `dpt_hib_hepb_3rd_dose_2`, `opb_1st_dose_2`, `opb_2nd_dose_2`, `opb_3rd_dose_2`, `pcb_1st_dose_2`, `pcb_2nd_dose_2`, `pcb_3rd_dose_2`, `ipv_3rd_dose_2`, `ebf_1_5_months_2`, `date_assessed_1_5_months_2`, `ebf_2_5_months_2`, `date_assessed_2_5_months_2`, `ebf_3_5_months_2`, `date_assessed_3_5_months_2`, `ebf_4_5_months_2`, `date_assessed_4_5_months_2`, `immu_id`) VALUES
-(6, 34.00, 43.00, 'N', '0000-00-00', '0000-00-00', '0000-00-00', 0, 0.00, '0000-00-00', 0.00, '0000-00-00', 'N', '0000-00-00', '0000-00-00', '0000-00-00', '0000-00-00', '0000-00-00', '0000-00-00', '0000-00-00', '0000-00-00', '0000-00-00', '0000-00-00', '0000-00-00', '0000-00-00', '0000-00-00', 'Yes', '0000-00-00', 'Yes', '0000-00-00', 'Yes', '0000-00-00', 'Yes', '0000-00-00', 4),
-(8, 3.00, 34.00, 'N', '0000-00-00', '0000-00-00', '0000-00-00', 0, 0.00, '0000-00-00', 0.00, '0000-00-00', 'N', '0000-00-00', '0000-00-00', '0000-00-00', '0000-00-00', '0000-00-00', '0000-00-00', '0000-00-00', '0000-00-00', '0000-00-00', '0000-00-00', '0000-00-00', '0000-00-00', '0000-00-00', 'Yes', '0000-00-00', 'Yes', '0000-00-00', 'Yes', '0000-00-00', 'Yes', '0000-00-00', 6),
-(6, 34.00, 43.00, 'N', '0000-00-00', '0000-00-00', '0000-00-00', 0, 0.00, '0000-00-00', 0.00, '0000-00-00', 'N', '0000-00-00', '0000-00-00', '0000-00-00', '0000-00-00', '0000-00-00', '0000-00-00', '0000-00-00', '0000-00-00', '0000-00-00', '0000-00-00', '0000-00-00', '0000-00-00', '0000-00-00', 'Yes', '0000-00-00', 'Yes', '0000-00-00', 'Yes', '0000-00-00', 'Yes', '0000-00-00', 4),
-(8, 3.00, 34.00, 'N', '0000-00-00', '0000-00-00', '0000-00-00', 0, 0.00, '0000-00-00', 0.00, '0000-00-00', 'N', '0000-00-00', '0000-00-00', '0000-00-00', '0000-00-00', '0000-00-00', '0000-00-00', '0000-00-00', '0000-00-00', '0000-00-00', '0000-00-00', '0000-00-00', '0000-00-00', '0000-00-00', 'Yes', '0000-00-00', 'Yes', '0000-00-00', 'Yes', '0000-00-00', 'Yes', '0000-00-00', 6);
-
 -- --------------------------------------------------------
 
 --
@@ -376,16 +416,6 @@ CREATE TABLE `immunization_3` (
   `mmr_dose1_date` date DEFAULT NULL,
   `immu_id` int(11) DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
-
---
--- Dumping data for table `immunization_3`
---
-
-INSERT INTO `immunization_3` (`id`, `ebf_6_months`, `date_assessed_ebf_6_months`, `complementary_feeding_6_months`, `bfed_6_months`, `vitamin_a_date`, `mnp_date`, `mmr_dose1_date`, `immu_id`) VALUES
-(6, 'Yes', '0000-00-00', 'Yes', 2, '0000-00-00', '0000-00-00', '0000-00-00', 4),
-(8, 'Yes', '0000-00-00', 'Yes', 2, '0000-00-00', '0000-00-00', '0000-00-00', 6),
-(6, 'Yes', '0000-00-00', 'Yes', 2, '0000-00-00', '0000-00-00', '0000-00-00', 4),
-(8, 'Yes', '0000-00-00', 'Yes', 2, '0000-00-00', '0000-00-00', '0000-00-00', 6);
 
 -- --------------------------------------------------------
 
@@ -406,16 +436,6 @@ CREATE TABLE `immunization_4` (
   `immu_id` int(11) DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
---
--- Dumping data for table `immunization_4`
---
-
-INSERT INTO `immunization_4` (`id`, `age_in_months`, `length_cm`, `date_taken_length`, `weight_kg`, `date_taken_weight`, `status`, `mmr_dose2_date`, `fic_date`, `immu_id`) VALUES
-(6, 0, 0, '0000-00-00', 0, '0000-00-00', 'N', '0000-00-00', '0000-00-00', 4),
-(8, 0, 0, '0000-00-00', 0, '0000-00-00', 'N', '0000-00-00', '0000-00-00', 6),
-(6, 0, 0, '0000-00-00', 0, '0000-00-00', 'N', '0000-00-00', '0000-00-00', 4),
-(8, 0, 0, '0000-00-00', 0, '0000-00-00', 'N', '0000-00-00', '0000-00-00', 6);
-
 -- --------------------------------------------------------
 
 --
@@ -430,16 +450,6 @@ CREATE TABLE `immunization_5` (
   `immu_id` int(11) DEFAULT NULL,
   `remarks` text DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
-
---
--- Dumping data for table `immunization_5`
---
-
-INSERT INTO `immunization_5` (`id`, `cic_date`, `mam_status`, `sam_status`, `immu_id`, `remarks`) VALUES
-(6, '0000-00-00', '', '', 4, ''),
-(8, '0000-00-00', '', '', 6, ''),
-(6, '0000-00-00', '', '', 4, ''),
-(8, '0000-00-00', '', '', 6, '');
 
 -- --------------------------------------------------------
 
@@ -479,6 +489,13 @@ CREATE TABLE `logo` (
   `address` text DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
+--
+-- Dumping data for table `logo`
+--
+
+INSERT INTO `logo` (`id`, `navbar_logo`, `logo_pic`, `center_name`, `short_desc`, `email`, `contact`, `address`) VALUES
+(2, '1695383273813.png', '1695383273813.png', 'Rawis', ' gugugu', 'alaka@gmail.com', '09467812431', 'N/A');
+
 -- --------------------------------------------------------
 
 --
@@ -504,14 +521,6 @@ CREATE TABLE `nutrition` (
   `province` varchar(255) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
---
--- Dumping data for table `nutrition`
---
-
-INSERT INTO `nutrition` (`id`, `reg`, `bday`, `serial`, `se_status`, `sex`, `length`, `weight`, `fname`, `mname`, `lname`, `suffix`, `zone`, `brgy`, `city`, `province`) VALUES
-(1, '2023-12-01', '2023-12-28', '4324', 'Non-NHTS', 'Male', '34', '43', 's', 'dasd', 'sdsd', 'jr', 'Purok 1', 'Bagumbayan', 'Daraga', 'Albay'),
-(1, '2023-12-01', '2023-12-28', '4324', 'Non-NHTS', 'Male', '34', '43', 's', 'dasd', 'sdsd', 'jr', 'Purok 1', 'Bagumbayan', 'Daraga', 'Albay');
-
 -- --------------------------------------------------------
 
 --
@@ -530,14 +539,6 @@ CREATE TABLE `nutrition_1` (
   `nutrition_id` int(11) DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
---
--- Dumping data for table `nutrition_1`
---
-
-INSERT INTO `nutrition_1` (`id`, `nutritional_status`, `mnp_date`, `vitamin_a_1st_dose_date`, `vitamin_a_2nd_dose_date`, `deworming_1st_dose_date`, `deworming_2nd_dose_date`, `deworming_yn`, `nutrition_id`) VALUES
-(2, 'W-MAM', '2024-01-05', '2023-12-19', '2023-12-19', '2023-12-05', '2023-11-27', 'Yes', 1),
-(2, 'W-MAM', '2024-01-05', '2023-12-19', '2023-12-19', '2023-12-05', '2023-11-27', 'Yes', 1);
-
 -- --------------------------------------------------------
 
 --
@@ -554,14 +555,6 @@ CREATE TABLE `nutrition_2` (
   `deworming_yn` varchar(3) DEFAULT NULL,
   `nutritional_status2` varchar(50) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
-
---
--- Dumping data for table `nutrition_2`
---
-
-INSERT INTO `nutrition_2` (`id`, `nutrition_id`, `vitamin_a_1st_dose_date`, `vitamin_a_2nd_dose_date`, `deworming_1st_dose_date`, `deworming_2nd_dose_date`, `deworming_yn`, `nutritional_status2`) VALUES
-(2, 1, '2023-12-20', '2023-12-19', '2023-12-05', '2023-11-28', 'Yes', 'W-MAM'),
-(2, 1, '2023-12-20', '2023-12-19', '2023-12-05', '2023-11-28', 'Yes', 'W-MAM');
 
 -- --------------------------------------------------------
 
@@ -580,14 +573,6 @@ CREATE TABLE `nutrition_3` (
   `nutritional_status3` varchar(10) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
---
--- Dumping data for table `nutrition_3`
---
-
-INSERT INTO `nutrition_3` (`id`, `nutrition_id`, `vitamin_a_1st_dose_date`, `vitamin_a_2nd_dose_date`, `deworming_1st_dose_date`, `deworming_2nd_dose_date`, `deworming_yn`, `nutritional_status3`) VALUES
-(2, 1, '2023-12-21', '2023-12-19', '2023-12-13', '2023-12-12', 'Yes', 'W-MAM'),
-(2, 1, '2023-12-21', '2023-12-19', '2023-12-13', '2023-12-12', 'Yes', 'W-MAM');
-
 -- --------------------------------------------------------
 
 --
@@ -605,14 +590,6 @@ CREATE TABLE `nutrition_4` (
   `nutritional_status4` varchar(10) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
---
--- Dumping data for table `nutrition_4`
---
-
-INSERT INTO `nutrition_4` (`id`, `nutrition_id`, `vitamin_a_1st_dose_date`, `vitamin_a_2nd_dose_date`, `deworming_1st_dose_date`, `deworming_2nd_dose_date`, `deworming_yn`, `nutritional_status4`) VALUES
-(2, 1, '2023-12-20', '2023-12-21', '2023-12-29', '2023-12-26', 'Yes', 'W-MAM'),
-(2, 1, '2023-12-20', '2023-12-21', '2023-12-29', '2023-12-26', 'Yes', 'W-MAM');
-
 -- --------------------------------------------------------
 
 --
@@ -627,14 +604,6 @@ CREATE TABLE `nutrition_5` (
   `nutrition_id` int(11) DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
---
--- Dumping data for table `nutrition_5`
---
-
-INSERT INTO `nutrition_5` (`id`, `mam_status`, `sam_status`, `remarks`, `nutrition_id`) VALUES
-(2, 'Cured', 'Defaulted', 'fuckyou', 1),
-(2, 'Cured', 'Defaulted', 'fuckyou', 1);
-
 -- --------------------------------------------------------
 
 --
@@ -647,6 +616,30 @@ CREATE TABLE `otp` (
   `email` varchar(100) NOT NULL,
   `created_at` timestamp NOT NULL DEFAULT current_timestamp()
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `prenatal`
+--
+
+CREATE TABLE `prenatal` (
+  `prenatal_id` int(11) NOT NULL,
+  `resident_id` int(11) NOT NULL,
+  `checkup_date` date NOT NULL,
+  `gestational_age` int(11) DEFAULT NULL,
+  `blood_pressure` varchar(50) DEFAULT NULL,
+  `weight` decimal(10,2) DEFAULT NULL,
+  `fetal_heartbeat` varchar(50) DEFAULT NULL,
+  `remarks` text DEFAULT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+
+--
+-- Dumping data for table `prenatal`
+--
+
+INSERT INTO `prenatal` (`prenatal_id`, `resident_id`, `checkup_date`, `gestational_age`, `blood_pressure`, `weight`, `fetal_heartbeat`, `remarks`) VALUES
+(2, 4, '2024-10-05', 3, '85/115', 56.00, '35', 'vdvdvssdsdewewew');
 
 -- --------------------------------------------------------
 
@@ -669,10 +662,8 @@ CREATE TABLE `programs` (
 -- Table structure for table `residents`
 --
 
-DROP TABLE IF EXISTS `residents`;
-
 CREATE TABLE `residents` (
-  `id` int(11) NOT NULL AUTO_INCREMENT,
+  `id` int(11) NOT NULL,
   `fname` varchar(255) NOT NULL,
   `mname` varchar(255) NOT NULL,
   `lname` varchar(255) NOT NULL,
@@ -701,9 +692,18 @@ CREATE TABLE `residents` (
   `longitude` varchar(255) NOT NULL,
   `latitude` varchar(255) NOT NULL,
   `profile` longblob DEFAULT NULL,
-  PRIMARY KEY (`id`)
+  `qr_code` varchar(255) DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
+--
+-- Dumping data for table `residents`
+--
+
+INSERT INTO `residents` (`id`, `fname`, `mname`, `lname`, `suffix`, `sex`, `bday`, `pob`, `religion`, `citizenship`, `street`, `zone`, `brgy`, `mun`, `province`, `zipcode`, `contact`, `educational`, `occupation`, `civil_status`, `labor_status`, `voter_status`, `pwd_status`, `four_p`, `vac_status`, `status`, `longitude`, `latitude`, `profile`, `qr_code`) VALUES
+(1, 'Furina', 'Focalors', 'De Fontaine', '', 'Male', '2023-06-06', 'Daraga', 'Roman Catholic', 'Filipino', 'N/A', 'Purok 1', 'Bagumbayan', 'Daraga', 'Albay', '4501', '09467812431', 'Preschool', 'Tambay', 'Single', 'Not in the Labor Force', 'Yes', 'Yes', 'Yes', 'Fully Vaccinated', 'Active', '123.71827', '13.142307', '', NULL),
+(2, 'Navia', 'spina', 'De Rosula', '', 'Female', '2019-06-28', 'Daraga', 'Roman Catholic', 'Filipino', '', 'Purok 3', 'Bagumbayan', 'Daraga', 'Albay', '4501', '', 'Preschool', 'Tambay sa bahay', 'Single', 'Employed', 'Yes', 'Yes', 'Yes', 'Fully Vaccinated', 'Active', '123.71580578679966', '13.141973617231812', '', NULL),
+(3, 'danica', 'Focalors', 'De Fontaine', '', 'Female', '2024-09-24', 'Daraga', 'Roman Catholic', 'Filipino', 'N/A', 'Purok 4', 'Bagumbayan', 'Daraga', 'Albay', '4501', '09467812431', 'Preschool', 'Tambay', 'Single', 'Employed', 'Yes', 'Yes', 'Yes', 'Fully Vaccinated', 'Active', '123.71643033164248', '13.140564314980484', '', 'qrcodes/3.png'),
+(4, 'Charlotte', 'Focalors', 'De Bird', '', 'Female', '2002-04-29', 'Fontaine', 'Hydro', 'Filipino', 'Sheesh', 'Purok 1', 'Bagumbayan', 'Daraga', 'Albay', '4501', '09467812431', 'Preschool', 'Tambay sa bahay', 'Single', 'Employed', 'Yes', 'Yes', 'Yes', 'Fully Vaccinated', 'Active', '123.71454388552213', '13.143833181047338', '', 'qrcodes/4.png');
 
 -- --------------------------------------------------------
 
@@ -712,7 +712,7 @@ CREATE TABLE `residents` (
 --
 
 CREATE TABLE `users` (
-  `id` int(11) UNSIGNED NOT NULL AUTO_INCREMENT,
+  `id` int(11) UNSIGNED NOT NULL,
   `unique_id` varchar(100) DEFAULT NULL,
   `first_name` varchar(100) NOT NULL,
   `middle_name` varchar(100) DEFAULT NULL,
@@ -721,23 +721,22 @@ CREATE TABLE `users` (
   `email` varchar(100) NOT NULL,
   `password` varchar(255) NOT NULL,
   `user_type` varchar(50) NOT NULL DEFAULT 'resident',
-  `profile_image` varchar(255) DEFAULT NULL,
+  `profile_image` varchar(255) NOT NULL,
   `created_at` timestamp NOT NULL DEFAULT current_timestamp(),
   `updated_at` timestamp NOT NULL DEFAULT current_timestamp() ON UPDATE current_timestamp(),
-  `status` varchar(20) DEFAULT NULL,
-  PRIMARY KEY (`id`)
+  `status` varchar(20) DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
-
 
 --
 -- Dumping data for table `users`
 --
 
-INSERT INTO `users` (`id`, `unique_id`, `first_name`, `middle_name`, `last_name`, `birthday`, `email`, `password`, `user_type`, `profile_image`, `created_at`, `updated_at`) VALUES
-(1, '1', 'Furina', 'Focalors', 'De Fontaine', '2002-10-13', 'ayaya28@gmail.com', '$2y$10$JNtgFl5XUT2ewDcnmBWMQOuq1Lp1CZnsrJXDAR.zPpovgDMoa5Su2', 'resident', 'uploads/furi.jpg', '2024-09-12 10:38:29', '2024-09-12 17:03:57'),
-(2, NULL, 'Navia', 'sakosako', 'Rosula', '2002-09-29', 'spinaderosula@gmail.com', '$2y$10$DmQUkL7E7xE1zOGwCvNj3OtJtKKJ9nMfcIlU9SO1zjGKA0V80ZF0q', 'resident', 'uploads/hot ayaka.jpeg', '2024-09-12 16:51:40', '2024-09-12 16:51:40'),
-(3, '1', 'Mike', 'Reyes', 'Ogaban', '2002-02-22', 'alaka@gmail.com', '$2y$10$TCUpXVLJiULxy3ZEUOCoyuBl4TePkHn7ZH/M3a7w0m3egt/VIe01q', 'resident', 'uploads/stelle.png', '2024-09-13 06:33:48', '2024-09-13 06:34:39'),
-(4, '1', 'Ren', 'Malupet', 'Tofu', '2002-08-27', 'ayakaaa28@gmail.com', '$2y$10$wMqU2YdoyY6wbfVFUu2nueqAewDVI/QDJmKRPhuV33nYdeKHSirIy', 'resident', 'uploads/furi.jpg', '2024-09-13 06:39:08', '2024-09-13 06:39:08');
+INSERT INTO `users` (`id`, `unique_id`, `first_name`, `middle_name`, `last_name`, `birthday`, `email`, `password`, `user_type`, `profile_image`, `created_at`, `updated_at`, `status`) VALUES
+(1, '1', 'Furina', 'Focalors', 'De Fontaine', '2002-10-13', 'ayaya28@gmail.com', '$2y$10$JNtgFl5XUT2ewDcnmBWMQOuq1Lp1CZnsrJXDAR.zPpovgDMoa5Su2', 'resident', 'uploads/furi.jpg', '2024-09-12 10:38:29', '2024-10-07 15:01:35', 'Active now'),
+(2, NULL, 'Navia', 'sakosako', 'Rosula', '2002-09-29', 'spinaderosula@gmail.com', '$2y$10$DmQUkL7E7xE1zOGwCvNj3OtJtKKJ9nMfcIlU9SO1zjGKA0V80ZF0q', 'resident', 'uploads/hot ayaka.jpeg', '2024-09-12 16:51:40', '2024-09-12 16:51:40', NULL),
+(3, '1', 'Mike', 'Reyes', 'Ogaban', '2002-02-22', 'alaka@gmail.com', '$2y$10$TCUpXVLJiULxy3ZEUOCoyuBl4TePkHn7ZH/M3a7w0m3egt/VIe01q', 'resident', 'uploads/stelle.png', '2024-09-13 06:33:48', '2024-10-07 15:01:35', 'Active now'),
+(4, '1', 'Ren', 'Malupet', 'Tofu', '2002-08-27', 'ayakaaa28@gmail.com', '$2y$10$wMqU2YdoyY6wbfVFUu2nueqAewDVI/QDJmKRPhuV33nYdeKHSirIy', 'resident', 'uploads/furi.jpg', '2024-09-13 06:39:08', '2024-10-07 15:01:35', 'Active now'),
+(5, '1692546841', 'Furina', 'Focalors', 'De Fontaine', '0000-00-00', 'furina500@gmail.com', '$2y$10$3bERnFGvPMcBragnBpf4HeFiZCqb2Y8L8nD7rEhcFX9RJGsaAxhxW', 'Health Personnel', '', '2024-09-18 08:52:42', '2024-09-30 13:00:06', 'Active now');
 
 --
 -- Indexes for dumped tables
@@ -754,6 +753,13 @@ ALTER TABLE `about`
 --
 ALTER TABLE `administrator`
   ADD PRIMARY KEY (`id`);
+
+--
+-- Indexes for table `animal_bite_records`
+--
+ALTER TABLE `animal_bite_records`
+  ADD PRIMARY KEY (`id`),
+  ADD KEY `resident_id` (`resident_id`);
 
 --
 -- Indexes for table `announcements`
@@ -786,6 +792,13 @@ ALTER TABLE `home`
   ADD PRIMARY KEY (`id`);
 
 --
+-- Indexes for table `hypertension`
+--
+ALTER TABLE `hypertension`
+  ADD PRIMARY KEY (`hypertension_id`),
+  ADD KEY `resident_id` (`resident_id`);
+
+--
 -- Indexes for table `logo`
 --
 ALTER TABLE `logo`
@@ -799,9 +812,22 @@ ALTER TABLE `otp`
   ADD KEY `email` (`email`);
 
 --
+-- Indexes for table `prenatal`
+--
+ALTER TABLE `prenatal`
+  ADD PRIMARY KEY (`prenatal_id`),
+  ADD KEY `resident_id` (`resident_id`);
+
+--
 -- Indexes for table `programs`
 --
 ALTER TABLE `programs`
+  ADD PRIMARY KEY (`id`);
+
+--
+-- Indexes for table `residents`
+--
+ALTER TABLE `residents`
   ADD PRIMARY KEY (`id`);
 
 --
@@ -820,6 +846,18 @@ ALTER TABLE `users`
 --
 ALTER TABLE `about`
   MODIFY `id` int(11) NOT NULL AUTO_INCREMENT;
+
+--
+-- AUTO_INCREMENT for table `administrator`
+--
+ALTER TABLE `administrator`
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=14;
+
+--
+-- AUTO_INCREMENT for table `animal_bite_records`
+--
+ALTER TABLE `animal_bite_records`
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=4;
 
 --
 -- AUTO_INCREMENT for table `announcements`
@@ -843,13 +881,19 @@ ALTER TABLE `contact_us`
 -- AUTO_INCREMENT for table `home`
 --
 ALTER TABLE `home`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
+
+--
+-- AUTO_INCREMENT for table `hypertension`
+--
+ALTER TABLE `hypertension`
+  MODIFY `hypertension_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
 
 --
 -- AUTO_INCREMENT for table `logo`
 --
 ALTER TABLE `logo`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
 
 --
 -- AUTO_INCREMENT for table `otp`
@@ -858,38 +902,58 @@ ALTER TABLE `otp`
   MODIFY `id` int(11) NOT NULL AUTO_INCREMENT;
 
 --
+-- AUTO_INCREMENT for table `prenatal`
+--
+ALTER TABLE `prenatal`
+  MODIFY `prenatal_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=4;
+
+--
 -- AUTO_INCREMENT for table `programs`
 --
 ALTER TABLE `programs`
   MODIFY `id` int(11) NOT NULL AUTO_INCREMENT;
 
 --
+-- AUTO_INCREMENT for table `residents`
+--
+ALTER TABLE `residents`
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=5;
+
+--
 -- AUTO_INCREMENT for table `users`
 --
 ALTER TABLE `users`
-  MODIFY `id` int(11) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=5;
+  MODIFY `id` int(11) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=6;
 
 --
 -- Constraints for dumped tables
 --
 
 --
+-- Constraints for table `animal_bite_records`
+--
+ALTER TABLE `animal_bite_records`
+  ADD CONSTRAINT `animal_bite_records_ibfk_1` FOREIGN KEY (`resident_id`) REFERENCES `residents` (`id`) ON DELETE CASCADE ON UPDATE CASCADE;
+
+--
+-- Constraints for table `hypertension`
+--
+ALTER TABLE `hypertension`
+  ADD CONSTRAINT `hypertension_ibfk_1` FOREIGN KEY (`resident_id`) REFERENCES `residents` (`id`);
+
+--
 -- Constraints for table `otp`
 --
 ALTER TABLE `otp`
   ADD CONSTRAINT `otp_ibfk_1` FOREIGN KEY (`email`) REFERENCES `users` (`email`) ON DELETE CASCADE;
+
+--
+-- Constraints for table `prenatal`
+--
+ALTER TABLE `prenatal`
+  ADD CONSTRAINT `prenatal_ibfk_1` FOREIGN KEY (`resident_id`) REFERENCES `residents` (`id`);
 COMMIT;
 
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;
 /*!40101 SET CHARACTER_SET_RESULTS=@OLD_CHARACTER_SET_RESULTS */;
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
-CREATE TABLE animal_bite_records (
-    id INT AUTO_INCREMENT PRIMARY KEY,
-    resident_id INT,
-    bite_date DATE,
-    treatment_date DATE,
-    bite_location VARCHAR(255),
-    treatment_center VARCHAR(255),
-    remarks TEXT,
-    FOREIGN KEY (resident_id) REFERENCES residents(resident_id)
-);
