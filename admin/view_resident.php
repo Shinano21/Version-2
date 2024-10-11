@@ -80,6 +80,9 @@ if (mysqli_num_rows($result) > 0) {
                     <div class="col-lg-8 p-r-0 title-margin-right">
                         <div class="page-header">
                             <div class="page-title">
+                                <a href="residents.php">
+                                    <h7><i class="fa fa-long-arrow-left">&nbsp;&nbsp;</i> Back to Residents Records</h7>
+                                </a>
                                 <h1>VIEW - RESIDENT </h1>
                             
                             </div>

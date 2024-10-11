@@ -86,6 +86,9 @@ if (!isset($_SESSION["user"]) || $_SESSION["user_type"] == "System Administrator
                     <div class="col-lg-8 p-r-0 title-margin-right">
                         <div class="page-header">
                             <div class="page-title">
+                                 <a href="residents.php">
+                                    <h7><i class="fa fa-long-arrow-left">&nbsp;&nbsp;</i> Back to Residents Records</h7>
+                                </a>
                                 <h1>UPDATE - RESIDENT FORM</h1>
 
                             </div>
