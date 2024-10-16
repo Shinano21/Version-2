@@ -57,3 +57,22 @@ CREATE TABLE `otp` (
   KEY `email` (`email`),
   CONSTRAINT `otp_ibfk_1` FOREIGN KEY (`email`) REFERENCES `users` (`email`) ON DELETE CASCADE
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+
+//////////////////Edit on the user table
+ALTER TABLE users
+DROP COLUMN unique_id,
+ADD COLUMN unique_id INT(255) NOT NULL;
+
+/////////////////Add this table
+CREATE TABLE `messages` (
+  `msg_id` int(11) NOT NULL,
+  `incoming_msg_id` int(255) NOT NULL,
+  `outgoing_msg_id` int(255) NOT NULL,
+  `msg` varchar(1000) NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
+
+ALTER TABLE `messages`
+  ADD PRIMARY KEY (`msg_id`);
+
+  ALTER TABLE `messages`
+  MODIFY `msg_id` int(11) NOT NULL AUTO_INCREMENT;
