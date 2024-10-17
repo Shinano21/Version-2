@@ -59,15 +59,14 @@
             $row = mysqli_fetch_assoc($sql);
           }
         ?>
-        <div class="user-details">
-       
-          <img class="user-avatar" src="images/<?php echo $row['img']; ?>" alt="User Avatar">
-          <div class="user-info">
-            <span class="user-name"><?php echo $row['fname']. " " . $row['lname'] ?></span>
-            <span class="user-status"><p><?php echo $row['status']; ?></p></span>
-       
-          </div>
-        </div>
+   <div class="user-details">
+   <img class="user-avatar" src="../uploads/<?php echo basename($row['profile_image']); ?>" alt="User Avatar">
+    <div class="user-info">
+        <span class="user-name"><?php echo $row['first_name']. " " . $row['last_name']; ?></span>
+        <span class="user-status"><p><?php echo $row['status']; ?></p></span>
+    </div>
+</div>
+
       </div>
 
         <!-- Add more contacts as needed -->
@@ -139,7 +138,7 @@
                       }
                     ?>
                     <div class="details">
-                        <span><?php echo $row['fname']. " " . $row['lname'] ?></span>
+                        <span><?php echo $row['first_name']. " " . $row['last_name'] ?></span>
                         <p><?php echo $row['status']; ?></p>     
                     </div>
                 </header>
