@@ -131,9 +131,10 @@
             <section class="chat-area">
                 <header>
                     <?php
-                      if (!empty($row['img'])) {
-                        echo "<img src='images/{$row["img"]}' alt='User Avatar'>";
-                      } else {
+                     if (!empty($row['profile_image'])) {
+                      // If the profile_image field is not empty, show the user's image from the uploads folder
+                      echo "<img src='../uploads/" . basename($row['profile_image']) . "' alt='User Avatar'>";
+                  } else {
                         echo "<img src='images/defaultDP.png' alt='Default User Avatar'>";
                       }
                     ?>
