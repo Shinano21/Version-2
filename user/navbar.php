@@ -29,7 +29,7 @@
     ?>
     <div class="nav-container">
         <a class="logo" href="index.php">
-            <img src="../src/logo.png" alt="Logo">
+            <img src="../src/logo.svg" alt="Logo">
             <!-- <?php
             if ($navbarLogo !== null) {
                 $imageType = strpos($navbarLogo, '/png') !== false ? 'png' : 'jpeg';

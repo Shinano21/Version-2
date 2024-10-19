@@ -80,3 +80,5 @@ ALTER TABLE `messages`
 
   ALTER TABLE `animal_bite_records`
 ADD COLUMN `bitten_place` VARCHAR(255) DEFAULT NULL AFTER `bite_date`;
+
+ALTER TABLE messages ADD status VARCHAR(10) DEFAULT 'unread';

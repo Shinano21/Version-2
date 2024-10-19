@@ -34,12 +34,12 @@
         // Determine the user's online status
         $offline = ($row['status'] == "Offline now") ? "offline" : "";
 
-        // Generate the HTML output
+        // Generate the HTML output (use 'profile_image' instead of 'img')
         $output .= '<a href="chat.php?user_id='. $row['unique_id'] .'">
                     <div class="content">
-                    <img src="images/'. $row['img'] .'" alt="">
+                    <img src="images/'. (isset($row['profile_image']) ? basename($row['profile_image']) : 'default.png') .'" alt="">
                     <div class="details">
-                        <span>'. $row['fname']. " " . $row['lname'] .'</span>
+                        <span>'. $row['first_name']. " " . $row['last_name'] .'</span>
                         <p>'. $you . $msg .'</p>
                     </div>
                     </div>
