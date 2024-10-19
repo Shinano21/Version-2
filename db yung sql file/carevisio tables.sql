@@ -91,6 +91,7 @@ CREATE TABLE `animal_bite_records` (
   `resident_id` int(11) DEFAULT NULL,
   `bite_date` date DEFAULT NULL,
   `treatment_date` date DEFAULT NULL,
+  `bitten_location` varchar(255) DEFAULT NULL,
   `bite_location` varchar(255) DEFAULT NULL,
   `treatment_center` varchar(255) DEFAULT NULL,
   `remarks` text DEFAULT NULL

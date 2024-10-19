@@ -2,10 +2,11 @@
 // Include the database connection
 include('../dbcon.php');
 
-// Query to fetch age group data
+// Query to fetch the number of people bitten this month, grouped by bitten location and age group
 $sql = "
 SELECT 
     COUNT(*) AS count,
+    ab.bitten_location AS location,
     CASE 
         WHEN FLOOR(DATEDIFF(CURDATE(), r.bday) / 365) BETWEEN 3 AND 10 THEN '3-10 years old'
         WHEN FLOOR(DATEDIFF(CURDATE(), r.bday) / 365) BETWEEN 11 AND 18 THEN '11-18 years old'
@@ -15,11 +16,17 @@ SELECT
     END AS age_group
 FROM animal_bite_records ab
 JOIN residents r ON ab.resident_id = r.id
-GROUP BY age_group
-ORDER BY age_group
+WHERE MONTH(ab.bite_date) = MONTH(CURDATE()) 
+AND YEAR(ab.bite_date) = YEAR(CURDATE())
+GROUP BY ab.bitten_location, age_group
+ORDER BY ab.bitten_location, age_group
 ";
 
 $result = $conn->query($sql);
+
+if (!$result) {
+    die("Error executing query: " . $conn->error);
+}
 ?>
 
 <!DOCTYPE html>
@@ -27,7 +34,7 @@ $result = $conn->query($sql);
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Animal Bite Report by Age Group</title>
+    <title>Animal Bite Report by Location and Age Group</title>
     <style>
         body {
             font-family: Arial, sans-serif;
@@ -67,11 +74,12 @@ $result = $conn->query($sql);
 <body>
 
 <div class="container">
-    <h2>Animal Bite Report by Age Group</h2>
+    <h2>Animal Bite Report - This Month (by Location and Age Group)</h2>
 
     <table>
         <thead>
             <tr>
+                <th>Location</th>
                 <th>Age Group</th>
                 <th>Number of Cases</th>
             </tr>
@@ -83,12 +91,13 @@ $result = $conn->query($sql);
                 // Output each row
                 while ($row = $result->fetch_assoc()) {
                     echo "<tr>";
+                    echo "<td>" . $row['location'] . "</td>";
                     echo "<td>" . $row['age_group'] . "</td>";
                     echo "<td>" . $row['count'] . "</td>";
                     echo "</tr>";
                 }
             } else {
-                echo "<tr><td colspan='2'>No data available</td></tr>";
+                echo "<tr><td colspan='3'>No data available</td></tr>";
             }
             ?>
         </tbody>
