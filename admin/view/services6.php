@@ -23,6 +23,7 @@ if (isset($_POST['update_bite_record'])) {
     $bite_date = mysqli_real_escape_string($conn, $_POST['bite_date']);
     $treatment_date = mysqli_real_escape_string($conn, $_POST['treatment_date']);
     $bite_location = mysqli_real_escape_string($conn, $_POST['bite_location']);
+    $bitten_location = mysqli_real_escape_string($conn, $_POST['bitten_location']); // Added bitten_location
     $treatment_center = mysqli_real_escape_string($conn, $_POST['treatment_center']);
     $remarks = mysqli_real_escape_string($conn, $_POST['remarks']);
 
@@ -30,8 +31,9 @@ if (isset($_POST['update_bite_record'])) {
     $update_query = "
         UPDATE animal_bite_records 
         SET resident_id = '$resident_id', bite_date = '$bite_date', treatment_date = '$treatment_date', 
-            bite_location = '$bite_location', treatment_center = '$treatment_center', remarks = '$remarks' 
+            bite_location = '$bite_location', bitten_location = '$bitten_location', treatment_center = '$treatment_center', remarks = '$remarks' 
         WHERE id = $record_id";
+
 
     if (mysqli_query($conn, $update_query)) {
         // Redirect after successful update
@@ -101,7 +103,7 @@ $residents_result = mysqli_query($conn, $residents_query);
                 </div>
 
                 <section id="main-content">
-                    <form action="update_animal_bite_record.php?id=<?php echo $record_id; ?>" method="post">
+                    <form action="services6.php?id=<?php echo $record_id; ?>" method="post">
                         <div class="row">
                             <div class="sectioning">
                                 <br>
@@ -125,6 +127,10 @@ $residents_result = mysqli_query($conn, $residents_query);
                                                 ?>
                                             </select>
                                         </th>
+                                        <th>
+                                        <label for="bitten_location">Bitten Location (Place where you get bitten)<span class="req">*</span></label><br>
+                                        <input type="text" name="bitten_location" id="bitten_location" value="<?php echo $record['bitten_location']; ?>" placeholder="ex: purok 1" required>
+                                    </th>
                                     </tr>
                                     <tr>
                                         <th><b>Bite Details</b></th>

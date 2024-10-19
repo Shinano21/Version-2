@@ -82,6 +82,12 @@ $result = mysqli_query($conn, $query);
                                                 ?>
                                             </select>
 
+                                        <th>
+                                            <label for="bitten_location">Bitten Location (Place where you get bitten)<span class="req">*</span></label><br>
+                                            <input type="text" name="bitten_location" id="bitten_location" placeholder="ex: purok 1" required>
+                                        </th>
+
+
                                         </th>
                                     </tr>
                                     <tr>

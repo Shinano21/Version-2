@@ -1,6 +1,5 @@
 <?php
 session_start();
-
 include "../dbcon.php";
 if (!isset($_SESSION["user"]) || $_SESSION["user_type"] == "System Administrator") {
     header("Location: index.php");
@@ -51,21 +50,18 @@ if (!isset($_SESSION["user"]) || $_SESSION["user_type"] == "System Administrator
                     <div class="row" position="relative;" id="a1">
 
                     <?php
-                    // Ensure connection is included
                     include("../dbcon.php");
 
-                    // Get the animal bite record id from URL parameter
                     $id = isset($_GET["id"]) ? $_GET["id"] : 0;
 
-                    // Ensure the ID is valid
                     if ($id == 0) {
                         echo "<p>Invalid record ID.</p>";
                         exit();
                     }
 
-                    // Prepare the SQL query to fetch the animal bite record and associated resident details
+                    // Updated query to include `bitten_location`
                     $stmt = $conn->prepare("
-                        SELECT ab.id AS animal_bite_id, ab.bite_date AS date_of_bite, ab.treatment_center AS treatment_given, ab.remarks,
+                        SELECT ab.id AS animal_bite_id, ab.bite_date AS date_of_bite, ab.treatment_center AS treatment_given, ab.remarks, ab.bitten_location,
                                r.fname, r.mname, r.lname, r.suffix, r.sex, r.bday
                         FROM animal_bite_records ab
                         JOIN residents r ON ab.resident_id = r.id
@@ -73,18 +69,11 @@ if (!isset($_SESSION["user"]) || $_SESSION["user_type"] == "System Administrator
                         LIMIT 1
                     ");
 
-                    // Bind the `id` parameter
                     $stmt->bind_param('i', $id);
-
-                    // Execute the query
                     $stmt->execute();
-
-                    // Get the result
                     $result = $stmt->get_result();
 
-                    // Check if the query returned any result
                     if ($result && $result->num_rows > 0) {
-                        // Fetch the result as an associative array
                         $row = $result->fetch_assoc();
                     ?>
                         <div class="sectioning">
@@ -128,6 +117,10 @@ if (!isset($_SESSION["user"]) || $_SESSION["user_type"] == "System Administrator
                                     <th>Remarks</th>
                                     <td><?php echo $row["remarks"]; ?></td>
                                 </tr>
+                                <tr>
+                                    <th>Bitten Location</th> <!-- Add Bitten Location -->
+                                    <td><?php echo $row["bitten_location"]; ?></td>
+                                </tr>
                             </table>
                         </div>
                     <?php
@@ -135,7 +128,6 @@ if (!isset($_SESSION["user"]) || $_SESSION["user_type"] == "System Administrator
                         echo "<p>No record found.</p>";
                     }
 
-                    // Close the statement
                     $stmt->close();
                     ?>
 

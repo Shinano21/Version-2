@@ -12,6 +12,7 @@ if (!isset($_SESSION["user"]) || $_SESSION["user_type"] == "System Administrator
 if ($_SERVER["REQUEST_METHOD"] == "POST") {
     // Sanitize and retrieve form data
     $resident_id = mysqli_real_escape_string($conn, $_POST['resident_name']);
+      $bitten_location = mysqli_real_escape_string($conn, $_POST['bitten_location']);  // New field
     $bite_date = mysqli_real_escape_string($conn, $_POST['bite_date']);
     $treatment_date = mysqli_real_escape_string($conn, $_POST['treatment_date']);
     $bite_location = mysqli_real_escape_string($conn, $_POST['bite_location']);
@@ -21,8 +22,10 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
     // Validate required fields
     if (!empty($resident_id) && !empty($bite_date) && !empty($treatment_date) && !empty($bite_location) && !empty($treatment_center)) {
         // Prepare and execute SQL query to insert the new record
-        $query = "INSERT INTO animal_bite_records (resident_id, bite_date, treatment_date, bite_location, treatment_center, remarks) 
-                  VALUES ('$resident_id', '$bite_date', '$treatment_date', '$bite_location', '$treatment_center', '$remarks')";
+       // Prepare and execute SQL query to insert the new record, including bitten_location
+$query = "INSERT INTO animal_bite_records (resident_id, bite_date, treatment_date, bite_location, bitten_location, treatment_center, remarks) 
+          VALUES ('$resident_id', '$bite_date', '$treatment_date', '$bite_location', '$bitten_location', '$treatment_center', '$remarks')";
+
 
         if (mysqli_query($conn, $query)) {
             // Redirect to animal bite records page after successful insertion
