@@ -76,3 +76,7 @@ ALTER TABLE `messages`
 
   ALTER TABLE `messages`
   MODIFY `msg_id` int(11) NOT NULL AUTO_INCREMENT;
+
+
+  ALTER TABLE `animal_bite_records`
+ADD COLUMN `bitten_place` VARCHAR(255) DEFAULT NULL AFTER `bite_date`;

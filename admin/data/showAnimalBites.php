@@ -2,7 +2,7 @@
 // Ensure connection is included
 include('../dbcon.php');
 
-// SQL query
+// SQL query to fetch data including bitten_location
 $query = "SELECT ab.*, r.fname AS first_name, r.lname AS last_name, r.mname AS middle_name, r.suffix, r.sex, r.bday
           FROM animal_bite_records ab
           JOIN residents r ON ab.resident_id = r.id";
@@ -29,6 +29,7 @@ if (mysqli_num_rows($result) > 0) {
         echo "<td>{$row['bite_date']}</td>";
         echo "<td>{$row['treatment_date']}</td>";
         echo "<td>{$row['bite_location']}</td>";
+        echo "<td>{$row['bitten_location']}</td>"; // Display the bitten_location column
         echo "<td>{$row['treatment_center']}</td>";
         echo "<td>{$row['remarks']}</td>";
         // echo "<td>{$birthdate}</td>";
@@ -45,6 +46,6 @@ if (mysqli_num_rows($result) > 0) {
     }
 } else {
     // No records found
-    echo "<tr><td colspan='7'>No records found.</td></tr>";
+    echo "<tr><td colspan='8'>No records found.</td></tr>"; // Update colspan to 8 to account for the new column
 }
 ?>

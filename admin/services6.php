@@ -97,6 +97,7 @@ if (!isset($_SESSION["user"]) || $_SESSION["user_type"] == "System Administrator
                                     <th>Age</th>
                                     <th>Bite Date</th>
                                     <th>Bite Location</th>
+                                    <th>Bitten location</th>
                                     <th>Treatment Center</th>
                                     <th>Remarks</th>
                                     <th class="lastCol">Action</th>
