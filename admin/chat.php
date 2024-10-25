@@ -22,6 +22,9 @@
 
 <body>
 
+      
+ 
+
   <!-- Code for the toggle button  -->
   <script type="text/javascript">
     document.addEventListener('DOMContentLoaded', function () {
@@ -159,167 +162,124 @@ if(!isset($_SESSION["user"])){
     <button id="toggle-button">&#9776;</button> 
 
     <div class="content-wrap">
-    <div class="main">
-        <div class="container-fluid" id="container-fluid">
-            <section id="main-content">
-                <!-- Chat section -->
-                <div id="messenger-container">
-                    <div id="contacts-panel">
-                        <ul id="contacts-list">
-                            <div class="user-content">
-                                <?php 
-                                if (isset($_SESSION['unique_id'])) {
-                                    $unique_id = $_SESSION['unique_id'];
-                                    $sql = mysqli_query($conn, "SELECT * FROM users WHERE unique_id = '$unique_id'");
-                                    if (mysqli_num_rows($sql) > 0) {
-                                        $row = mysqli_fetch_assoc($sql);
-                                    } else {
-                                        $row = null; // No user found, $row set to null
-                                    }
-                                } else {
-                                    $row = null; // Session not set, $row set to null
-                                }
-                                ?>
-                               <?php
-// Connect to the database
-$servername = "localhost";
-$username = "root";
-$password = "";
-$dbname = "carevisio";
-
-$conn = new mysqli($servername, $username, $password, $dbname);
-
-// Check connection
-if ($conn->connect_error) {
-    die("Connection failed: " . $conn->connect_error);
-}
-
-// Fetch users
-$sql = "SELECT * FROM users"; // Adjust the query as needed, such as filtering by active status, etc.
-$result = $conn->query($sql);
-?>
-
-<div class="users-list">
-    <?php
-    if ($result->num_rows > 0) {
-        // Loop through each user and display their information
-        while ($row = $result->fetch_assoc()) {
-            ?>
-            <div class="user-details">
-                <!-- Display User Image -->
-                <?php
-                if (!empty($row['profile_image'])) {
-                    // Ensure the image exists before displaying
-                    echo "<img class='user-avatar' src='" . htmlspecialchars($row['profile_image']) . "' alt='User Avatar'>";
-                } else {
-                    echo "<img class='user-avatar' src='../user/images/defaultDP.png' alt='Default User Avatar'>";
-                }
-                ?>
+        <div class="main">
+            <div class="container-fluid" id="container-fluid">
                 
-                <div class="user-info">
-                    <!-- Display User Name -->
-                    <span class="user-name">
-                        <?php echo htmlspecialchars($row['first_name'] . " " . $row['last_name']); ?>
-                    </span>
-                    
-                    <!-- Display User Status -->
-                    <span class="user-status">
-                        <p>
-                            <?php 
-                            // Display status if available, else show a default status
-                            echo !empty($row['status']) ? htmlspecialchars($row['status']) : "Status not available"; 
-                            ?>
-                        </p>
-                    </span>
-                </div>
-            </div>
-            <?php
-        }
-    } else {
-        echo "<p>No users found.</p>";
-    }
-    ?>
-</div>
+                <section id="main-content">
+                  
+                    <!-- Chat section -->
+                    <div id="messenger-container">
+           
 
-<?php
-$conn->close();
-?>
-
-                            </div>
-
-                            <!-- Add more contacts as needed -->
-                            <section class="users">
-                                <br>
-                                <div class="chats-text">
-                                    <h1>Chats</h1>
-                                    <div class="search">
-                                        <i class="fas fa-search search-icon"></i>
-                                        <input class="text" type="text" placeholder="Search">
-                                    </div>
-                                    <div class="messages-text">
-                                        <p><i class="fas fa-comment" style="margin-right: 10px;"></i> Messages</p>
-                                    </div>
-                                    <hr style="margin-left:5px; margin-top: 20px; width: 420px;">
-                                    <div class="all-chat-text">All Chats</div>
-                                    <div class="users-list"></div>
-                                </div>
-                            </section>
-                        </ul>
-                    </div> 
-
-                    <div id="message-panel">
-                        <?php if ($_GET['user_id'] == $_SESSION['unique_id']) : ?>
-                            <div id="select-user-message">
-                                <div class="centered-content">
-                                    <img src="../user/images/send.png" alt="Send Image">
-                                    <p>Select a conversation or start a new one</p>
-                                </div>
-                            </div>
-                        <?php else : ?>
-                            <?php
-                            $user_id = mysqli_real_escape_string($conn, $_GET['user_id']);
-                            if (!is_numeric($user_id)) {
-                                echo '<div id="error-message">Invalid user ID</div>';
-                                header("refresh:1;url=chat.php");
-                                exit();
-                            }
-                            $sql = mysqli_query($conn, "SELECT * FROM users WHERE unique_id = '$user_id'");
-                            if ($sql && mysqli_num_rows($sql) > 0) {
-                                $row = mysqli_fetch_assoc($sql);
-                            } else {
-                                echo '<script>window.location.href = "chat.php";</script>';
-                                exit();
-                            }
-                            ?>
-                            <section class="chat-area">
-                                <header>
-                                    <img src="../user/images/<?php echo $row['img']; ?>" alt="">
-                                    <div class="details">
-                                        <span><?php echo htmlspecialchars($row['first_name']. " " . $row['last_name']); ?></span>
-                                        <p><?php echo htmlspecialchars($row['status']); ?></p>
-                                    </div>
-                                </header>
-
-                                <!-- Display the conversations here  -->
-                                <div class="chat-box"></div>
-                            </section>
-
-                            <!-- Message chat text box and send button -->
-                            <div id="message-input">
-                                <form action="#" class="typing-area">
-                                    <input type="text" class="incoming_id" name="incoming_id" value="<?php echo htmlspecialchars($user_id); ?>" hidden>
-                                    <input type="text" name="message" class="input-field" placeholder="Type a message here..." autocomplete="off">
-                                    <button><i class="fab fa-telegram-plane"></i></button>
-                                </form>
-                            </div> 
-                        <?php endif; ?>
+                <div id="contacts-panel" >
+                  <ul id="contacts-list">
+                 
+                <div class="user-content">
+                    <?php 
+                      $sql = mysqli_query($conn, "SELECT * FROM users WHERE unique_id = {$_SESSION['unique_id']}");
+                      if(mysqli_num_rows($sql) > 0){
+                        $row = mysqli_fetch_assoc($sql);
+                      }
+                    ?>
+                    <div class="user-details">
+                        <?php
+                        if (!empty($row['img'])) {
+                            echo "<img class='user-avatar' src='../user/images/{$row["img"]}' alt='User Avatar'>";
+                        } else {
+                            echo "<img class='user-avatar' src='../user/images/defaultDP.png' alt='Default User Avatar'>";
+                        }
+                        ?>
+                        <div class="user-info">
+                            <span class="user-name"><?php echo $row['first_name']. " " . $row['last_name'] ?></span>
+                            <span class="user-status">       <p><?php echo $row['status']; ?></p></span>
+                        
+                        </div>
                     </div>
                 </div>
-            </section>
-        </div>
-    </div>
-</div>
 
+                    <!-- Add more contacts as needed -->
+                <section class="users">
+                        
+                    <br>
+                    <div  class="chats-text"><h1> Chats </h1></span>
+                        <div class="search">
+                            <i class="fas fa-search search-icon"></i>
+                            <input class="text" type="text" placeholder=" Search">
+                            <button style="background-color: #f0f0f0;"></button>
+                        </div>
+                        <div  class="messages-text"> <p><i style="margin-right: 10px;"class="fas fa-comment"></i>&nbsp;&nbsp;Messages </p></div>
+                        <hr style=" margin-left:5px; margin-top: 20px; width: 420px;">
+                        <div class="all-chat-text"> <p>All Chats<p></div>
+                        <div class="users-list"></div>
+                    </div>
+                </section>
+                  </ul>
+                </div> 
+
+
+                <div id="message-panel">
+                  <!-- <div id="message-header">Messsages</div> -->
+                  <?php if ($_GET['user_id'] == $_SESSION['unique_id']) : ?>
+                    
+                    <div id="select-user-message">
+                      <div class="centered-content">
+                        <img src="../user/images/send.png" alt="Send Image">
+                        <p>Select a conversation or start a new one</p>
+                      </div>
+                    </div>
+                    <?php else : ?>
+                        <?php
+                        $user_id = mysqli_real_escape_string($conn, $_GET['user_id']);
+                        // Validate that $user_id is a numeric value
+                        if (!is_numeric($user_id)) {
+                          echo '<div id="error-message">Invalid user ID</div>';
+                          header("refresh:1;url=chat.php");
+                          exit();
+                        }
+                        $sql = mysqli_query($conn, "SELECT * FROM users WHERE unique_id = {$user_id}");
+
+                        if ($sql) {
+                            if(mysqli_num_rows($sql) > 0){
+                                $row = mysqli_fetch_assoc($sql);
+                            } else {
+                              echo '<script>window.location.href = "chat.php";</script>';
+                              exit();
+                            }
+                        } else {
+                          
+                            exit();
+                        }
+                        ?>
+
+                        <section class="chat-area">
+                            <header>
+                                <img src="../user/images/<?php echo $row['img']; ?>" alt="">
+                                <div class="details">
+                                    <span><?php echo $row['first_name']. " " . $row['last_name'] ?></span>
+                                    <p><?php echo $row['status']; ?></p>     
+                                </div>
+                            </header>
+
+                            <!-- Display the conversations here  -->
+                            <div class="chat-box">
+                            </div>
+                        </section>
+
+                        <!-- Message chat text box and send button -->
+                        <div id="message-input">
+                            <form action="#" class="typing-area">
+                                <input type="text" class="incoming_id" name="incoming_id" value="<?php echo $user_id; ?>" hidden>
+                                <input type="text" name="message" class="input-field" placeholder="Type a message here..." autocomplete="off">
+                                <button><i class="fab fa-telegram-plane"></i></button>
+                            </form>
+                        </div> 
+                    <?php endif; ?>
+                </div>
+              </div>
+                    </div>
+                </section>
+            </div>
+        </div>
     </div>  
       </body>
           <script src="javascript/users.js"></script>
@@ -395,4 +355,7 @@ $conn->close();
               contactsPanel.style.display = (contactsPanel.style.display === 'none') ? 'block' : 'none';
             });
           });
+
+
+
   </script>
