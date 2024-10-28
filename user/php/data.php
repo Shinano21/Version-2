@@ -37,7 +37,7 @@
         // Generate the HTML output (use 'profile_image' instead of 'img')
         $output .= '<a href="chat.php?user_id='. $row['unique_id'] .'">
                     <div class="content">
-                    <img src="images/'. (isset($row['profile_image']) ? basename($row['profile_image']) : 'default.png') .'" alt="">
+                    <img src="../'. (isset($row['profile_image']) ? $row['profile_image'] : 'uploads/default.png') .'" alt="">
                     <div class="details">
                         <span>'. $row['first_name']. " " . $row['last_name'] .'</span>
                         <p>'. $you . $msg .'</p>

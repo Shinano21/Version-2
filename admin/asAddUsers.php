@@ -78,7 +78,7 @@ if (!isset($_SESSION["user"]) || $_SESSION["user_type"] !== "System Administrato
                         <select name="position" id="position" required>
                             <option value="">Select a position</option>
                             <option value="System Administrator">System Admin</option>
-                            <option value="Barangay Nurse">Barangay Nurse</option>
+                            <!-- <option value="Barangay Nurse">Barangay Nurse</option> -->
                             <option value="Barangay Health Worker">Barangay Health Worker</option>
                         </select>
             </div>
