@@ -190,7 +190,7 @@ if(!isset($_SESSION["user"])){
                         }
                         ?>
                         <div class="user-info">
-                            <span class="user-name"><?php echo $row['first_name']. " " . $row['last_name'] ?></span>
+                            <span class="user-name"><?php echo $row['firstname']. " " . $row['lastname'] ?></span>
                             <span class="user-status">       <p><?php echo $row['status']; ?></p></span>
                         
                         </div>

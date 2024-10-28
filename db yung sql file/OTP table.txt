@@ -82,3 +82,12 @@ ALTER TABLE `messages`
 ADD COLUMN `bitten_place` VARCHAR(255) DEFAULT NULL AFTER `bite_date`;
 
 ALTER TABLE messages ADD status VARCHAR(10) DEFAULT 'unread';
+
+-- Add status column to track the admin's status (e.g., online, offline)
+ALTER TABLE administrator
+ADD COLUMN status VARCHAR(20) DEFAULT 'offline' AFTER a_status;
+
+-- Modify pfp column to store the path of the profile image instead of a blob
+ALTER TABLE administrator
+CHANGE COLUMN pfp pfp VARCHAR(255);
+

@@ -22,7 +22,7 @@
                     </a>
                 </li> -->
                                
-                <li style="background-color: white;"><a href="logout.php" style="background-color: white;"><i class="ti-close" ></i>
+                <li style="background-color: white;"><a href="./logout.php" style="background-color: white;"><i class="ti-close" ></i>
                         Logout</a></li>
             </ul>
         </div>

@@ -47,7 +47,7 @@
                                     <div class="dropdown-content-body">
                                         <ul>
                                             <li>
-                                                <a href="../edit_admin_profile.php" onclick=" window.location.href='../edit_admin_profile.php';">
+                                                <a href="./edit_admin_profile.php" onclick=" window.location.href='./edit_admin_profile.php';">
                                                     <i class="ti-user"></i>
                                                     <span>Edit Profile</span>
                                                 </a>

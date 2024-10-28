@@ -3,10 +3,6 @@ include "dbcon.php";
 session_start();
 
 if (isset($_POST["submit"])) {
-    if (!$conn) {
-        die("Connection failed: " . mysqli_connect_error());
-    }
-
     $user = $_POST["user"];
     $password = $_POST["password"];
 
@@ -30,20 +26,19 @@ if (isset($_POST["submit"])) {
                     $_SESSION["lastname"] = $row["lastname"];
                     $_SESSION["user"] = $row["email"];
                     $_SESSION["user_type"] = $row["user_type"];
-                    $_SESSION["unique_id"] = $row["id"];
-                    
+                    $_SESSION["unique_id"] = $row["id"]; // Using 'id' as unique identifier
+
+                    // Update the administrator's status
                     $status = "Active now";
-                    $unique_id = mysqli_real_escape_string($conn, $row['id']);
-                    $sql2 = "UPDATE users SET status = ? WHERE unique_id = ?";
+                    $admin_id = $row['id'];
+                    $sql2 = "UPDATE administrator SET status = ? WHERE id = ?";
                     $stmt2 = mysqli_prepare($conn, $sql2);
-                    mysqli_stmt_bind_param($stmt2, "ss", $status, $unique_id);
+                    mysqli_stmt_bind_param($stmt2, "si", $status, $admin_id);
                     mysqli_stmt_execute($stmt2);
 
                     if (isset($_POST["remember"])) {
-                        // Set a cookie to remember the user for 30 days (example duration)
                         setcookie("user_email", $user, time() + (30 * 24 * 60 * 60), "/");
-                        // Storing password in a cookie is not secure
-                        // setcookie("user_password", $password, time() + (30 * 24 * 60 * 60), "/");
+                        // Do not store password in a cookie for security reasons
                     }
 
                     header("Location: home.php");
