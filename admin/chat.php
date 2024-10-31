@@ -174,28 +174,28 @@ if(!isset($_SESSION["user"])){
                 <div id="contacts-panel" >
                   <ul id="contacts-list">
                  
-                <div class="user-content">
-                    <?php 
-                      $sql = mysqli_query($conn, "SELECT * FROM users WHERE unique_id = {$_SESSION['unique_id']}");
-                      if(mysqli_num_rows($sql) > 0){
-                        $row = mysqli_fetch_assoc($sql);
-                      }
-                    ?>
-                    <div class="user-details">
-                        <?php
-                        if (!empty($row['img'])) {
-                            echo "<img class='user-avatar' src='../user/images/{$row["img"]}' alt='User Avatar'>";
-                        } else {
-                            echo "<img class='user-avatar' src='../user/images/defaultDP.png' alt='Default User Avatar'>";
-                        }
-                        ?>
-                        <div class="user-info">
-                            <span class="user-name"><?php echo $row['firstname']. " " . $row['lastname'] ?></span>
-                            <span class="user-status">       <p><?php echo $row['status']; ?></p></span>
-                        
-                        </div>
-                    </div>
-                </div>
+         <?php 
+  $sql = mysqli_query($conn, "SELECT * FROM administrator WHERE id = {$_SESSION['unique_id']}");
+  if(mysqli_num_rows($sql) > 0){
+    $row = mysqli_fetch_assoc($sql);
+  }
+?>
+<div class="user-content">
+  <div class="user-details">
+      <?php
+      if (!empty($row['pfp'])) {
+          echo "<img class='user-avatar' src='../admin/uploads/{$row["pfp"]}' alt='User Avatar'>";
+      } else {
+          echo "<img class='user-avatar' src='../admin/uploads/defaultDP.png' alt='Default User Avatar'>";
+      }
+      ?>
+      <div class="user-info">
+          <span class="user-name"><?php echo $row['firstname']. " " . $row['lastname']; ?></span>
+          <span class="user-status"><p><?php echo $row['status']; ?></p></span>
+      </div>
+  </div>
+</div>
+
 
                     <!-- Add more contacts as needed -->
                 <section class="users">
