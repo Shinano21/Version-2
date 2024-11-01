@@ -1,49 +1,67 @@
 <?php
-    while($row = mysqli_fetch_assoc($query)){
-        $sql2 = "SELECT * FROM messages WHERE (incoming_msg_id = {$row['unique_id']}
-                OR outgoing_msg_id = {$row['unique_id']}) AND (outgoing_msg_id = {$outgoing_id} 
+    while ($row = mysqli_fetch_assoc($query)) {
+        // Ensure the outgoing ID is defined
+        if (!isset($outgoing_id)) {
+            $msg = "No outgoing ID defined";
+            continue;
+        }
+
+        // Determine the unique ID field based on the type (user or admin)
+        $id = null; // Initialize $id as null
+
+        // Check if type exists and assign the correct ID based on the user type
+        if (isset($row['type'])) {
+            $id = ($row['type'] === 'admin') ? ($row['id'] ?? null) : ($row['unique_id'] ?? null);
+        }
+
+        // Skip if no valid ID was found
+        if (is_null($id)) {
+            $msg = "No valid ID found";
+            continue;
+        }
+
+        // Fetch the last message for this user or admin
+        $sql2 = "SELECT * FROM messages WHERE (incoming_msg_id = {$id} 
+                OR outgoing_msg_id = {$id}) AND (outgoing_msg_id = {$outgoing_id} 
                 OR incoming_msg_id = {$outgoing_id}) ORDER BY msg_id DESC LIMIT 1";
         $query2 = mysqli_query($conn, $sql2);
         $row2 = mysqli_fetch_assoc($query2);
-        
+
         // Check if $row2 is not null
-        if($row2 !== null) {
-            // Check if the message status is unread
+        if ($row2 !== null) {
             $unread = ($row2['status'] == 'unread') ? true : false;
-            
-            // Determine the message to display
-            if(mysqli_num_rows($query2) > 0) {
-                $result = $row2['msg'];
-            } else {
-                $result = "No message available";
-            }
-            
-            // Make the message bold if it's unread
-            $msg = ($unread) ? "<b>$result</b>" : $result;
+            $result = mysqli_num_rows($query2) > 0 ? $row2['msg'] : "No message available";
+            $msg = $unread ? "<b>$result</b>" : $result;
         } else {
-            // If $row2 is null, set $msg to a default value
             $msg = "No message available";
         }
-        
+
         // Truncate the message if it's too long
         $msg = (strlen($msg) > 28) ? substr($msg, 0, 28) . '...' : $msg;
 
         // Determine if the message is from the current user
-        $you = ($outgoing_id == $row['unique_id']) ? "You: " : "";
+        $you = ($outgoing_id == $id) ? "You: " : "";
 
-        // Determine the user's online status
+        // Determine the online status
         $offline = ($row['status'] == "Offline now") ? "offline" : "";
 
-        // Generate the HTML output (use 'profile_image' instead of 'img')
-        $output .= '<a href="chat.php?user_id='. $row['unique_id'] .'">
-                    <div class="content">
-                    <img src="../'. (isset($row['profile_image']) ? $row['profile_image'] : 'uploads/default.png') .'" alt="">
-                    <div class="details">
-                        <span>'. $row['first_name']. " " . $row['last_name'] .'</span>
-                        <p>'. $you . $msg .'</p>
-                    </div>
-                    </div>
-                    <div class="status-dot '. $offline .'"><i class="fas fa-circle"></i></div>
-                </a>';
+        // Use the correct profile image
+        $profile_image = isset($row['profile_image']) ? $row['profile_image'] : 'uploads/default.png';
+
+        // Determine correct name fields based on user type
+        $firstName = isset($row['first_name']) ? $row['first_name'] : (isset($row['firstname']) ? $row['firstname'] : "Unknown");
+        $lastName = isset($row['last_name']) ? $row['last_name'] : (isset($row['lastname']) ? $row['lastname'] : "User");
+
+        // Generate the HTML output
+        $output .= '<a href="chat.php?user_id=' . $id . '&user_type=' . $row['type'] . '">
+                        <div class="content">
+                            <img src="../' . $profile_image . '" alt="">
+                            <div class="details">
+                                <span>' . $firstName . " " . $lastName . '</span>
+                                <p>' . $you . $msg . '</p>
+                            </div>
+                        </div>
+                        <div class="status-dot ' . $offline . '"><i class="fas fa-circle"></i></div>
+                    </a>';
     }
 ?>
