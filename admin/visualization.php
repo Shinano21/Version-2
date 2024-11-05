@@ -14,7 +14,7 @@ if (!isset($_SESSION["user"]) || $_SESSION["user_type"] == "System Administrator
 <html lang="en">
 
 <head>
-    <title>Visualization | CareVisio</title>
+    <title>Visualization | TechCare</title>
     <?php include "partials/head.php"; ?>
 </head>
 

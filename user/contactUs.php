@@ -4,13 +4,13 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Contact Us - CareVisio</title>
+    <title>Contact Us - TechCare</title>
     <link rel="stylesheet" href="global.css">
     <link rel="stylesheet" href="../css/contactUs.css">
     <link href='https://unpkg.com/boxicons@2.1.4/css/boxicons.min.css' rel='stylesheet'>
     <link rel="stylesheet" href="https://unpkg.com/leaflet@1.7.1/dist/leaflet.css" />
 
-    <link rel="shortcut icon" href="../src/favicon.png" type="image/x-icon">
+    <!-- <link rel="shortcut icon" href="../src/favicon.png" type="image/x-icon"> -->
 </head>
 
 <body>

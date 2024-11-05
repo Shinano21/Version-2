@@ -11,7 +11,7 @@ if (!isset($_SESSION["user"]) || $_SESSION["user_type"] == "System Administrator
 <html lang="en">
 
 <head>
-    <title>Reports | CareVisio</title>
+    <title>Reports | TechCare</title>
     <?php include "partials/head.php"; ?>
     <link rel="stylesheet" href="css/reports.css">
     <link href='https://unpkg.com/boxicons@2.1.4/css/boxicons.min.css' rel='stylesheet'>

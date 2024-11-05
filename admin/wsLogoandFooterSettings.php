@@ -15,7 +15,7 @@ $navbarLogo = null; // Define a default value for $navbarLogo
 <html lang="en">
 
 <head>
-    <title>Logo and Footer Settings | CareVisio</title>
+    <title>Logo and Footer Settings | TechCare</title>
     <?php include "../user/data/logo.php"; ?>
     <?php include "partials/head.php"; ?>
     <link rel="stylesheet" href="css/wsHome.css">

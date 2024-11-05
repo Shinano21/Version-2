@@ -1,6 +1,6 @@
 <?php
 
-$name = "CareVisio";
+$name = "TechCare";
 
 
 ?>

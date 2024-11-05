@@ -32,7 +32,7 @@ $fbLink = '';
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <title>Contact Us Settings | CareVisio</title>
+    <title>Contact Us Settings | TechCare</title>
     <?php include "../user/data/contact_us.php"; ?>
     <?php include "partials/head.php"; ?>
     <link rel="stylesheet" href="css/wsHome.css">

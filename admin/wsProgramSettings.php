@@ -11,7 +11,7 @@ if (!isset($_SESSION["user"]) || $_SESSION["user_type"] == "System Administrator
 <html lang="en">
 
 <head>
-    <title>Programs Settings | CareVisio</title>
+    <title>Programs Settings | TechCare</title>
     <?php include "../user/data/home.php"; ?>
     <?php include "partials/head.php"; ?>
     <link rel="stylesheet" href="css/wsHome.css">

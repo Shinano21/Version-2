@@ -28,7 +28,7 @@ $officeHrs = '';
 <html lang="en">
 
 <head>
-    <title>Home Settings | CareVisio</title>
+    <title>Home Settings | TechCare</title>
     <?php include "../user/data/home.php"; ?>
     <?php include "partials/head.php"; ?>
     <link rel="stylesheet" href="css/wsHome.css">

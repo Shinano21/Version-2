@@ -11,7 +11,7 @@ if(!isset($_SESSION["user"])){
 <html lang="en">
 
 <head>
-    <title>Dashboard | CareVisio</title>
+    <title>Dashboard | TechCare</title>
     <?php include "partials/head.php"; ?>
 </head>
 

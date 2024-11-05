@@ -12,8 +12,8 @@
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.2/css/all.min.css"/>
   <!-- <link rel="stylesheet" href="../css/home.css"> -->
   <link rel="stylesheet" href="global.css">
-  <title>Messages | CareVisio</title>
-  <link rel="shortcut icon" href="../src/favicon.png">
+  <title>Messages | TechCare</title>
+  <!-- <link rel="shortcut icon" href="../src/favicon.png"> -->
   <style>
   
   </style>

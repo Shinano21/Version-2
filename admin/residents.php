@@ -12,7 +12,7 @@ if (!isset($_SESSION["user"]) || $_SESSION["user_type"] == "System Administrator
 <html lang="en">
 
 <head>
-    <title>Resident Records | CareVisio</title>
+    <title>Resident Records | TechCare</title>
     <?php include "partials/head.php"; ?>
     <link rel="stylesheet" href="css/tables.css">
 </head>
