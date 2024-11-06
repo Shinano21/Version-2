@@ -91,3 +91,5 @@ ADD COLUMN status VARCHAR(20) DEFAULT 'offline' AFTER a_status;
 ALTER TABLE administrator
 CHANGE COLUMN pfp pfp VARCHAR(255);
 
+ALTER TABLE animal_bite_records
+ADD COLUMN bitten_location VARCHAR(255) DEFAULT NULL AFTER bite_date;
