@@ -7,6 +7,24 @@ if (!isset($_SESSION["user"]) || $_SESSION["user_type"] == "System Administrator
     header("Location: index.php");
     exit();
 }
+
+// Function to generate a unique ID card number
+function generateUniqueID($conn) {
+    do {
+        // Generate a random 8-digit number prefixed with "ID-"
+        $random_id_card_no =  mt_rand(10000000, 99999999);
+
+        // Check if this ID already exists in the database
+        $query = "SELECT COUNT(*) as count FROM residents WHERE id_card_no = '$random_id_card_no'";
+        $result = mysqli_query($conn, $query);
+        $row = mysqli_fetch_assoc($result);
+    } while ($row['count'] > 0); // Repeat if the ID is already in use
+
+    return $random_id_card_no;
+}
+
+// Generate the unique ID card number
+$random_id_card_no = generateUniqueID($conn);
 ?>
 <!DOCTYPE html>
 <html lang="en">
@@ -252,7 +270,11 @@ if (!isset($_SESSION["user"]) || $_SESSION["user_type"] == "System Administrator
                             <br>
                             <input type="text" name="Latitude" id="lati" required>
                         </th>
-
+                        <th>
+                            <label>ID Card Number</label>
+                            <br>
+                            <input type="text" name="id_card_no" id="id_card_no" placeholder="<?php echo $random_id_card_no; ?>" value="<?php echo $random_id_card_no; ?>" required>
+                        </th>
                     </tr>
                 </table>
                 <br>

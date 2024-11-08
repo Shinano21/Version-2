@@ -58,6 +58,8 @@
 
                     </ul>
                 </li>
+                <li><a href="Idsystem/index.php"><i class="fa fa-id-card"></i> ID System</a></li>
+
                 <li><a href="logout.php"><i class="ti-close"></i> Logout</a></li>
             </ul>
         </div>
