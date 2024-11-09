@@ -1,95 +1,45 @@
-
 <?php  
-
-// Connect to the Database 
+// Connect to the Database
 include('config.php');
 
-$insert = false;
 $update = false;
-$empty = false;
 $delete = false;
 $already_card = false;
 
-
-
-if(isset($_GET['delete'])){
-  $sno = $_GET['delete'];
-  $delete = true;
-  $sql = "DELETE FROM `cards` WHERE `sno` = $sno";
-  $result = mysqli_query($conn, $sql);
+if (isset($_GET['delete'])) {
+    // Handle delete action
+    $id = $_GET['delete'];
+    $delete = true;
+    $sql = "DELETE FROM `residents` WHERE `id` = $id";
+    $result = mysqli_query($conn, $sql);
 }
 
-if ($_SERVER['REQUEST_METHOD'] == 'POST'){
-    if (isset( $_POST['snoEdit'])){
-      // Update the record
-        $sno = $_POST["snoEdit"];
-        $name = $_POST["nameEdit"];
-        $id_no = $_POST["id_noEdit"];
+if ($_SERVER['REQUEST_METHOD'] == 'POST') {
+    if (isset($_POST['snoEdit'])) {
+        // Update the record
+        $id = $_POST["snoEdit"];
+        $fname = $_POST["fnameEdit"];
+        $id_card_no = $_POST["id_noEdit"];
 
-      // Sql query to be executed
-      $sql = "UPDATE `cards` SET `name` = '$name' , `id_no` = '$id_no' WHERE `cards`.`sno` = $sno";
-      $result = mysqli_query($conn, $sql);
-      if($result){
-        $update = true;
-    }
-    else{
-        echo "We could not update the record successfully";
-    }
-}
-else{
-    $name = $_POST["name"];
-    $id_no = $_POST["id_no"];
-    $grade = $_POST['grade'];
-    $dob = $_POST['dob'];
-    $address = $_POST['address'];
-    $email = $_POST['email'];
-    $exp_date = $_POST['exp_date'];
-    $phone = $_POST['phone'];
+        // SQL query to update the record
+        $sql = "UPDATE `residents` SET `fname` = '$fname', `id_card_no` = '$id_card_no' WHERE `residents`.`id` = $id";
+        $result = mysqli_query($conn, $sql);
 
-    if($name == '' || $id_no == ''){
-        $empty = true;
-    }
-    else{
-        //Check that Card no. is Already Registerd or not.
-        $querry = mysqli_query($conn, "SELECT * FROM cards WHERE id_no= '$id_no' ");
-        if(mysqli_num_rows($querry)>0)
-        {
-             $already_card = true;
+        if ($result) {
+            $update = true;
+        } else {
+            echo "We could not update the record successfully: " . mysqli_error($conn);
         }
-        else{
-
-
-          // image upload 
-          $uploaddir = 'assets/uploads/';
-          $uploadfile = $uploaddir . basename($_FILES['image']['name']);
-
-      
-          if (move_uploaded_file($_FILES['image']['tmp_name'], $uploadfile)) {
-              
-          } else {
-              echo "Possible file upload attack!\n";
-          }
-  // Sql query to be executed
-  $sql = "INSERT INTO `cards`(`name`, `id_no`, `email`, `phone`, `address`, `dob`, `exp_date`, `image`) VALUES ('$name','$id_no','$email]','$phone','$address','$dob','$exp_date','$uploadfile')"; 
-
-  // $sql = "INSERT INTO `cards` (`name`, `id_no`) VALUES ('$name', '$id_no')";
-  $result = mysqli_query($conn, $sql);
-
-
-
-   
-  if($result){ 
-      $insert = true;
-  }
-  else{
-      echo "The record was not inserted successfully because of this error ---> ". mysqli_error($conn);
-  } 
-}
-}
+    }
 }
 
- }
+// Fetch all residents' data for display
+$sql = "SELECT id, fname, mname, lname, suffix, sex, bday, street, zone, brgy, mun, contact, id_card_no FROM residents";
+$result = mysqli_query($conn, $sql);
+
+
 ?>
+
 
 <!doctype html>
 <html lang="en">
@@ -183,16 +133,7 @@ else{
 </nav>
 <!-- Navigation bar end  -->
 
-  <?php
-  if($insert){
-    echo "<div class='alert alert-success alert-dismissible fade show' role='alert'>
-    <strong>Success!</strong> Your Card has been inserted successfully
-    <button type='button' class='close' data-dismiss='alert' aria-label='Close'>
-      <span aria-hidden='true'>×</span>
-    </button>
-  </div>";
-  }
-  ?>
+
   <?php
   if($delete){
     echo "<div class='alert alert-success alert-dismissible fade show' role='alert'>
@@ -213,16 +154,7 @@ else{
   </div>";
   }
   ?>
-   <?php
-  if($empty){
-    echo "<div class='alert alert-warning alert-dismissible fade show' role='alert'>
-    <strong>Error!</strong> The Fields Cannot Be Empty! Please Give Some Values.
-    <button type='button' class='close' data-dismiss='alert' aria-label='Close'>
-      <span aria-hidden='true'>×</span>
-    </button>
-  </div>";
-  }
-  ?>
+
      <?php
   if($already_card){
     echo "<div class='alert alert-warning alert-dismissible fade show' role='alert'>
@@ -234,9 +166,7 @@ else{
   }
   ?>
   <div class="container my-4">
-  <button class="btn btn-primary" type="button" data-toggle="collapse" data-target="#collapseExample" aria-expanded="false" aria-controls="collapseExample">
-  <i class="fa fa-plus"></i> Add New Card
-  </button>
+
   <a href="id-card.php" class="btn btn-primary">
   <i class="fa fa-address-card"></i> Generate ID Card
 </a>
@@ -244,98 +174,48 @@ else{
 <div class="collapse" id="collapseExample">
   <div class="card card-body">
 
-    <form method="POST" enctype="multipart/form-data">
-    <div class="form-row">
-      <div class="form-group col-md-6">
-        <label for="inputCity">Student Name</label>
-        <input type="text" name="name" class="form-control" id="inputCity">
-      </div>
-      <div class="form-group col-md-4">
-        <label for="inputState">Class / Grade</label>
-        <select name="grade" class="form-control">
-          <option selected>Choose...</option>
-          <option value="1st">1st</option>
-          <option value="2nd">2nd</option>
-          <option value="3rd">3rd</option>
-          <option value="4th">4th</option>
-          <option value="5th">5th</option>
-          <option value="6th">6th</option>
-          <option value="7th">7th</option>
-        </select>
-      </div>
-      <div class="form-group col-md-2">
-        <label for="inputZip">Date Of Birth</label>
-        <input type="date" name="dob" class="form-control">
-      </div>
-    </div>
-    <div class="form-row">
-      <div class="form-group col-md-6">
-        <label for="inputCity">Address</label>
-        <input type="text" name="address" class="form-control">
-      </div>
-      <div class="form-group col-md-4">
-        <label for="inputState">Email Id</label>
-        <input type="text" name="email" class="form-control">
-      </div>
-      <div class="form-group col-md-2">
-        <label for="inputZip">Expire Date</label>
-        <input type="date" name="exp_date" class="form-control">
-      </div>
-    </div>
-      
-      <div class="form-row">
-        <div class="form-group col-md-3">
-          <label for="id_no">ID Card No.</label>
-          <input class="form-control" id="id_no" name="id_no" ></input>
-        </div>
-        <div class="form-group col-md-3">
-          <label for="phone">Phone No.</label>
-          <input class="form-control" id="phone" name="phone" ></input>
-        </div>
-        <div class="form-group col-md-4">
-          <label for="photo">Photo</label>
-          <input type="file" name="image" />
-        </div>
-      </div>
-      <button type="submit" class="btn btn-primary"><i class="fa fa-plus"></i> Add Card</button>
-    </form>
+
   </div>
 </div>
 
   <div class="container my-4">
 
+  <table class="table" id="myTable">
+  <thead>
+    <tr>
+      <th scope="col">S.No</th>
+      <th scope="col">Name</th>
+      <th scope="col">ID Card No.</th>
+      <th scope="col">Actions</th>
+    </tr>
+  </thead>
+  <tbody>
+    <?php 
+      // Fetching data from the 'residents' table
+      $sql = "SELECT id, fname, mname, lname, id_card_no FROM `residents` ORDER BY id DESC";
+      $result = mysqli_query($conn, $sql);
+      $sno = 0;
 
-    <table class="table" id="myTable">
-      <thead>
-        <tr>
-          <th scope="col">S.No</th>
-          <th scope="col">Name</th>
-          <th scope="col">ID Card No.</th>
-          <th scope="col">Actions</th>
-        </tr>
-      </thead>
-      <tbody>
-        <?php 
-          $sql = "SELECT * FROM `cards` order by 1 DESC";
-          $result = mysqli_query($conn, $sql);
-          $sno = 0;
-          while($row = mysqli_fetch_assoc($result)){
-            $sno = $sno + 1;
-            echo "<tr>
-            <th scope='row'>". $sno . "</th>
-            <td>". $row['name'] . "</td>
-            <td>". $row['id_no'] . "</td>
-            <td> <button class='edit btn btn-sm btn-primary' id=".$row['sno'].">Edit</button> <button class='delete btn btn-sm btn-primary' id=d".$row['sno'].">Delete</button>  </td>
-          </tr>";
-        } 
-          ?>
+      // Display each row of data
+      while($row = mysqli_fetch_assoc($result)){
+        $sno++;
+        $full_name = $row['fname'] . ' ' . $row['mname'] . ' ' . $row['lname'];
+        echo "<tr>
+          <th scope='row'>{$sno}</th>
+          <td>{$full_name}</td>
+          <td>{$row['id_card_no']}</td>
+          <td>
+            <button class='edit btn btn-sm btn-primary' id='{$row['id']}'>Edit</button>
+            <button class='delete btn btn-sm btn-danger' id='d{$row['id']}'>Delete</button>
+          </td>
+        </tr>";
+      }
+    ?>
+  </tbody>
+</table>
 
-
-      </tbody>
-    </table>
   </div>
   <hr>
-  <a href="https://www.youtube.com/channel/UCerL4wDA74l1hmv8gnGJCWg" type="button" class="btn btn-primary btn-lg btn-block" target="_blank">Please Like And Subscribe</a>
   <!-- Optional JavaScript -->
   <!-- jQuery first, then Popper.js, then Bootstrap JS -->
   <script src="https://code.jquery.com/jquery-3.4.1.slim.min.js"

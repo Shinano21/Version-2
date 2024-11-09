@@ -1,103 +1,98 @@
 <?php 
-        $notfound = false;
-        include 'config.php';
-        $html = '';
-        if(isset($_POST['search'])){
+    $notfound = false;
+    include 'config.php';
+    $html = '';
 
-             $id_no = $_POST['id_no'];
+    if (isset($_POST['search'])) {
+        $id_card_no = $_POST['id_no'];
 
-             $sql = "Select * from cards where id_no='$id_no' ";
+        // Fetch data from the 'residents' table
+        $sql = "SELECT * FROM `residents` WHERE `id_card_no` = '$id_card_no'";
+        $result = mysqli_query($conn, $sql);
 
-             $result = mysqli_query($conn, $sql);
- 
- 
-             if(mysqli_num_rows($result)>0){
-             $html="<div class='card' style='width:350px; padding:0;' >";
-     
-               $html.="";
-                         while($row=mysqli_fetch_assoc($result)){
-                             
-                            $name = $row["name"];
-                            $id_no = $row["id_no"];
-                            $grade = $row['grade'];
-                            $dob = $row['dob'];
-                            $address = $row['address'];
-                            $email = $row['email'];
-                            $exp_date = $row['exp_date'];
-                            $phone = $row['phone'];
-                            $address = $row['address'];
-                            $image = $row['image'];
-                            $date = date('M d, Y', strtotime($row['date']));
-                          
-                             
-                             $html.="
-                                        <!-- second id card  -->
-                                        <div class='container' style='text-align:left; border:2px dotted black;'>
-                                              <div class='header'>
-                                                
-                                              </div>
-                                  
-                                              <div class='container-2'>
-                                                  <div class='box-1'>
-                                                  <img src='$image'/>
-                                                  </div>
-                                                  <div class='box-2'>
-                                                      <h2>$name</h2>
-                                                      <p style='font-size: 14px;'>Web Developer</p>
-                                                  </div>
-                                                  <div class='box-3'>
-                                                      <img src='assets/images/logo.jpg' alt=''>
-                                                  </div>
-                                              </div>
-                                  
-                                              <div class='container-3'>
-                                                  <div class='info-1'>
-                                                      <div class='id'>
-                                                          <h4>ID No</h4>
-                                                          <p>$id_no</p>
-                                                      </div>
-                                  
-                                                      <div class='dob'>
-                                                          <h4>Phone</h4>
-                                                          <p>$phone</p>
-                                                      </div>
-                                  
-                                                  </div>
-                                                  <div class='info-2'>
-                                                      <div class='join-date'>
-                                                          <h4>Joined Date</h4>
-                                                          <p>$date</p>
-                                                      </div>
-                                                      <div class='expire-date'>
-                                                          <h4>Expire Date</h4>
-                                                          <p>$exp_date</p>
-                                                      </div>
-                                                  </div>
-                                                  <div class='info-3'>
-                                                      <div class='email'>
-                                                          <h4>Address</h4>
-                                                          <p>$address this is the final long address</p>
-                                                      </div>
-                                                      
-                                                  </div>
-                                                  <div class='info-4'>
-                                                      <div class='sign'>
-                                                          <br>
-                                                          <p style='font-size:12px;'>Your Signature</p>
-                                                      </div>
-                                                  </div>
-                                                  <!-- id card end -->
-                                        ";
-                                        
-                           
-                         }
-     
+        if (mysqli_num_rows($result) > 0) {
+            $html = "<div class='card' style='width:350px; padding:0;'>";
 
-             }
-            
+            while ($row = mysqli_fetch_assoc($result)) {
+                // Resident details
+                $fname = $row["fname"];
+                $mname = $row["mname"];
+                $lname = $row["lname"];
+                $suffix = $row["suffix"];
+                $full_name = $fname . ' ' . $mname . ' ' . $lname . ' ' . $suffix;
+                $id_card_no = $row["id_card_no"];
+                $contact = $row['contact'];
+                $bday = $row['bday'];
+                $address = $row['street'] . ', ' . $row['brgy'] . ', ' . $row['mun'] . ', ' . $row['province'];
+                $profile = '../residents_img/' . $row['profile']; // Correct relative path from id-card.php
+                // $created_at = date('M d, Y', strtotime($row['created_at']));
+                $exp_date = $row['exp_date'] ?? 'N/A';
+
+                // Card HTML
+                $html .= "
+                    <!-- ID Card Display -->
+                    <div class='container' style='text-align:left; border:2px dotted black;'>
+                        <div class='header'></div>
+
+                        <div class='container-2'>
+                            <div class='box-1'>
+                                <img src='$profile' alt='Profile Image' style='width: 100px; height: 100px; border-radius: 50%;'/>
+                            </div>
+                            <div class='box-2'>
+                                <h2>$full_name</h2>
+                                <p style='font-size: 14px;'>Resident</p>
+                            </div>
+                            <div class='box-3'>
+                                <img src='assets/images/logo.jpg' alt='Logo' style='width: 50px; height: 50px;'/>
+                            </div>
+                        </div>
+
+                        <div class='container-3'>
+                            <div class='info-1'>
+                                <div class='id'>
+                                    <h4>ID No</h4>
+                                    <p>$id_card_no</p>
+                                </div>
+
+                                <div class='dob'>
+                                    <h4>Birthday</h4>
+                                    <p>$bday</p>
+                                </div>
+                            </div>
+                            <div class='info-2'>
+                                <div class='join-date'>
+                                    <h4>Joined Date</h4>
+                                   
+                                </div>
+                                <div class='expire-date'>
+                                    <h4>Expire Date</h4>
+                                    <p>$exp_date</p>
+                                </div>
+                            </div>
+                            <div class='info-3'>
+                                <div class='email'>
+                                    <h4>Address</h4>
+                                    <p>$address</p>
+                                </div>
+                            </div>
+                            <div class='info-4'>
+                                <div class='sign'>
+                                    <br>
+                                    <p style='font-size:12px;'>Your Signature</p>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                ";
+            }
+        } else {
+            $html = "<p>No records found for ID No: $id_card_no</p>";
         }
+    }
 
-             ?>
+?>
+
+
 <!doctype html>
 <html lang="en">
   <head>
