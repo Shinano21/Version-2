@@ -58,7 +58,23 @@
 
                     </ul>
                 </li>
-                <li><a href="Idsystem/index.php"><i class="fa fa-id-card"></i> ID System</a></li>
+
+                <li>
+                <a class="sidebar-sub-toggle">
+                        <i class="fa fa-id-card"></i> ID System
+                        <span class="sidebar-collapse-icon ti-angle-down"></span>
+                    </a>
+                    <ul>
+
+                        <li style="font-size:0.7rem;text-indent:2%;"><a href="IDsystem/index.php"><i
+                        class="fa fa-id-card" style="font-size:9px;"></i>Generate ID</a></li>
+                        <li style="font-size:0.7rem;text-indent:2%;"><a href="IDsystem/id_scanner.php"><i
+                        class="fa fa-id-card" style="font-size:9px;"></i>Scan ID</a></li>
+                            <!-- <a href="Idsystem/index.php"><i class="fa fa-id-card"></i> ID Generator</a>
+                            <a href="Idsystem/id_scanner.php"><i class="fa fa-id-card"></i> ID Scanner</a> -->
+                        </ul>
+                    </li>
+
 
                 <li><a href="logout.php"><i class="ti-close"></i> Logout</a></li>
             </ul>
