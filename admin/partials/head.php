@@ -1,7 +1,7 @@
 <head>
     <!-- ================= Favicon ================== -->
     <!-- Standard -->
-    <!-- <link rel="shortcut icon" href="../src/favicon.png"> -->
+    <link rel="shortcut icon" href="./src/techcareLogo2.png">
     <!-- Retina iPad Touch Icon-->
     <link rel="apple-touch-icon" sizes="144x144" href="http://placehold.it/144.png/000/fff">
     <!-- Retina iPhone Touch Icon-->

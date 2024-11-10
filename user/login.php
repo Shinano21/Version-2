@@ -7,7 +7,7 @@
     <title>Log In - CareVisio</title>
     <link rel="stylesheet" href="../style/login_style.css">
 
-    <link rel="shortcut icon" href="../src/favicon.png" type="image/x-icon">
+    <link rel="shortcut icon" href="images/techcareLogo2.png" type="image/x-icon">
 
     <style>
         /* Media query for smaller screens (e.g., mobile devices) */

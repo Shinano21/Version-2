@@ -13,7 +13,7 @@
   <!-- <link rel="stylesheet" href="../css/home.css"> -->
   <link rel="stylesheet" href="global.css">
   <title>Messages | TechCare</title>
-  <!-- <link rel="shortcut icon" href="../src/favicon.png"> -->
+  <link rel="shortcut icon" href="src/techcareLogo2.png">
   <style>
   
   </style>
