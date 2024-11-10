@@ -1,7 +1,7 @@
 Administrator
 
 Email:admin@gmail.com
-password:
+password:adminadmin1234
 
 BHW
 
