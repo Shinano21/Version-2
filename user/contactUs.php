@@ -10,7 +10,7 @@
     <link href='https://unpkg.com/boxicons@2.1.4/css/boxicons.min.css' rel='stylesheet'>
     <link rel="stylesheet" href="https://unpkg.com/leaflet@1.7.1/dist/leaflet.css" />
 
-    <!-- <link rel="shortcut icon" href="../src/favicon.png" type="image/x-icon"> -->
+    <link rel="shortcut icon" href="images/techcareLogo2.png" type="image/x-icon">
 </head>
 
 <body>
