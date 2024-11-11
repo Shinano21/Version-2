@@ -53,10 +53,11 @@
                                                 </a>
                                             </li>
                                             <li>
-                                                <a href="../logout.php" onclick=" window.location.href='../logout.php';">
-                                                    <i class="ti-power-off"></i>
-                                                    <span>Logout</span>
-                                                </a>
+                                            <a href="./logout.php" onclick="window.location.href='./logout.php';">
+                                                <i class="ti-power-off"></i>
+                                                <span>Logout</span>
+                                            </a>
+
                                             </li>
                                         </ul>
                                     </div>
