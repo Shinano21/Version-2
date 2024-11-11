@@ -76,7 +76,7 @@ if (!isset($_SESSION["user"]) || $_SESSION["user_type"] == "System Administrator
 
                         <div class="buttons">
                             <a href="services/services8.php"><button class="addBtn"><span class="fa fa-plus"></span>&nbsp;&nbsp;Add Record</button></a>
-                            <a href="template/hypertension_records.php" target="_blank"><button class="printBtn"><span class="fa fa-print">&nbsp;&nbsp;</span>Print Records</button></a>
+                            <a href="template/services8.php" target="_blank"><button class="printBtn"><span class="fa fa-print">&nbsp;&nbsp;</span>Print Records</button></a>
                         </div>
 
                         <div class="tab">
