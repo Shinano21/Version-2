@@ -7,21 +7,24 @@
     <meta charset="UTF-8">
     <meta name="viewport"
           content="width=device-width, initial-scale=1.0">
-    <link rel="stylesheet"
-          href="style.css">
+          <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap" rel="stylesheet">
     <title>ID QR Scanner / Reader
     </title>
     <style>
        
         /* style.css file*/
 body {
-  
+    font-family: 'Poppins', sans-serif;
     margin: 0;
     margin-top: 50px;
-    padding: 10px;
+    padding: 25px;
     height: 100vh;
     /* background: rgb(128 0 0 / 66%); */
 }
+h1 {
+     font-weight: 400; /* Adjust the weight as needed */ 
+     font-size: 26px;
+    }
 .container {
     text-align: center;
     display: flex;
@@ -33,11 +36,6 @@ body {
 
 }
 
-
-/* .container h1 {
-    color: #ffffff;
-} */
-
 .section {
     background-color: #ffffff;
     padding: 50px 30px;
@@ -45,22 +43,12 @@ body {
     border-radius: 0.25em;
     box-shadow: 0 20px 25px rgba(0, 0, 0, 0.25);
 }
-/* .section2 {
-    background-color: #ffffff;
-    padding: 50px 30px;
-    border: 1.5px solid #b2b2b2;
-    border-radius: 0.25em;
-    box-shadow: 0 20px 25px rgba(0, 0, 0, 0.25);
-    width: 100%;
-    height: 100vh;
-
-} */
 
 #my-qr-reader {
     padding: 20px !important;
     border: 1.5px solid #b2b2b2 !important;
     border-radius: 8px;
-    width: 500px;
+    width: 390px;
 }
 
 #my-qr-reader img[alt="Info icon"] {
@@ -100,70 +88,65 @@ video {
     border: 1px solid #b2b2b2 !important;
     border-radius: 0.25em;
 }
-/* From Uiverse.io by dylanharriscameron */ 
+/* From Uiverse.io by adamgiebl */ 
+/* From Uiverse.io by SteveBloX */ 
 .card {
-  position: relative;
-  width: 900px; /* Increased width */
-  height: 250px;
-  border-radius: 14px;
-  z-index: 1111;
-  overflow: hidden;
+    padding: 15px;
+    margin-left: 15px;
+  box-sizing: border-box;
+  width: 900px;
+  height: auto;
+  background: rgba(217, 217, 217, 0.58);
+  border: 1px solid white;
+  box-shadow: 12px 17px 51px rgba(0, 0, 0, 0.22);
+  backdrop-filter: blur(6px);
+  border-radius: 17px;
+  text-align: center;
+  cursor: pointer;
+  transition: all 0.5s;
   display: flex;
-  flex-direction: column;
-  align-items: center;
-  justify-content: center;
-  box-shadow: 20px 20px 60px #bebebe, -20px -20px 60px #ffffff;
+  align-items: start;
+  justify-content: start;
+  user-select: none;
+  font-weight: bolder;
+  color: black;
 }
 
-.bg {
-  position: absolute;
-  top: 5px;
-  left: 5px;
-  width: 880px; /* Updated width */
-  height: 240px;
-  z-index: 2;
-  background: rgba(255, 255, 255, .95);
-  backdrop-filter: blur(24px);
-  border-radius: 10px;
-  overflow: hidden;
-  outline: 2px solid white;
+.card:hover {
+  border: 1px solid black;
+  transform: scale(1.05);
 }
 
-.blob {
-  position: absolute;
-  z-index: 1;
-  top: 50%;
-  left: 50%;
-  width: 550px; /* Adjusted size */
-  height: 250px;
-  border-radius: 50%;
-  background-color: #428af5;
-  opacity: 1;
-  filter: blur(12px);
-  animation: blob-bounce 5s infinite ease;
+.card:active {
+  transform: scale(0.95) rotateZ(1.7deg);
 }
 
+/* Media queries for responsiveness */
+@media (max-width: 768px) {
+    .container {
+        flex-direction: column;
+        align-items: center;
+    }
 
-@keyframes blob-bounce {
-  0% {
-    transform: translate(-100%, -100%) translate3d(0, 0, 0);
-  }
+    .section,
+    .card {
+        max-width: 90%;
+    }
+}
 
-  25% {
-    transform: translate(-100%, -100%) translate3d(100%, 0, 0);
-  }
+@media (max-width: 480px) {
+    h1 {
+        font-size: 20px;
+    }
 
-  50% {
-    transform: translate(-100%, -100%) translate3d(100%, 100%, 0);
-  }
+    button {
+        font-size: 14px;
+        padding: 8px 16px;
+    }
 
-  75% {
-    transform: translate(-100%, -100%) translate3d(0, 100%, 0);
-  }
-
-  100% {
-    transform: translate(-100%, -100%) translate3d(0, 0, 0);
-  }
+    .card {
+        height: 220px;
+    }
 }
 
     </style>
@@ -176,12 +159,10 @@ video {
             <div id="my-qr-reader">
             </div>
         </div>
-        <!-- <div class="section2"> -->
+  
             <div class="card">
-            <div class="bg">
-                <h1>Resident Details</h1>
-            </div>
-            <div class="blob"></div>
+                <h1 class="title">Resident Details</h1>
+                <!-- <img src="https://via.placeholder.com/150" alt="Placeholder Image"> -->
             </div>
 
         <!-- </div> -->
