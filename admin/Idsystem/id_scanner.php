@@ -91,35 +91,86 @@ video {
 /* From Uiverse.io by adamgiebl */ 
 /* From Uiverse.io by SteveBloX */ 
 .card {
-    padding: 15px;
-    margin-left: 15px;
-  box-sizing: border-box;
-  width: 900px;
-  height: auto;
-  background: rgba(217, 217, 217, 0.58);
-  border: 1px solid white;
-  box-shadow: 12px 17px 51px rgba(0, 0, 0, 0.22);
-  backdrop-filter: blur(6px);
-  border-radius: 17px;
-  text-align: center;
-  cursor: pointer;
-  transition: all 0.5s;
-  display: flex;
-  align-items: start;
-  justify-content: start;
-  user-select: none;
-  font-weight: bolder;
-  color: black;
+    padding: 20px;
+    margin: 20px auto;
+    max-width: 800px;
+    width: 100%;
+    background: linear-gradient(135deg, #ffffff 0%, #f0f0f0 100%);
+    border: 1px solid #b2b2b2;
+    box-shadow: 0 10px 30px rgba(0, 0, 0, 0.15);
+    border-radius: 15px;
+    text-align: left;
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
+    display: flex;
+    flex-direction: column;
+    gap: 20px;
+    position: relative;
 }
 
 .card:hover {
-  border: 1px solid black;
-  transform: scale(1.05);
+    transform: translateY(-10px);
+    box-shadow: 0 15px 40px rgba(0, 0, 0, 0.25);
 }
 
 .card:active {
-  transform: scale(0.95) rotateZ(1.7deg);
+    transform: translateY(0);
+    box-shadow: 0 5px 20px rgba(0, 0, 0, 0.2);
 }
+
+.title {
+    font-size: 24px;
+    font-weight: bold;
+    color: #333;
+    margin-bottom: 10px;
+}
+.additional-info {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    gap: 10px;
+    text-align: left;
+    margin-top: 15px;
+}
+
+.additional-info p {
+    margin: 5px 0;
+    font-size: 14px;
+    color: #333;
+}
+
+
+.details-row {
+    display: flex;
+    align-items: center;
+    justify-content: start;
+    gap: 20px;
+}
+
+.image-placeholder {
+    width: 150px;
+    height: 150px;
+    background-color: #e0e0e0;
+    border: 1px solid #b2b2b2;
+    border-radius: 8px;
+    overflow: hidden;
+}
+
+#resident-image {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    border-radius: 8px;
+}
+
+.resident-info {
+    flex: 1;
+}
+
+.resident-info p {
+    margin: 5px 0;
+    font-size: 16px;
+    color: #555;
+}
+
 
 /* Media queries for responsiveness */
 @media (max-width: 768px) {
@@ -160,10 +211,50 @@ video {
             </div>
         </div>
   
-            <div class="card">
-                <h1 class="title">Resident Details</h1>
-                <!-- <img src="https://via.placeholder.com/150" alt="Placeholder Image"> -->
-            </div>
+        <div class="card">
+    <h1 class="title">Resident Details</h1>
+    <div class="details-row">
+        <div class="image-placeholder">
+            <img src="https://via.placeholder.com/150" alt="Resident Image" id="resident-image">
+        </div>
+        <div class="resident-info">
+            <p><strong>Name:</strong> John Doe</p>
+            <p><strong>Age:</strong> 30</p>
+            <p><strong>Address:</strong> 123 Main St, Cityville</p>
+        </div>
+    </div>
+    <hr style="border: 1px solid #555; width: 100%;">
+
+     <!-- Additional Resident Details -->
+     <div class="additional-info">
+        <p><strong>Sex:</strong> Male</p>
+        <p><strong>Birthday:</strong> January 1, 1990</p>
+        <p><strong>Place of Birth:</strong> Cityville Hospital</p>
+        <p><strong>Religion:</strong> Christianity</p>
+        <p><strong>Citizenship:</strong> Filipino</p>
+        <p><strong>Street:</strong> Elm Street</p>
+        <p><strong>Zone:</strong> 5</p>
+        <p><strong>Barangay:</strong> Estanza</p>
+        <p><strong>Municipality:</strong> Cityville</p>
+        <p><strong>Province:</strong> Province A</p>
+        <p><strong>Zip Code:</strong> 12345</p>
+        <p><strong>Contact:</strong> +63 912 345 6789</p>
+        <p><strong>Educational Attainment:</strong> College Graduate</p>
+        <p><strong>Occupation:</strong> Software Developer</p>
+        <p><strong>Civil Status:</strong> Single</p>
+        <p><strong>Labor Status:</strong> Employed</p>
+        <p><strong>Voter Status:</strong> Registered Voter</p>
+        <p><strong>PWD Status:</strong> No</p>
+        <p><strong>4P's Member:</strong> No</p>
+        <p><strong>Vaccination Status:</strong> Fully Vaccinated</p>
+        <p><strong>Status:</strong> Active</p>
+        <p><strong>Longitude:</strong> 123.4567</p>
+        <p><strong>Latitude:</strong> -12.3456</p>
+        <p><strong>ID Card No:</strong> 123-456-789</p>
+    </div>
+
+</div>
+
 
         <!-- </div> -->
     </div>
