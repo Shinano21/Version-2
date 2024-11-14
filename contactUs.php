@@ -1,6 +1,5 @@
 <!DOCTYPE html>
 <html lang="en">
-
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -16,7 +15,30 @@
 <body>
     <!-- Navbar -->
     <?php include 'navbar.php'; ?>
-    <?php include "user/data/contact_us.php"; ?>
+
+    <!-- PHP Block for Fetching Data -->
+    <?php
+    include 'db_connection.php';
+    
+    // Fetch data from the contact_us table
+    $query = "SELECT short_mess, email, contact, address, fb_name, fb_link, latitude, longitude FROM contact_us WHERE id = 1";
+    $result = $conn->query($query);
+    if ($result->num_rows > 0) {
+        $row = $result->fetch_assoc();
+        $shortMess = $row['short_mess'];
+        $email = $row['email'];
+        $contact = $row['contact'];
+        $address = $row['address'];
+        $fbAcc = $row['fb_name'];
+        $fbLink = $row['fb_link'];
+        $latitude = $row['latitude'];
+        $longitude = $row['longitude'];
+    } else {
+        $latitude = null;
+        $longitude = null;
+    }
+    $conn->close();
+    ?>
 
     <!-- Form -->
     <div class="formCont">
@@ -53,15 +75,14 @@
     <!-- Footer -->
     <?php include 'footer.php'; ?>
 
-    <!-- ===============================scripts================================== -->
+    <!-- Map Script -->
     <script src="https://unpkg.com/leaflet@1.7.1/dist/leaflet.js"></script>
     <script>
-        // Fetch latitude and longitude from PHP
         var latitude = <?php echo json_encode($latitude); ?>;
         var longitude = <?php echo json_encode($longitude); ?>;
 
         if (latitude && longitude) {
-            // Initialize the map based on database coordinates
+            // Initialize the map centered on the database coordinates
             var map = L.map('map').setView([latitude, longitude], 15);
 
             // Add OpenStreetMap tile layer
@@ -80,11 +101,10 @@
                 marker.setLatLng(newLatLng).bindPopup("<b>New Location</b><br>Latitude: " + newLatLng.lat.toFixed(6) + "<br>Longitude: " + newLatLng.lng.toFixed(6)).openPopup();
             });
         } else {
-            // Show a message if coordinates are unavailable
+            // Hide the map and show message if coordinates are unavailable
             document.getElementById('map').style.display = 'none';
             document.getElementById('noLocationMessage').style.display = 'block';
         }
     </script>
 </body>
-
 </html>
