@@ -206,7 +206,7 @@ video {
 <body>
     <div class="container">
         <div class="section">
-            <h1>ID Scanner</h1>
+            <h1 class="title">ID Scanner</h1>
             <div id="my-qr-reader">
             </div>
         </div>
