@@ -99,3 +99,8 @@ ALTER TABLE residents ADD COLUMN id_card_no VARCHAR(50) AFTER latitude;
 ALTER TABLE residents MODIFY id_card_no VARCHAR(50) UNIQUE;
 ALTER TABLE residents MODIFY profile VARCHAR(255)
 
+ALTER TABLE `contact_us`
+ADD `longitude` VARCHAR(255) DEFAULT NULL,
+ADD `latitude` VARCHAR(255) DEFAULT NULL;
+
+
