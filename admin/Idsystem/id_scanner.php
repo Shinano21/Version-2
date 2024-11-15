@@ -265,8 +265,7 @@ video {
     <!-- <script src="script.js"></script> -->
 </body>
 <script>
-    // script.js file
-
+  // Ensure the script runs when the DOM is fully loaded
 function domReady(fn) {
     if (
         document.readyState === "complete" ||
@@ -279,18 +278,83 @@ function domReady(fn) {
 }
 
 domReady(function () {
+    // Initialize the QR code scanner with reduced fps
+    const htmlscanner = new Html5QrcodeScanner(
+    "my-qr-reader",
+    { fps: 5, qrbox: 250 }
+);
 
-    // If found you qr code
-    function onScanSuccess(decodeText, decodeResult) {
-        alert("You Qr is : " + decodeText, decodeResult);
+htmlscanner.render(onScanSuccess);
+console.log("QR scanner initialized.");
+
+    // Debounce timer to prevent multiple rapid scans
+    let debounceTimer = null;
+
+    // Define the callback function for successful scan
+    function onScanSuccess(decodedText) {
+        console.log("Scanned ID Card Number:", decodedText);
+
+        // Debounce the handler to prevent multiple calls
+        if (debounceTimer) clearTimeout(debounceTimer);
+
+        debounceTimer = setTimeout(() => {
+            fetchResidentData(decodedText);
+        }, 300); // 300ms debounce delay
     }
 
-    let htmlscanner = new Html5QrcodeScanner(
-        "my-qr-reader",
-        { fps: 10, qrbos: 250 }
-    );
-    htmlscanner.render(onScanSuccess);
+    // Function to fetch resident data from the server
+    function fetchResidentData(idCardNo) {
+        fetch('fetch_resident.php', {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json',
+            },
+            body: JSON.stringify({ id_card_no: idCardNo }),
+        })
+            .then(response => response.json())
+            .then(data => {
+                if (data.success) {
+                    // Update the card container with resident details
+                    document.getElementById('resident-image').src = data.profile ? '/Version-2/admin/' + data.profile : 'https://via.placeholder.com/150';
+                    document.querySelector('.resident-info').innerHTML = `
+                        <p><strong>Name:</strong> ${data.fname} ${data.mname} ${data.lname}</p>
+                        <p><strong>Age:</strong> ${data.age}</p>
+                        <p><strong>Address:</strong> ${data.street}, ${data.brgy}, ${data.mun}</p>
+                    `;
+                    document.querySelector('.additional-info').innerHTML = `
+                        <p><strong>Sex:</strong> ${data.sex}</p>
+                        <p><strong>Birthday:</strong> ${data.bday}</p>
+                        <p><strong>Place of Birth:</strong> ${data.pob}</p>
+                        <p><strong>Religion:</strong> ${data.religion}</p>
+                        <p><strong>Citizenship:</strong> ${data.citizenship}</p>
+                        <p><strong>Zip Code:</strong> ${data.zipcode}</p>
+                        <p><strong>Contact:</strong> ${data.contact}</p>
+                        <p><strong>Educational Attainment:</strong> ${data.educational}</p>
+                        <p><strong>Occupation:</strong> ${data.occupation}</p>
+                        <p><strong>Civil Status:</strong> ${data.civil_status}</p>
+                        <p><strong>Labor Status:</strong> ${data.labor_status}</p>
+                        <p><strong>Voter Status:</strong> ${data.voter_status}</p>
+                        <p><strong>PWD Status:</strong> ${data.pwd_status}</p>
+                        <p><strong>4P's Member:</strong> ${data.four_p}</p>
+                        <p><strong>Vaccination Status:</strong> ${data.vac_status}</p>
+                        <p><strong>Status:</strong> ${data.status}</p>
+                        <p><strong>Longitude:</strong> ${data.longitude}</p>
+                        <p><strong>Latitude:</strong> ${data.latitude}</p>
+                    `;
+                } else {
+                    alert("Resident not found!");
+                }
+            })
+            .catch(error => {
+                console.error("Error fetching resident data:", error);
+                alert("An error occurred while fetching resident data.");
+            });
+    }
+
+   
 });
 
+
 </script>
+
 </html>
