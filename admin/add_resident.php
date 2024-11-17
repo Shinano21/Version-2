@@ -89,7 +89,9 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
         $resident_id = mysqli_insert_id($conn);
 
         // Generate QR Code
-        $qrContent = "Resident: $fname $lname, ID: $resident_id";
+        // $qrContent = "Resident: $fname $lname, ID: $resident_id";
+        $qrContent = $id_card_no;
+
         
         // Directory to save QR codes
         $qrDir = 'qrcodes/';
