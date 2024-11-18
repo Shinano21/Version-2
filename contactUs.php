@@ -18,7 +18,7 @@
 
     <!-- PHP Block for Fetching Data -->
     <?php
-    include 'db_connection.php';
+    include 'dbcon.php';
     
     // Fetch data from the contact_us table
     $query = "SELECT short_mess, email, contact, address, fb_name, fb_link, latitude, longitude FROM contact_us WHERE id = 1";
