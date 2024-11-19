@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Generation Time: Nov 11, 2024 at 07:18 PM
+-- Generation Time: Nov 19, 2024 at 07:47 AM
 -- Server version: 10.4.32-MariaDB
 -- PHP Version: 8.2.12
 
@@ -78,7 +78,7 @@ CREATE TABLE `administrator` (
 
 INSERT INTO `administrator` (`id`, `firstname`, `midname`, `lastname`, `cpnumber`, `email`, `password`, `user_type`, `pfp`, `a_status`, `status`) VALUES
 (1, 'Juan', NULL, 'Dela Cruz', '091234567890', 'admin@gmail.com', '$2y$10$meRTBQGo1MvYRoUrzZAjCuAJ.Knit8dduTFpHVfw0NptDChAx7Xm6', 'System Administrator', '', 'Active', 'Offline now'),
-(11, 'Furina', 'Focalors', 'De Fontaine', '09467812431', 'furina500@gmail.com', '$2y$10$3bERnFGvPMcBragnBpf4HeFiZCqb2Y8L8nD7rEhcFX9RJGsaAxhxW', 'Barangay Health Worker', '', 'Active', 'offline'),
+(11, 'Furina', 'Focalors', 'De Fontaine', '09467812431', 'furina500@gmail.com', '$2y$10$UFADbzixF59kUo7bgP3fbOwJe6uFaZ59SfCwV2ApvtElJfJ03JhKu', 'Barangay Health Worker', '', 'Active', 'Active now'),
 (13, 'Agnes', 'Villaranda', 'Ogaban', '09467812431', 'agnesogaban08@gmail.com', '$2y$10$Lcj3urTMu8PkdGPtazMTAOPWPfqz9W2FJy0yawNNHrfkC5H6RCzVe', 'Barangay Health Worker', '', 'Active', 'offline'),
 (14, 'Randiel James', 'Zaragoza', 'Asis', '09380828470', 'shakosako46@gmail.com', '$2y$10$wWBDl5vcGuO1dhX/y.PtLubErOs.OCbH5tR9uhjEl/LTcyVtsO1cq', 'Barangay Health Worker', NULL, 'Active', 'Offline now');
 
@@ -177,8 +177,17 @@ CREATE TABLE `contact_us` (
   `contact` varchar(255) DEFAULT NULL,
   `address` varchar(255) DEFAULT NULL,
   `fb_name` varchar(255) DEFAULT NULL,
-  `fb_link` varchar(255) DEFAULT NULL
+  `fb_link` varchar(255) DEFAULT NULL,
+  `longitude` decimal(10,6) DEFAULT NULL,
+  `latitude` decimal(10,6) DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+
+--
+-- Dumping data for table `contact_us`
+--
+
+INSERT INTO `contact_us` (`id`, `short_mess`, `email`, `contact`, `address`, `fb_name`, `fb_link`, `longitude`, `latitude`) VALUES
+(1, 'Hello', 'shakosako46@gmail.com', '09467812439', 'ajajajaj', 'aasas', 'asasas', 123.754567, 13.148745);
 
 -- --------------------------------------------------------
 
@@ -632,6 +641,20 @@ CREATE TABLE `nutrition_5` (
 -- --------------------------------------------------------
 
 --
+-- Table structure for table `organization_chart`
+--
+
+CREATE TABLE `organization_chart` (
+  `id` int(11) NOT NULL,
+  `name` varchar(255) NOT NULL,
+  `position` varchar(255) NOT NULL,
+  `photo` varchar(255) DEFAULT NULL,
+  `committee_type` enum('Barangay Nutrition Committee','Other Committees') NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+
+-- --------------------------------------------------------
+
+--
 -- Table structure for table `otp`
 --
 
@@ -680,6 +703,29 @@ CREATE TABLE `programs` (
   `prog_pic` varchar(255) DEFAULT NULL,
   `post_date` date DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `purok_boundaries`
+--
+
+CREATE TABLE `purok_boundaries` (
+  `id` int(11) NOT NULL,
+  `barangay_name` varchar(255) NOT NULL,
+  `purok_name` varchar(255) NOT NULL,
+  `boundary_coordinates` text NOT NULL,
+  `color` varchar(7) NOT NULL,
+  `created_at` timestamp NOT NULL DEFAULT current_timestamp(),
+  `updated_at` timestamp NOT NULL DEFAULT current_timestamp() ON UPDATE current_timestamp()
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+
+--
+-- Dumping data for table `purok_boundaries`
+--
+
+INSERT INTO `purok_boundaries` (`id`, `barangay_name`, `purok_name`, `boundary_coordinates`, `color`, `created_at`, `updated_at`) VALUES
+(5, 'Barangay 1', 'purok 3', '{\"type\":\"Polygon\",\"coordinates\":[[[123.753174,13.15014],[123.754289,13.150412],[123.754826,13.148113],[123.7543,13.148103],[123.753764,13.147957],[123.753174,13.15014]]]}', '#d3ff33', '2024-11-19 06:43:29', '2024-11-19 06:43:29');
 
 -- --------------------------------------------------------
 
@@ -837,6 +883,12 @@ ALTER TABLE `messages`
   ADD PRIMARY KEY (`msg_id`);
 
 --
+-- Indexes for table `organization_chart`
+--
+ALTER TABLE `organization_chart`
+  ADD PRIMARY KEY (`id`);
+
+--
 -- Indexes for table `otp`
 --
 ALTER TABLE `otp`
@@ -854,6 +906,12 @@ ALTER TABLE `prenatal`
 -- Indexes for table `programs`
 --
 ALTER TABLE `programs`
+  ADD PRIMARY KEY (`id`);
+
+--
+-- Indexes for table `purok_boundaries`
+--
+ALTER TABLE `purok_boundaries`
   ADD PRIMARY KEY (`id`);
 
 --
@@ -912,7 +970,7 @@ ALTER TABLE `brgy_health`
 -- AUTO_INCREMENT for table `contact_us`
 --
 ALTER TABLE `contact_us`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
 
 --
 -- AUTO_INCREMENT for table `home`
@@ -939,6 +997,12 @@ ALTER TABLE `messages`
   MODIFY `msg_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
 
 --
+-- AUTO_INCREMENT for table `organization_chart`
+--
+ALTER TABLE `organization_chart`
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT;
+
+--
 -- AUTO_INCREMENT for table `otp`
 --
 ALTER TABLE `otp`
@@ -955,6 +1019,12 @@ ALTER TABLE `prenatal`
 --
 ALTER TABLE `programs`
   MODIFY `id` int(11) NOT NULL AUTO_INCREMENT;
+
+--
+-- AUTO_INCREMENT for table `purok_boundaries`
+--
+ALTER TABLE `purok_boundaries`
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=6;
 
 --
 -- AUTO_INCREMENT for table `residents`
