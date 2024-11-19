@@ -2,16 +2,42 @@
 // Include the database connection
 include '../dbcon.php';
 
-// Fetch coordinates from the contact_us table
-$sql = "SELECT latitude, longitude FROM contact_us LIMIT 1";
-$result = $conn->query($sql);
+// Handle form submission (saving puroks)
+if ($_SERVER['REQUEST_METHOD'] === 'POST') {
+    if (isset($_POST['purokName'])) {
+        // Save purok
+        $purokName = $_POST['purokName'];
+        $purokColor = $_POST['purokColor'];
+        $boundaryCoordinates = $_POST['boundaryCoordinates'];
 
-$latitude = 13.1387; // Default latitude (Legazpi City)
-$longitude = 123.7353; // Default longitude
+        $sql = "INSERT INTO purok_boundaries (barangay_name, purok_name, boundary_coordinates, color) 
+                VALUES ('Barangay 1', ?, ?, ?)";
+        $stmt = $conn->prepare($sql);
+        $stmt->bind_param("sss", $purokName, $boundaryCoordinates, $purokColor);
 
-if ($row = $result->fetch_assoc()) {
-    $latitude = $row['latitude'];
-    $longitude = $row['longitude'];
+        if ($stmt->execute()) {
+            echo "Purok saved successfully!";
+        } else {
+            echo "Error: " . $stmt->error;
+        }
+        $stmt->close();
+        exit;
+    } elseif (isset($_POST['deletePurok'])) {
+        // Delete purok
+        $purokId = $_POST['deletePurok'];
+
+        $sql = "DELETE FROM purok_boundaries WHERE id = ?";
+        $stmt = $conn->prepare($sql);
+        $stmt->bind_param("i", $purokId);
+
+        if ($stmt->execute()) {
+            echo "Purok deleted successfully!";
+        } else {
+            echo "Error: " . $stmt->error;
+        }
+        $stmt->close();
+        exit;
+    }
 }
 
 // Fetch existing puroks to display on the map and in the table
@@ -46,7 +72,7 @@ $conn->close();
     </style>
 </head>
 <body>
-    <h1>Editable Barangay Map</h1>
+    <h1>Editable Barangay Map - Legazpi City</h1>
     <div id="map"></div>
 
     <div id="form-container">
@@ -93,20 +119,13 @@ $conn->close();
     </div>
 
     <script>
-        // Initialize the map dynamically using PHP variables
-        var latitude = <?php echo $latitude; ?>;
-        var longitude = <?php echo $longitude; ?>;
-
-        var map = L.map('map').setView([latitude, longitude], 15);
+        // Initialize the map centered on Legazpi City
+        var map = L.map('map').setView([13.1387, 123.7353], 15);
 
         // Add a tile layer
         L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
             attribution: '© OpenStreetMap contributors'
         }).addTo(map);
-
-        // Add a marker to the map at the specified coordinates
-        var contactMarker = L.marker([latitude, longitude]).addTo(map);
-        contactMarker.bindPopup("Barangay Health Center").openPopup();
 
         // Feature group to hold drawn items
         var drawLayer = L.featureGroup().addTo(map);
