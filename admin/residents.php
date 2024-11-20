@@ -146,7 +146,7 @@ $random_id_card_no = generateUniqueID($conn);
                         <th>
                             <label>City Municipality</label>
                             <br>
-                            <input type="text" value="Daraga" name="city" readonly>
+                            <input type="text" value="Legazpi" name="city" readonly>
                         </th>
                         <th>
                             <label>Province</label>
@@ -156,7 +156,7 @@ $random_id_card_no = generateUniqueID($conn);
                         <th>
                             <label>Zip code</label>
                             <br>
-                            <input type="text" value="4501" name="zipcode" readonly>
+                            <input type="text" value="4500" name="zipcode" readonly>
                         </th>
                         <th>
                             <label>Contact Number</label>
