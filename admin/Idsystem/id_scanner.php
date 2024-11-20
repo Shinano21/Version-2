@@ -204,6 +204,9 @@ video {
 </head>
 
 <body>
+<a href="../home.php">
+    <h7><i class="fa fa-long-arrow-left">&nbsp;&nbsp;</i> Back to Home</h7>
+ </a>
     <div class="container">
         <div class="section">
             <h1 class="title">ID Scanner</h1>

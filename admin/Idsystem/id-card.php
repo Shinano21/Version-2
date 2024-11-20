@@ -36,7 +36,7 @@
 
                         <div class='container-2'>
                             <div class='box-1'>
-                                <img src='$profile' alt='Profile Image' style='width: 100px; height: 100px; border-radius: 50%;'/>
+                                <img src='$profile' alt='Profile Image'/>
                             </div>
                             <div class='box-2'>
                                 <h2>$full_name</h2>
@@ -351,7 +351,10 @@ hr.new2 {
   <body>
 
   <br>
-
+  <a href="index.php">
+    <h7><i class="fa fa-long-arrow-left">&nbsp;&nbsp;</i> Back</h7>
+ </a>
+ <br>
 <div class="row" style="margin: 0px 20px 5px 20px">
   <div class="col-sm-6">
     <div class="card jumbotron">
@@ -377,9 +380,10 @@ hr.new2 {
         <br>
         
      </div>
+<button id="demo" class="downloadtable btn btn-primary" onclick="downloadtable()"> Download Id Card</button>
+
   </div>
 <hr>
-<button id="demo" class="downloadtable btn btn-primary" onclick="downloadtable()"> Download Id Card</button>
     <!-- Optional JavaScript -->
     <!-- jQuery first, then Popper.js, then Bootstrap JS -->
     <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js" integrity="sha384-DfXdz2htPH0lsSSs5nCTpuj/zy4C+OGpamoFVy38MVBnE+IbbVYUew+OrCXaRkfj" crossorigin="anonymous"></script>

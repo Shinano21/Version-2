@@ -59,6 +59,62 @@ $result = mysqli_query($conn, $sql);
 
 </head>
 
+<style>
+  /* From Uiverse.io by SachinKumar666 */ 
+
+.container {
+  /* padding: 20px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  width: 190px;
+  height: 254px; */
+  
+  background: rgb(255, 255, 255);
+  border-radius: 1rem;
+  box-shadow: rgba(50, 50, 93, 0.25) 0px 6px 12px -2px,
+    rgba(0, 0, 0, 0.3) 0px 3px 7px -3px;
+  transition: all ease-in-out 0.3s;
+}
+
+.container:hover {
+  background-color: #fdfdfd;
+  box-shadow: rgba(0, 0, 0, 0.09) 0px 2px 1px, rgba(0, 0, 0, 0.09) 0px 4px 2px,
+    rgba(0, 0, 0, 0.09) 0px 8px 4px, rgba(0, 0, 0, 0.09) 0px 16px 8px,
+    rgba(0, 0, 0, 0.09) 0px 32px 16px;
+}
+/* From Uiverse.io by Shakil-Babu */ 
+.btn-generate {
+ background-color: #4D869C;
+ padding:  10px;
+ color: #fff;
+ text-transform: uppercase;
+ letter-spacing: 2px;
+ cursor: pointer;
+ border-radius: 10px;
+ border: 2px dashed #00BFA6;
+ box-shadow: rgba(50, 50, 93, 0.25) 0px 2px 5px -1px, rgba(0, 0, 0, 0.3) 0px 1px 3px -1px;
+ transition: .4s;
+}
+
+.btn-generate span:last-child {
+ display: none;
+}
+
+.btn-generate:hover {
+ transition: .4s;
+ border: 2px dashed #00BFA6;
+ background-color: #fff;
+ color: #00BFA6;
+}
+
+.btn-generate:active {
+ background-color: #87dbd0;
+}
+
+
+</style>
+
 <body>
  
 
@@ -68,7 +124,7 @@ $result = mysqli_query($conn, $sql);
     <div class="modal-dialog" role="document">
       <div class="modal-content">
         <div class="modal-header">
-          <h5 class="modal-title" id="editModalLabel">Edit This Card</h5>
+          <h5 class="modal-title" id="editModalLabel">Edit This container</h5>
           <button type="button" class="close" data-dismiss="modal" aria-label="Close">
             <span aria-hidden="true">×</span>
           </button>
@@ -130,9 +186,13 @@ $result = mysqli_query($conn, $sql);
   </div>";
   }
   ?>
-  <div class="container my-4">
+  <a href="../home.php">
+    <h7><i class="fa fa-long-arrow-left">&nbsp;&nbsp;</i> Back to Home</h7>
+ </a>
 
-  <a href="id-card.php" class="btn btn-primary">
+  <div class="container my-4 mt-5">
+
+  <a href="id-card.php" class="btn-generate">
   <i class="fa fa-address-card"></i> Generate ID Card
 </a>
 </p>
@@ -142,8 +202,7 @@ $result = mysqli_query($conn, $sql);
 
   </div>
 </div>
-
-  <div class="container my-4">
+  <div class="container-main my-4 mt-5">
 
   <table class="table" id="myTable">
   <thead>
@@ -171,7 +230,7 @@ $result = mysqli_query($conn, $sql);
           <td>{$row['id_card_no']}</td>
           <td>
             <button class='edit btn btn-sm btn-primary' id='{$row['id']}'>Edit</button>
-            <button class='delete btn btn-sm btn-danger' id='d{$row['id']}'>Delete</button>
+          
           </td>
         </tr>";
       }
@@ -179,6 +238,7 @@ $result = mysqli_query($conn, $sql);
   </tbody>
 </table>
 
+  </div>
   </div>
   <hr>
   <!-- Optional JavaScript -->
