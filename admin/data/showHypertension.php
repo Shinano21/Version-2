@@ -25,7 +25,7 @@ if ($result->num_rows > 0) {
                     <option value=''>Action</option>
                     <option value='view/view_services8.php?id=" . $row['hypertension_id'] . "'>View</option>
                     <option value='view/services8.php?id=" . $row['hypertension_id'] . "'>Update</option>
-                    <option value='view/delete_services8.php?id=" . $row['hypertension_id'] . "'>Delete</option>
+                    <option value='view/deletehypertension.php?id=" . $row['hypertension_id'] . "'>Delete</option>
                 </select>
               </td>";
         echo "</tr>";
