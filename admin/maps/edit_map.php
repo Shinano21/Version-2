@@ -94,7 +94,7 @@ $conn->close();
         <table>
             <thead>
                 <tr>
-                    
+                    <th>ID</th>
                     <th>Name</th>
                     <th>Color</th>
                     <th>Actions</th>
@@ -103,7 +103,7 @@ $conn->close();
             <tbody id="purokTableBody">
                 <?php foreach ($puroks as $purok): ?>
                 <tr>
-                    
+                    <td><?php echo $purok['id']; ?></td>
                     <td><?php echo $purok['purok_name']; ?></td>
                     <td><div style="width: 20px; height: 20px; background-color: <?php echo $purok['color']; ?>;"></div></td>
                     <td>
