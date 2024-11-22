@@ -88,26 +88,25 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
         // Get the last inserted resident ID
         $resident_id = mysqli_insert_id($conn);
 
-        // Generate QR Code
-        // $qrContent = "Resident: $fname $lname, ID: $resident_id";
-        $qrContent = $id_card_no;
+      // Generate QR Code
+$qrContent = $id_card_no;  // QR code content, based on id_card_no
 
-        
-        // Directory to save QR codes
-        $qrDir = 'qrcodes/';
-        if (!file_exists($qrDir)) {
-            mkdir($qrDir, 0777, true);
-        }
+// Directory to save QR codes (you can leave this out from the database, as you're storing just the file name)
+$qrDir = 'qrcodes/';
+if (!file_exists($qrDir)) {
+    mkdir($qrDir, 0777, true); // Ensure the directory exists
+}
 
-       // File name for the QR code
-        $qrFileName = $qrDir . $id_card_no . '_qrcode.png'; // Example: Customize here
+// File name for the QR code (only the file name, no folder path)
+$qrFileName = $id_card_no . '_qrcode.png'; // Save only the file name
 
-        // Generate the QR code
-        QRcode::png($qrContent, $qrFileName, QR_ECLEVEL_L, 10);
+// Generate the QR code
+QRcode::png($qrContent, $qrDir . $qrFileName, QR_ECLEVEL_L, 10); // Save QR code with full path
 
-        // Update the resident record with the QR code file path
-        $update_sql = "UPDATE residents SET qr_code='$qrFileName' WHERE id='$resident_id'";
-        mysqli_query($conn, $update_sql);
+// Update the resident record with the file name only (no directory path)
+$update_sql = "UPDATE residents SET qr_code='$qrFileName' WHERE id='$resident_id'";
+mysqli_query($conn, $update_sql);
+
 
 
         // Redirect or display a success message

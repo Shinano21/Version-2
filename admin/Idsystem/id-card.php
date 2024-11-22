@@ -25,8 +25,9 @@
                 $bday = $row['bday'];
                 $address = $row['street'] . ', ' . $row['brgy'] . ', ' . $row['mun'] . ', ' . $row['province'];
                 $profile = '../residents_img/' . $row['profile']; // Correct relative path from id-card.php
-                // $created_at = date('M d, Y', strtotime($row['created_at']));
                 $exp_date = $row['exp_date'] ?? 'N/A';
+                // $qr_code_path = '../qrcodes/' . $row['qr_code']; // Correct relative path for QR code
+                $qr_code_path = '../qrcodes/' . $row['qr_code']; // This resolves to 'qrcodes/123_qrcode.png'
 
                 // Card HTML
                 $html .= "
@@ -62,7 +63,6 @@
                             <div class='info-2'>
                                 <div class='join-date'>
                                     <h4>Joined Date</h4>
-                                   
                                 </div>
                                 <div class='expire-date'>
                                     <h4>Expire Date</h4>
@@ -75,22 +75,24 @@
                                     <p>$address</p>
                                 </div>
                             </div>
-                            <div class='info-4'>
-                                <div class='sign'>
-                                    <br>
-                                    <p style='font-size:12px;'>Your Signature</p>
+                         <div class='info-4'>
+                                <div class='qr-code' style='text-align:center;'>
+                                    <img src='$qr_code_path' alt='QR Code' style='width:100px; height:100px;'/>
+                                        
                                 </div>
                             </div>
                         </div>
                     </div>
                 ";
             }
+            
         } else {
             $html = "<p>No records found for ID No: $id_card_no</p>";
         }
     }
-
 ?>
+
+
 
 
 <!doctype html>
