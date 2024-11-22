@@ -199,12 +199,19 @@ video {
         height: 220px;
     }
 }
+#backToHome {
+    position: absolute;
+    top: 20px;
+    left: 10%;
+    transform: translateX(-50%);
+    color: #646665;
+}
 
     </style>
 </head>
 
 <body>
-<a href="../home.php">
+<a href="../home.php" id="backToHome">
     <h7><i class="fa fa-long-arrow-left">&nbsp;&nbsp;</i> Back to Home</h7>
  </a>
     <div class="container">

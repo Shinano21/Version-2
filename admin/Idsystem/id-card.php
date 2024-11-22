@@ -345,17 +345,24 @@ hr.new2 {
     margin: 41px 0px 0px 20px;
     text-align: center;
 }
+#backToHome {
+    position: absolute;
+    top: 20px;
+    left: 5%;
+    transform: translateX(-50%);
+    color: #646665;
+}
     </style>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/dom-to-image/2.6.0/dom-to-image.js"></script>
   </head>
   <body>
 
   <br>
-  <a href="index.php">
+  <a href="index.php" id="backToHome">
     <h7><i class="fa fa-long-arrow-left">&nbsp;&nbsp;</i> Back</h7>
  </a>
  <br>
-<div class="row" style="margin: 0px 20px 5px 20px">
+<div class="row" style="margin: 50px 20px 5px 20px">
   <div class="col-sm-6">
     <div class="card jumbotron">
       <div class="card-body">
@@ -382,6 +389,7 @@ hr.new2 {
      </div>
 <button id="demo" class="downloadtable btn btn-primary" onclick="downloadtable()"> Download Id Card</button>
 
+  </div>
   </div>
 <hr>
     <!-- Optional JavaScript -->

@@ -63,12 +63,12 @@ $result = mysqli_query($conn, $sql);
   /* From Uiverse.io by SachinKumar666 */ 
 
 .container {
-  /* padding: 20px;
-  display: flex;
+   padding: 20px;
+  /* display: flex;
   justify-content: center;
   align-items: center;
   width: 190px;
-  height: 254px; */
+  height: 254px;  */
   
   background: rgb(255, 255, 255);
   border-radius: 1rem;
@@ -112,6 +112,13 @@ $result = mysqli_query($conn, $sql);
  background-color: #87dbd0;
 }
 
+#backToHome {
+    position: absolute;
+    top: 20px;
+    left: 10%;
+    transform: translateX(-50%);
+    color: #646665;
+}
 
 </style>
 
@@ -186,7 +193,7 @@ $result = mysqli_query($conn, $sql);
   </div>";
   }
   ?>
-  <a href="../home.php">
+  <a href="../home.php" id="backToHome">
     <h7><i class="fa fa-long-arrow-left">&nbsp;&nbsp;</i> Back to Home</h7>
  </a>
 
@@ -229,7 +236,7 @@ $result = mysqli_query($conn, $sql);
           <td>{$full_name}</td>
           <td>{$row['id_card_no']}</td>
           <td>
-            <button class='edit btn btn-sm btn-primary' id='{$row['id']}'>Edit</button>
+            <button class='edit btn btn-sm btn-primary' id='{$row['id']}'>Edit Card No.</button>
           
           </td>
         </tr>";

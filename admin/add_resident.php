@@ -99,8 +99,8 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
             mkdir($qrDir, 0777, true);
         }
 
-        // File name for the QR code
-        $qrFileName = $qrDir . $resident_id . '.png';
+       // File name for the QR code
+        $qrFileName = $qrDir . $id_card_no . '_qrcode.png'; // Example: Customize here
 
         // Generate the QR code
         QRcode::png($qrContent, $qrFileName, QR_ECLEVEL_L, 10);
@@ -108,6 +108,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
         // Update the resident record with the QR code file path
         $update_sql = "UPDATE residents SET qr_code='$qrFileName' WHERE id='$resident_id'";
         mysqli_query($conn, $update_sql);
+
 
         // Redirect or display a success message
         header("Location: residents.php?added=Saved Successfully");
