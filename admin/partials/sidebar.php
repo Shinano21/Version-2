@@ -37,6 +37,8 @@
                 <li><a href="visualization.php"><i class="fa fa-bar-chart"></i>Data Visualization</a></li>
                 <li><a href="masterlists.php"><i class="fa fa-list-alt"></i> Masterlists</a></li>
                 <li><a href="../index.php" target="_blank"><i class="fa fa-tablet"></i> Website </a></li>
+                <li><a href="maps/purok_tables.php"><i class="fa fa-map"></i> Map</a></li>
+
                 <li><a class="sidebar-sub-toggle"><i class="fa fa-cogs"></i> Website Settings <span
                             class="sidebar-collapse-icon ti-angle-down"></span></a>
                     <ul>

@@ -237,12 +237,14 @@ if (!isset($_SESSION["user"]) || $_SESSION["user_type"] == "System Administrator
                                         <th>
                                             <label>Barangay</label>
                                             <br>
-                                            <input type="text" value="Bagumbayan" readonly name="brgy">
+                                            <input type="text" value="<?php if(isset($_GET["id"])){
+                                                echo $brgy;
+                                            }?>"  name="brgy">
                                         </th>
                                         <th>
                                             <label>City Municipality</label>
                                             <br>
-                                            <input type="text" value="Daraga" name="city">
+                                            <input type="text" value="Legazpi" name="city">
                                         </th>
                                         <th>
                                             <label>Province</label>
@@ -252,7 +254,7 @@ if (!isset($_SESSION["user"]) || $_SESSION["user_type"] == "System Administrator
                                         <th>
                                             <label>Zip code</label>
                                             <br>
-                                            <input type="text" value="4501" name="zipcode">
+                                            <input type="text" value="4500" name="zipcode">
                                         </th>
                                     </tr>
                                     <tr>
@@ -405,7 +407,7 @@ if (!isset($_SESSION["user"]) || $_SESSION["user_type"] == "System Administrator
                                 let getlongitude = document.getElementById('logi').value;
                                 let getlatitude = document.getElementById('lati').value;
                                 const map = L.map('map').setView([13.142307, 123.71827],
-                                    16); // Set the initial view and zoom level
+                                    12); // Set the initial view and zoom level
                                 L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png').addTo(
                                     map); // Add a basemap (OpenStreetMap)
 
@@ -416,188 +418,43 @@ if (!isset($_SESSION["user"]) || $_SESSION["user_type"] == "System Administrator
 
                                 map.addControl(L.control.fullscreen());
 
-                                var bagumbayanBoundary = {
-                                    "type": "FeatureCollection",
-                                    "features": [{
-                                            "type": "Feature",
-                                            "properties": {
-                                                "color": "#FFA500", // Orange color
-                                                "label": "Purok 1"
-                                            },
-                                            "geometry": {
-                                                "type": "Polygon",
-                                                "coordinates": [
-                                                    // Coordinates for Purok 1
-                                                    [
-                                                        [123.7141550027024, 13.14462879590273, 0],
-                                                        [123.7147936410924, 13.14487242592892, 0],
-                                                        [123.7144505200243, 13.1456691599874, 0],
-                                                        [123.7138389145706, 13.14545715389615, 0],
-                                                        [123.7141550027024, 13.14462879590273, 0]
-                                                    ]
-                                                ]
-                                            }
-                                        },
-                                        {
-                                            "type": "Feature",
-                                            "properties": {
-                                                "color": "#FFFF00", // Yellow color
-                                                "label": "Purok 2"
-                                            },
-                                            "geometry": {
-                                                "type": "Polygon",
-                                                "coordinates": [
-                                                    // Coordinates for Purok 2
-                                                    [
-                                                        [123.7144912753046, 13.14376531519152, 0],
-                                                        [123.7151376698883, 13.14400970478769, 0],
-                                                        [123.7148049188556, 13.14482273361408, 0],
-                                                        [123.714187633768, 13.14459529487071, 0],
-                                                        [123.7144912753046, 13.14376531519152, 0]
-                                                    ]
-                                                ]
-                                            }
-                                        },
-                                        {
-                                            "type": "Feature",
-                                            "properties": {
-                                                "color": "#0000FF", // Blue color
-                                                "label": "Purok 3"
-                                            },
-                                            "geometry": {
-                                                "type": "Polygon",
-                                                "coordinates": [
-                                                    // Coordinates for Purok 3
-                                                    [
-                                                        [123.715179248218, 13.14199701147683, 0],
-                                                        [123.7151520319165, 13.14144822661097, 0],
-                                                        [123.7151020935692, 13.14118517530249, 0],
-                                                        [123.7155576408378, 13.14108199150418, 0],
-                                                        [123.7159358389064, 13.14108919427832, 0],
-                                                        [123.7168273879048, 13.14141788085385, 0],
-                                                        [123.7179209206734, 13.14156667777274, 0],
-                                                        [123.7179134786316, 13.14183877435733, 0],
-                                                        [123.7178883683979, 13.14228967580214, 0],
-                                                        [123.7177173933671, 13.142510845619, 0],
-                                                        [123.7169682842645, 13.14239670154525, 0],
-                                                        [123.7169052140216, 13.14267127915913, 0],
-                                                        [123.716796955338, 13.14279693151831, 0],
-                                                        [123.7167185653128, 13.1430515246491, 0],
-                                                        [123.7166189184585, 13.14305024389476, 0],
-                                                        [123.7162056281942, 13.14471033895911, 0],
-                                                        [123.7158738417275, 13.14465651270309, 0],
-                                                        [123.7150911417232, 13.14436321294716, 0],
-                                                        [123.7152458476366, 13.14399153708758, 0],
-                                                        [123.7145099725424, 13.14371103277861, 0],
-                                                        [123.715179248218, 13.14199701147683, 0]
-                                                    ]
-                                                ]
-                                            }
-                                        },
-                                        {
-                                            "type": "Feature",
-                                            "properties": {
-                                                "color": "#FF0000", // Red color
-                                                "label": "Purok 4"
-                                            },
-                                            "geometry": {
-                                                "type": "Polygon",
-                                                "coordinates": [
-                                                    // Coordinates for Purok 4
-                                                    [
-                                                        [123.7179251861722, 13.14156015577668, 0],
-                                                        [123.7168312713788, 13.14141107362962, 0],
-                                                        [123.7159407798371, 13.14108314896565, 0],
-                                                        [123.7155540591455, 13.14107514844368, 0],
-                                                        [123.715102044499, 13.14117701908361, 0],
-                                                        [123.7160997171048, 13.13860130034149, 0],
-                                                        [123.7206864039938, 13.1392964172139, 0],
-                                                        [123.7208777286604, 13.14018717691216, 0],
-                                                        [123.7179251861722, 13.14156015577668, 0]
-                                                    ]
-                                                ]
-                                            }
-                                        },
-                                        {
-                                            "type": "Feature",
-                                            "properties": {
-                                                "color": "#FF00FF", // Magenta color
-                                                "label": "Purok 5"
-                                            },
-                                            "geometry": {
-                                                "type": "Polygon",
-                                                "coordinates": [
-                                                    // Coordinates for Purok 5
-                                                    [
-                                                        [123.7179658843188, 13.14155894653338, 0],
-                                                        [123.7208826171201, 13.1401970173047, 0],
-                                                        [123.7228499255377, 13.14270794528, 0],
-                                                        [123.7211169363518, 13.1427962709659, 0],
-                                                        [123.719599955497, 13.14257809322848, 0],
-                                                        [123.7179658843188, 13.14155894653338, 0]
-                                                    ]
-                                                ]
-                                            }
-                                        },
-                                        {
-                                            "type": "Feature",
-                                            "properties": {
-                                                "color": "#008000", // Green color
-                                                "label": "Purok 6"
-                                            },
-                                            "geometry": {
-                                                "type": "Polygon",
-                                                "coordinates": [
-                                                    // Coordinates for Purok 6
-                                                    [
-                                                        [123.7150676951202, 13.14441296637264, 0],
-                                                        [123.7158490010651, 13.1446902210451, 0],
-                                                        [123.7162156136015, 13.14476565740763, 0],
-                                                        [123.7166515064527, 13.14307614672862, 0],
-                                                        [123.7167418750158, 13.14306998757365, 0],
-                                                        [123.7168067802786, 13.1428215694416, 0],
-                                                        [123.7169388664114, 13.1426693081532, 0],
-                                                        [123.7169966393262, 13.14242251194652, 0],
-                                                        [123.7177301963296, 13.14254286931246, 0],
-                                                        [123.7179213196073, 13.14229971264284, 0],
-                                                        [123.7179592740861, 13.14157513387572, 0],
-                                                        [123.7195815641706, 13.14261664589323, 0],
-                                                        [123.7192166351156, 13.14313575567921, 0],
-                                                        [123.7187390824954, 13.14347960406133, 0],
-                                                        [123.7182294181209, 13.1439691111114, 0],
-                                                        [123.7178595620684, 13.14464370444761, 0],
-                                                        [123.7173648932756, 13.14470386024472, 0],
-                                                        [123.7167314893085, 13.14574472160461, 0],
-                                                        [123.7164523718356, 13.14558585083147, 0],
-                                                        [123.7163440703565, 13.14572552548256, 0],
-                                                        [123.7161989510323, 13.14598465910532, 0],
-                                                        [123.7156110419764, 13.14575307942603, 0],
-                                                        [123.7154990452096, 13.14607860000216, 0],
-                                                        [123.7149673035632, 13.14589902940353, 0],
-                                                        [123.7148986827341, 13.14584831155335, 0],
-                                                        [123.7145734884644, 13.14571113046981, 0],
-                                                        [123.7150676951202, 13.14441296637264, 0]
-                                                    ]
-                                                ]
-                                            }
-                                        }
-                                    ]
-                                };
+               //this fetches the coordinates from the database
+               fetch('fetch_coordinates.php')
+    .then(response => response.json())
+    .then(boundaries => {
+        boundaries.forEach(boundary => {
+            // Parse GeoJSON data for the boundary
+            const geoJsonData = {
+                type: "Feature",
+                properties: {
+                    purokName: boundary.purok_name,
+                    barangayName: boundary.barangay_name,
+                    color: boundary.color
+                },
+                geometry: boundary.boundary_coordinates
+            };
 
-                                L.geoJSON(bagumbayanBoundary, {
-                                    style: function(feature) {
-                                        return {
-                                            fillColor: feature.properties.color,
-                                            color: feature.properties.color, // border color
-                                            weight: 1, // border width
-                                            fillOpacity: 0.3 // fill opacity
-                                        };
-                                    },
-                                    onEachFeature: function(feature, layer) {
-                                        layer.bindPopup(feature.properties
-                                            .label); // Display label in a popup
-                                    }
-                                }).addTo(map);
+            // Add the boundary as a polygon to the map
+            L.geoJSON(geoJsonData, {
+                style: function (feature) {
+                    return {
+                        fillColor: feature.properties.color,
+                        color: feature.properties.color, // Border color
+                        weight: 2, // Border width
+                        fillOpacity: 0.5 // Fill opacity
+                    };
+                },
+                onEachFeature: function (feature, layer) {
+                    // Add popup with Purok and Barangay names
+                    layer.bindPopup(
+                        `<b>Purok:</b> ${feature.properties.purokName}<br>
+                         `
+                    );
+                }
+            }).addTo(map);
+        });
+    })
+    .catch(error => console.error('Error fetching boundary data:', error));
 
                                 // Update the <p> element with the marker's coordinates
                                 function updateCoordinates(lat, lng) {
