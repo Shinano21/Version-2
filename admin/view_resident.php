@@ -411,7 +411,7 @@ if (mysqli_num_rows($result) > 0) {
 <script>
    document.getElementById('viewQrCode').addEventListener('click', function() {
        const qrCodeFile = '<?php echo isset($row["qr_code"]) ? $row["qr_code"] : ""; ?>';
-       document.getElementById('qrCodeImage').src = qrCodeFile;
+       document.getElementById('qrCodeImage').src = 'qrcodes/' + qrCodeFile;
    });
 </script>
 
