@@ -34,6 +34,8 @@ if (!isset($_SESSION["user"]) || $_SESSION["user_type"] == "System Administrator
                         <button class="tablinks" onclick="openTab(event, 'Tab2')">Welcome Section</button>
                         <button class="tablinks" onclick="openTab(event, 'Tab3')">Mission/Vision</button>
                         <button class="tablinks" onclick="openTab(event, 'Tab4')">Health Team</button>
+                        <button class="tablinks" onclick="openTab(event, 'Tab5')">Barangay Nutrition Committee</button>
+                        </div>
                     </div>
 
                     <div id="Tab1" class="tabcontent">
@@ -194,6 +196,54 @@ if (!isset($_SESSION["user"]) || $_SESSION["user_type"] == "System Administrator
                                 <span id="prev" class="indicator previous">Previous</span>
                                 <span class="num">1</span>
                                 <span id="next" class="indicator next">Next</span>
+                            </div>
+                        </div>
+                    </div>
+                    <div id="Tab5" class="tabcontent">
+                        <div class="form">
+                            <h5>Barangay Nutrition Committee</h5>
+                            <input type="hidden" name="header" value="Barangay Nutrition Committee">
+                        </div>
+
+                        <div class="addUser">
+                            <a href="wsAddNewBNC.php" class="addUs">
+                                <i class="fa fa-plus-square" aria-hidden="true"></i>
+                                <p>Add New</p>
+                            </a>
+                        </div>
+                        <div class="table">
+                            <div class="showSearch">
+                                <div class="showEntries">
+                                    <p>Show</p>
+                                    <input type="number" value="10" class="numberInput" max="10"></input>
+                                    <p>entries</p>
+                                </div>
+
+                                <div class="searchTable">
+                                    <p>Search</p>
+                                    <input type="text" id="searchInputBNC" class="searchBar" placeholder="Enter keyword">
+                                </div>
+                            </div>
+                            <table id="bncTable">
+                                <thead>
+                                    <tr>
+                                        <th>Name</th>
+                                        <th>Position</th>
+                                        <th>Photo</th>
+                                        <th>Actions</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    <?php include "data/showBNC.php"; ?>
+                                </tbody>
+                            </table>
+                        </div>
+                        <div class="showPages">
+                            <p>Showing 1 to 2 of 2 entries</p>
+                            <div class="page-indicator">
+                                <span id="prevBNC" class="indicator previous">Previous</span>
+                                <span class="num">1</span>
+                                <span id="nextBNC" class="indicator next">Next</span>
                             </div>
                         </div>
                     </div>
