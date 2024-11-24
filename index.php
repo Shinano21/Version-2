@@ -23,7 +23,7 @@
     background-image: url('<?php
         // Adjusting the path for the background image
         if (isset($bgImg) && !empty($bgImg)) {
-            echo 'http://localhost/Version-2/admin/cms/' . $bgImg; // Update the path to match your directory structure
+            echo 'admin/cms/uploads/' . $bgImg; // Update the path to match your directory structure
         } else {
             echo 'default-image.png'; // Use a default image if no image is found
         }
@@ -75,7 +75,7 @@
         if (isset($sectionPic) && $sectionPic !== null) {
             // Update the path to use the correct directory structure
             $imageType = strpos($sectionPic, '/png') !== false ? 'png' : 'jpeg';
-            echo "<img src='http://localhost/Version-2/admin/cms/{$sectionPic}' style='max-width: 100%; height: auto;' />";
+            echo "<img src='admin/cms/{$sectionPic}' style='max-width: 100%; height: auto;' />";
         } else {
             echo "<p>No image available</p>";
         }
@@ -104,9 +104,11 @@
             <div class="per">
             <div class="per1" style="display: flex; align-items: center;">
                     <?php
+                    // var_dump($chairmanPic);
+
                     if (isset($chairmanPic) && $chairmanPic !== null) {
                         // Update the path to use the correct directory structure
-                        echo "<img src='http://localhost/Version-2/admin/cms/{$chairmanPic}' style='width: 150px; height: 150px; object-fit: contain;' />";
+                        echo "<img src='admin/cms/{$chairmanPic}' style='width: 150px; height: 150px; object-fit: contain;' />";
                     } else {
                         echo "<p>No image available</p>";
                     }
@@ -122,7 +124,7 @@
                     <?php
                     if (isset($chairmanCommPic) && $chairmanCommPic !== null) {
                         // Update the path to use the correct directory structure
-                        echo "<img src='http://localhost/Version-2/admin/cms/{$chairmanCommPic}' style='width: 150px; height: 150px; object-fit: contain;' />";
+                        echo "<img src='admin/cms/{$chairmanCommPic}' style='width: 150px; height: 150px; object-fit: contain;' />";
                     } else {
                         echo "<p>No image available</p>";
                     }

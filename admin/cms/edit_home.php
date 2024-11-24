@@ -20,31 +20,31 @@ if (isset($_POST["submit"])) {
         // Handle the background image upload
         $bg_img = $_FILES['bg_img']['name'];  // Just the file name
         $targetDir = "uploads/";  // Directory to save images
-        $bg_img_path = $targetDir . basename($bg_img);  // Full file path
+        $bg_img_name = basename($bg_img);  // Get just the file name (e.g., "image.png")
 
         // Move the uploaded file to the target directory
-        if (!empty($bg_img) && move_uploaded_file($_FILES['bg_img']['tmp_name'], $bg_img_path)) {
+        if (!empty($bg_img_name) && move_uploaded_file($_FILES['bg_img']['tmp_name'], $targetDir . $bg_img_name)) {
             // If file is uploaded, include the bg_img path in the database query
             if ($row['COUNT(*)'] == 0) {
-                $sql = "INSERT INTO `home` (`center_name`, `address`, `email`, `contact`, `open_hours`, `bg_img`) VALUES (?, ?, ?, ?, ?, ?)";
+                $sql = "INSERT INTO `home` (`center_name`, `address`, `email`, `contact`, `open_hours`, `bg_img`) VALUES (?, ?, ?, ?, ?, ?)";                
             } else {
-                $sql = "UPDATE `home` SET `center_name` = ?, `address` = ?, `email` = ?, `contact` = ?, `open_hours` = ?, `bg_img` = ?";
+                $sql = "UPDATE `home` SET `center_name` = ?, `address` = ?, `email` = ?, `contact` = ?, `open_hours` = ?, `bg_img` = ?";                
             }
             $stmt = mysqli_prepare($conn, $sql);
-            mysqli_stmt_bind_param($stmt, "ssssss", $center_name, $address, $email, $contact, $open_hours, $bg_img_path);
+            mysqli_stmt_bind_param($stmt, "ssssss", $center_name, $address, $email, $contact, $open_hours, $bg_img_name);
         } else {
             // If no image is uploaded, skip the bg_img field
             if ($row['COUNT(*)'] == 0) {
-                $sql = "INSERT INTO `home` (`center_name`, `address`, `email`, `contact`, `open_hours`) VALUES (?, ?, ?, ?, ?)";
+                $sql = "INSERT INTO `home` (`center_name`, `address`, `email`, `contact`, `open_hours`) VALUES (?, ?, ?, ?, ?)";                
             } else {
-                $sql = "UPDATE `home` SET `center_name` = ?, `address` = ?, `email` = ?, `contact` = ?, `open_hours` = ?";
+                $sql = "UPDATE `home` SET `center_name` = ?, `address` = ?, `email` = ?, `contact` = ?, `open_hours` = ?";                
             }
             $stmt = mysqli_prepare($conn, $sql);
             mysqli_stmt_bind_param($stmt, "sssss", $center_name, $address, $email, $contact, $open_hours);
         }
         
         mysqli_stmt_execute($stmt);
-    
+
     // Handle the About Us section
     } else if ($header == "About Us") {
         $short_desc = $_POST["short_desc"];
@@ -59,15 +59,15 @@ if (isset($_POST["submit"])) {
         $chairman_comm_pic = $_FILES['chairman_comm_pic']['name'];
         $section_pic = $_FILES['section_pic']['name'];
 
-        // Set the target directory and file paths
-        $chairman_pic_path = $targetDir . basename($chairman_pic);
-        $chairman_comm_pic_path = $targetDir . basename($chairman_comm_pic);
-        $section_pic_path = $targetDir . basename($section_pic);
+        // Set the target directory and file names
+        $chairman_pic_name = basename($chairman_pic);
+        $chairman_comm_pic_name = basename($chairman_comm_pic);
+        $section_pic_name = basename($section_pic);
 
         // Move uploaded files to the target directory
-        if (!empty($chairman_pic)) move_uploaded_file($_FILES['chairman_pic']['tmp_name'], $chairman_pic_path);
-        if (!empty($chairman_comm_pic)) move_uploaded_file($_FILES['chairman_comm_pic']['tmp_name'], $chairman_comm_pic_path);
-        if (!empty($section_pic)) move_uploaded_file($_FILES['section_pic']['tmp_name'], $section_pic_path);
+        if (!empty($chairman_pic)) move_uploaded_file($_FILES['chairman_pic']['tmp_name'], $targetDir . $chairman_pic_name);
+        if (!empty($chairman_comm_pic)) move_uploaded_file($_FILES['chairman_comm_pic']['tmp_name'], $targetDir . $chairman_comm_pic_name);
+        if (!empty($section_pic)) move_uploaded_file($_FILES['section_pic']['tmp_name'], $targetDir . $section_pic_name);
 
         // SQL query to insert or update
         if ($row['COUNT(*)'] == 0) {
@@ -78,7 +78,7 @@ if (isset($_POST["submit"])) {
         }
 
         $stmt = mysqli_prepare($conn, $sql);
-        mysqli_stmt_bind_param($stmt, "sssssssss", $short_desc, $mission, $vision, $goal, $chairman, $chairman_pic_path, $chairman_comm, $chairman_comm_pic_path, $section_pic_path);
+        mysqli_stmt_bind_param($stmt, "sssssssss", $short_desc, $mission, $vision, $goal, $chairman, $chairman_pic_name, $chairman_comm, $chairman_comm_pic_name, $section_pic_name);
         mysqli_stmt_execute($stmt);
 
     // Handle the Contact Us section
