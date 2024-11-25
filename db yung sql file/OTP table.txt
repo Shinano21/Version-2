@@ -113,3 +113,17 @@ CREATE TABLE purok_boundaries (
     created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
     updated_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP
 );
+
+
+CREATE TABLE organization (
+    id INT AUTO_INCREMENT PRIMARY KEY,          -- Unique ID for each member
+    name VARCHAR(255) NOT NULL,                 -- Name of the individual
+    position VARCHAR(255) NOT NULL,             -- Position or role in the organization
+    photo VARCHAR(255) NOT NULL,                -- Profile photo (optional)
+    contact_info VARCHAR(255) DEFAULT NULL,     -- Contact information (optional)
+    description TEXT DEFAULT NULL,              -- Additional details about the individual
+    parent_id INT DEFAULT NULL,                 -- References the ID of the parent (e.g., chairman, committee head)
+    created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP, -- Timestamp for creation
+    updated_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP, -- Timestamp for last update
+    FOREIGN KEY (parent_id) REFERENCES organization(id) -- Enforces hierarchical relationship
+);
