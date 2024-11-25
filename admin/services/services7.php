@@ -1,7 +1,6 @@
 <?php
 session_start();
-
-include "../dbcon.php";  // Database connection
+include "../dbcon.php"; // Database connection
 
 // Check if the user is logged in and is not a System Administrator
 if (!isset($_SESSION["user"]) || $_SESSION["user_type"] == "System Administrator") {
@@ -9,10 +8,57 @@ if (!isset($_SESSION["user"]) || $_SESSION["user_type"] == "System Administrator
     exit();
 }
 
-// Query to fetch residents from the database
-$query = "SELECT id, fname, lname FROM residents";  // Assuming the residents table is called "residents"
-$result = mysqli_query($conn, $query);
+// Initialize variables
+$success = "";
+$error = "";
+
+// Handle form submission
+if ($_SERVER['REQUEST_METHOD'] == 'POST' && isset($_POST['add_prenatal_record'])) {
+    $resident_id = $_POST['resident_name'];
+    $checkup_date = $_POST['checkup_date'];
+    $gestational_age = $_POST['gestational_age'];
+    $blood_pressure = $_POST['blood_pressure'];
+    $weight = $_POST['weight'];
+    $fetal_heartbeat = $_POST['fetal_heartbeat'];
+    $remarks = $_POST['remarks'] ?? '';
+
+    // Checkboxes
+    $calcium_supplementation = isset($_POST['calcium_supplementation']) ? 1 : 0;
+    $iodine_capsules = isset($_POST['iodine_capsules']) ? 1 : 0;
+    $deworming_tablets = isset($_POST['deworming_tablets']) ? 1 : 0;
+    $syphilis_screened = isset($_POST['syphilis_screened']) ? 1 : 0;
+    $hepB_screened = isset($_POST['hepB_screened']) ? 1 : 0;
+    $hiv_screened = isset($_POST['hiv_screened']) ? 1 : 0;
+
+    // Insert record into the database
+    $query = "
+        INSERT INTO prenatal (
+            resident_id, checkup_date, gestational_age, blood_pressure, weight, fetal_heartbeat,
+            calcium_supplementation, iodine_capsules, deworming_tablets, syphilis_screened,
+            hepB_screened, hiv_screened, remarks
+        ) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)
+    ";
+
+    $stmt = $conn->prepare($query);
+    $stmt->bind_param(
+        "issdsssssssss",
+        $resident_id, $checkup_date, $gestational_age, $blood_pressure, $weight, $fetal_heartbeat,
+        $calcium_supplementation, $iodine_capsules, $deworming_tablets, $syphilis_screened,
+        $hepB_screened, $hiv_screened, $remarks
+    );
+
+    if ($stmt->execute()) {
+        $success = "Prenatal record added successfully!";
+    } else {
+        $error = "Error: " . $conn->error;
+    }
+}
+
+// Fetch residents for the dropdown
+$residents_query = "SELECT id, fname, lname FROM residents";
+$residents_result = mysqli_query($conn, $residents_query);
 ?>
+
 <!DOCTYPE html>
 <html lang="en">
 
@@ -20,7 +66,6 @@ $result = mysqli_query($conn, $query);
     <meta charset="utf-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1">
-    <!-- theme meta -->
     <meta name="theme-name" content="focus" />
     <title>Add Prenatal Record | CareVisio</title>
     <?php include "head.php"; ?>
@@ -45,23 +90,18 @@ $result = mysqli_query($conn, $query);
                             </div>
                         </div>
                     </div>
-                    <div class="col-lg-4 p-l-0 title-margin-left">
-                        <div class="page-header">
-                            <div class="page-title">
-                                <ol class="breadcrumb">
-                                    <li class="breadcrumb-item"><a href="../home.php">Dashboard</a></li>
-                                    <li class="breadcrumb-item active">Services</li>
-                                </ol>
-                            </div>
-                        </div>
-                    </div>
                 </div>
 
                 <section id="main-content">
-                    <form action="add_prenatal_record.php" method="post">
+                    <?php if ($success): ?>
+                        <div style="color: green;"><?php echo $success; ?></div>
+                    <?php endif; ?>
+                    <?php if ($error): ?>
+                        <div style="color: red;"><?php echo $error; ?></div>
+                    <?php endif; ?>
+                    <form action="services7.php" method="post">
                         <div class="row">
                             <div class="sectioning">
-                                <br>
                                 <p>Please fill out all fields marked by asterisks (<span class="req">*</span>)</p>
                                 <hr>
                                 <table>
@@ -70,15 +110,11 @@ $result = mysqli_query($conn, $query);
                                     </tr>
                                     <tr>
                                         <th>
-                                            <label for="resident_name">Resident Name<span class="req">*</span></label><br>
                                             <select name="resident_name" id="resident_name" required>
                                                 <option value="">Select Resident</option>
-                                                <?php
-                                                // Loop through the fetched data and populate the dropdown
-                                                while ($row = mysqli_fetch_assoc($result)) {
-                                                    echo '<option value="' . $row['id'] . '">' . $row['fname'] . ' ' . $row['lname'] . '</option>';
-                                                }
-                                                ?>
+                                                <?php while ($row = mysqli_fetch_assoc($residents_result)): ?>
+                                                    <option value="<?php echo $row['id']; ?>"><?php echo $row['fname'] . ' ' . $row['lname']; ?></option>
+                                                <?php endwhile; ?>
                                             </select>
                                         </th>
                                     </tr>
@@ -102,7 +138,7 @@ $result = mysqli_query($conn, $query);
                                         </th>
                                         <th>
                                             <label for="weight">Weight<span class="req">*</span></label><br>
-                                            <input type="number" name="weight" id="weight" required>
+                                            <input type="number" name="weight" id="weight" step="0.01" required>
                                         </th>
                                     </tr>
                                     <tr>
@@ -115,6 +151,21 @@ $result = mysqli_query($conn, $query);
                                             <textarea name="remarks" id="remarks"></textarea>
                                         </th>
                                     </tr>
+                                    <tr>
+                                        <th><b>Additional Services</b></th>
+                                    </tr>
+                                    <tr>
+                                        <th>
+                                            <label><input type="checkbox" name="calcium_supplementation"> Calcium Supplementation</label><br>
+                                            <label><input type="checkbox" name="iodine_capsules"> Iodine Capsules</label><br>
+                                            <label><input type="checkbox" name="deworming_tablets"> Deworming Tablets</label>
+                                        </th>
+                                        <th>
+                                            <label><input type="checkbox" name="syphilis_screened"> Syphilis Screened</label><br>
+                                            <label><input type="checkbox" name="hepB_screened"> Hepatitis B Screened</label><br>
+                                            <label><input type="checkbox" name="hiv_screened"> HIV Screened</label>
+                                        </th>
+                                    </tr>
                                 </table>
                                 <br>
                                 <button type="submit" name="add_prenatal_record">Save</button>
@@ -122,74 +173,11 @@ $result = mysqli_query($conn, $query);
                                 <hr>
                             </div>
                         </div>
-
-                        <style>
-                            body {
-                                overflow-x: hidden;
-                            }
-                            button[type="submit"] {
-                                padding: 10px 40px;
-                                border: none;
-                                box-shadow: 0px 0px 3px gray;
-                                color: white;
-                                background-color: rgb(92, 84, 243);
-                                border-radius: 10px;
-                                float: right;
-                                margin: 1%;
-                            }
-                            textarea, input, select {
-                                border: none;
-                                box-shadow: 0px 0px 2px gray;
-                                border-radius: 10px;
-                                padding: 7px;
-                                width: 90%;
-                            }
-                            .req {
-                                color: red;
-                            }
-                            table {
-                                width: 100%;
-                            }
-                            th {
-                                padding: 10px;
-                            }
-                            .sectioning {
-                                padding: 20px;
-                                background-color: #f9f9fd;
-                                box-shadow: 0px 0px 2px gray;
-                                border-radius: 10px;
-                                width: 100%;
-                            }
-                        </style>
                     </form>
                 </section>
             </div>
         </div>
     </div>
 
-    <script>
-        function display_ct() {
-            var refresh = 1000; // Refresh rate in milliseconds
-            setTimeout(display_ct, refresh);
-            var x = new Date();
-            var options = { timeZone: 'Asia/Manila', hour12: true, hour: '2-digit', minute: '2-digit', second: '2-digit' };
-            var timeString = x.toLocaleTimeString('en-US', options);
-            var datePart = x.toLocaleDateString('en-US', { weekday: 'short', day: '2-digit', month: 'short', year: 'numeric' });
-            var x1 = datePart + ' - ' + timeString;
-            document.getElementById('ct').innerHTML = x1;
-        }
-        display_ct();
-    </script>
-
-    <!-- jquery vendor -->
-    <script src="../js/lib/jquery.min.js"></script>
-    <script src="../js/lib/jquery.nanoscroller.min.js"></script>
-    <script src="../js/lib/menubar/sidebar.js"></script>
-    <script src="../js/lib/preloader/pace.min.js"></script>
-    <!-- sidebar -->
-    <script src="../js/lib/bootstrap.min.js"></script>
-    <script src="../js/scripts.js"></script>
-
 </body>
-
 </html>
