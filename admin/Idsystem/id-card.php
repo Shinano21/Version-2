@@ -23,6 +23,8 @@
                 $id_card_no = $row["id_card_no"];
                 $contact = $row['contact'];
                 $bday = $row['bday'];
+                $zone = $row['zone'];
+                $sex = $row['sex'];
                 $address = $row['street'] . ', ' . $row['brgy'] . ', ' . $row['mun'] . ', ' . $row['province'];
                 $profile = '../residents_img/' . $row['profile']; // Correct relative path from id-card.php
                 $exp_date = $row['exp_date'] ?? 'N/A';
@@ -44,7 +46,7 @@
                                 <p style='font-size: 14px;'>Resident</p>
                             </div>
                             <div class='box-3'>
-                                <img src='assets/images/logo.jpg' alt='Logo' style='width: 50px; height: 50px;'/>
+                                <img src='assets/images/logo.svg' alt='Logo' style='width: 90px; height: 90px;'/>
                             </div>
                         </div>
 
@@ -62,11 +64,12 @@
                             </div>
                             <div class='info-2'>
                                 <div class='join-date'>
-                                    <h4>Joined Date</h4>
+                                    <h4>Sex</h4>
+                                    <p>$sex</p>
                                 </div>
                                 <div class='expire-date'>
-                                    <h4>Expire Date</h4>
-                                    <p>$exp_date</p>
+                                    <h4>Zone</h4>
+                                    <p>$zone</p>
                                 </div>
                             </div>
                             <div class='info-3'>
@@ -156,12 +159,14 @@ hr.new2 {
     width: 73vh;
     height: 15vh;
     margin: 20px auto;
-    background-color: white;
+    background-color: black;
+    background-size: cover;
     /* box-shadow: 0 1px 10px rgb(146 161 176 / 50%); */
     /* border-radius: 10px; */
-    background-image: url(assets/images/BDM2.png);
+    background-image: url(assets/images/logo2.png);
     overflow: hidden;
     font-family: 'Poppins', sans-serif;
+    border-radius: 0px 30px 0px 30px;
 }
 
 .header h1 {
@@ -369,7 +374,7 @@ hr.new2 {
     <div class="card jumbotron">
       <div class="card-body">
         <form class="form" method="POST" action="id-card.php">.
-        <label for="exampleInputEmail1">Student Id Card No.</label>
+        <label for="exampleInputEmail1">Resident Id Card No.</label>
         <input class="form-control mr-sm-2" type="search" placeholder="Enter Id Card No." name="id_no">
         <small id="emailHelp" class="form-text text-muted">Every student's should have unique Id no.</small>
         <br>
