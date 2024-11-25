@@ -1,3 +1,72 @@
+<?php
+include "dbcon.php";
+
+// Fetch organization data for the hierarchy
+function buildHierarchy($parent_id = null, $conn) {
+    // Prepare SQL query using parameterized statements
+    $sql = "SELECT * FROM organization WHERE parent_id " . ($parent_id === null ? "IS NULL" : "= ?");
+    $stmt = $conn->prepare($sql);
+
+    if ($parent_id !== null) {
+        $stmt->bind_param("i", $parent_id);
+    }
+
+    $stmt->execute();
+    $result = $stmt->get_result();
+
+    if ($result->num_rows > 0) {
+        echo "<ul>";
+        while ($row = $result->fetch_assoc()) {
+            // Dynamically fetch image and other details
+            $name = htmlspecialchars($row['name']);
+            $position = htmlspecialchars($row['position']);
+            $photo = $row['photo'] ? "admin/images/bnc/" . $row['photo'] : "admin/images/default_avatar.png";
+
+            // Render member information with image
+            echo "<li>";
+            echo "<a href='#'>";
+            echo "<img src='$photo' alt='$name'>";
+            echo "<span>$name</span>";
+            echo "<p>$position</p>";
+            echo "</a>";
+
+            // Recursive call to fetch children
+            buildHierarchy($row['id'], $conn);
+
+            echo "</li>";
+        }
+        echo "</ul>";
+    }
+
+    $stmt->close();
+}
+
+// Fetch about_us data for the header, mission, and vision
+$sql_about = "SELECT * FROM about LIMIT 1";
+$result_about = mysqli_query($conn, $sql_about);
+if ($result_about && $about = mysqli_fetch_assoc($result_about)) {
+    $headerPic = $about['header_pic'] ?? null;
+    $sectionHead = $about['section_head'] ?? 'About Us';
+    $sectionSubhead = $about['section_subhead'] ?? 'Our Story';
+    $sectionBody = $about['section_body'] ?? 'Welcome to TechCare';
+    $sectionPic = $about['section_pic'] ?? null;
+    $mission = $about['mission'] ?? 'Our mission is to create healthier communities.';
+    $missionPic = $about['mission_pic'] ?? null;
+    $vision = $about['vision'] ?? 'Our vision is to lead the way in community health.';
+    $visionPic = $about['vision_pic'] ?? null;
+} else {
+    // Default fallback values
+    $headerPic = null;
+    $sectionHead = 'About Us';
+    $sectionSubhead = 'Our Story';
+    $sectionBody = 'Welcome to TechCare';
+    $sectionPic = null;
+    $mission = 'Our mission is to create healthier communities.';
+    $missionPic = null;
+    $vision = 'Our vision is to lead the way in community health.';
+    $visionPic = null;
+}
+?>
 <!DOCTYPE html>
 <html lang="en">
 
@@ -13,7 +82,6 @@
 <body>
     <!-- Navbar -->
     <?php include 'navbar.php'; ?>
-    <?php include "user/data/about_us.php"; ?>
 
     <!-- Header Section -->
     <div class="main">
@@ -31,9 +99,9 @@
             let bg_img = document.querySelector('.main');
             <?php
             if ($headerPic !== null) {
-                echo "bg_img.style.backgroundImage = 'url(\"images/bnc/$headerPic\")';";
+                echo "bg_img.style.backgroundImage = 'url(\"admin/images/bnc/$headerPic\")';";
             } else {
-                echo "bg_img.style.backgroundImage = 'url(\"default_image.jpg\")';";
+                echo "bg_img.style.backgroundImage = 'url(\"admin/images/default_image.jpg\")';";
             }
             ?>
         </script>
@@ -43,17 +111,14 @@
     <div class="chairCont">
         <div class="chairImg">
             <?php
-            if ($sectionPic !== null) {
-                echo "<img src='images/bnc/$sectionPic' alt='Chairman Image'>";
-            } else {
-                echo "No image available";
-            }
+            $imagePath = $sectionPic ? "admin/images/bnc/$sectionPic" : "admin/images/default_avatar.png";
+            echo "<img src='$imagePath' alt='Chairman Image'>";
             ?>
         </div>
         <div class="chairDits">
-            <h1><?php echo $sectionHead; ?></h1>
-            <h3><?php echo $sectionSubhead; ?></h3>
-            <p><?php echo $sectionBody; ?></p>
+            <h1><?php echo htmlspecialchars($sectionHead); ?></h1>
+            <h3><?php echo htmlspecialchars($sectionSubhead); ?></h3>
+            <p><?php echo htmlspecialchars($sectionBody); ?></p>
         </div>
     </div>
 
@@ -62,31 +127,25 @@
         <div class="mission">
             <div class="mvText">
                 <h1>Mission</h1>
-                <p><?php echo $mission; ?></p>
+                <p><?php echo htmlspecialchars($mission); ?></p>
             </div>
             <div class="mvPic">
                 <?php
-                if ($missionPic !== null) {
-                    echo "<img src='images/bnc/$missionPic' alt='Mission Image'>";
-                } else {
-                    echo "No image available";
-                }
+                $missionImagePath = $missionPic ? "admin/images/bnc/$missionPic" : "admin/images/default_image.jpg";
+                echo "<img src='$missionImagePath' alt='Mission Image'>";
                 ?>
             </div>
         </div>
         <div class="vision">
             <div class="mvPic">
                 <?php
-                if ($visionPic !== null) {
-                    echo "<img src='images/bnc/$visionPic' alt='Vision Image'>";
-                } else {
-                    echo "No image available";
-                }
+                $visionImagePath = $visionPic ? "admin/images/bnc/$visionPic" : "admin/images/default_image.jpg";
+                echo "<img src='$visionImagePath' alt='Vision Image'>";
                 ?>
             </div>
             <div class="mvText">
                 <h1>Vision</h1>
-                <p><?php echo $vision; ?></p>
+                <p><?php echo htmlspecialchars($vision); ?></p>
             </div>
         </div>
     </div>
@@ -99,33 +158,6 @@
         </div>
         <div class="tree">
             <?php
-            include "dbcon.php";
-
-            // Recursive function to build the organizational chart
-            function buildHierarchy($parent_id = null, $conn) {
-                $sql = "SELECT * FROM organization WHERE parent_id " . ($parent_id === null ? "IS NULL" : "= $parent_id");
-                $result = mysqli_query($conn, $sql);
-                if (mysqli_num_rows($result) > 0) {
-                    echo "<ul>";
-                    while ($row = mysqli_fetch_assoc($result)) {
-                        $photo = $row['photo'] ? "images/bnc/" . $row['photo'] : "src/default_avatar.png";
-                        
-                        echo "<li>";
-                        echo "<a href='#'>";
-                        echo "<img src='{$photo}' alt='{$row['name']}'>";
-                        echo "<span>{$row['name']}</span>";
-                        echo "<p>{$row['position']}</p>";
-                        echo "</a>";
-
-                        // Recursive call for children
-                        buildHierarchy($row['id'], $conn);
-
-                        echo "</li>";
-                    }
-                    echo "</ul>";
-                }
-            }
-
             // Build the hierarchy starting from the top-level nodes
             buildHierarchy(null, $conn);
             ?>
