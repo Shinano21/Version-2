@@ -29,9 +29,22 @@ CREATE TABLE prenatal (
     blood_pressure VARCHAR(50),
     weight DECIMAL(10, 2),
     fetal_heartbeat VARCHAR(50),
+    calcium_supplementation BOOLEAN DEFAULT 0,
+    iodine_capsules BOOLEAN DEFAULT 0,
+    deworming_tablets BOOLEAN DEFAULT 0,
+    syphilis_screened BOOLEAN DEFAULT 0,
+    syphilis_positive BOOLEAN DEFAULT 0,
+    hepB_screened BOOLEAN DEFAULT 0,
+    hepB_positive BOOLEAN DEFAULT 0,
+    hiv_screened BOOLEAN DEFAULT 0,
+    cbc_tested BOOLEAN DEFAULT 0,
+    cbc_anemia BOOLEAN DEFAULT 0,
+    gestational_diabetes_screened BOOLEAN DEFAULT 0,
+    gestational_diabetes_positive BOOLEAN DEFAULT 0,
     remarks TEXT,
     FOREIGN KEY (resident_id) REFERENCES residents(id)
 );
+
 
 CREATE TABLE hypertension (
     hypertension_id INT(11) AUTO_INCREMENT PRIMARY KEY,

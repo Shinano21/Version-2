@@ -56,14 +56,19 @@ if (!isset($_SESSION["user"]) || $_SESSION["user_type"] == "System Administrator
 
                     // SQL query to fetch the prenatal record and the associated resident details
                     $query = "
-                        SELECT p.prenatal_id, p.checkup_date, p.gestational_age, p.blood_pressure, 
-                               p.weight, p.fetal_heartbeat, p.remarks,
-                               r.fname, r.mname, r.lname, r.suffix, r.sex, r.bday
-                        FROM prenatal p
-                        JOIN residents r ON p.resident_id = r.id
-                        WHERE p.prenatal_id = $id
-                        LIMIT 1
-                    ";
+    SELECT p.prenatal_id, p.checkup_date, p.gestational_age, p.blood_pressure, 
+           p.weight, p.fetal_heartbeat, p.remarks,
+           p.calcium_supplementation, p.iodine_capsules, p.deworming_tablets,
+           p.syphilis_screened, p.syphilis_positive, p.hepB_screened, p.hepB_positive,
+           p.hiv_screened, p.cbc_tested, p.cbc_anemia, p.gestational_diabetes_screened, 
+           p.gestational_diabetes_positive,
+           r.fname, r.mname, r.lname, r.suffix, r.sex, r.bday
+    FROM prenatal p
+    JOIN residents r ON p.resident_id = r.id
+    WHERE p.prenatal_id = $id
+    LIMIT 1
+";
+
 
                     $result = $conn->query($query);
 
@@ -130,6 +135,55 @@ if (!isset($_SESSION["user"]) || $_SESSION["user_type"] == "System Administrator
                                     <th>Remarks</th>
                                     <td><?php echo $row["remarks"]; ?></td>
                                 </tr>
+                                <tr>
+                                    <th>Calcium Supplementation</th>
+                                    <td><?php echo $row["calcium_supplementation"] ? 'Yes' : 'No'; ?></td>
+                                </tr>
+                                <tr>
+                                    <th>Iodine Capsules</th>
+                                    <td><?php echo $row["iodine_capsules"] ? 'Yes' : 'No'; ?></td>
+                                </tr>
+                                <tr>
+                                    <th>Deworming Tablets</th>
+                                    <td><?php echo $row["deworming_tablets"] ? 'Yes' : 'No'; ?></td>
+                                </tr>
+                                <tr>
+                                    <th>Syphilis Screened</th>
+                                    <td><?php echo $row["syphilis_screened"] ? 'Yes' : 'No'; ?></td>
+                                </tr>
+                                <tr>
+                                    <th>Syphilis Positive</th>
+                                    <td><?php echo $row["syphilis_positive"] ? 'Yes' : 'No'; ?></td>
+                                </tr>
+                                <tr>
+                                    <th>Hepatitis B Screened</th>
+                                    <td><?php echo $row["hepB_screened"] ? 'Yes' : 'No'; ?></td>
+                                </tr>
+                                <tr>
+                                    <th>Hepatitis B Positive</th>
+                                    <td><?php echo $row["hepB_positive"] ? 'Yes' : 'No'; ?></td>
+                                </tr>
+                                <tr>
+                                    <th>HIV Screened</th>
+                                    <td><?php echo $row["hiv_screened"] ? 'Yes' : 'No'; ?></td>
+                                </tr>
+                                <tr>
+                                    <th>CBC Tested</th>
+                                    <td><?php echo $row["cbc_tested"] ? 'Yes' : 'No'; ?></td>
+                                </tr>
+                                <tr>
+                                    <th>CBC Anemia</th>
+                                    <td><?php echo $row["cbc_anemia"] ? 'Yes' : 'No'; ?></td>
+                                </tr>
+                                <tr>
+                                    <th>Gestational Diabetes Screened</th>
+                                    <td><?php echo $row["gestational_diabetes_screened"] ? 'Yes' : 'No'; ?></td>
+                                </tr>
+                                <tr>
+                                    <th>Gestational Diabetes Positive</th>
+                                    <td><?php echo $row["gestational_diabetes_positive"] ? 'Yes' : 'No'; ?></td>
+                                </tr>
+                                
                             </table>
                         </div>
                     <?php
@@ -144,25 +198,5 @@ if (!isset($_SESSION["user"]) || $_SESSION["user_type"] == "System Administrator
             </div>
         </div>
     </div>
-
-    <script>
-        function display_c() {
-            var refresh = 1000;
-            mytime = setTimeout('display_ct()', refresh);
-        }
-
-        function display_ct() {
-            var x = new Date();
-            var options = { timeZone: 'Asia/Manila', hour12: true, hour: '2-digit', minute: '2-digit', second: '2-digit' };
-            var timeString = x.toLocaleTimeString('en-US', options);
-            var datePart = x.toLocaleDateString('en-US', { weekday: 'short', day: '2-digit', month: 'short', year: 'numeric' });
-            var x1 = datePart + ' - ' + timeString;
-            document.getElementById('ct').innerHTML = x1;
-            tt = display_c();
-        }
-
-        display_c();
-    </script>
 </body>
-
 </html>
