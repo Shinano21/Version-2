@@ -109,6 +109,7 @@
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" integrity="sha384-JcKb8q3iqJ61gNV9KGb8thSsNjpSL0n8PARn9HuZOnIxN0hoP+VmmDGMN5t9UJ0Z" crossorigin="anonymous">
     <link rel="icon" type="image/png" href="images/favicon.png"/>
     <link rel="stylesheet" href="css/dashboard.css">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
     
     <link rel="icon" type="image/png" href="images/favicon.png"/>
 
@@ -148,7 +149,10 @@ hr.new2 {
     width: 80vh;
     height: 45vh;
     margin: auto;
-    background-color: white;
+    /* background-color: white; */
+    background-color: #FFDEE9;
+background-image: linear-gradient(0deg, #FFDEE9 0%, #B5FFFC 100%);
+
     box-shadow: 0 1px 10px rgb(146 161 176 / 50%);
     overflow: hidden;
     border-radius: 10px;
@@ -196,7 +200,7 @@ hr.new2 {
     border: 4px solid black;
     width: 90px;
     height: 95px;
-    margin: -40px 25px;
+    margin: -25px 25px;
     border-radius: 3px;
 }
 
@@ -374,9 +378,9 @@ hr.new2 {
     <div class="card jumbotron">
       <div class="card-body">
         <form class="form" method="POST" action="id-card.php">.
-        <label for="exampleInputEmail1">Resident Id Card No.</label>
+        <label for="exampleInputEmail1" style="font-weight: bold;">Resident Id Card No.</label>
         <input class="form-control mr-sm-2" type="search" placeholder="Enter Id Card No." name="id_no">
-        <small id="emailHelp" class="form-text text-muted">Every student's should have unique Id no.</small>
+        <small id="emailHelp" class="form-text text-muted">Every resident should have unique Id no.</small>
         <br>
         <button class="btn btn-outline-primary my-2 my-sm-0" type="submit" name="search">Generate</button>
         </form>
@@ -385,7 +389,7 @@ hr.new2 {
   </div>
   <div class="col-sm-6">
       <div class="card">
-          <div class="card-header" >
+          <div class="card-header" style="display: flex; justify-content:center; font-weight: bold;" >
               Here is your Id Card
           </div>
         <div class="card-body" id="mycard">
@@ -394,7 +398,7 @@ hr.new2 {
         <br>
         
      </div>
-<button id="demo" class="downloadtable btn btn-primary" onclick="downloadtable()"> Download Id Card</button>
+<button id="demo" class="downloadtable btn btn-primary" style="background-color: #4D869C;" onclick="downloadtable()"> Download Id Card</button>
 
   </div>
   </div>
