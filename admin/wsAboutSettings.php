@@ -39,116 +39,158 @@ if (!isset($_SESSION["user"]) || $_SESSION["user_type"] == "System Administrator
                     </div>
 
                     <div id="Tab1" class="tabcontent">
-                        <form action="cms/edit_about.php" method="post" enctype="multipart/form-data">
-                            <div class="form">
-                                <h5>Header</h5>
-                                <input type="hidden" name="header" value="Header">
-                                <div class="photo">
-                                    <label for="imageInput">Header Image:</label>
-                                    <input type="file" id="imageInput" name="bg_img" accept="image/*" required>
-                                    <div class="preview">
-                                        <?php
-                                        if ($headerPic !== null) {
-                                            $imageType = strpos($headerPic, '/png') !== false ? 'png' : 'jpeg';
-                                            echo "<img id='preview' src='data:image/{$imageType};base64," . base64_encode($headerPic) . "' alt='Preview' style='max-width:250px; max-height:250px;'>";
-                                        } else {
-                                            echo "<img id='preview' src='#' alt='Preview' style='display:none; max-width:250px; max-height:250px;'>";
-                                        }
-                                        ?>
-                                    </div>
-                                </div>
-                                <div style="width: 100%; display: flex; justify-content: end; align-items: end;">
-                                    <button type="submit" name="submit">Save</button>
-                                </div>
-                            </div>
-                        </form>
-                    </div>
+    <form action="cms/edit_about.php" method="post" enctype="multipart/form-data">
+        <div class="form">
+            <h5>Header</h5>
+            <input type="hidden" name="header" value="Header">
+            <div class="photo">
+                <label for="imageInput">Header Image:</label>
+                <input type="file" id="imageInput" name="bg_img" accept="image/*" required>
+                <div class="preview">
+                    <?php
+                    if (!empty($headerPic)) { // Check if $headerPic is not null or empty
+                        $imageType = strpos($headerPic, '/png') !== false ? 'png' : 'jpeg';
+                        echo "<img id='preview' src='data:image/{$imageType};base64," . base64_encode($headerPic) . "' alt='Preview' style='max-width:250px; max-height:250px;'>";
+                    } else {
+                        echo "<p>No image available</p>";
+                    }
+                    ?>
+                </div>
+            </div>
+            <div style="width: 100%; display: flex; justify-content: end; align-items: end;">
+                <button type="submit" name="submit">Save</button>
+            </div>
+        </div>
+    </form>
+</div>
 
-                    <div id="Tab2" class="tabcontent">
-                        <form action="cms/edit_about.php" method="post" enctype="multipart/form-data">
-                            <div class="form">
-                                <h5>Welcome Section</h5>
-                                <input type="hidden" name="header" value="Welcome Section">
-                                <div class="formInput" style="width: 100%;">
-                                    <label>Heading</label>
-                                    <input type="text" value="<?php echo $sectionHead; ?>" name="section_head"
-                                        placeholder="Enter data" required>
-                                </div>
-                                <div class="formInput" style="width: 100%;">
-                                    <label>Subheading</label>
-                                    <input type="text" value="<?php echo $sectionSubhead; ?>"" name=" section_subhead"
-                                        placeholder="Enter data" required>
-                                </div>
-                                <div class="formInput" style="width: 100%;">
-                                    <label>Body</label>
-                                    <textarea placeholder="Enter data" name="section_body"
-                                        required><?php echo $sectionBody; ?></textarea>
-                                </div>
-                                <div class="photo">
-                                    <label for="imageInput">Section/Supporting Image:</label>
-                                    <input type="file" id="imageInput" name="section_img" accept="image/*" required>
-                                    <div class="preview">
-                                        <img id="preview" src="#" alt="Preview"
-                                            style="display:none; max-width:250px; max-height:250px;">
-                                    </div>
-                                </div>
-                                <div style="width: 100%; display: flex; justify-content: end; align-items: end;">
-                                    <button type="submit" name="submit">Save</button>
-                                </div>
-                            </div>
-                        </form>
-                    </div>
 
-                    <div id="Tab3" class="tabcontent">
-                        <form action="cms/edit_about.php" method="post" enctype="multipart/form-data">
-                            <div class="form">
-                                <h5>Mission and Vision</h5>
-                                <input type="hidden" name="header" value="Mission and Vision">
-                                <div class="formInput" style="width: 100%;">
-                                    <label>Mission</label>
-                                    <textarea placeholder="Enter data" name="mission"
-                                        required><?php echo $mission; ?></textarea>
-                                </div>
-                                <div class="formInput" style="width: 100%;">
-                                    <label>Vision</label>
-                                    <textarea placeholder="Enter data" name="vision"
-                                        required><?php echo $vision; ?></textarea>
-                                </div>
-                                <div class="photo">
-                                    <label for="imageInput">Mission Image:</label>
-                                    <input type="file" id="imageInput" name="mission_pic" accept="image/*" required>
-                                    <div class="preview">
-                                        <?php
-                                        if ($missionPic !== null) {
-                                            $imageType = strpos($missionPic, '/png') !== false ? 'png' : 'jpeg';
-                                            echo "<img id='preview' src='data:image/{$imageType};base64," . base64_encode($missionPic) . "' alt='Preview' style='max-width:250px; max-height:250px;'>";
-                                        } else {
-                                            echo "<img id='preview' src='#' alt='Preview' style='display:none; max-width:250px; max-height:250px;'>";
-                                        }
-                                        ?>
-                                    </div>
-                                </div>
-                                <div class="photo">
-                                    <label for="imageInput">Vision Image:</label>
-                                    <input type="file" id="imageInput" name="vision_pic" accept="image/*" required>
-                                    <div class="preview">
-                                        <?php
-                                        if ($visionPic !== null) {
-                                            $imageType = strpos($visionPic, '/png') !== false ? 'png' : 'jpeg';
-                                            echo "<img id='preview' src='data:image/{$imageType};base64," . base64_encode($visionPic) . "' alt='Preview' style='max-width:250px; max-height:250px;'>";
-                                        } else {
-                                            echo "<img id='preview' src='#' alt='Preview' style='display:none; max-width:250px; max-height:250px;'>";
-                                        }
-                                        ?>
-                                    </div>
-                                </div>
-                                <div style="width: 100%; display: flex; justify-content: end; align-items: end;">
-                                    <button type="submit" name="submit">Save</button>
-                                </div>
-                            </div>
-                        </form>
+<div id="Tab2" class="tabcontent">
+    <form action="cms/edit_about.php" method="post" enctype="multipart/form-data">
+        <div class="form">
+            <h5>Welcome Section</h5>
+            <input type="hidden" name="header" value="Welcome Section">
+            
+            <!-- Heading Input -->
+            <div class="formInput" style="width: 100%;">
+                <label>Heading</label>
+                <input 
+                    type="text" 
+                    value="<?php echo !empty($sectionHead) ? htmlspecialchars($sectionHead, ENT_QUOTES, 'UTF-8') : ''; ?>" 
+                    name="section_head" 
+                    placeholder="Enter data" 
+                    required>
+            </div>
+            
+            <!-- Subheading Input -->
+            <div class="formInput" style="width: 100%;">
+                <label>Subheading</label>
+                <input 
+                    type="text" 
+                    value="<?php echo !empty($sectionSubhead) ? htmlspecialchars($sectionSubhead, ENT_QUOTES, 'UTF-8') : ''; ?>" 
+                    name="section_subhead" 
+                    placeholder="Enter data" 
+                    required>
+            </div>
+            
+            <!-- Body Input -->
+            <div class="formInput" style="width: 100%;">
+                <label>Body</label>
+                <textarea 
+                    placeholder="Enter data" 
+                    name="section_body" 
+                    required><?php echo !empty($sectionBody) ? htmlspecialchars($sectionBody, ENT_QUOTES, 'UTF-8') : ''; ?></textarea>
+            </div>
+            
+            <!-- Image Upload and Preview -->
+            <div class="photo">
+                <label for="imageInput">Section/Supporting Image:</label>
+                <input type="file" id="imageInput" name="section_img" accept="image/*">
+                <div class="preview">
+                    <?php
+                    if (!empty($sectionImage)) { // Check if $sectionImage is not null or empty
+                        $imageType = strpos($sectionImage, '/png') !== false ? 'png' : 'jpeg';
+                        echo "<img id='preview' src='data:image/{$imageType};base64," . base64_encode($sectionImage) . "' alt='Preview' style='max-width:250px; max-height:250px;'>";
+                    } else {
+                        echo "<p>No image available</p>";
+                    }
+                    ?>
+                </div>
+            </div>
+            
+            <!-- Submit Button -->
+            <div style="width: 100%; display: flex; justify-content: end; align-items: end;">
+                <button type="submit" name="submit">Save</button>
+            </div>
+        </div>
+    </form>
+</div>
 
-                    </div>
+
+<div id="Tab3" class="tabcontent">
+    <form action="cms/edit_about.php" method="post" enctype="multipart/form-data">
+        <div class="form">
+            <h5>Mission and Vision</h5>
+            <input type="hidden" name="header" value="Mission and Vision">
+            
+            <!-- Mission Input -->
+            <div class="formInput" style="width: 100%;">
+                <label>Mission</label>
+                <textarea 
+                    placeholder="Enter data" 
+                    name="mission" 
+                    required><?php echo !empty($mission) ? htmlspecialchars($mission, ENT_QUOTES, 'UTF-8') : ''; ?></textarea>
+            </div>
+            
+            <!-- Vision Input -->
+            <div class="formInput" style="width: 100%;">
+                <label>Vision</label>
+                <textarea 
+                    placeholder="Enter data" 
+                    name="vision" 
+                    required><?php echo !empty($vision) ? htmlspecialchars($vision, ENT_QUOTES, 'UTF-8') : ''; ?></textarea>
+            </div>
+            
+            <!-- Mission Image Upload and Preview -->
+            <div class="photo">
+                <label for="missionImageInput">Mission Image:</label>
+                <input type="file" id="missionImageInput" name="mission_pic" accept="image/*">
+                <div class="preview">
+                    <?php
+                    if (!empty($missionPic)) { // Check if missionPic is not null or empty
+                        $imageType = strpos($missionPic, '/png') !== false ? 'png' : 'jpeg';
+                        echo "<img id='preview' src='data:image/{$imageType};base64," . base64_encode($missionPic) . "' alt='Mission Image Preview' style='max-width:250px; max-height:250px;'>";
+                    } else {
+                        echo "<p>No image available</p>";
+                    }
+                    ?>
+                </div>
+            </div>
+            
+            <!-- Vision Image Upload and Preview -->
+            <div class="photo">
+                <label for="visionImageInput">Vision Image:</label>
+                <input type="file" id="visionImageInput" name="vision_pic" accept="image/*">
+                <div class="preview">
+                    <?php
+                    if (!empty($visionPic)) { // Check if visionPic is not null or empty
+                        $imageType = strpos($visionPic, '/png') !== false ? 'png' : 'jpeg';
+                        echo "<img id='preview' src='data:image/{$imageType};base64," . base64_encode($visionPic) . "' alt='Vision Image Preview' style='max-width:250px; max-height:250px;'>";
+                    } else {
+                        echo "<p>No image available</p>";
+                    }
+                    ?>
+                </div>
+            </div>
+            
+            <!-- Submit Button -->
+            <div style="width: 100%; display: flex; justify-content: end; align-items: end;">
+                <button type="submit" name="submit">Save</button>
+            </div>
+        </div>
+    </form>
+</div>
+
 
                     <div id="Tab4" class="tabcontent">
                         <div class="form">
