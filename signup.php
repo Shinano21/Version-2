@@ -176,6 +176,55 @@
       input[type="password"]::-webkit-credentials-auto-fill-button {
         display: none !important;
       }
+      .error-popup {
+    font-family: "Poppins", sans-serif;
+    display: none;
+    position: fixed;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    background-color: #fff0f0; /* Light red background for error */
+    border: 8px solid #ff4d4d; /* Bright red border */
+    padding: 20px;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+    border-radius: 10px;
+    text-align: center;
+    max-width: 90%;
+    max-height: 60vh;
+    overflow: auto;
+    width: 15%;
+    height: auto;
+    /* Adjustments for responsive design */
+}
+
+.error-popup img {
+    max-width: 30%; /* Scale the image to fit within the container */
+    height: auto; /* Maintain aspect ratio */
+}
+
+.error-popup h2 {
+    color: #d9534f; /* Darker red for text */
+    font-size: 28px; /* Adjusted size */
+    margin-bottom: 10px; /* Adjusted spacing */
+}
+
+.error-popup p {
+    font-size: 16px; /* Adjusted size */
+    color: #333;
+}
+
+.error-popup button {
+    background-color: #d9534f; /* Dark red button */
+    color: white;
+    border: none;
+    padding: 10px 20px;
+    text-align: center;
+    font-size: 14px; /* Adjusted size */
+    margin-top: 20px;
+    cursor: pointer;
+    border-radius: 5px;
+}
+
     </style>
     <script>
       function validateForm() {
@@ -364,7 +413,12 @@
         <button onclick="window.location.href='user/login.php'">Back to Login</button>
       </div>
     <?php elseif ($message): ?>
-      <div id="error-message" class="error-message"><?php echo $message; ?></div>
+      <div id="error-popup" class="error-popup" style="display:block;">
+    <img src="images/sad.png" alt="Error Icon" />
+    <h2>Error!</h2>
+    <p><?php echo htmlspecialchars($message, ENT_QUOTES, 'UTF-8'); ?></p>
+    <button onclick="window.location.href='signup.php'">Try Again</button>
+  </div>
     <?php endif; ?>
   </body>
 </html>
