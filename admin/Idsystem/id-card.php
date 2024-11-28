@@ -359,7 +359,7 @@ background-image: linear-gradient(0deg, #FFDEE9 0%, #B5FFFC 100%);
 #backToHome {
     position: absolute;
     top: 20px;
-    left: 5%;
+    left: 10%;
     transform: translateX(-50%);
     color: #646665;
 }
@@ -370,7 +370,7 @@ background-image: linear-gradient(0deg, #FFDEE9 0%, #B5FFFC 100%);
 
   <br>
   <a href="index.php" id="backToHome">
-    <h7><i class="fa fa-long-arrow-left">&nbsp;&nbsp;</i> Back</h7>
+    <h7><i class="fa fa-long-arrow-left">&nbsp;&nbsp;</i> Back to previous page</h7>
  </a>
  <br>
 <div class="row" style="margin: 50px 20px 5px 20px">
