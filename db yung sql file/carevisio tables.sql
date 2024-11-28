@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Generation Time: Nov 19, 2024 at 07:47 AM
+-- Generation Time: Nov 28, 2024 at 03:19 AM
 -- Server version: 10.4.32-MariaDB
 -- PHP Version: 8.2.12
 
@@ -20,18 +20,6 @@ SET time_zone = "+00:00";
 --
 -- Database: `carevisio`
 --
-
-DELIMITER $$
---
--- Procedures
---
-CREATE DEFINER=`root`@`localhost` PROCEDURE `generate_and_insert_otp` (IN `user_email` VARCHAR(100))   BEGIN
-    DECLARE otp INT;
-    SET otp = FLOOR(100000 + RAND() * 900000);
-    INSERT INTO otp (otp_number, email) VALUES (otp, user_email);
-END$$
-
-DELIMITER ;
 
 -- --------------------------------------------------------
 
@@ -51,6 +39,13 @@ CREATE TABLE `about` (
   `vision` text DEFAULT NULL,
   `vision_pic` varchar(255) DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+
+--
+-- Dumping data for table `about`
+--
+
+INSERT INTO `about` (`id`, `header_pic`, `section_head`, `section_subhead`, `section_body`, `section_pic`, `mission`, `mission_pic`, `vision`, `vision_pic`) VALUES
+(1, NULL, 'Welcome', 'sasas', 'dwddwddwdw', '?PNG\r\n\Z\n\0\0\0\rIHDR\0\08\0\0$\0\0\0]???\0\0\0sRGB\0???\0\0\0gAMA\0\0???a\0\0\0	pHYs\0\0?\0\0??o?d\0\0?{IDATx^???$?]???[#iԂi?D??A?nTP???I?F|?f?\\????M{w?q???jd?e?;)fQΥ?|???T?+????.???iv?Җ?g??&ǔ?HS???D<?A?G?\Z???sN?Ȍ??wFfed???OtWF??ĉG???9\'.????IP?K??\"??ƑF\0?m??>?u(', NULL, NULL, NULL, NULL);
 
 -- --------------------------------------------------------
 
@@ -187,7 +182,7 @@ CREATE TABLE `contact_us` (
 --
 
 INSERT INTO `contact_us` (`id`, `short_mess`, `email`, `contact`, `address`, `fb_name`, `fb_link`, `longitude`, `latitude`) VALUES
-(1, 'Hello', 'shakosako46@gmail.com', '09467812439', 'ajajajaj', 'aasas', 'asasas', 123.754567, 13.148745);
+(1, 'Hello', 'shakosako46@gmail.com', '09467812439', 'ajajajaj', 'aasas', 'asasas', 123.710585, 13.142285);
 
 -- --------------------------------------------------------
 
@@ -316,13 +311,6 @@ CREATE TABLE `hypertension` (
   `blood_pressure` varchar(50) DEFAULT NULL,
   `remarks_type` text DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
-
---
--- Dumping data for table `hypertension`
---
-
-INSERT INTO `hypertension` (`hypertension_id`, `resident_id`, `checkup_date`, `medicine_type`, `blood_pressure`, `remarks_type`) VALUES
-(2, 2, '2024-10-04', 'amox', '85/1159', 'hfgdgfghdwdwwfwfddd');
 
 -- --------------------------------------------------------
 
@@ -641,16 +629,29 @@ CREATE TABLE `nutrition_5` (
 -- --------------------------------------------------------
 
 --
--- Table structure for table `organization_chart`
+-- Table structure for table `organization`
 --
 
-CREATE TABLE `organization_chart` (
+CREATE TABLE `organization` (
   `id` int(11) NOT NULL,
   `name` varchar(255) NOT NULL,
   `position` varchar(255) NOT NULL,
-  `photo` varchar(255) DEFAULT NULL,
-  `committee_type` enum('Barangay Nutrition Committee','Other Committees') NOT NULL
+  `photo` varchar(255) NOT NULL,
+  `contact_info` varchar(255) DEFAULT NULL,
+  `description` text DEFAULT NULL,
+  `parent_id` int(11) DEFAULT NULL,
+  `created_at` timestamp NOT NULL DEFAULT current_timestamp(),
+  `updated_at` timestamp NOT NULL DEFAULT current_timestamp() ON UPDATE current_timestamp()
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+
+--
+-- Dumping data for table `organization`
+--
+
+INSERT INTO `organization` (`id`, `name`, `position`, `photo`, `contact_info`, `description`, `parent_id`, `created_at`, `updated_at`) VALUES
+(1, 'Ayato', 'Chairman', 'images/bnc/bnc_674769a3b1fb35.30124610.png', '12345678', '', NULL, '2024-11-25 03:10:34', '2024-11-27 18:49:07'),
+(2, 'Kazuha', 'Chairman, Committee on Health', 'images/bnc/118586589_p0.jpg', '12345678', '', 1, '2024-11-25 03:47:04', '2024-11-25 03:47:04'),
+(3, 'Ayata', 'Councilor, Environment and Sanitation', 'images/bnc/121873677_p0.png', 'nsnsns', 'bdjbjsd', 2, '2024-11-25 05:37:04', '2024-11-25 05:37:04');
 
 -- --------------------------------------------------------
 
@@ -679,6 +680,18 @@ CREATE TABLE `prenatal` (
   `blood_pressure` varchar(50) DEFAULT NULL,
   `weight` decimal(10,2) DEFAULT NULL,
   `fetal_heartbeat` varchar(50) DEFAULT NULL,
+  `calcium_supplementation` tinyint(1) DEFAULT 0,
+  `iodine_capsules` tinyint(1) DEFAULT 0,
+  `deworming_tablets` tinyint(1) DEFAULT 0,
+  `syphilis_screened` tinyint(1) DEFAULT 0,
+  `syphilis_positive` tinyint(1) DEFAULT 0,
+  `hepB_screened` tinyint(1) DEFAULT 0,
+  `hepB_positive` tinyint(1) DEFAULT 0,
+  `hiv_screened` tinyint(1) DEFAULT 0,
+  `cbc_tested` tinyint(1) DEFAULT 0,
+  `cbc_anemia` tinyint(1) DEFAULT 0,
+  `gestational_diabetes_screened` tinyint(1) DEFAULT 0,
+  `gestational_diabetes_positive` tinyint(1) DEFAULT 0,
   `remarks` text DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
@@ -686,8 +699,8 @@ CREATE TABLE `prenatal` (
 -- Dumping data for table `prenatal`
 --
 
-INSERT INTO `prenatal` (`prenatal_id`, `resident_id`, `checkup_date`, `gestational_age`, `blood_pressure`, `weight`, `fetal_heartbeat`, `remarks`) VALUES
-(2, 4, '2024-10-05', 3, '85/115', 56.00, '35', 'vdvdvssdsdewewew');
+INSERT INTO `prenatal` (`prenatal_id`, `resident_id`, `checkup_date`, `gestational_age`, `blood_pressure`, `weight`, `fetal_heartbeat`, `calcium_supplementation`, `iodine_capsules`, `deworming_tablets`, `syphilis_screened`, `syphilis_positive`, `hepB_screened`, `hepB_positive`, `hiv_screened`, `cbc_tested`, `cbc_anemia`, `gestational_diabetes_screened`, `gestational_diabetes_positive`, `remarks`) VALUES
+(2, 4, '2024-10-30', 1, '23', 76.00, '59', 0, 1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, '');
 
 -- --------------------------------------------------------
 
@@ -725,7 +738,8 @@ CREATE TABLE `purok_boundaries` (
 --
 
 INSERT INTO `purok_boundaries` (`id`, `barangay_name`, `purok_name`, `boundary_coordinates`, `color`, `created_at`, `updated_at`) VALUES
-(5, 'Barangay 1', 'purok 3', '{\"type\":\"Polygon\",\"coordinates\":[[[123.753174,13.15014],[123.754289,13.150412],[123.754826,13.148113],[123.7543,13.148103],[123.753764,13.147957],[123.753174,13.15014]]]}', '#d3ff33', '2024-11-19 06:43:29', '2024-11-19 06:43:29');
+(7, 'Barangay 1', 'purok 1', '{\"type\":\"Polygon\",\"coordinates\":[[[123.751883,13.139023],[123.751275,13.138747],[123.751368,13.138548],[123.751404,13.138413],[123.75312,13.138773],[123.754721,13.139211],[123.7536,13.13952],[123.753272,13.139671],[123.75294,13.139708],[123.752396,13.139374],[123.751883,13.139023]]]}', '#33ff8b', '2024-11-21 07:31:30', '2024-11-21 14:23:55'),
+(8, 'Barangay 1', 'purok 3', '{\"type\":\"Polygon\",\"coordinates\":[[[123.757808,13.141495],[123.756585,13.140972],[123.757572,13.140555],[123.758581,13.140429],[123.759246,13.140722],[123.758881,13.141704],[123.757808,13.141495]]]}', '#be33ff', '2024-11-21 08:03:39', '2024-11-21 08:03:39');
 
 -- --------------------------------------------------------
 
@@ -775,7 +789,7 @@ INSERT INTO `residents` (`id`, `fname`, `mname`, `lname`, `suffix`, `sex`, `bday
 (1, 'Furina', 'Focalors', 'De Fontaine', '', 'Male', '2023-06-06', 'Daraga', 'Roman Catholic', 'Filipino', 'N/A', 'Purok 1', 'Bagumbayan', 'Daraga', 'Albay', '4501', '09467812431', 'Preschool', 'Tambay', 'Single', 'Not in the Labor Force', 'Yes', 'Yes', 'Yes', 'Fully Vaccinated', 'Active', '123.71827', '13.142307', NULL, '', NULL),
 (2, 'Navia', 'spina', 'De Rosula', '', 'Female', '2019-06-28', 'Daraga', 'Roman Catholic', 'Filipino', '', 'Purok 3', 'Bagumbayan', 'Daraga', 'Albay', '4501', '', 'Preschool', 'Tambay sa bahay', 'Single', 'Employed', 'Yes', 'Yes', 'Yes', 'Fully Vaccinated', 'Active', '123.71580578679966', '13.141973617231812', NULL, '', NULL),
 (3, 'danica', 'Focalors', 'De Fontaine', '', 'Female', '2024-09-24', 'Daraga', 'Roman Catholic', 'Filipino', 'N/A', 'Purok 4', 'Bagumbayan', 'Daraga', 'Albay', '4501', '09467812431', 'Preschool', 'Tambay', 'Single', 'Employed', 'Yes', 'Yes', 'Yes', 'Fully Vaccinated', 'Active', '123.71643033164248', '13.140564314980484', NULL, '', 'qrcodes/3.png'),
-(4, 'Charlotte', 'Focalors', 'De Bird', '', 'Female', '2002-04-29', 'Fontaine', 'Hydro', 'Filipino', 'Sheesh', 'Purok 1', 'Bagumbayan', 'Daraga', 'Albay', '4501', '09467812431', 'Preschool', 'Tambay sa bahay', 'Single', 'Employed', 'Yes', 'Yes', 'Yes', 'Fully Vaccinated', 'Active', '123.71454388552213', '13.143833181047338', NULL, '', 'qrcodes/4.png');
+(4, 'Charlotte', 'Focalors', 'De Bird', '', 'Female', '2002-04-29', 'Fontaine', 'Hydro', 'Filipino', 'Sheesh', 'Purok 1', 'Bagumbayan', 'Legazpi', 'Albay', '4500', '09467812431', 'Preschool', 'Tambay sa bahay', 'Single', 'Employed', 'Yes', 'Yes', 'Yes', 'Fully Vaccinated', 'Active', '123.75236238820679', '13.13891354034876', NULL, '', 'qrcodes/4.png');
 
 -- --------------------------------------------------------
 
@@ -883,10 +897,11 @@ ALTER TABLE `messages`
   ADD PRIMARY KEY (`msg_id`);
 
 --
--- Indexes for table `organization_chart`
+-- Indexes for table `organization`
 --
-ALTER TABLE `organization_chart`
-  ADD PRIMARY KEY (`id`);
+ALTER TABLE `organization`
+  ADD PRIMARY KEY (`id`),
+  ADD KEY `parent_id` (`parent_id`);
 
 --
 -- Indexes for table `otp`
@@ -940,7 +955,7 @@ ALTER TABLE `users`
 -- AUTO_INCREMENT for table `about`
 --
 ALTER TABLE `about`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
 
 --
 -- AUTO_INCREMENT for table `administrator`
@@ -997,10 +1012,10 @@ ALTER TABLE `messages`
   MODIFY `msg_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
 
 --
--- AUTO_INCREMENT for table `organization_chart`
+-- AUTO_INCREMENT for table `organization`
 --
-ALTER TABLE `organization_chart`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT;
+ALTER TABLE `organization`
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=4;
 
 --
 -- AUTO_INCREMENT for table `otp`
@@ -1012,19 +1027,19 @@ ALTER TABLE `otp`
 -- AUTO_INCREMENT for table `prenatal`
 --
 ALTER TABLE `prenatal`
-  MODIFY `prenatal_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=4;
+  MODIFY `prenatal_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
 
 --
 -- AUTO_INCREMENT for table `programs`
 --
 ALTER TABLE `programs`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
 
 --
 -- AUTO_INCREMENT for table `purok_boundaries`
 --
 ALTER TABLE `purok_boundaries`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=6;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=10;
 
 --
 -- AUTO_INCREMENT for table `residents`
@@ -1053,6 +1068,12 @@ ALTER TABLE `animal_bite_records`
 --
 ALTER TABLE `hypertension`
   ADD CONSTRAINT `hypertension_ibfk_1` FOREIGN KEY (`resident_id`) REFERENCES `residents` (`id`);
+
+--
+-- Constraints for table `organization`
+--
+ALTER TABLE `organization`
+  ADD CONSTRAINT `organization_ibfk_1` FOREIGN KEY (`parent_id`) REFERENCES `organization` (`id`);
 
 --
 -- Constraints for table `otp`
