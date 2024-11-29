@@ -140,3 +140,7 @@ CREATE TABLE organization (
     updated_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP, -- Timestamp for last update
     FOREIGN KEY (parent_id) REFERENCES organization(id) -- Enforces hierarchical relationship
 );
+
+ALTER TABLE prenatal 
+ADD COLUMN td_vaccination BOOLEAN DEFAULT 0, -- Td vaccination (first-time)
+ADD COLUMN td2plus_vaccination BOOLEAN DEFAULT 0; -- Td2 Plus vaccination (second or more times)
