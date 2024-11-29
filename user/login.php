@@ -63,7 +63,7 @@
 
         input[type="email"],
         input[type="password"] {
-            width: 100%;
+            width: 90%;
             padding: 12px;
             margin: 10px 0;
             border: 1px solid #ccc;
@@ -72,7 +72,7 @@
         }
 
         input[type="submit"] {
-            width: 100%;
+            width: 90%;
             padding: 12px;
             background-color: #4D869C;
             color: #fff;
@@ -88,8 +88,12 @@
         }
 
         #dsd {
-            font-size: 14px;
-            margin-top: 15px;
+            font-size: 12px;
+            margin-top: 30px;
+            text-align: center;
+        }
+        #dsd2 {
+            font-size: 12px;
             text-align: center;
         }
 
@@ -102,6 +106,16 @@
         #dsd a:hover {
             text-decoration: underline;
         }
+        #dsd2 a {
+            text-decoration: none;
+            font-weight: 600;
+            color: #4D869C;
+        }
+
+        #dsd2 a:hover {
+            text-decoration: underline;
+        }
+
 
         /* Responsive Design */
         @media (max-width: 768px) {
@@ -154,7 +168,7 @@
                 </form>
 
                 <p id="dsd">Don't have an account? <a href="../signup.php">Sign up here</a></p>
-                <p id="dsd">Forgot Password? <a href="Forgot.html">Forgot Password</a></p>
+                <p id="dsd2">Forgot Password? <a href="Forgot.html">Forgot Password</a></p>
             </div>
         </div>
     </div>

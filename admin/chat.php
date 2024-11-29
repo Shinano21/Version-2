@@ -186,7 +186,7 @@ if(!isset($_SESSION["user"])){
       if (!empty($row['pfp'])) {
           echo "<img class='user-avatar' src='../admin/uploads/{$row["pfp"]}' alt='User Avatar'>";
       } else {
-          echo "<img class='user-avatar' src='../admin/uploads/defaultDP.png' alt='Default User Avatar'>";
+          echo "<img class='user-avatar' src='../admin/src/pp.png' alt='Default User Avatar'>";
       }
       ?>
       <div class="user-info">
@@ -253,7 +253,7 @@ if(!isset($_SESSION["user"])){
 
                         <section class="chat-area">
                             <header>
-                                <img src="../user/images/<?php echo $row['img']; ?>" alt="">
+                                <img src="../uploads/<?php echo $row['profile_image']; ?>" alt="">
                                 <div class="details">
                                     <span><?php echo $row['first_name']. " " . $row['last_name'] ?></span>
                                     <p><?php echo $row['status']; ?></p>     
