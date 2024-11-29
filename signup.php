@@ -275,7 +275,7 @@
     </script>
   </head>
   <body>
- <?php
+  <?php
     $servername = "localhost";
     $username = "root";
     $password = "";
@@ -301,7 +301,7 @@
         $user_type = 'resident'; // Set user_type to 'resident'
 
         // Profile image upload handling
-        $profile_image = $_FILES['profile_image']['name'];
+        $profile_image = $_FILES['profile_image']['name']; // Get only the filename
         $target_dir = "uploads/";
         $target_file = $target_dir . basename($profile_image);
 
@@ -316,21 +316,20 @@
             if ($result->num_rows > 0) {
                 $message = "An account with this email already exists!";
             } else {
-              // Generate a random unique_id
-              $unique_id = rand(100000, 999999); // Generates a random number between 100000 and 999999
-          
-              // Insert new account into the database
-              $sql = "INSERT INTO users (first_name, middle_name, last_name, birthday, email, password, user_type, profile_image, unique_id) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?)";
-              $stmt = $conn->prepare($sql);
-              $stmt->bind_param("ssssssssi", $first_name, $middle_name, $last_name, $birthday, $email, $password, $user_type, $target_file, $unique_id);
-              $status = "Active now";
-              if ($stmt->execute()) {
-                  $message = "success";
-              } else {
-                  $message = "Error: " . $stmt->error;
-              }
-          }
-          
+                // Generate a random unique_id
+                $unique_id = rand(100000, 999999); // Generates a random number between 100000 and 999999
+                
+                // Insert new account into the database
+                $sql = "INSERT INTO users (first_name, middle_name, last_name, birthday, email, password, user_type, profile_image, unique_id) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?)";
+                $stmt = $conn->prepare($sql);
+                // Use $profile_image instead of $target_file to store only the filename
+                $stmt->bind_param("ssssssssi", $first_name, $middle_name, $last_name, $birthday, $email, $password, $user_type, $profile_image, $unique_id);
+                if ($stmt->execute()) {
+                    $message = "success";
+                } else {
+                    $message = "Error: " . $stmt->error;
+                }
+            }
             $stmt->close();
         } else {
             $message = "Error uploading profile image.";
@@ -339,6 +338,7 @@
 
     $conn->close();
 ?>
+
 
 
     <div class="create-account-container">

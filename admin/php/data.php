@@ -37,7 +37,7 @@ while($row = mysqli_fetch_assoc($query)){
     // Generate the HTML output
     $output .= '<a href="chat.php?user_id='. $row['unique_id'] .'">
                 <div class="content">
-                <img src="../'. $row['profile_image'] .'" alt="">
+                <img src="../uploads/'. $row['profile_image'] .'" alt="">
                 <div class="status-dot '. $offline .'"><i class="fas fa-circle"></i></div>
                 <div class="details">
                     <span>'. $row['first_name']. " " . $row['last_name'] .'</span>

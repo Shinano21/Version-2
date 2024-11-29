@@ -5,156 +5,173 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Log In - CareVisio</title>
-    <link rel="stylesheet" href="../style/login_style.css">
-
     <link rel="shortcut icon" href="images/techcareLogo2.png" type="image/x-icon">
-
     <style>
-        /* Media query for smaller screens (e.g., mobile devices) */
-@media only screen and (max-width: 768px) {
+        body {
+            margin: 0;
+            padding: 0;
+            font-family: Arial, sans-serif;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+            background: linear-gradient(90deg, #c4f1d3, #a7c7f2);
+        }
 
-  #main {
-    width: 85vw;
-    padding: auto 30px;
-  }
+        #main {
+            width: 50%;
+            height: 80vh;
+            display: flex;
+            box-shadow: 0 4px 10px rgba(0, 0, 0, 0.2);
+            border-radius: 10px;
+            overflow: hidden;
+        }
 
-  #left,
-  #right {
-    width: 100%;
-    float: none;
-  }
-  #left {
-    height: auto;
-  }
-  a > img {
-    width: 100%;
-    margin: 0;
-  }
-  #left > #bhs {
-    display: none;
-  }
+        #left {
+            flex: 1;
+            background: url('../src/v78_4.png') no-repeat center center;
+            background-size: cover;
+        }
 
-  #right #title > p {
-    text-align: center;
-    margin: 10px 0 0 0;
-    font-size: 15px;
-  }
+        #right {
+            flex: 1;
+            padding: 30px;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            background: #fff;
+        }
 
-  input[type="submit"] {
-    width: 60%;
-  }
+        #title p {
+            text-align: right;
+            font-size: 18px;
+            font-weight: bold;
+            color: #888;
+            margin: 0 0 20px;
+        }
 
-  #user,
-  #password {
-    width: calc(100% - 20px);
-    margin-left: 10px;
-  }
+        h1 {
+            font-size: 24px;
+            margin-bottom: 10px;
+            color: #333;
+        }
 
-  input[type="submit"]  {
-    margin: 20px 0;
-    font-size: 13px;
-  }
+        .text {
+            margin-bottom: 20px;
+            color: #666;
+        }
 
-  #user,
-  #password {
-    background-position: 5px 8px;
-    text-indent: 30px;
-    margin: 3px 0;
-    width: 100%;
-    font-size: 14px;
-  }
+        input[type="email"],
+        input[type="password"] {
+            width: 90%;
+            padding: 12px;
+            margin: 10px 0;
+            border: 1px solid #ccc;
+            border-radius: 5px;
+            font-size: 16px;
+        }
 
-  #lgn-form {
-    text-indent: 0;
-    text-align: center;
-    margin-left: 0;
-  }
-  #lgn-form h1 {
-    font-size: 20px;
-    margin-bottom: 5px;
-    margin-top: 0;
-  }
-  #lgn-form .text {
-    font-size: 14px;
-    margin-top: 0;
-    margin-bottom: 20px;
-  }
-  #lgn-form #dsd {
-    font-size: 13px;
-    margin-top: 0;
-    margin-bottom: 0;
-  }
-  .errorMessage {
-    text-indent:0;
-    margin-left: 0;
-    text-align:left;
-    width:100%;
-    margin-left: 0;
-    width: 100%;
-    padding: 5px;
-    font-size: 14px;
-    margin-bottom: 15px;
-    color: #D8000C;
-    background-color: #FFBABA;
-    background-image:none;
-    text-align: center;
-  }
+        input[type="submit"] {
+            width: 90%;
+            padding: 12px;
+            background-color: #4D869C;
+            color: #fff;
+            border: none;
+            border-radius: 5px;
+            font-size: 16px;
+            cursor: pointer;
+            margin-top: 20px;
+        }
+
+        input[type="submit"]:hover {
+            background-color: #034efc;
+        }
+
+        #dsd {
+            font-size: 12px;
+            margin-top: 30px;
+            text-align: center;
+        }
+        #dsd2 {
+            font-size: 12px;
+            text-align: center;
+        }
+
+        #dsd a {
+            text-decoration: none;
+            font-weight: 600;
+            color: #4D869C;
+        }
+
+        #dsd a:hover {
+            text-decoration: underline;
+        }
+        #dsd2 a {
+            text-decoration: none;
+            font-weight: 600;
+            color: #4D869C;
+        }
+
+        #dsd2 a:hover {
+            text-decoration: underline;
+        }
 
 
-}
+        /* Responsive Design */
+        @media (max-width: 768px) {
+            #main {
+                flex-direction: column;
+                width: 90%;
+                height: auto;
+            }
+
+            #left {
+                height: 200px;
+            }
+
+            #right {
+                padding: 20px;
+            }
+
+            h1 {
+                font-size: 20px;
+            }
+
+            .text {
+                font-size: 14px;
+            }
+
+            input[type="email"],
+            input[type="password"],
+            input[type="submit"] {
+                font-size: 14px;
+            }
+        }
     </style>
 </head>
 
 <body>
-    <?php include "data/logo.php" ?>
-    <form action="loginprocess.php" method="post">
-        <main id="bg">
-
-            <div id="main">
-                <div id="left">
-                    <!-- <a href="../index.php"><img src="../src/LOGO.svg"></a> -->
-                    <br>
-                    <img src="../src/v78_4.png" id="bhs">
-                </div>
-                <div id="right">
-                    <div id="title">
-                        <p><?php echo $centerName ?></p>
-                    </div>
-                    <div id="lgn-form">
-                      <br>
-                        <h1>Welcome Back!</h1>
-                        <p class="text">Enter your details to login</p>
-
-                        <?php if(isset($_GET["error"])): ?>
-                        <p style="
-                            width: 100%;
-                            padding: 10px;
-                            border-radius: 10px;
-                            font-size: 15px;
-                            margin-bottom:15px;
-                            text-indent: 30px;
-                            color: #D8000C;
-                            background-color: #FFBABA;
-                            background-image: url('https://i.imgur.com/GnyDvKN.png');
-                            background-repeat: no-repeat;
-                            background-position: 5px center;
-                        " class="errorMessage">
-                            <?php echo $_GET["error"]; ?>
-                        </p>
-                        <?php endif; ?>
-
-                        <input type="email" id="user" placeholder="Email" name="user" required>
-                        <input type="password" name="password" id="password" placeholder="Password" name="password" required>
-                        <input type="submit" value="Login" name="submit">
-                        <p id="dsd">Don't have an account? <a href="../signup.php" style="text-decoration: none;font-weight:600;">Sign up
-                                here</a></p>
-                                 <p id="dsd">Forgot Password <a href="Forgot.html" style="text-decoration: none;font-weight:600;">Forgot Password
-              </a></p>
-                    </div>
-                </div>
+    <div id="main">
+        <div id="left"></div>
+        <div id="right">
+            <div id="title">
+                <p>Rawis</p>
             </div>
-        </main>
-    </form>
+            <div id="lgn-form">
+                <h1>Welcome Back!</h1>
+                <p class="text">Enter your details to login</p>
+
+                <form action="loginprocess.php" method="post">
+                    <input type="email" id="user" placeholder="Email" name="user" required>
+                    <input type="password" id="password" placeholder="Password" name="password" required>
+                    <input type="submit" value="Login" name="submit">
+                </form>
+
+                <p id="dsd">Don't have an account? <a href="../signup.php">Sign up here</a></p>
+                <p id="dsd2">Forgot Password? <a href="Forgot.html">Forgot Password</a></p>
+            </div>
+        </div>
+    </div>
 </body>
 
 </html>
