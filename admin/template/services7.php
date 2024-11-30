@@ -36,13 +36,6 @@ if ($result) {
         if (!empty($row['gestational_diabetes_positive'])) $prenatalStats['gestational_diabetes_positive']++;
     }
 }
-
-// Example: Query for age groups
-$ageGroups = [
-    '10-14' => ['checkups' => 0, 'deliveries' => 0],
-    '15-19' => ['checkups' => 0, 'deliveries' => 0],
-    '20-49' => ['checkups' => 0, 'deliveries' => 0],
-];
 ?>
 
 <!DOCTYPE html>
@@ -52,6 +45,9 @@ $ageGroups = [
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Prenatal Report</title>
     <style>
+        @page {
+            size: landscape;
+        }
         body {
             font-family: Arial, sans-serif;
             margin: 20px;
@@ -69,113 +65,127 @@ $ageGroups = [
         }
         th, td {
             padding: 10px;
-            text-align: left;
+            text-align: center;
         }
-        .print-button {
-            margin-bottom: 20px;
+        th {
+            background-color: #f2f2f2;
         }
     </style>
 </head>
 <body>
     <h1>Prenatal Care Report</h1>
     <h2>Maternal Care and Services</h2>
-
-    <button class="print-button" onclick="window.print()">Print Report</button>
-
     <table>
         <thead>
             <tr>
-                <th>Indicator</th>
-                <th>Total</th>
-                <th>Remarks</th>
+                <th rowspan="3">Indicators</th>
+                <th colspan="6">Age</th>
+                <th rowspan="3">Total</th>
+                <th rowspan="3">Remarks</th>
+            </tr>
+            <tr>
+                <th colspan="2">10-14</th>
+                <th colspan="2">15-19</th>
+                <th colspan="2">20-49</th>
+            </tr>
+            <tr>
+                <th>LGU</th>
+                <th>BRT</th>
+                <th>LGU</th>
+                <th>BRT</th>
+                <th>LGU</th>
+                <th>BRT</th>
             </tr>
         </thead>
         <tbody>
             <tr>
-                <td>Women with at least 4 prenatal check-ups</td>
+                <td>No. of women with at least 4 prenatal check-ups</td>
+                <td></td><td><?php echo $prenatalStats['4_checkups']; ?></td>
+                <td></td><td></td>
+                <td></td><td></td>
                 <td><?php echo $prenatalStats['4_checkups']; ?></td>
                 <td></td>
             </tr>
             <tr>
-                <td>Women who completed calcium supplementation</td>
+                <td>No. of women who completed calcium supplementation</td>
+                <td></td><td><?php echo $prenatalStats['calcium_supplementation']; ?></td>
+                <td></td><td></td>
+                <td></td><td></td>
                 <td><?php echo $prenatalStats['calcium_supplementation']; ?></td>
                 <td></td>
             </tr>
             <tr>
-                <td>Women given iodine capsules</td>
+                <td>No. of women given iodine capsules</td>
+                <td></td><td><?php echo $prenatalStats['iodine_capsules']; ?></td>
+                <td></td><td></td>
+                <td></td><td></td>
                 <td><?php echo $prenatalStats['iodine_capsules']; ?></td>
                 <td></td>
             </tr>
             <tr>
-                <td>Women given one dose of deworming tablets</td>
+                <td>No. of women given one dose of deworming tablets</td>
+                <td></td><td><?php echo $prenatalStats['deworming_tablets']; ?></td>
+                <td></td><td></td>
+                <td></td><td></td>
                 <td><?php echo $prenatalStats['deworming_tablets']; ?></td>
                 <td></td>
             </tr>
             <tr>
-                <td>Women screened for syphilis</td>
+                <td>No. of women screened for syphilis</td>
+                <td></td><td><?php echo $prenatalStats['syphilis_screened']; ?></td>
+                <td></td><td></td>
+                <td></td><td></td>
                 <td><?php echo $prenatalStats['syphilis_screened']; ?></td>
                 <td></td>
             </tr>
             <tr>
-                <td>Women tested positive for syphilis</td>
+                <td>No. of women tested positive for syphilis</td>
+                <td></td><td><?php echo $prenatalStats['syphilis_positive']; ?></td>
+                <td></td><td></td>
+                <td></td><td></td>
                 <td><?php echo $prenatalStats['syphilis_positive']; ?></td>
                 <td></td>
             </tr>
             <tr>
-                <td>Women screened for Hepatitis B</td>
+                <td>No. of women screened for Hepatitis B</td>
+                <td></td><td><?php echo $prenatalStats['hepB_screened']; ?></td>
+                <td></td><td></td>
+                <td></td><td></td>
                 <td><?php echo $prenatalStats['hepB_screened']; ?></td>
                 <td></td>
             </tr>
             <tr>
-                <td>Women tested positive for Hepatitis B</td>
+                <td>No. of women tested positive for Hepatitis B</td>
+                <td></td><td><?php echo $prenatalStats['hepB_positive']; ?></td>
+                <td></td><td></td>
+                <td></td><td></td>
                 <td><?php echo $prenatalStats['hepB_positive']; ?></td>
                 <td></td>
             </tr>
             <tr>
-                <td>Women screened for HIV</td>
+                <td>No. of women screened for HIV</td>
+                <td></td><td><?php echo $prenatalStats['hiv_screened']; ?></td>
+                <td></td><td></td>
+                <td></td><td></td>
                 <td><?php echo $prenatalStats['hiv_screened']; ?></td>
                 <td></td>
             </tr>
             <tr>
-                <td>Women tested for CBC</td>
+                <td>No. of women tested for CBC</td>
+                <td></td><td><?php echo $prenatalStats['cbc_tested']; ?></td>
+                <td></td><td></td>
+                <td></td><td></td>
                 <td><?php echo $prenatalStats['cbc_tested']; ?></td>
                 <td></td>
             </tr>
             <tr>
-                <td>Women diagnosed with anemia</td>
+                <td>No. of women diagnosed with anemia</td>
+                <td></td><td><?php echo $prenatalStats['cbc_anemia']; ?></td>
+                <td></td><td></td>
+                <td></td><td></td>
                 <td><?php echo $prenatalStats['cbc_anemia']; ?></td>
                 <td></td>
             </tr>
-            <tr>
-                <td>Women screened for gestational diabetes</td>
-                <td><?php echo $prenatalStats['gestational_diabetes_screened']; ?></td>
-                <td></td>
-            </tr>
-            <tr>
-                <td>Women tested positive for gestational diabetes</td>
-                <td><?php echo $prenatalStats['gestational_diabetes_positive']; ?></td>
-                <td></td>
-            </tr>
-        </tbody>
-    </table>
-
-    <h2>Age Group Statistics</h2>
-    <table>
-        <thead>
-            <tr>
-                <th>Age Group</th>
-                <th>Checkups</th>
-                <th>Deliveries</th>
-            </tr>
-        </thead>
-        <tbody>
-            <?php foreach ($ageGroups as $ageGroup => $stats): ?>
-                <tr>
-                    <td><?php echo $ageGroup; ?></td>
-                    <td><?php echo $stats['checkups']; ?></td>
-                    <td><?php echo $stats['deliveries']; ?></td>
-                </tr>
-            <?php endforeach; ?>
         </tbody>
     </table>
 </body>
