@@ -11,7 +11,7 @@
                     </div>
                     <div id="ccc"
                         style="position:relative;margin:1%;height:50px;position:absolute;top:0;left:5%;width:100%;">
-                        <img src="./src/techcareLogo2.png" style="height:60px;">
+                        <img src="./src/techcareLogo2.png" style="height:50px;">
                         <b><span style="margin-left: 5px;margin-top: 8px;position: absolute;">TechCare Web Sytem
                                 </span></b><br>
                         <span id="ct" style="margin-left: 50px;margin-top: -23px;position: absolute;"></span>

@@ -108,7 +108,7 @@
         if (!empty($row['profile_image'])) {
             echo "<img src='../uploads/" . basename($row['profile_image']) . "' alt='User Avatar'>";
         } else {
-            echo "<img src='images/defaultDP.png' alt='Default User Avatar'>";
+            echo "<img src='images/doctor.png' alt='Default User Avatar'>";
         }
     ?>
     <div class="details">

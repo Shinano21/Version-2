@@ -11,10 +11,9 @@
                     </div>
                     <div id="ccc"
                         style="position:relative;margin:1%;height:50px;position:absolute;top:0;left:5%;width:100%;">
-                        <img src="../src/brgy.png" style="height:50px;">
-                        <b><span style="margin-left: 3px;margin-top: 8px;position: absolute;">Brgy. Bagumbayan Health
-                                Center</span></b><br>
-                        <span id="ct" style="margin-left: 67px;margin-top: -23px;position: absolute;"></span>
+                        <img src="../src/techcareLogo2.png" style="height:50px;">
+                        <b><span style="margin-left: 3px;margin-top: 8px;position: absolute;">TechCare Web System</span></b><br>
+                        <span id="ct" style="margin-left: 50px;margin-top: -23px;position: absolute;"></span>
                     </div>
 
                 </div>

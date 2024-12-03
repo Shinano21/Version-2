@@ -33,7 +33,7 @@ if(isset($_SESSION['unique_id'])){
                     mysqli_query($conn, "UPDATE messages SET status = 'read' WHERE msg_id = $msg_id");
 
                     $output .= '<div class="chat incoming">
-                                <img src="../user/images/'.$row['img'].'" alt="">
+                                <img src="../uploads/'.$row['profile_image'].'" alt="">
                                 <div class="details">
                                     <p>'. $row['msg'] .'</p>
                                 </div>

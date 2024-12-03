@@ -44,12 +44,12 @@ while ($row = mysqli_fetch_assoc($query)) {
     $offline = ($row['status'] == "Offline now") ? "offline" : "";
 
     // Use the correct profile image or default if not set
-    $profile_image = isset($row['profile_image']) ? $row['profile_image'] : 'uploads/default.png';
+    $profile_image = isset($row['profile_image']) ? $row['profile_image'] : '../uploads/doctor.png';
 
     // Generate the HTML output for each user/admin in the search results
     $output .= '<a href="chat.php?user_id=' . $id . '&user_type=' . $row['type'] . '">
                     <div class="content">
-                        <img src="../' . $profile_image . '" alt="">
+                        <img src="../uploads/' . $profile_image . '" alt="">
                         <div class="details">
                             <span>' . $row['first_name'] . " " . $row['last_name'] . '</span>
                             <p>' . $you . $msg . '</p>
