@@ -1,3 +1,6 @@
+<?php
+include "dbcon.php"
+?>
 <!DOCTYPE html>
 <html lang="en">
 
@@ -155,7 +158,7 @@
         <div id="left"></div>
         <div id="right">
             <div id="title">
-                <p>Rawis</p>
+                <p>Legazpi</p>
             </div>
             <div id="lgn-form">
                 <h1>Welcome Back!</h1>
