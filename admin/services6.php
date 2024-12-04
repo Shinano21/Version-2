@@ -94,7 +94,7 @@ if (!isset($_SESSION["user"]) || $_SESSION["user_type"] == "System Administrator
                             <thead class="head">
                                 <tr>
                                     <th class="names" style="display: flex; justify-content:center">Full Name</th>
-                                    <th>Age</th>
+                                    <th>Birth date</th>
                                     <th>Bite Date</th>
                                     <th>Bite Location</th>
                                     <th>Bitten location</th>
