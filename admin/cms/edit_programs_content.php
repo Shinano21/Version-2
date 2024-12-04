@@ -2,30 +2,50 @@
 include "../dbcon.php";
 
 if (isset($_POST["submit"])) {
+    // Retrieve form inputs
     $programType = $_POST["program_type"];
     $progHeading = $_POST["prog_heading"];
     $progBody = $_POST["prog_body"];
-    $progPic = file_get_contents($_FILES["prog_pic"]["tmp_name"]);
-    $sql = "INSERT INTO `programs` (`program_type`, `prog_heading`, `prog_body`, `prog_pic`, `post_date`) 
-            VALUES (?, ?, ?, ?, NOW())";
-    $stmt = mysqli_prepare($conn, $sql);
-    mysqli_stmt_bind_param($stmt, "ssss", $programType, $progHeading, $progBody, $progPic);
-    mysqli_stmt_execute($stmt);
-    
-    // Check if the update was successful
-    if (mysqli_stmt_affected_rows($stmt) > 0) {
-        // Display a pop-up success message using JavaScript
-        echo '<script>';
-        echo 'alert("Saved successfully!");';
-        echo 'window.location.href = "../wsProgramSettings.php";';  // Optional: Redirect after displaying the alert
-        echo '</script>';
-    } else {
-        // Redirect with an error message or appropriate handling
-        header("Location: update_error.php");
-        exit();
-    }
-    
+    $progPic = $_FILES["prog_pic"]["name"]; // Get the filename
 
+    // Set the target directory for uploaded files
+    $targetDir = "uploads/";
+    $targetFile = $targetDir . basename($progPic);
+
+    // Move the uploaded file to the target directory
+    if (move_uploaded_file($_FILES["prog_pic"]["tmp_name"], $targetFile)) {
+        // Prepare the SQL query to insert data into the database
+        $sql = "INSERT INTO `programs` (`program_type`, `prog_heading`, `prog_body`, `prog_pic`, `post_date`) 
+                VALUES (?, ?, ?, ?, NOW())";
+        $stmt = mysqli_prepare($conn, $sql);
+        mysqli_stmt_bind_param($stmt, "ssss", $programType, $progHeading, $progBody, $progPic);
+
+        // Execute the statement
+        if (mysqli_stmt_execute($stmt)) {
+            // Success: Display a pop-up message and redirect
+            echo '<script>';
+            echo 'alert("Saved successfully!");';
+            echo 'window.location.href = "../wsProgramSettings.php";';
+            echo '</script>';
+        } else {
+            // Failure: Redirect with an error message
+            echo '<script>';
+            echo 'alert("Failed to save the program. Please try again.");';
+            echo 'window.location.href = "../wsProgramSettings.php";';
+            echo '</script>';
+        }
+
+        // Close the statement
+        mysqli_stmt_close($stmt);
+    } else {
+        // Handle file upload error
+        echo '<script>';
+        echo 'alert("Failed to upload the file. Please try again.");';
+        echo 'window.location.href = "../wsProgramSettings.php";';
+        echo '</script>';
+    }
 }
 
+// Close the database connection
+mysqli_close($conn);
 ?>

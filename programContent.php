@@ -118,13 +118,15 @@
                     <p><?php echo $program['prog_body']; ?></p>
                 </div>
                 <?php
-                    if ($program['prog_pic'] !== null) {
-                      $imageType = strpos($program['prog_pic'], '/png') !== false ? 'png' : 'jpeg';
-                      echo "<img src='data:image/{$imageType};base64," . base64_encode($program['prog_pic']). "' />";
-                    } else {
-                      echo "No image available";
-                    }
-                    ?>
+if ($program['prog_pic'] !== null && file_exists("admin/cms/uploads/" . $program['prog_pic'])) {
+    // Display the image from the file path
+    echo "<img src='admin/cms/uploads/" . htmlspecialchars($program['prog_pic'], ENT_QUOTES, 'UTF-8') . "' alt='Program Image' />";
+} else {
+    // Display a placeholder or "No image available"
+    echo "No image available";
+}
+?>
+
                 <p style="font-size: x-small; color: #888D8F;"><?php echo $program['program_type']; ?></p>
             </div>
         </div>

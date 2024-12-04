@@ -9,7 +9,10 @@
         align-items: center;
         width: 100%;
         height: 80px;
-        background-color: rgb(92, 84, 243);
+        /* background-color: rgb(92, 84, 243); */
+        background-color: #74EBD5;
+background-image: linear-gradient(90deg, #74EBD5 0%, #9FACE6 100%);
+
         position: fixed;
         top: 0;
         left: 0;
@@ -54,23 +57,26 @@
         color: #a2d1ff;
       }
       .signUp {
-        height: 100%;
-        display: flex;
-        color: black !important;
-        padding: 7px 30px;
-        text-decoration: none;
-        align-items: center;
-        background-color: white;
-        border: 1px solid white;
-        border-radius: 10px;
-        color: var(--black);
-      }
-      .signUp:hover,
-      .signUp:active,
-      .signUp:focus {
-        color: white !important;
-        background-color: transparent;
-      }
+  height: auto; /* Adjust height to auto */
+  display: flex;
+  color: var(--black) !important;
+  padding: 5px 20px; /* Reduced padding */
+  text-decoration: none;
+  align-items: center;
+  background-color: white;
+  border: 1px solid white;
+  border-radius: 10px;
+  font-size: 14px; /* Reduced font size */
+  transition: background-color 0.3s, color 0.3s; /* Smooth transition */
+}
+
+.signUp:hover,
+.signUp:active,
+.signUp:focus {
+  color: white !important;
+  background-color: transparent;
+}
+
     .nav-links a.active {
         color: white;
     }
