@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Generation Time: Nov 28, 2024 at 03:19 AM
+-- Generation Time: Dec 04, 2024 at 06:17 AM
 -- Server version: 10.4.32-MariaDB
 -- PHP Version: 8.2.12
 
@@ -182,7 +182,7 @@ CREATE TABLE `contact_us` (
 --
 
 INSERT INTO `contact_us` (`id`, `short_mess`, `email`, `contact`, `address`, `fb_name`, `fb_link`, `longitude`, `latitude`) VALUES
-(1, 'Hello', 'shakosako46@gmail.com', '09467812439', 'ajajajaj', 'aasas', 'asasas', 123.710585, 13.142285);
+(1, 'Hello', 'shakosako46@gmail.com', '09467812439', 'ajajajaj', 'aasas', 'asasas', 123.752418, 13.146018);
 
 -- --------------------------------------------------------
 
@@ -516,7 +516,9 @@ CREATE TABLE `messages` (
 --
 
 INSERT INTO `messages` (`msg_id`, `incoming_msg_id`, `outgoing_msg_id`, `msg`, `status`) VALUES
-(1, 0, 14, 'HELLO', 'unread');
+(1, 0, 14, 'HELLO', 'unread'),
+(2, 0, 11, 'ffff', 'unread'),
+(3, 0, 11, 'hi', 'unread');
 
 -- --------------------------------------------------------
 
@@ -692,15 +694,18 @@ CREATE TABLE `prenatal` (
   `cbc_anemia` tinyint(1) DEFAULT 0,
   `gestational_diabetes_screened` tinyint(1) DEFAULT 0,
   `gestational_diabetes_positive` tinyint(1) DEFAULT 0,
-  `remarks` text DEFAULT NULL
+  `remarks` text DEFAULT NULL,
+  `td_vaccination` tinyint(1) DEFAULT 0,
+  `td2plus_vaccination` tinyint(1) DEFAULT 0
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
 --
 -- Dumping data for table `prenatal`
 --
 
-INSERT INTO `prenatal` (`prenatal_id`, `resident_id`, `checkup_date`, `gestational_age`, `blood_pressure`, `weight`, `fetal_heartbeat`, `calcium_supplementation`, `iodine_capsules`, `deworming_tablets`, `syphilis_screened`, `syphilis_positive`, `hepB_screened`, `hepB_positive`, `hiv_screened`, `cbc_tested`, `cbc_anemia`, `gestational_diabetes_screened`, `gestational_diabetes_positive`, `remarks`) VALUES
-(2, 4, '2024-10-30', 1, '23', 76.00, '59', 0, 1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, '');
+INSERT INTO `prenatal` (`prenatal_id`, `resident_id`, `checkup_date`, `gestational_age`, `blood_pressure`, `weight`, `fetal_heartbeat`, `calcium_supplementation`, `iodine_capsules`, `deworming_tablets`, `syphilis_screened`, `syphilis_positive`, `hepB_screened`, `hepB_positive`, `hiv_screened`, `cbc_tested`, `cbc_anemia`, `gestational_diabetes_screened`, `gestational_diabetes_positive`, `remarks`, `td_vaccination`, `td2plus_vaccination`) VALUES
+(2, 4, '2024-10-30', 1, '23', 76.00, '59', 0, 1, 0, 0, 0, 1, 0, 0, 0, 0, 0, 0, '', 0, 0),
+(3, 1, '2024-11-02', 3, '34', 55.00, '57', 0, 1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, '', 1, 1);
 
 -- --------------------------------------------------------
 
@@ -822,7 +827,7 @@ INSERT INTO `users` (`id`, `first_name`, `middle_name`, `last_name`, `birthday`,
 (2, 'Navia', 'sakosako', 'Rosula', '2002-09-29', 'spinaderosula@gmail.com', '$2y$10$DmQUkL7E7xE1zOGwCvNj3OtJtKKJ9nMfcIlU9SO1zjGKA0V80ZF0q', 'resident', 'uploads/hot ayaka.jpeg', '2024-09-12 16:51:40', '2024-09-12 16:51:40', NULL, 0),
 (3, 'Mike', 'Reyes', 'Ogaban', '2002-02-22', 'alaka@gmail.com', '$2y$10$TCUpXVLJiULxy3ZEUOCoyuBl4TePkHn7ZH/M3a7w0m3egt/VIe01q', 'resident', 'uploads/stelle.png', '2024-09-13 06:33:48', '2024-10-07 15:01:35', 'Active now', 0),
 (4, 'Ren', 'Malupet', 'Tofu', '2002-08-27', 'ayakaaa28@gmail.com', '$2y$10$wMqU2YdoyY6wbfVFUu2nueqAewDVI/QDJmKRPhuV33nYdeKHSirIy', 'resident', 'uploads/furi.jpg', '2024-09-13 06:39:08', '2024-10-07 15:01:35', 'Active now', 0),
-(5, 'Furina', 'Focalors', 'De Fontaine', '0000-00-00', 'furina500@gmail.com', '$2y$10$3bERnFGvPMcBragnBpf4HeFiZCqb2Y8L8nD7rEhcFX9RJGsaAxhxW', 'Health Personnel', '', '2024-09-18 08:52:42', '2024-09-30 13:00:06', 'Active now', 0);
+(5, 'Furina', 'Focalors', 'De Fontaine', '0000-00-00', 'furina500@gmail.com', '$2y$10$3bERnFGvPMcBragnBpf4HeFiZCqb2Y8L8nD7rEhcFX9RJGsaAxhxW', 'Health Personnel', '', '2024-09-18 08:52:42', '2024-11-28 10:00:47', 'Active now', 5);
 
 --
 -- Indexes for dumped tables
@@ -1009,7 +1014,7 @@ ALTER TABLE `logo`
 -- AUTO_INCREMENT for table `messages`
 --
 ALTER TABLE `messages`
-  MODIFY `msg_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
+  MODIFY `msg_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=4;
 
 --
 -- AUTO_INCREMENT for table `organization`
@@ -1027,7 +1032,7 @@ ALTER TABLE `otp`
 -- AUTO_INCREMENT for table `prenatal`
 --
 ALTER TABLE `prenatal`
-  MODIFY `prenatal_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
+  MODIFY `prenatal_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=4;
 
 --
 -- AUTO_INCREMENT for table `programs`
