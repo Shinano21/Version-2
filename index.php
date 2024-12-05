@@ -294,43 +294,82 @@
         </p>
     </div>
     <div class="hpCardCont">
-        <?php
-        $sql = "SELECT * FROM programs ORDER BY post_date DESC LIMIT 3";
-        $result = mysqli_query($conn, $sql);
+    <style>
+        .hpCardCont {
+            display: flex;
+            gap: 20px;
+            flex-wrap: wrap;
+        }
+        .hpCard {
+            width: 300px;
+            border: 1px solid #ccc;
+            border-radius: 10px;
+            padding: 15px;
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+            overflow: hidden;
+        }
+        .imgCont img {
+            width: 100%;
+            height: auto;
+            border-radius: 10px;
+            object-fit: cover;
+        }
+        .pgHeading {
+            font-size: 18px;
+            font-weight: bold;
+            margin: 10px 0;
+        }
+        .postDate {
+            font-size: 14px;
+            color: #555;
+            margin-bottom: 10px;
+        }
+        .hpCard button {
+            background-color: #007BFF;
+            color: white;
+            border: none;
+            padding: 10px;
+            border-radius: 5px;
+            cursor: pointer;
+        }
+        .hpCard button:hover {
+            background-color: #0056b3;
+        }
+    </style>
 
-        // Check if there are any programs
-        if (mysqli_num_rows($result) > 0) {
-            while ($row = mysqli_fetch_assoc($result)) {
-        ?>
-        <div class="hpCard">
-            <div class="imgCont">
-                <?php
-                if ($row["prog_pic"] !== null) {
-                    $imageType = strpos($row["prog_pic"], '/png') !== false ? 'png' : 'jpeg';
-                    echo "<img src='data:image/{$imageType};base64," . base64_encode($row["prog_pic"]) . "' alt='Program Image'>";
-                } else {
-                    // Display a default image if program image is not available
-                    echo "<img src='src/default_image.png' alt='Default Image'>";
-                }
-                ?>
-            </div>
-            <p class="pgHeading"><?php echo $row["prog_heading"]; ?></p>
-            <p class="postDate">
-                <?php 
-                    // Convert military time to 12-hour format
-                    $post_datetime_12hr = date("Y-m-d h:i A", strtotime($row['post_date']));
-                    echo $post_datetime_12hr; 
-                ?>
-            </p>
-            <button onclick="window.location.href='programContent.php?id=<?php echo $row['id']?>'">View More</button>
-        </div>
+    <?php
+    $sql = "SELECT * FROM programs ORDER BY post_date DESC LIMIT 3";
+    $result = mysqli_query($conn, $sql);
+
+    if (mysqli_num_rows($result) > 0) {
+        while ($row = mysqli_fetch_assoc($result)) {
+    ?>
+    <div class="hpCard">
+        <div class="imgCont">
         <?php
-            }
+        if ($row['prog_pic'] !== null && file_exists("admin/cms/uploads/" . $row['prog_pic'])) {
+            echo "<img src='admin/cms/uploads/" . htmlspecialchars($row['prog_pic'], ENT_QUOTES, 'UTF-8') . "' alt='Program Image' />";
         } else {
-            // Display a message if no health programs are available
-            echo "<p>No health programs available at the moment.</p>";
+            echo "<div>No image available</div>";
         }
         ?>
+        </div>
+        <p class="pgHeading"><?php echo $row["prog_heading"]; ?></p>
+        <p class="postDate">
+            <?php 
+                $post_datetime_12hr = date("Y-m-d h:i A", strtotime($row['post_date']));
+                echo $post_datetime_12hr; 
+            ?>
+        </p>
+        <button onclick="window.location.href='programContent.php?id=<?php echo $row['id']?>'">View More</button>
+    </div>
+    <?php
+        }
+    } else {
+        echo "<p>No health programs available at the moment.</p>";
+    }
+    ?>
+</div>
     </div>
 </div>
 
