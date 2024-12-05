@@ -215,6 +215,7 @@ if (isset($_SESSION["user"])) {
                 <div class="rem">
                     <input type="checkbox" name="remember">
                     <label for="remember">Remember Me (30 Days)</label>
+                    <p id="dsd2">Forgot Password? <a href="forgot/Forgot.html">Forgot Password</a></p>
                 </div>
                 <button type="submit" id="login" name="submit">Login</button>
             </form>

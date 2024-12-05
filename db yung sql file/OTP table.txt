@@ -144,3 +144,14 @@ CREATE TABLE organization (
 ALTER TABLE prenatal 
 ADD COLUMN td_vaccination BOOLEAN DEFAULT 0, -- Td vaccination (first-time)
 ADD COLUMN td2plus_vaccination BOOLEAN DEFAULT 0; -- Td2 Plus vaccination (second or more times)
+
+ALTER TABLE administrator ADD UNIQUE (email);
+
+CREATE TABLE otpa (
+    id INT AUTO_INCREMENT PRIMARY KEY,
+    email VARCHAR(255) NOT NULL,
+    otp_number VARCHAR(6) NOT NULL,
+    created_at DATETIME NOT NULL,
+    UNIQUE KEY unique_email (email),
+    FOREIGN KEY (email) REFERENCES administrator(email) ON DELETE CASCADE
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
