@@ -124,6 +124,7 @@ if (isset($_SESSION["user"])) {
     }
 
     .rem {
+        font-size: 10px;
         display: flex;
         align-items: center;
         margin-bottom: 20px;
@@ -153,6 +154,25 @@ if (isset($_SESSION["user"])) {
     button:hover {
         background-color: #5d56f4;
     }
+    #dsd2 {
+    font-size: 10px;
+    color: #555; /* Neutral color for text */
+    margin-top: 5px;
+    text-align: center; /* Aligns the text to the right */
+}
+
+#dsd2 a {
+    color: #007bff; /* Link color (Bootstrap primary color) */
+    text-decoration: none; /* Removes the underline */
+    font-weight: bold; /* Makes the link text bold */
+    transition: color 0.3s ease; /* Smooth color change effect on hover */
+}
+
+#dsd2 a:hover {
+    color: #0056b3; /* Darker blue for hover effect */
+    text-decoration: underline; /* Adds underline on hover for clarity */
+}
+
 
     /* Responsiveness for smaller screens */
     @media (max-width: 768px) {
@@ -215,8 +235,8 @@ if (isset($_SESSION["user"])) {
                 <div class="rem">
                     <input type="checkbox" name="remember">
                     <label for="remember">Remember Me (30 Days)</label>
-                    <p id="dsd2">Forgot Password? <a href="forgot/Forgot.html">Forgot Password</a></p>
                 </div>
+                    <p id="dsd2">Forgot Password? <a href="forgot/Forgot.html">Forgot Password</a></p>
                 <button type="submit" id="login" name="submit">Login</button>
             </form>
         </div>
