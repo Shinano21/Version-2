@@ -96,25 +96,27 @@ if ($result_about && $about = mysqli_fetch_assoc($result_about)) {
         </div>
 
         <script>
-            let bg_img = document.querySelector('.main');
-            <?php
-            if ($headerPic !== null) {
-                echo "bg_img.style.backgroundImage = 'url(\"admin/images/bnc/$headerPic\")';";
-            } else {
-                echo "bg_img.style.backgroundImage = 'url(\"admin/images/default_image.jpg\")';";
-            }
-            ?>
-        </script>
+    let bg_img = document.querySelector('.main');
+    <?php
+    if ($headerPic !== null) {
+        echo "bg_img.style.backgroundImage = 'url(\"admin/cms/uploads/$headerPic\")';";
+    } else {
+        echo "bg_img.style.backgroundImage = 'url(\"admin/images/default_image.jpg\")';";
+    }
+    ?>
+</script>
+
     </div>
 
     <!-- Chairman Info Section -->
     <div class="chairCont">
-        <div class="chairImg">
-            <?php
-            $imagePath = $sectionPic ? "admin/images/bnc/$sectionPic" : "admin/images/default_avatar.png";
-            echo "<img src='$imagePath' alt='Chairman Image'>";
-            ?>
-        </div>
+    <div class="chairImg">
+    <?php
+    $imagePath = $sectionPic ? "admin/cms/uploads/$sectionPic" : "admin/images/default_avatar.png";
+    echo "<img src='$imagePath' alt='Chairman Image'>";
+    ?>
+</div>
+
         <div class="chairDits">
             <h1><?php echo htmlspecialchars($sectionHead); ?></h1>
             <h3><?php echo htmlspecialchars($sectionSubhead); ?></h3>
@@ -122,33 +124,36 @@ if ($result_about && $about = mysqli_fetch_assoc($result_about)) {
         </div>
     </div>
 
-    <!-- Mission and Vision Section -->
-    <div class="mvCont">
-        <div class="mission">
-            <div class="mvText">
-                <h1>Mission</h1>
-                <p><?php echo htmlspecialchars($mission); ?></p>
-            </div>
-            <div class="mvPic">
-                <?php
-                $missionImagePath = $missionPic ? "admin/images/bnc/$missionPic" : "admin/images/default_image.jpg";
-                echo "<img src='$missionImagePath' alt='Mission Image'>";
-                ?>
-            </div>
+<!-- Mission and Vision Section -->
+<div class="mvCont">
+    <!-- Mission Section -->
+    <div class="mission">
+        <div class="mvText">
+            <h1>Mission</h1>
+            <p><?php echo htmlspecialchars($mission); ?></p>
         </div>
-        <div class="vision">
-            <div class="mvPic">
-                <?php
-                $visionImagePath = $visionPic ? "admin/images/bnc/$visionPic" : "admin/images/default_image.jpg";
-                echo "<img src='$visionImagePath' alt='Vision Image'>";
-                ?>
-            </div>
-            <div class="mvText">
-                <h1>Vision</h1>
-                <p><?php echo htmlspecialchars($vision); ?></p>
-            </div>
+        <div class="mvPic">
+            <?php
+            $missionImagePath = !empty($missionPic) ? "admin/cms/uploads/$missionPic" : "admin/images/default_image.jpg";
+            ?>
+            <img src="<?php echo $missionImagePath; ?>" alt="Mission Image">
         </div>
     </div>
+    <!-- Vision Section -->
+    <div class="vision">
+        <div class="mvPic">
+            <?php
+            $visionImagePath = !empty($visionPic) ? "admin/cms/uploads/$visionPic" : "admin/images/default_image.jpg";
+            ?>
+            <img src="<?php echo $visionImagePath; ?>" alt="Vision Image">
+        </div>
+        <div class="mvText">
+            <h1>Vision</h1>
+            <p><?php echo htmlspecialchars($vision); ?></p>
+        </div>
+    </div>
+</div>
+
 
     <!-- Organization Chart Section -->
     <div class="orgCont">

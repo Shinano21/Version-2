@@ -140,68 +140,6 @@
     </div>
 
     <!-- Health Team -->
-    <div class="healthPersonnel">
-        <div class="htTitle">
-            <h2>Barangay Health Team</h2>
-            <p>Meet the <?php echo isset($centerName) ? $centerName : "Center Name unavailable"; ?> Team</p>
-        </div>
-        <div class="wrapper">
-            <i id="left" class="fas fa-chevron-left"></i>
-            <ul class="carousel">
-                <?php
-                include "dbcon.php";
-
-                $sql = "SELECT * FROM brgy_health";
-                $result = mysqli_query($conn, $sql);
-                if (mysqli_num_rows($result) > 0) {
-                    while ($row = mysqli_fetch_assoc($result)) {
-                        echo "<li class='card'>";
-                        echo "<div class='img'>";
-                        if (isset($row["pic"]) && $row["pic"] !== null) {
-                            $imageType = strpos($row["pic"], '/png') !== false ? 'png' : 'jpeg';
-                            echo "<img src='data:image/{$imageType};base64," . base64_encode($row["pic"]) . "' alt='Image' draggable='false' />";
-                        } else {
-                            echo "<p>No image available</p>";
-                        }
-                        echo "</div>";
-                        echo "<h2>" . (isset($row["name"]) ? $row["name"] : "Name unavailable") . "</h2>";
-                        echo "<span>" . (isset($row["position"]) ? $row["position"] : "Position unavailable") . "</span>";
-                        echo "</li>";
-                    }
-                }
-                ?>
-            </ul>
-            <i id="right" class="fas fa-chevron-right"></i>
-        </div>
-    </div>
-
-    <!-- Bar of Programs -->
-    <div class="program-container">
-        <div class="prog">
-            <div class="program">
-                <img src="src/healthcare.png">
-                <p>Basic Healthcare</p>
-            </div>
-            <div class="program">
-                <img src="src/maternal.png">
-                <p>Post-natal Care</p>
-            </div>
-            <div class="program">
-                <img src="src/family.png">
-                <p>Family Planning</p>
-            </div>
-            <div class="program">
-                <img src="src/vaccination.png">
-                <p>Immunizations and Vaccinations</p>
-            </div>
-            <div class="program">
-                <img src="src/nutrition.png">
-                <p>Nutrition Program</p>
-            </div>
-        </div>
-    </div>
-
-    <!-- Health Team -->
 <div class="healthPersonnel">
     <div class="htTitle">
         <h2>Barangay Health Team</h2>
@@ -215,41 +153,43 @@
             ?>
         </p>
     </div>
-    <div class="wrapper">
-        <i id="left" class="fas fa-chevron-left"></i>
-        <ul class="carousel">
+    <div class="wrapper"> 
+    <i id="left" class="fas fa-chevron-left"></i>
+    <ul class="carousel">
 
-        <?php
-        include "dbcon.php";
+    <?php
+    include "dbcon.php";
 
-        $sql = "SELECT * FROM brgy_health";
-        $result = mysqli_query($conn, $sql);
-        
-        // Check if there are any results
-        if (mysqli_num_rows($result) > 0) {
-            while ($row = mysqli_fetch_assoc($result)) {
-                echo "<li class='card'>";
-                echo "<div class='img'>";
-                if ($row["pic"] !== null) {
-                    $imageType = strpos($row["pic"], '/png') !== false ? 'png' : 'jpeg';
-                    echo "<img src='data:image/{$imageType};base64," . base64_encode($row["pic"]). "' alt='Image' draggable='false' />";
-                } else {
-                    // If no image is available, display the message
-                    echo "<p>Image unavailable</p>";
-                }
-                echo "</div>";
-                echo "<h2>" . $row["name"] . "</h2>";
-                echo "<span>" . $row["position"] . "</span>";
-                echo "</li>";
+    $sql = "SELECT * FROM brgy_health";
+    $result = mysqli_query($conn, $sql);
+
+    // Check if there are any results
+    if (mysqli_num_rows($result) > 0) {
+        while ($row = mysqli_fetch_assoc($result)) {
+            echo "<li class='card'>";
+            echo "<div class='img'>";
+            if (!empty($row["pic"])) {
+                // Use the stored filename to construct the image path
+                $imagePath = "admin/cms/uploads/" . htmlspecialchars($row["pic"]);
+                echo "<img src='$imagePath' alt='Image of {$row['name']}' draggable='false' />";
+            } else {
+                // Display a placeholder if no image is available
+                echo "<p>Image unavailable</p>";
             }
-        } else {
-            // If no personnel found, display an error message
-            echo "<p>No health personnel available at the moment.</p>";
+            echo "</div>";
+            echo "<h2>" . htmlspecialchars($row["name"]) . "</h2>";
+            echo "<span>" . htmlspecialchars($row["position"]) . "</span>";
+            echo "</li>";
         }
-        ?>
-        </ul>
-        <i id="right" class="fas fa-chevron-right"></i>
-    </div>
+    } else {
+        // If no personnel found, display an error message
+        echo "<p>No health personnel available at the moment.</p>";
+    }
+    ?>
+    </ul>
+    <i id="right" class="fas fa-chevron-right"></i>
+</div>
+
 </div>
 
 
