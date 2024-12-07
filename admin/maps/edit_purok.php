@@ -67,6 +67,9 @@ if (!$purok) {
     </style>
 </head>
 <body>
+<a href="purok_tables.php">
+                                    <h7><i class="fa fa-long-arrow-left">&nbsp;&nbsp;</i> Back to Maps</h7>
+                                </a>
     <h1>Edit Purok: <?php echo htmlspecialchars($purok['purok_name']); ?></h1>
 
     <!-- Editable Form -->

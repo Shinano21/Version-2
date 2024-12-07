@@ -46,6 +46,9 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
 </head>
 <body>
     <h1>Add Purok Boundary</h1>
+    <a href="purok_tables.php">
+                                    <h7><i class="fa fa-long-arrow-left">&nbsp;&nbsp;</i> Back to Maps</h7>
+                                </a>
     <div id="map"></div>
     <div class="form-container">
         <form id="addPurokForm">

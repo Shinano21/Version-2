@@ -37,7 +37,11 @@ $conn->close();
     </style>
 </head>
 <body>
+<a href="../home.php">
+                                    <h7><i class="fa fa-long-arrow-left">&nbsp;&nbsp;</i> Back to Home</h7>
+                                </a>
     <h1 style="text-align: center;">Purok Boundaries</h1>
+    
     
     <!-- Add Purok Button -->
     <div style="text-align: center;">
