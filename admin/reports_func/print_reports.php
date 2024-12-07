@@ -31,7 +31,7 @@
                 <div class="mid">
                     <p class="text">Republic of the Philippines</p>
                     <p class="text">Province of Albay</p>
-                    <p class="text">Municipality of Daraga</p>
+                    <p class="text">Municipality of Legazpi</p>
                     <p class="text" style="font-weight: 600;">Barangay Bagumbayan Health Center</p>
 
                 </div>
