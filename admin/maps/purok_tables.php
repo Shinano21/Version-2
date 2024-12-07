@@ -51,7 +51,7 @@ $conn->close();
     <table>
         <thead>
             <tr>
-                <th>ID</th>
+                <!-- <th>ID</th> -->
                 <th>Purok Name</th>
                 <th>Boundary Color</th>
                 <th>Actions</th>
@@ -61,7 +61,7 @@ $conn->close();
             <?php if (count($puroks) > 0): ?>
                 <?php foreach ($puroks as $purok): ?>
                 <tr>
-                    <td><?php echo htmlspecialchars($purok['id']); ?></td>
+                    <!-- <td><?php echo htmlspecialchars($purok['id']); ?></td> -->
                     <td><?php echo htmlspecialchars($purok['purok_name']); ?></td>
                     <td>
                         <div style="width: 20px; height: 20px; background-color: <?php echo htmlspecialchars($purok['color']); ?>; margin: auto;"></div>
