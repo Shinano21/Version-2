@@ -104,9 +104,22 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
                                 <input type="date" id="checkup_date" name="checkup_date" value="<?php echo $row['checkup_date']; ?>" required>
                             </div>
                             <div class="form-group">
-                                <label for="medicine_type">Medicine Type:</label>
-                                <input type="text" id="medicine_type" name="medicine_type" value="<?php echo $row['medicine_type']; ?>">
-                            </div>
+                                    <label for="medicine_type">Medicine Type:</label>
+                                    <input 
+                                        type="text" 
+                                        id="medicine_type" 
+                                        name="medicine_type" 
+                                        value="<?php echo htmlspecialchars($row['medicine_type'], ENT_QUOTES, 'UTF-8'); ?>" 
+                                        list="medicine_options" 
+                                        placeholder="Type or select a medicine"
+                                    >
+                                    <datalist id="medicine_options">
+                                        <option value="Metoprolol"></option>
+                                        <option value="Losartan"></option>
+                                        <option value="Amlodipine"></option>
+                                    </datalist>
+                                </div>
+
                             <div class="form-group">
                                 <label for="blood_pressure">Blood Pressure:<span class="req">*</span></label>
                                 <input type="text" id="blood_pressure" name="blood_pressure" value="<?php echo $row['blood_pressure']; ?>" required>

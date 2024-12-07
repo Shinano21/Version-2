@@ -63,8 +63,20 @@ $result = mysqli_query($conn, $query);
                             </div>
                             <div class="form-group">
                                 <label for="medicine_type">Medicine Type:</label>
-                                <input type="text" id="medicine_type" name="medicine_type">
+                                <input 
+                                    type="text" 
+                                    id="medicine_type" 
+                                    name="medicine_type" 
+                                    list="medicine_options"
+                                    placeholder="Type or select a medicine"
+                                >
+                                <datalist id="medicine_options">
+                                    <option value="Metoprolol"></option>
+                                    <option value="Losartan"></option>
+                                    <option value="Amlodipine"></option>
+                                </datalist>
                             </div>
+
                             <div class="form-group">
                                 <label for="blood_pressure">Blood Pressure:<span class="req">*</span></label>
                                 <input type="text" id="blood_pressure" name="blood_pressure" required>
