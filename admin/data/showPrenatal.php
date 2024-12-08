@@ -30,21 +30,7 @@ $result = mysqli_query($conn, $sql);
 if (mysqli_num_rows($result) > 0) {
     $even = 0; // To alternate row colors
 
-    // Output table header
-    echo '<table border="1" cellspacing="0" cellpadding="10" style="width: 100%; text-align: left; border-collapse: collapse;">';
-    echo '<thead>
-            <tr style="background-color: #006BDD; color: white;">
-                <th>Name</th>
-                <th>Checkup Date</th>
-                <th>Gestational Age</th>
-                <th>Blood Pressure</th>
-                <th>Weight</th>
-                <th>Fetal Heartbeat</th>
-                <th>Remarks</th>
-                <th>Actions</th>
-            </tr>
-          </thead>';
-    echo '<tbody>';
+    
 
     // Output each row of data
     while ($row = mysqli_fetch_assoc($result)) {
