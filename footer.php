@@ -99,7 +99,7 @@
     <?php include "user/data/logo.php" ;
     // Assuming your logo data is stored in a variable called $navbarLogo
 $logoFileName = $logoPic; // Adjust this to the variable that holds your logo filename
-$logoPath = "/Version-2/admin/uploads/{$logoFileName}"; // Use the relative path to the logo
+$logoPath = "admin/uploads/{$logoFileName}"; // Use the relative path to the logo
     ?>
     <div class="footer-content">
         <div class="foot1">

@@ -108,7 +108,7 @@
 
                     if (isset($chairmanPic) && $chairmanPic !== null) {
                         // Update the path to use the correct directory structure
-                        echo "<img src='admin/cms/{$chairmanPic}' style='width: 150px; height: 150px; object-fit: contain;' />";
+                        echo "<img src='admin/cms/{$chairmanPic}' style='width: 150px; height: auto; object-fit: contain;' />";
                     } else {
                         echo "<p>No image available</p>";
                     }
@@ -124,7 +124,7 @@
                     <?php
                     if (isset($chairmanCommPic) && $chairmanCommPic !== null) {
                         // Update the path to use the correct directory structure
-                        echo "<img src='admin/cms/{$chairmanCommPic}' style='width: 150px; height: 150px; object-fit: contain;' />";
+                        echo "<img src='admin/cms/{$chairmanCommPic}' style='width: 150px; height: auto; object-fit: contain;' />";
                     } else {
                         echo "<p>No image available</p>";
                     }
@@ -313,6 +313,47 @@
     </div>
 </div>
 
+    <!-- Health Announcements -->
+    <div class="hpCont">
+        <div class="hpTitle">
+            <h2>Health Announcements</h2>
+            <p>Be Updated with the Barangay Health Announcements</p>
+        </div>
+        <div class="hpCardCont">
+            <?php
+            $sql = "SELECT * FROM announcements ORDER BY post_date DESC LIMIT 3";
+            $result = mysqli_query($conn, $sql);
+
+            while ($row = mysqli_fetch_assoc($result)) {
+            ?>
+            <div class="hpCard">
+                <div class="imgCont">
+                    <?php
+                if ($row["announce_pic"] !== null) {
+                    $imageType = strpos($row["announce_pic"], '/png') !== false ? 'png' : 'jpeg';
+                    echo "<img src='admin/cms/uploads/" . htmlspecialchars($row['announce_pic'], ENT_QUOTES, 'UTF-8') . "' alt='Program Image' />";
+                } else {
+                    echo "<img src='../src/default_image.png' alt='Default Image'>";
+                }
+                ?>
+                </div>
+
+                <p class="pgHeading"><?php echo $row["announce_heading"]; ?></p>
+                <p class="postDate">
+                    <?php 
+                        // Convert military time to 12-hour format
+                        $post_datetime_12hr = date("Y-m-d h:i A", strtotime($row['post_date']));
+                        echo $post_datetime_12hr; 
+                    ?>
+                </p>
+                <button onclick="window.location.href='announcementsContent.php?id=<?php echo $row['id']?>'">View More</button>
+            </div>
+            <?php
+            }
+            ?>
+        </div>
+
+    </div>
 
     <!-- Contact Us -->
     <div class="cusCont">
