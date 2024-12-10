@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Generation Time: Dec 04, 2024 at 06:17 AM
+-- Generation Time: Dec 08, 2024 at 03:05 PM
 -- Server version: 10.4.32-MariaDB
 -- PHP Version: 8.2.12
 
@@ -45,7 +45,7 @@ CREATE TABLE `about` (
 --
 
 INSERT INTO `about` (`id`, `header_pic`, `section_head`, `section_subhead`, `section_body`, `section_pic`, `mission`, `mission_pic`, `vision`, `vision_pic`) VALUES
-(1, NULL, 'Welcome', 'sasas', 'dwddwddwdw', '?PNG\r\n\Z\n\0\0\0\rIHDR\0\08\0\0$\0\0\0]???\0\0\0sRGB\0???\0\0\0gAMA\0\0???a\0\0\0	pHYs\0\0?\0\0??o?d\0\0?{IDATx^???$?]???[#iԂi?D??A?nTP???I?F|?f?\\????M{w?q???jd?e?;)fQΥ?|???T?+????.???iv?Җ?g??&ǔ?HS???D<?A?G?\Z???sN?Ȍ??wFfed???OtWF??ĉG???9\'.????IP?K??\"??ƑF\0?m??>?u(', NULL, NULL, NULL, NULL);
+(1, NULL, 'Welcome', 'sasas', 'dwddwddwdw', '?PNG\r\n\Z\n\0\0\0\rIHDR\0\08\0\0$\0\0\0]???\0\0\0sRGB\0???\0\0\0gAMA\0\0??\r\n?a\0\0\0	pHYs\0\0?\0\0??o?d\0\0?{IDATx^??\r\n?$?]???[#iԂi?D\r\n??A?nTP???I?F|?f?\\????M{w?q???jd?e?;)fQΥ?|???T?+????.???iv?Җ?g??&ǔ?HS???D<?A?G?\Z???sN?Ȍ??wFfed???OtWF??ĉG???9\'.????IP?K??\"??ƑF\0?m??>', NULL, NULL, NULL, NULL);
 
 -- --------------------------------------------------------
 
@@ -75,7 +75,7 @@ INSERT INTO `administrator` (`id`, `firstname`, `midname`, `lastname`, `cpnumber
 (1, 'Juan', NULL, 'Dela Cruz', '091234567890', 'admin@gmail.com', '$2y$10$meRTBQGo1MvYRoUrzZAjCuAJ.Knit8dduTFpHVfw0NptDChAx7Xm6', 'System Administrator', '', 'Active', 'Offline now'),
 (11, 'Furina', 'Focalors', 'De Fontaine', '09467812431', 'furina500@gmail.com', '$2y$10$UFADbzixF59kUo7bgP3fbOwJe6uFaZ59SfCwV2ApvtElJfJ03JhKu', 'Barangay Health Worker', '', 'Active', 'Active now'),
 (13, 'Agnes', 'Villaranda', 'Ogaban', '09467812431', 'agnesogaban08@gmail.com', '$2y$10$Lcj3urTMu8PkdGPtazMTAOPWPfqz9W2FJy0yawNNHrfkC5H6RCzVe', 'Barangay Health Worker', '', 'Active', 'offline'),
-(14, 'Randiel James', 'Zaragoza', 'Asis', '09380828470', 'shakosako46@gmail.com', '$2y$10$wWBDl5vcGuO1dhX/y.PtLubErOs.OCbH5tR9uhjEl/LTcyVtsO1cq', 'Barangay Health Worker', NULL, 'Active', 'Offline now');
+(14, 'Randiel James', 'Zaragoza', 'Asis', '09380828470', 'shakosako46@gmail.com', '$2y$10$jMaJUderc8ZrS9Dt0ITlFuK10S5qy.jrFALm0EWA3FWTfkIPFCJGq', 'Barangay Health Worker', NULL, 'Active', 'Active now');
 
 -- --------------------------------------------------------
 
@@ -542,7 +542,10 @@ CREATE TABLE `nutrition` (
   `zone` varchar(255) NOT NULL,
   `brgy` varchar(255) NOT NULL,
   `city` varchar(255) NOT NULL,
-  `province` varchar(255) NOT NULL
+  `province` varchar(255) NOT NULL,
+  `mother_fname` varchar(255) NOT NULL,
+  `mother_mname` varchar(255) NOT NULL,
+  `mother_lname` varchar(255) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
 -- --------------------------------------------------------
@@ -667,6 +670,26 @@ CREATE TABLE `otp` (
   `email` varchar(100) NOT NULL,
   `created_at` timestamp NOT NULL DEFAULT current_timestamp()
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `otpa`
+--
+
+CREATE TABLE `otpa` (
+  `id` int(11) NOT NULL,
+  `email` varchar(255) NOT NULL,
+  `otp_number` varchar(6) NOT NULL,
+  `created_at` datetime NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+
+--
+-- Dumping data for table `otpa`
+--
+
+INSERT INTO `otpa` (`id`, `email`, `otp_number`, `created_at`) VALUES
+(1, 'shakosako46@gmail.com', '161534', '2024-12-08 20:50:20');
 
 -- --------------------------------------------------------
 
@@ -843,7 +866,8 @@ ALTER TABLE `about`
 -- Indexes for table `administrator`
 --
 ALTER TABLE `administrator`
-  ADD PRIMARY KEY (`id`);
+  ADD PRIMARY KEY (`id`),
+  ADD UNIQUE KEY `email` (`email`);
 
 --
 -- Indexes for table `animal_bite_records`
@@ -890,6 +914,36 @@ ALTER TABLE `hypertension`
   ADD KEY `resident_id` (`resident_id`);
 
 --
+-- Indexes for table `immunization_1`
+--
+ALTER TABLE `immunization_1`
+  ADD PRIMARY KEY (`id`);
+
+--
+-- Indexes for table `immunization_2`
+--
+ALTER TABLE `immunization_2`
+  ADD PRIMARY KEY (`id`);
+
+--
+-- Indexes for table `immunization_3`
+--
+ALTER TABLE `immunization_3`
+  ADD PRIMARY KEY (`id`);
+
+--
+-- Indexes for table `immunization_4`
+--
+ALTER TABLE `immunization_4`
+  ADD PRIMARY KEY (`id`);
+
+--
+-- Indexes for table `immunization_5`
+--
+ALTER TABLE `immunization_5`
+  ADD PRIMARY KEY (`id`);
+
+--
 -- Indexes for table `logo`
 --
 ALTER TABLE `logo`
@@ -914,6 +968,13 @@ ALTER TABLE `organization`
 ALTER TABLE `otp`
   ADD PRIMARY KEY (`id`),
   ADD KEY `email` (`email`);
+
+--
+-- Indexes for table `otpa`
+--
+ALTER TABLE `otpa`
+  ADD PRIMARY KEY (`id`),
+  ADD UNIQUE KEY `unique_email` (`email`);
 
 --
 -- Indexes for table `prenatal`
@@ -1005,6 +1066,36 @@ ALTER TABLE `hypertension`
   MODIFY `hypertension_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
 
 --
+-- AUTO_INCREMENT for table `immunization_1`
+--
+ALTER TABLE `immunization_1`
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT;
+
+--
+-- AUTO_INCREMENT for table `immunization_2`
+--
+ALTER TABLE `immunization_2`
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT;
+
+--
+-- AUTO_INCREMENT for table `immunization_3`
+--
+ALTER TABLE `immunization_3`
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT;
+
+--
+-- AUTO_INCREMENT for table `immunization_4`
+--
+ALTER TABLE `immunization_4`
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT;
+
+--
+-- AUTO_INCREMENT for table `immunization_5`
+--
+ALTER TABLE `immunization_5`
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT;
+
+--
 -- AUTO_INCREMENT for table `logo`
 --
 ALTER TABLE `logo`
@@ -1027,6 +1118,12 @@ ALTER TABLE `organization`
 --
 ALTER TABLE `otp`
   MODIFY `id` int(11) NOT NULL AUTO_INCREMENT;
+
+--
+-- AUTO_INCREMENT for table `otpa`
+--
+ALTER TABLE `otpa`
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
 
 --
 -- AUTO_INCREMENT for table `prenatal`
@@ -1085,6 +1182,12 @@ ALTER TABLE `organization`
 --
 ALTER TABLE `otp`
   ADD CONSTRAINT `otp_ibfk_1` FOREIGN KEY (`email`) REFERENCES `users` (`email`) ON DELETE CASCADE;
+
+--
+-- Constraints for table `otpa`
+--
+ALTER TABLE `otpa`
+  ADD CONSTRAINT `otpa_ibfk_1` FOREIGN KEY (`email`) REFERENCES `administrator` (`email`) ON DELETE CASCADE;
 
 --
 -- Constraints for table `prenatal`
