@@ -2,17 +2,32 @@
 // Ensure connection is included
 include('../dbcon.php');
 
-// SQL query to fetch data including bitten_location
+// Fetch filter inputs
+$filterMonth = isset($_GET['month']) ? $_GET['month'] : '';
+$filterYear = isset($_GET['year']) ? $_GET['year'] : '';
+
+// SQL query to fetch data including filters
 $query = "SELECT ab.*, r.fname AS first_name, r.lname AS last_name, r.mname AS middle_name, r.suffix, r.sex, r.bday
           FROM animal_bite_records ab
           JOIN residents r ON ab.resident_id = r.id";
+
+// Apply filters
+$conditions = [];
+if ($filterMonth) {
+    $conditions[] = "MONTH(ab.bite_date) = '$filterMonth'";
+}
+if ($filterYear) {
+    $conditions[] = "YEAR(ab.bite_date) = '$filterYear'";
+}
+if (!empty($conditions)) {
+    $query .= " WHERE " . implode(" AND ", $conditions);
+}
 
 // Execute the query
 $result = mysqli_query($conn, $query);
 
 // Check if the query was successful
 if (!$result) {
-    // Output the error message
     die("Query failed: " . mysqli_error($conn));
 }
 
@@ -21,19 +36,15 @@ if (mysqli_num_rows($result) > 0) {
     // Fetch and display the results
     while ($row = mysqli_fetch_assoc($result)) {
         $fullName = $row['first_name'] . ' ' . $row['middle_name'] . ' ' . $row['last_name'] . ' ' . $row['suffix'];
-        $birthdate = $row['bday'];
-        $sex = $row['sex'];
         
         echo "<tr>";
         echo "<td>{$fullName}</td>";
+        echo "<td>{$row['bday']}</td>";
         echo "<td>{$row['bite_date']}</td>";
-        echo "<td>{$row['treatment_date']}</td>";
         echo "<td>{$row['bite_location']}</td>";
-        echo "<td>{$row['bitten_location']}</td>"; // Display the bitten_location column
+        echo "<td>{$row['bitten_location']}</td>";
         echo "<td>{$row['treatment_center']}</td>";
         echo "<td>{$row['remarks']}</td>";
-        // echo "<td>{$birthdate}</td>";
-        // echo "<td>{$sex}</td>";
         echo "<td style='display: flex; justify-content:center;'>
                <select style='background-color:#1e80c1;color:white;border:none;padding:10px 20px;' onchange='location = this.value;'>
                    <option value='' selected hidden>Action</option>
@@ -45,7 +56,6 @@ if (mysqli_num_rows($result) > 0) {
         echo "</tr>";
     }
 } else {
-    // No records found
-    echo "<tr><td colspan='8'>No records found.</td></tr>"; // Update colspan to 8 to account for the new column
+    echo "<tr><td colspan='8'>No records found.</td></tr>";
 }
 ?>

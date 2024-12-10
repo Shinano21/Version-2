@@ -1,10 +1,16 @@
 <?php
 session_start();
 include "dbcon.php";
+
+// Redirect if the user is not logged in or if the user is a System Administrator
 if (!isset($_SESSION["user"]) || $_SESSION["user_type"] == "System Administrator") {
     header("Location: index.php");
     exit();
 }
+
+// Get filter parameters
+$filterMonth = isset($_GET['month']) ? $_GET['month'] : '';
+$filterYear = isset($_GET['year']) ? $_GET['year'] : '';
 ?>
 <!DOCTYPE html>
 <html lang="en">
@@ -65,7 +71,7 @@ if (isset($_SESSION["user_type"]) && $_SESSION["user_type"] == "System Administr
     include "partials/sidebar.php";
 }
 ?>
-<?php include "partials/header.php"?>
+<?php include "partials/header.php" ?>
 
 <div class="content-wrap">
     <div class="main">
@@ -89,11 +95,12 @@ if (isset($_SESSION["user_type"]) && $_SESSION["user_type"] == "System Administr
                         <div class="monthFilter">
                             <span for="monthSelect">Filter by Month:</span>
                             <select id="monthSelect" class="monthSelect">
-                                <option value="" selected>All Months</option>
+                                <option value="" <?= empty($filterMonth) ? 'selected' : '' ?>>All Months</option>
                                 <?php
                                 for ($month = 1; $month <= 12; $month++) {
                                     $monthName = date("F", mktime(0, 0, 0, $month, 1));
-                                    echo "<option value='$month'>$monthName</option>";
+                                    $selected = ($filterMonth == $month) ? 'selected' : '';
+                                    echo "<option value='$month' $selected>$monthName</option>";
                                 }
                                 ?>
                             </select>
@@ -101,11 +108,12 @@ if (isset($_SESSION["user_type"]) && $_SESSION["user_type"] == "System Administr
                         <div class="yearFilter">
                             <span for="yearSelect">Year:</span>
                             <select id="yearSelect" class="yearSelect">
-                                <option value="" selected>All Years</option>
+                                <option value="" <?= empty($filterYear) ? 'selected' : '' ?>>All Years</option>
                                 <?php
                                 $currentYear = date('Y');
                                 for ($year = $currentYear; $year >= 1500; $year--) {
-                                    echo "<option value='$year'>$year</option>";
+                                    $selected = ($filterYear == $year) ? 'selected' : '';
+                                    echo "<option value='$year' $selected>$year</option>";
                                 }
                                 ?>
                             </select>
@@ -145,17 +153,17 @@ if (isset($_SESSION["user_type"]) && $_SESSION["user_type"] == "System Administr
                             <thead class="head">
                                 <tr>
                                     <th class="names" style="display: flex; justify-content:center">Full Name</th>
-                                    <th>Birth date</th>
+                                    <th>Birth Date</th>
                                     <th>Bite Date</th>
                                     <th>Bite Location</th>
-                                    <th>Bitten location</th>
+                                    <th>Bitten Location</th>
                                     <th>Treatment Center</th>
                                     <th>Remarks</th>
                                     <th class="lastCol">Action</th>
                                 </tr>
                             </thead>
                             <tbody>
-                            <?php include "data/showAnimalBites.php"?>
+                            <?php include "data/showAnimalBites.php" ?>
                             </tbody>   
                         </table>
                         <div class="showPages">
@@ -185,6 +193,19 @@ if (isset($_SESSION["user_type"]) && $_SESSION["user_type"] == "System Administr
         document.getElementById('ct').innerHTML = x1;
     }
     display_ct();
+
+    // Filter records based on dropdown selections
+    document.getElementById('monthSelect').addEventListener('change', applyFilters);
+    document.getElementById('yearSelect').addEventListener('change', applyFilters);
+
+    function applyFilters() {
+        const month = document.getElementById('monthSelect').value;
+        const year = document.getElementById('yearSelect').value;
+
+        // Construct the URL with filter parameters
+        const url = `services6.php?month=${month}&year=${year}`;
+        window.location.href = url;
+    }
 </script>
 
 <!-- Script imports -->
@@ -193,6 +214,6 @@ if (isset($_SESSION["user_type"]) && $_SESSION["user_type"] == "System Administr
 <script src="../js/lib/menubar/sidebar.js"></script>
 <script src="../js/lib/preloader/pace.min.js"></script>
 <script src="../js/scripts.js"></script>
-<?php include "partials/scripts.php"?>
+<?php include "partials/scripts.php" ?>
 </body>
 </html>
