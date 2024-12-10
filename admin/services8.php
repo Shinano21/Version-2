@@ -17,6 +17,45 @@ if (!isset($_SESSION["user"]) || $_SESSION["user_type"] == "System Administrator
     <title>Hypertension Records | CareVisio</title>
     <?php include "partials/head.php"; ?>
     <link rel="stylesheet" href="css/tables.css">
+    <style>
+        /* Dropdown Styling */
+        .dropdown {
+            position: relative;
+            display: inline-block;
+        }
+        .dropdown-content {
+            display: none;
+            position: absolute;
+            background-color: #f9f9f9;
+            min-width: 160px;
+            box-shadow: 0px 8px 16px rgba(0, 0, 0, 0.2);
+            z-index: 1;
+        }
+        .dropdown-content a {
+            color: black;
+            padding: 12px 16px;
+            text-decoration: none;
+            display: block;
+        }
+        .dropdown-content a:hover {
+            background-color: #f1f1f1;
+        }
+        .dropdown:hover .dropdown-content {
+            display: block;
+        }
+        .printBtn {
+            background-color: #007bff;
+            color: white;
+            padding: 10px 20px;
+            font-size: 16px;
+            border: none;
+            cursor: pointer;
+            border-radius: 4px;
+        }
+        .printBtn:hover {
+            background-color: #0056b3;
+        }
+    </style>
 </head>
 <body onload="display_ct();">
 
@@ -75,8 +114,18 @@ if (!isset($_SESSION["user"]) || $_SESSION["user_type"] == "System Administrator
                         </div>
 
                         <div class="buttons">
-                            <a href="services/services8.php"><button class="addBtn"><span class="fa fa-plus"></span>&nbsp;&nbsp;Add Record</button></a>
-                            <a href="template/services8.php" target="_blank"><button class="printBtn"><span class="fa fa-print">&nbsp;&nbsp;</span>Print Records</button></a>
+                            <a href="services/services8.php">
+                                <button class="addBtn"><span class="fa fa-plus"></span>&nbsp;&nbsp;Add Record</button>
+                            </a>
+                            <div class="dropdown">
+                                <button class="printBtn">
+                                    <span class="fa fa-print"></span>&nbsp;&nbsp;Print Records
+                                </button>
+                                <div class="dropdown-content">
+                                    <a href="template/services8.php" target="_blank">Print Services</a>
+                                    <a href="template/list8.php" target="_blank">Print List</a>
+                                </div>
+                            </div>
                         </div>
 
                         <div class="tab">

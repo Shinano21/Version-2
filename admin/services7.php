@@ -7,7 +7,6 @@ if (!isset($_SESSION["user"]) || $_SESSION["user_type"] == "System Administrator
     header("Location: index.php");
     exit();
 }
-
 ?>
 <!DOCTYPE html>
 <html lang="en">
@@ -18,7 +17,45 @@ if (!isset($_SESSION["user"]) || $_SESSION["user_type"] == "System Administrator
     <title>Prenatal Records | CareVisio</title>
     <?php include "partials/head.php"; ?>
     <link rel="stylesheet" href="css/tables.css">
-
+    <style>
+        /* Dropdown Styling */
+        .dropdown {
+            position: relative;
+            display: inline-block;
+        }
+        .dropdown-content {
+            display: none;
+            position: absolute;
+            background-color: #f9f9f9;
+            min-width: 160px;
+            box-shadow: 0px 8px 16px rgba(0, 0, 0, 0.2);
+            z-index: 1;
+        }
+        .dropdown-content a {
+            color: black;
+            padding: 12px 16px;
+            text-decoration: none;
+            display: block;
+        }
+        .dropdown-content a:hover {
+            background-color: #f1f1f1;
+        }
+        .dropdown:hover .dropdown-content {
+            display: block;
+        }
+        .printBtn {
+            background-color: #007bff;
+            color: white;
+            padding: 10px 20px;
+            font-size: 16px;
+            border: none;
+            cursor: pointer;
+            border-radius: 4px;
+        }
+        .printBtn:hover {
+            background-color: #0056b3;
+        }
+    </style>
 </head>
 <body onload="display_ct();">
 
@@ -75,8 +112,18 @@ if (!isset($_SESSION["user"]) || $_SESSION["user_type"] == "System Administrator
                             </div>
                         </div>
                         <div class="buttons">
-                            <a href="services/services7.php"><button class="addBtn"><span class="fa fa-plus"></span>&nbsp;&nbsp;Add Record</button></a>
-                            <a href="template/services7.php" target="_blank"><button class="printBtn"><span class="fa fa-print">&nbsp;&nbsp;</span>Print Records</button></a>
+                            <a href="services/services7.php">
+                                <button class="addBtn"><span class="fa fa-plus"></span>&nbsp;&nbsp;Add Record</button>
+                            </a>
+                            <div class="dropdown">
+                                <button class="printBtn">
+                                    <span class="fa fa-print"></span>&nbsp;&nbsp;Print Records
+                                </button>
+                                <div class="dropdown-content">
+                                    <a href="template/services7.php" target="_blank">Services7</a>
+                                    <a href="template/list7.php" target="_blank">List7</a>
+                                </div>
+                            </div>
                         </div>
                         <div class="tab">
                             <div class="showSearch">
@@ -85,7 +132,6 @@ if (!isset($_SESSION["user"]) || $_SESSION["user_type"] == "System Administrator
                                     <input type="number" value="15" class="numberInput"></input>
                                     entries</p>
                                 </div>
-
                                 <div class="searchTable">
                                     <p>Search
                                     <input type="text" id="searchInput" class="searchBar" placeholder="Enter keyword"></p>
@@ -126,10 +172,6 @@ if (!isset($_SESSION["user"]) || $_SESSION["user_type"] == "System Administrator
     </div>
 
     <script>
-        // Similar JS functionality as your previous script for table filtering and pagination
-    </script>
-
-<script>
         function display_ct() {
             var refresh = 1000; // Refresh rate in milliseconds
             setTimeout(display_ct, refresh);
@@ -144,12 +186,10 @@ if (!isset($_SESSION["user"]) || $_SESSION["user_type"] == "System Administrator
     </script>
 
     <!-- Script imports -->
-    <script src="../js/lib/jquery.min.js"></script>
     <script src="../js/lib/jquery.nanoscroller.min.js"></script>
     <script src="../js/lib/menubar/sidebar.js"></script>
     <script src="../js/lib/preloader/pace.min.js"></script>
     <script src="../js/scripts.js"></script>
-
     <?php include "partials/scripts.php"; ?>
 </body>
 </html>
