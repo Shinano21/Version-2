@@ -27,7 +27,7 @@ if ($_SERVER["REQUEST_METHOD"] === "POST") {
     $parent_id = isset($_POST['parent_id']) && $_POST['parent_id'] !== "" ? intval($_POST['parent_id']) : null;
 
     // Handle photo update
-    $photo_path = $member['photo']; // Keep existing photo by default
+    $photo_filename = $member['photo']; // Keep existing photo by default
     if (!empty($_FILES["photo"]["tmp_name"])) {
         $upload_dir = "images/bnc/";
         $file_name = basename($_FILES["photo"]["name"]);
@@ -48,8 +48,9 @@ if ($_SERVER["REQUEST_METHOD"] === "POST") {
             die("Invalid file type. Please upload a valid image.");
         }
 
-        $new_file_name = uniqid("bnc_", true) . '.' . $file_ext;
-        $photo_path = $upload_dir . $new_file_name;
+        $new_file_name = uniqid("bnc_", true) . '.' . $file_ext; // Unique filename
+        $photo_path = $upload_dir . $new_file_name; // Full path for file upload
+        $photo_filename = $new_file_name; // Only the filename for the database
 
         if (!move_uploaded_file($file_tmp, $photo_path)) {
             die("Failed to upload photo. Please try again.");
@@ -57,7 +58,7 @@ if ($_SERVER["REQUEST_METHOD"] === "POST") {
     }
 
     $stmt = $conn->prepare("UPDATE organization SET name = ?, position = ?, photo = ?, contact_info = ?, description = ?, parent_id = ? WHERE id = ?");
-    $stmt->bind_param("sssssii", $name, $position, $photo_path, $contact_info, $description, $parent_id, $id);
+    $stmt->bind_param("sssssii", $name, $position, $photo_filename, $contact_info, $description, $parent_id, $id);
 
     if ($stmt->execute()) {
         echo "<script>alert('Member updated successfully!'); window.location.href = 'wsAddNewBNC.php';</script>";
@@ -67,6 +68,7 @@ if ($_SERVER["REQUEST_METHOD"] === "POST") {
     $stmt->close();
 }
 ?>
+
 
 <!DOCTYPE html>
 <html lang="en">
