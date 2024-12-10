@@ -18,7 +18,6 @@ if (!isset($_SESSION["user"]) || $_SESSION["user_type"] == "System Administrator
     <?php include "partials/head.php"; ?>
     <link rel="stylesheet" href="css/tables.css">
     <style>
-        /* Dropdown Styling */
         .dropdown {
             position: relative;
             display: inline-block;
@@ -60,11 +59,11 @@ if (!isset($_SESSION["user"]) || $_SESSION["user_type"] == "System Administrator
 <body onload="display_ct();">
 
     <?php
-        if ($_SESSION["user_type"] == "System Administrator") {
-            include "partials/admin_sidebar.php";
-        } else {
-            include "partials/sidebar.php";
-        }
+    if ($_SESSION["user_type"] == "System Administrator") {
+        include "partials/admin_sidebar.php";
+    } else {
+        include "partials/sidebar.php";
+    }
     ?>
     <?php include "partials/header.php"; ?>
 
@@ -89,24 +88,26 @@ if (!isset($_SESSION["user"]) || $_SESSION["user_type"] == "System Administrator
                         <div class="filters">
                             <div class="monthFilter">
                                 <span for="monthSelect">Filter by Month:</span>
-                                <select id="monthSelect" class="monthSelect">
+                                <select id="monthSelect" class="monthSelect" onchange="applyFilters()">
                                     <option value="" selected>All Months</option>
                                     <?php
                                     for ($month = 1; $month <= 12; $month++) {
                                         $monthName = date("F", mktime(0, 0, 0, $month, 1));
-                                        echo "<option value='$month'>$monthName</option>";
+                                        $selected = (isset($_GET['month']) && $_GET['month'] == $month) ? "selected" : "";
+                                        echo "<option value='$month' $selected>$monthName</option>";
                                     }
                                     ?>
                                 </select>
                             </div>
                             <div class="yearFilter">
                                 <span for="yearSelect">Year:</span>
-                                <select id="yearSelect" class="yearSelect">
+                                <select id="yearSelect" class="yearSelect" onchange="applyFilters()">
                                     <option value="" selected>All Years</option>
                                     <?php
                                     $currentYear = date('Y');
                                     for ($year = $currentYear; $year >= 1500; $year--) {
-                                        echo "<option value='$year'>$year</option>";
+                                        $selected = (isset($_GET['year']) && $_GET['year'] == $year) ? "selected" : "";
+                                        echo "<option value='$year' $selected>$year</option>";
                                     }
                                     ?>
                                 </select>
@@ -129,19 +130,6 @@ if (!isset($_SESSION["user"]) || $_SESSION["user_type"] == "System Administrator
                         </div>
 
                         <div class="tab">
-                            <div class="showSearch">
-                                <div class="showEntries">
-                                    <p>Show
-                                    <input type="number" value="15" class="numberInput"></input>
-                                    entries</p>
-                                </div>
-
-                                <div class="searchTable">
-                                    <p>Search
-                                    <input type="text" id="searchInput" class="searchBar" placeholder="Enter keyword"></p>
-                                </div>
-                            </div>
-
                             <table id="residentTable" class="tableResidents">
                                 <thead class="head">
                                     <tr>
@@ -154,18 +142,9 @@ if (!isset($_SESSION["user"]) || $_SESSION["user_type"] == "System Administrator
                                     </tr>
                                 </thead>
                                 <tbody>
-                                <?php include "data/showHypertension.php"; ?>
+                                    <?php include "data/showHypertension.php"; ?>
                                 </tbody>
                             </table>
-
-                            <div class="showPages">
-                                <p>Showing 1 to X of Y entries</p>
-                                <div class="page-indicator">
-                                    <span id="prev" class="indicator previous">Previous</span>
-                                    <span class="num">1</span>
-                                    <span id="next" class="indicator next">Next</span>
-                                </div>
-                            </div>
                         </div>
                     </div>
                 </section>
@@ -174,8 +153,19 @@ if (!isset($_SESSION["user"]) || $_SESSION["user_type"] == "System Administrator
     </div>
 
     <script>
+        function applyFilters() {
+            const month = document.getElementById('monthSelect').value;
+            const year = document.getElementById('yearSelect').value;
+            const url = new URL(window.location.href);
+            if (month) url.searchParams.set('month', month);
+            else url.searchParams.delete('month');
+            if (year) url.searchParams.set('year', year);
+            else url.searchParams.delete('year');
+            window.location.href = url.toString();
+        }
+
         function display_ct() {
-            var refresh = 1000; // Refresh rate in milliseconds
+            var refresh = 1000;
             setTimeout(display_ct, refresh);
             var x = new Date();
             var options = { timeZone: 'Asia/Manila', hour12: true, hour: '2-digit', minute: '2-digit', second: '2-digit' };
@@ -186,13 +176,6 @@ if (!isset($_SESSION["user"]) || $_SESSION["user_type"] == "System Administrator
         }
         display_ct();
     </script>
-
-    <!-- Script imports -->
-    <script src="../js/lib/jquery.min.js"></script>
-    <script src="../js/lib/jquery.nanoscroller.min.js"></script>
-    <script src="../js/lib/menubar/sidebar.js"></script>
-    <script src="../js/lib/preloader/pace.min.js"></script>
-    <script src="../js/scripts.js"></script>
 
     <?php include "partials/scripts.php"; ?>
 </body>
