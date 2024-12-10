@@ -17,32 +17,33 @@
     <?php include 'navbar.php';?>
     <?php include "data/home.php" ?>
     <!-- Header -->
-    <div class="main">
-        <script>
-        let bg_img = document.querySelector('.main');
-        <?php
-            // Assuming $bgImg contains the image data
-            if ($bgImg !== null) {
-                $imageType = strpos($bgImg, '/png') !== false ? 'png' : 'jpeg';
-                echo "bg_img.style.backgroundImage = 'url(\'data:image/{$imageType};base64," . base64_encode($bgImg) . "\')';";
-            } else {
-                echo "// Handle case when no image is available";
-            }
-        ?>
-        </script>
+    <div class="main"  id="mainHeader" style="
+    background-image: url('<?php
+        // Adjusting the path for the background image
+        if (isset($bgImg) && !empty($bgImg)) {
+            echo '../admin/cms/uploads/' . $bgImg; // Update the path to match your directory structure
+        } else {
+            echo 'default-image.png'; // Use a default image if no image is found
+        }
+    ?>'); background-size: cover; background-position: center; background-repeat: no-repeat;">
+
         <div class="contentbg">
             <div class="content">
                 <div class="texts">
                     <h2>OFFICIAL WEBSITE OF</h2>
                     <h1><?php echo $centerName ?></h1>
-                    <p class="address">4PR8+G59, Bagumbayan, Daraga, 4501 Albay</p>
+                    <p class="address">
+                        <a href="http://maps.google.com/?q=<?php echo isset($address) ? $address : '#'; ?>" target="_blank" style="text-decoration:none;color:white;">
+                            <?php echo isset($address) ? $address : "Address unavailable"; ?>
+                        </a>
+                    </p>
                     <p class="contactInfo">
                         <a href="mailto:<?php echo $email; ?>"> <?php echo $email; ?></a> /
                         <a href="tel:<?php echo str_replace([' ', '-', '(', ')'], '', $contact); ?>"><?php echo $contact; ?></a>
                     </p> 
                     <button><a href="aboutUs.php">Learn More <i class="fas fa-arrow-right" id="i"></i></a></button>
                 </div>
-                <div class="brgy">
+                <!-- <div class="brgy">
                     <?php
                     if ($logoPic !== null) {
                         $imageType = strpos($logoPic, '/png') !== false ? 'png' : 'jpeg';
@@ -51,7 +52,7 @@
                         echo "No image available";
                     }
                     ?>
-                </div>
+                </div> -->
             </div>
         </div>
     </div>
@@ -65,7 +66,8 @@
             <?php
               if ($sectionPic !== null) {
                 $imageType = strpos($sectionPic, '/png') !== false ? 'png' : 'jpeg';
-                echo "<img src='data:image/{$imageType};base64," . base64_encode($sectionPic). "' />";
+            echo "<img src='../admin/cms/{$sectionPic}' style='max-width: 100%; height: auto;' />";
+               
               } else {
                 echo "No image available";
               }
@@ -100,7 +102,7 @@
                     <?php
               if ($chairmanPic !== null) {
                 $imageType = strpos($chairmanPic, '/png') !== false ? 'png' : 'jpeg';
-                echo "<img src='data:image/{$imageType};base64," . base64_encode($chairmanPic). "' />";
+                echo "<img src='../admin/cms/{$chairmanPic}' style='width: 150px; height: auto; object-fit: contain;' />";
               } else {
                 echo "No image available";
               }
@@ -114,7 +116,8 @@
                     <?php
                     if ($chairmanCommPic !== null) {
                       $imageType = strpos($chairmanCommPic, '/png') !== false ? 'png' : 'jpeg';
-                      echo "<img src='data:image/{$imageType};base64," . base64_encode($chairmanCommPic). "' />";
+                      echo "<img src='../admin/cms/{$chairmanCommPic}' style='width: 150px; height: auto; object-fit: contain;' />";
+                      
                     } else {
                       echo "No image available";
                     }
@@ -148,8 +151,9 @@
                     echo "<li class='card'>";
                     echo "<div class='img'>";
                     if ($row["pic"] !== null) {
-                        $imageType = strpos($row["pic"], '/png') !== false ? 'png' : 'jpeg';
-                        echo "<img src='data:image/{$imageType};base64," . base64_encode($row["pic"]). "' alt='Image' draggable='false' />";
+                         // Use the stored filename to construct the image path
+                $imagePath = "../admin/cms/uploads/" . htmlspecialchars($row["pic"]);
+                echo "<img src='$imagePath' alt='Image of {$row['name']}' draggable='false' />";
                     } else {
                         echo "No image available";
                     }
@@ -191,45 +195,97 @@
         </div>
     </div>
 
-    <!-- Health Programs -->
-    <div class="hpCont">
-        <div class="hpTitle">
-            <h2>Health Programs</h2>
-            <p>Latest Health Programs of <?php echo $centerName ?> </p>
-        </div>
-        <div class="hpCardCont">
-            <?php
-            $sql = "SELECT * FROM programs ORDER BY post_date DESC LIMIT 3";
-            $result = mysqli_query($conn, $sql);
-
-            while ($row = mysqli_fetch_assoc($result)) {
-            ?>
-            <div class="hpCard">
-                <div class="imgCont">
-                    <?php
-                if ($row["prog_pic"] !== null) {
-                    $imageType = strpos($row["prog_pic"], '/png') !== false ? 'png' : 'jpeg';
-                    echo "<img src='data:image/{$imageType};base64," . base64_encode($row["prog_pic"]) . "' alt='Program Image'>";
-                } else {
-                    echo "<img src='src/default_image.png' alt='Default Image'>";
-                }
-                ?>
-                </div>
-                <p class="pgHeading"><?php echo $row["prog_heading"]; ?></p>
-                <p class="postDate">
-                    <?php 
-                        // Convert military time to 12-hour format
-                        $post_datetime_12hr = date("Y-m-d h:i A", strtotime($row['post_date']));
-                        echo $post_datetime_12hr; 
-                    ?>
-                </p>
-                <button onclick="window.location.href='programContent.php?id=<?php echo $row['id']?>'">View More</button>
-            </div>
-            <?php
+   <!-- Health Programs -->
+   <div class="hpCont">
+    <div class="hpTitle">
+        <h2>Health Programs</h2>
+        <p>
+            <?php 
+            if (isset($centerName) && !empty($centerName)) {
+                echo "Latest Health Programs of " . $centerName;
+            } else {
+                echo "Center name unavailable";
             }
             ?>
-        </div>
+        </p>
+    </div>
+    <div class="hpCardCont">
+    <style>
+        .hpCardCont {
+            display: flex;
+            gap: 20px;
+            flex-wrap: wrap;
+        }
+        .hpCard {
+            width: 300px;
+            border: 1px solid #ccc;
+            border-radius: 10px;
+            padding: 15px;
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+            overflow: hidden;
+        }
+        .imgCont img {
+            width: 100%;
+            height: auto;
+            border-radius: 10px;
+            object-fit: cover;
+        }
+        .pgHeading {
+            font-size: 18px;
+            font-weight: bold;
+            margin: 10px 0;
+        }
+        .postDate {
+            font-size: 14px;
+            color: #555;
+            margin-bottom: 10px;
+        }
+        .hpCard button {
+            background-color: #007BFF;
+            color: white;
+            border: none;
+            padding: 10px;
+            border-radius: 5px;
+            cursor: pointer;
+        }
+        .hpCard button:hover {
+            background-color: #0056b3;
+        }
+    </style>
 
+    <?php
+    $sql = "SELECT * FROM programs ORDER BY post_date DESC LIMIT 3";
+    $result = mysqli_query($conn, $sql);
+
+    if (mysqli_num_rows($result) > 0) {
+        while ($row = mysqli_fetch_assoc($result)) {
+    ?>
+    <div class="hpCard">
+        <div class="imgCont">
+        <?php
+        if ($row['prog_pic'] !== null && file_exists("../admin/cms/uploads/" . $row['prog_pic'])) {
+            echo "<img src='../admin/cms/uploads/" . htmlspecialchars($row['prog_pic'], ENT_QUOTES, 'UTF-8') . "' alt='Program Image' />";
+        } else {
+            echo "<div>No image available</div>";
+        }
+        ?>
+        </div>
+        <p class="pgHeading"><?php echo $row["prog_heading"]; ?></p>
+        <p class="postDate">
+            <?php 
+                $post_datetime_12hr = date("Y-m-d h:i A", strtotime($row['post_date']));
+                echo $post_datetime_12hr; 
+            ?>
+        </p>
+        <button onclick="window.location.href='programContent.php?id=<?php echo $row['id']?>'">View More</button>
+    </div>
+    <?php
+        }
+    } else {
+        echo "<p>No health programs available at the moment.</p>";
+    }
+    ?>
+</div>
     </div>
 
     <!-- Health Announcements -->
@@ -250,7 +306,7 @@
                     <?php
                 if ($row["announce_pic"] !== null) {
                     $imageType = strpos($row["announce_pic"], '/png') !== false ? 'png' : 'jpeg';
-                    echo "<img src='data:image/{$imageType};base64," . base64_encode($row["announce_pic"]) . "' alt='announcement image'>";
+                    echo "<img src='../admin/cms/uploads/" . htmlspecialchars($row['announce_pic'], ENT_QUOTES, 'UTF-8') . "' alt='Program Image' />";
                 } else {
                     echo "<img src='../src/default_image.png' alt='Default Image'>";
                 }
