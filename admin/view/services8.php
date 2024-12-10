@@ -117,6 +117,7 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
                                         <option value="Metoprolol"></option>
                                         <option value="Losartan"></option>
                                         <option value="Amlodipine"></option>
+                                        <option value="Cinnarizine"></option>
                                     </datalist>
                                 </div>
 

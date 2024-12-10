@@ -74,6 +74,7 @@ $result = mysqli_query($conn, $query);
                                     <option value="Metoprolol"></option>
                                     <option value="Losartan"></option>
                                     <option value="Amlodipine"></option>
+                                    <option value="Cinnarizine"></option>
                                 </datalist>
                             </div>
 
