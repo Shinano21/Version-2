@@ -1,10 +1,27 @@
 <?php
+session_start();
+
 include "dbcon.php";
+if (!isset($_SESSION["user"]) || $_SESSION["user_type"] == "System Administrator") {
+    header("Location: index.php");
+    exit();
+}
 
 // Fetch existing member details
 $id = $_GET['id'] ?? null;
 if (!$id) {
     die("No member ID provided.");
+}
+
+// Fetch existing members for the parent dropdown
+$members = [];
+$sql = "SELECT id, name, position FROM organization ORDER BY position";
+$result = mysqli_query($conn, $sql);
+
+if ($result) {
+    while ($row = mysqli_fetch_assoc($result)) {
+        $members[] = $row;
+    }
 }
 
 $sql = "SELECT * FROM organization WHERE id = ?";
@@ -74,49 +91,116 @@ if ($_SERVER["REQUEST_METHOD"] === "POST") {
 <html lang="en">
 <head>
     <title>Edit Barangay Nutrition Committee Member</title>
-    <link rel="stylesheet" href="css/style.css">
+    <!-- <link rel="stylesheet" href="css/style.css"> -->
+    <?php include "partials/head.php"; ?>
+    <link rel="stylesheet" href="css/wsHome.css">
+    <link href='https://unpkg.com/boxicons@2.1.4/css/boxicons.min.css' rel='stylesheet'>
 </head>
-<body>
-    <h2>Edit Barangay Nutrition Committee Member</h2>
-    <form action="" method="post" enctype="multipart/form-data">
-        <label for="name">Name:</label>
-        <input type="text" id="name" name="name" value="<?= htmlspecialchars($member['name']); ?>" required><br>
+< onload="display_ct();">
+<?php include "partials/sidebar.php"?>
+    <!-- Sidebar -->
+    <?php include "partials/header.php" ?>
+    <!-- Header -->
+    <div class="content-wrap">
+        <div class="main">
+            <div class="container-fluid">
+                <h5 style="padding: 25px 30px 0;">About / Edit Nutrition Committee Member</h5>
+                <section id="main-content">
+                    <div class="tabcontent show">
+                        <form action="" method="post" enctype="multipart/form-data">
+                            <div class="form">
+                                <h5>Edit Member Details</h5>
+                                <input type="hidden" name="id" value="<?php echo $member['id']; ?>">
+                                
+                                <div class="formInput" style="width: 100%;">
+                                    <label for="name">Name:</label>
+                                    <input type="text" id="name" name="name" value="<?php echo htmlspecialchars($member['name']); ?>" placeholder="Enter Name" required>
+                                </div>
 
-        <label for="position">Position:</label>
-        <select id="position" name="position" required>
-            <option value="">-- Select Position --</option>
-            <option value="Chairman" <?= $member['position'] === 'Chairman' ? 'selected' : ''; ?>>Chairman</option>
-            <optgroup label="Under Chairman">
-                <option value="Chairman, Committee on Health" <?= $member['position'] === 'Chairman, Committee on Health' ? 'selected' : ''; ?>>Chairman, Committee on Health</option>
-            </optgroup>
-            <optgroup label="Under Committee on Health">
-                <option value="Councilor, Environment and Sanitation" <?= $member['position'] === 'Councilor, Environment and Sanitation' ? 'selected' : ''; ?>>Councilor, Environment and Sanitation</option>
-                <option value="Barangay Nutrition Scholar (BNS)" <?= $member['position'] === 'Barangay Nutrition Scholar (BNS)' ? 'selected' : ''; ?>>Barangay Nutrition Scholar (BNS)</option>
-                <option value="Barangay Nurse" <?= $member['position'] === 'Barangay Nurse' ? 'selected' : ''; ?>>Barangay Nurse</option>
-            </optgroup>
-            <optgroup label="Under BNS">
-                <option value="Barangay Councilor" <?= $member['position'] === 'Barangay Councilor' ? 'selected' : ''; ?>>Barangay Councilor</option>
-                <option value="Barangay Health Worker" <?= $member['position'] === 'Barangay Health Worker' ? 'selected' : ''; ?>>Barangay Health Worker</option>
-                <option value="Daycare Worker" <?= $member['position'] === 'Daycare Worker' ? 'selected' : ''; ?>>Daycare Worker</option>
-            </optgroup>
-        </select><br>
+                                <div class="formInput" style="width: 100%;">
+                                    <label for="position">Position:</label>
+                                    <select id="position" name="position" required>
+                                        <option value="">-- Select Position --</option>
+                                        <option value="Chairman" <?= $member['position'] === 'Chairman' ? 'selected' : ''; ?>>Chairman</option>
+                                        <optgroup label="Under Chairman">
+                                            <option value="Chairman, Committee on Health" <?= $member['position'] === 'Chairman, Committee on Health' ? 'selected' : ''; ?>>Chairman, Committee on Health</option>
+                                        </optgroup>
+                                        <optgroup label="Under Committee on Health">
+                                            <option value="Councilor, Environment and Sanitation" <?= $member['position'] === 'Councilor, Environment and Sanitation' ? 'selected' : ''; ?>>Councilor, Environment and Sanitation</option>
+                                            <option value="Barangay Nutrition Scholar (BNS)" <?= $member['position'] === 'Barangay Nutrition Scholar (BNS)' ? 'selected' : ''; ?>>Barangay Nutrition Scholar (BNS)</option>
+                                            <option value="Barangay Nurse" <?= $member['position'] === 'Barangay Nurse' ? 'selected' : ''; ?>>Barangay Nurse</option>
+                                        </optgroup>
+                                        <optgroup label="Under BNS">
+                                            <option value="Barangay Councilor" <?= $member['position'] === 'Barangay Councilor' ? 'selected' : ''; ?>>Barangay Councilor</option>
+                                            <option value="Barangay Health Worker" <?= $member['position'] === 'Barangay Health Worker' ? 'selected' : ''; ?>>Barangay Health Worker</option>
+                                            <option value="Daycare Worker" <?= $member['position'] === 'Daycare Worker' ? 'selected' : ''; ?>>Daycare Worker</option>
+                                        </optgroup>
+                                    </select>
+                                </div>
 
-        <label for="contact_info">Contact Info:</label>
-        <input type="text" id="contact_info" name="contact_info" value="<?= htmlspecialchars($member['contact_info']); ?>"><br>
+                                <div class="formInput" style="width: 100%;">
+                                    <label for="contact_info">Contact Info:</label>
+                                    <input type="text" id="contact_info" name="contact_info" value="<?php echo htmlspecialchars($member['contact_info']); ?>">
+                                </div>
 
-        <label for="description">Description:</label>
-        <textarea id="description" name="description"><?= htmlspecialchars($member['description']); ?></textarea><br>
+                                <div class="formInput" style="width: 100%;">
+                                    <label for="description">Description:</label>
+                                    <textarea id="description" name="description"><?php echo htmlspecialchars($member['description']); ?></textarea>
+                                </div>
 
-        <label for="photo">Photo (Leave blank to keep existing):</label>
-        <input type="file" id="photo" name="photo" accept="image/*"><br>
+                                <div class="photo">
+                                    <label for="photo">Photo (Leave blank to keep existing):</label>
+                                    <input type="file" id="photo" name="photo" accept="image/*">
+                                </div>
 
-        <label for="parent_id">Parent (Optional):</label>
-        <select id="parent_id" name="parent_id">
-            <option value="">-- None --</option>
-            <!-- Populate parent dropdown dynamically -->
-        </select><br>
+                                <!-- Parent Dropdown -->
+                            <div class="formInput" style="width: 100%;">
+                                <label>Parent (Optional)</label>
+                                <select id="parent_id" name="parent_id">
+                                    <option value="">-- None --</option>
+                                    <?php foreach ($members as $member): ?>
+                                        <option value="<?= $member['id']; ?>"><?= $member['name']; ?> - <?= $member['position']; ?></option>
+                                    <?php endforeach; ?>
+                                </select>
+                            </div>
 
-        <button type="submit">Update Member</button>
-    </form>
+                                <div style="width: 100%; display: flex; justify-content: end; align-items: end;">
+                                    <button type="submit" name="submit">Update Member</button>
+                                </div>
+                            </div>
+                        </form>
+                    </div>
+                </section>
+            </div>
+        </div>
+    </div>
+    <script>
+        function display_c() {
+            var refresh = 1000; // Refresh rate in milliseconds
+            mytime = setTimeout('display_ct()', refresh);
+        }
+
+        function display_ct() {
+            var x = new Date();
+            
+            // Set the time zone to Philippine Time (PHT)
+            var options = { timeZone: 'Asia/Manila', hour12: true, hour: '2-digit', minute: '2-digit', second: '2-digit' };
+            var timeString = x.toLocaleTimeString('en-US', options);
+
+            // Extract the date part in the format "Day, DD Mon YYYY"
+            var datePart = x.toLocaleDateString('en-US', { weekday: 'short', day: '2-digit', month: 'short', year: 'numeric' });
+
+            // Combine date and time in the desired format
+            var x1 = datePart + ' - ' + timeString;
+
+            document.getElementById('ct').innerHTML = x1;
+            tt = display_c();
+        }
+
+        // Initial call to start displaying time
+        display_c();
+    </script>
+    <?php include "partials/scripts.php"; ?>
+    <script src="js/preview.js"></script>
 </body>
 </html>
