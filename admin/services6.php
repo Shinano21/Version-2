@@ -16,15 +16,54 @@ if (!isset($_SESSION["user"]) || $_SESSION["user_type"] == "System Administrator
     <title>Animal Bite Records | CareVisio</title>
     <?php include "partials/head.php"; ?>
     <link rel="stylesheet" href="css/tables.css">
+    <style>
+        /* Dropdown Styling */
+        .dropdown {
+            position: relative;
+            display: inline-block;
+        }
+        .dropdown-content {
+            display: none;
+            position: absolute;
+            background-color: #f9f9f9;
+            min-width: 160px;
+            box-shadow: 0px 8px 16px rgba(0, 0, 0, 0.2);
+            z-index: 1;
+        }
+        .dropdown-content a {
+            color: black;
+            padding: 12px 16px;
+            text-decoration: none;
+            display: block;
+        }
+        .dropdown-content a:hover {
+            background-color: #f1f1f1;
+        }
+        .dropdown:hover .dropdown-content {
+            display: block;
+        }
+        .printBtn {
+            background-color: #007bff;
+            color: white;
+            padding: 10px 20px;
+            font-size: 16px;
+            border: none;
+            cursor: pointer;
+            border-radius: 4px;
+        }
+        .printBtn:hover {
+            background-color: #0056b3;
+        }
+    </style>
 </head>
 <body onload="display_ct();">
 
 <?php
-    if (isset($_SESSION["user_type"]) && $_SESSION["user_type"] == "System Administrator") {
-        include "partials/admin_sidebar.php";
-    } else {
-        include "partials/sidebar.php";
-    }
+if (isset($_SESSION["user_type"]) && $_SESSION["user_type"] == "System Administrator") {
+    include "partials/admin_sidebar.php";
+} else {
+    include "partials/sidebar.php";
+}
 ?>
 <?php include "partials/header.php"?>
 
@@ -73,8 +112,20 @@ if (!isset($_SESSION["user"]) || $_SESSION["user_type"] == "System Administrator
                         </div>
                     </div>
                     <div class="buttons">
-                        <a href="services/services6.php"><button class="addBtn"><span class="fa fa-plus"></span>&nbsp;&nbsp;Record</button></a>
-                        <a href="template/services6.php" target="_blank"><button class="printBtn"><span class="fa fa-print">&nbsp;&nbsp;</span>Print Records</button></a>
+                        <a href="services/services6.php">
+                            <button class="addBtn">
+                                <span class="fa fa-plus"></span>&nbsp;&nbsp;Record
+                            </button>
+                        </a>
+                        <div class="dropdown">
+                            <button class="printBtn">
+                                <span class="fa fa-print"></span>&nbsp;&nbsp;Print Records
+                            </button>
+                            <div class="dropdown-content">
+                                <a href="template/services6.php" target="_blank">Services6</a>
+                                <a href="template/list6.php" target="_blank">List6</a>
+                            </div>
+                        </div>
                     </div>
                     <div class="tab">
                         <div class="showSearch">
@@ -123,25 +174,25 @@ if (!isset($_SESSION["user"]) || $_SESSION["user_type"] == "System Administrator
 </div>
 
 <script>
-        function display_ct() {
-            var refresh = 1000; // Refresh rate in milliseconds
-            setTimeout(display_ct, refresh);
-            var x = new Date();
-            var options = { timeZone: 'Asia/Manila', hour12: true, hour: '2-digit', minute: '2-digit', second: '2-digit' };
-            var timeString = x.toLocaleTimeString('en-US', options);
-            var datePart = x.toLocaleDateString('en-US', { weekday: 'short', day: '2-digit', month: 'short', year: 'numeric' });
-            var x1 = datePart + ' - ' + timeString;
-            document.getElementById('ct').innerHTML = x1;
-        }
-        display_ct();
-    </script>
+    function display_ct() {
+        var refresh = 1000; // Refresh rate in milliseconds
+        setTimeout(display_ct, refresh);
+        var x = new Date();
+        var options = { timeZone: 'Asia/Manila', hour12: true, hour: '2-digit', minute: '2-digit', second: '2-digit' };
+        var timeString = x.toLocaleTimeString('en-US', options);
+        var datePart = x.toLocaleDateString('en-US', { weekday: 'short', day: '2-digit', month: 'short', year: 'numeric' });
+        var x1 = datePart + ' - ' + timeString;
+        document.getElementById('ct').innerHTML = x1;
+    }
+    display_ct();
+</script>
 
-    <!-- Script imports -->
-    <script src="../js/lib/jquery.min.js"></script>
-    <script src="../js/lib/jquery.nanoscroller.min.js"></script>
-    <script src="../js/lib/menubar/sidebar.js"></script>
-    <script src="../js/lib/preloader/pace.min.js"></script>
-    <script src="../js/scripts.js"></script>
+<!-- Script imports -->
+<script src="../js/lib/jquery.min.js"></script>
+<script src="../js/lib/jquery.nanoscroller.min.js"></script>
+<script src="../js/lib/menubar/sidebar.js"></script>
+<script src="../js/lib/preloader/pace.min.js"></script>
+<script src="../js/scripts.js"></script>
 <?php include "partials/scripts.php"?>
 </body>
 </html>

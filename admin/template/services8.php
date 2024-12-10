@@ -136,7 +136,6 @@ if (!$result) {
                 <th>Medicine Name</th>
                 <th>Count per Medicine</th>
                 <th>Total Medicines</th>
-                <th>Distinct Medicines</th>
             </tr>
         </thead>
         <tbody>
@@ -145,7 +144,6 @@ if (!$result) {
                 $previousZone = '';
                 $previousAgeGroup = '';
                 $totalMedicines = 0;
-                $distinctMedicines = [];
 
                 while ($row = $result->fetch_assoc()) {
                     $currentZone = $row['location'];
@@ -154,20 +152,16 @@ if (!$result) {
                     if ($currentZone !== $previousZone || $currentAgeGroup !== $previousAgeGroup) {
                         if ($previousZone !== '') {
                             echo "<tr>";
-                            echo "<td colspan='6'><strong>Totals for $previousZone - $previousAgeGroup:</strong> $totalMedicines medicines distributed. Distinct medicines: " . implode(", ", $distinctMedicines) . ".</td>";
+                            echo "<td colspan='5'><strong>Totals for $previousZone - $previousAgeGroup:</strong> $totalMedicines medicines distributed.</td>";
                             echo "</tr>";
                         }
 
                         $previousZone = $currentZone;
                         $previousAgeGroup = $currentAgeGroup;
                         $totalMedicines = 0;
-                        $distinctMedicines = [];
                     }
 
                     $totalMedicines += $row['medicine_count'];
-                    if (!in_array($row['medicine_type'], $distinctMedicines)) {
-                        $distinctMedicines[] = $row['medicine_type'];
-                    }
 
                     echo "<tr>";
                     echo "<td>" . $row['location'] . "</td>";
@@ -175,15 +169,14 @@ if (!$result) {
                     echo "<td>" . $row['medicine_type'] . "</td>";
                     echo "<td>" . $row['medicine_count'] . "</td>";
                     echo "<td>" . $totalMedicines . "</td>";
-                    echo "<td>" . implode(", ", $distinctMedicines) . "</td>";
                     echo "</tr>";
                 }
 
                 echo "<tr>";
-                echo "<td colspan='6'><strong>Totals for $previousZone - $previousAgeGroup:</strong> $totalMedicines medicines distributed. Distinct medicines: " . implode(", ", $distinctMedicines) . ".</td>";
+                echo "<td colspan='5'><strong>Totals for $previousZone - $previousAgeGroup:</strong> $totalMedicines medicines distributed.</td>";
                 echo "</tr>";
             } else {
-                echo "<tr><td colspan='6'>No data available</td></tr>";
+                echo "<tr><td colspan='5'>No data available</td></tr>";
             }
             ?>
         </tbody>
