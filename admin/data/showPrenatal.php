@@ -1,24 +1,28 @@
 <?php
 include "dbcon.php"; // Include the database connection file
 
-// Prepare filters for date range if needed
-$yearFilter = isset($_GET['year']) ? intval($_GET['year']) : null;
-$monthFilter = isset($_GET['month']) ? intval($_GET['month']) : null;
+// Fetch filter inputs for checkup_date
+$filterMonth = isset($_GET['month']) ? $_GET['month'] : '';
+$filterYear = isset($_GET['year']) ? $_GET['year'] : '';
 
-// Construct the SQL query based on the year and month filter
+// Construct the SQL query based on the checkup_date filter
 $sql = "SELECT p.prenatal_id, r.fname, r.lname, p.checkup_date, p.gestational_age, 
                p.blood_pressure, p.weight, p.fetal_heartbeat, p.remarks 
         FROM prenatal p 
         JOIN residents r ON p.resident_id = r.id 
         WHERE 1"; // Joining prenatal and residents table
 
-// Add filters for year and month if specified
-if ($yearFilter !== null) {
-    $sql .= " AND YEAR(p.checkup_date) = $yearFilter";
+// Apply filters for checkup date if specified
+$conditions = [];
+if ($filterMonth) {
+    $conditions[] = "MONTH(p.checkup_date) = '$filterMonth'";
+}
+if ($filterYear) {
+    $conditions[] = "YEAR(p.checkup_date) = '$filterYear'";
+}
 
-    if ($monthFilter !== null) {
-        $sql .= " AND MONTH(p.checkup_date) = $monthFilter";
-    }
+if (!empty($conditions)) {
+    $sql .= " AND " . implode(" AND ", $conditions);
 }
 
 $sql .= " ORDER BY p.checkup_date DESC"; // Order by checkup date
@@ -29,8 +33,6 @@ $result = mysqli_query($conn, $sql);
 // Check if there are results
 if (mysqli_num_rows($result) > 0) {
     $even = 0; // To alternate row colors
-
-    
 
     // Output each row of data
     while ($row = mysqli_fetch_assoc($result)) {

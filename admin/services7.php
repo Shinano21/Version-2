@@ -7,6 +7,10 @@ if (!isset($_SESSION["user"]) || $_SESSION["user_type"] == "System Administrator
     header("Location: index.php");
     exit();
 }
+
+// Fetch filter inputs for checkup_date
+$filterMonth = isset($_GET['month']) ? $_GET['month'] : '';
+$filterYear = isset($_GET['year']) ? $_GET['year'] : '';
 ?>
 <!DOCTYPE html>
 <html lang="en">
@@ -89,11 +93,12 @@ if (!isset($_SESSION["user"]) || $_SESSION["user_type"] == "System Administrator
                             <div class="monthFilter">
                                 <span for="monthSelect">Filter by Month:</span>
                                 <select id="monthSelect" class="monthSelect">
-                                    <option value="" selected>All Months</option>
+                                    <option value="" <?= empty($filterMonth) ? 'selected' : '' ?>>All Months</option>
                                     <?php
                                     for ($month = 1; $month <= 12; $month++) {
                                         $monthName = date("F", mktime(0, 0, 0, $month, 1));
-                                        echo "<option value='$month'>$monthName</option>";
+                                        $selected = ($filterMonth == $month) ? 'selected' : '';
+                                        echo "<option value='$month' $selected>$monthName</option>";
                                     }
                                     ?>
                                 </select>
@@ -101,16 +106,18 @@ if (!isset($_SESSION["user"]) || $_SESSION["user_type"] == "System Administrator
                             <div class="yearFilter">
                                 <span for="yearSelect">Year:</span>
                                 <select id="yearSelect" class="yearSelect">
-                                    <option value="" selected>All Years</option>
+                                    <option value="" <?= empty($filterYear) ? 'selected' : '' ?>>All Years</option>
                                     <?php
                                     $currentYear = date('Y');
                                     for ($year = $currentYear; $year >= 1500; $year--) {
-                                        echo "<option value='$year'>$year</option>";
+                                        $selected = ($filterYear == $year) ? 'selected' : '';
+                                        echo "<option value='$year' $selected>$year</option>";
                                     }
                                     ?>
                                 </select>
                             </div>
                         </div>
+
                         <div class="buttons">
                             <a href="services/services7.php">
                                 <button class="addBtn"><span class="fa fa-plus"></span>&nbsp;&nbsp;Add Record</button>
@@ -125,6 +132,7 @@ if (!isset($_SESSION["user"]) || $_SESSION["user_type"] == "System Administrator
                                 </div>
                             </div>
                         </div>
+
                         <div class="tab">
                             <div class="showSearch">
                                 <div class="showEntries">
@@ -152,7 +160,10 @@ if (!isset($_SESSION["user"]) || $_SESSION["user_type"] == "System Administrator
                                     </tr>
                                 </thead>
                                 <tbody>
-                                <?php include "data/showPrenatal.php" ?>
+                                    <?php
+                                    // Include data fetching based on filter values
+                                    include "data/showPrenatal.php";
+                                    ?>
                                 </tbody>
                             </table>
 
@@ -183,6 +194,19 @@ if (!isset($_SESSION["user"]) || $_SESSION["user_type"] == "System Administrator
             document.getElementById('ct').innerHTML = x1;
         }
         display_ct();
+
+        // Filter handler
+        document.getElementById('monthSelect').addEventListener('change', applyFilters);
+        document.getElementById('yearSelect').addEventListener('change', applyFilters);
+
+        function applyFilters() {
+            const month = document.getElementById('monthSelect').value;
+            const year = document.getElementById('yearSelect').value;
+
+            // Construct the URL with filter parameters
+            const url = `services7.php?month=${month}&year=${year}`;
+            window.location.href = url;
+        }
     </script>
 
     <!-- Script imports -->
