@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Generation Time: Dec 11, 2024 at 07:06 AM
+-- Generation Time: Dec 11, 2024 at 03:33 PM
 -- Server version: 10.4.32-MariaDB
 -- PHP Version: 8.2.12
 
@@ -209,6 +209,13 @@ CREATE TABLE `family_planning` (
   `province` varchar(255) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
+--
+-- Dumping data for table `family_planning`
+--
+
+INSERT INTO `family_planning` (`id`, `date_of_registration`, `date_of_birth`, `family_serial_number`, `se_status`, `type_of_client`, `source`, `previous_method`, `first_name`, `middle_name`, `last_name`, `suffix`, `zone`, `barangay`, `city_municipality`, `province`) VALUES
+(1, '2021-06-11', '2014-02-11', '', 'NHTS', 'CU-CM', 'Public', 'NFP-STM', 'Maria', '', 'Gomez', '', 'Purok 1', 'Baybay', 'Legazpi', 'Albay');
+
 -- --------------------------------------------------------
 
 --
@@ -244,6 +251,15 @@ CREATE TABLE `family_planning_sched` (
   `family_id` int(11) DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
+--
+-- Dumping data for table `family_planning_sched`
+--
+
+INSERT INTO `family_planning_sched` (`id`, `schedule_date_january`, `actual_date_january`, `schedule_date_february`, `actual_date_february`, `schedule_date_march`, `actual_date_march`, `schedule_date_april`, `actual_date_april`, `schedule_date_may`, `actual_date_may`, `schedule_date_june`, `actual_date_june`, `schedule_date_july`, `actual_date_july`, `schedule_date_august`, `actual_date_august`, `schedule_date_september`, `actual_date_september`, `schedule_date_october`, `actual_date_october`, `schedule_date_november`, `actual_date_november`, `schedule_date_december`, `actual_date_december`, `family_id`) VALUES
+(0, '0000-00-00', '0000-00-00', '0000-00-00', '0000-00-00', '0000-00-00', '0000-00-00', '0000-00-00', '0000-00-00', '0000-00-00', '0000-00-00', '0000-00-00', '0000-00-00', '0000-00-00', '0000-00-00', '0000-00-00', '0000-00-00', '0000-00-00', '0000-00-00', '0000-00-00', '0000-00-00', '0000-00-00', '0000-00-00', '0000-00-00', '0000-00-00', 1),
+(0, '0000-00-00', '0000-00-00', '0000-00-00', '0000-00-00', '0000-00-00', '0000-00-00', '0000-00-00', '0000-00-00', '0000-00-00', '0000-00-00', '0000-00-00', '0000-00-00', '0000-00-00', '0000-00-00', '0000-00-00', '0000-00-00', '0000-00-00', '0000-00-00', '0000-00-00', '0000-00-00', '0000-00-00', '0000-00-00', '0000-00-00', '0000-00-00', 3),
+(0, '0000-00-00', '0000-00-00', '0000-00-00', '0000-00-00', '0000-00-00', '0000-00-00', '0000-00-00', '0000-00-00', '0000-00-00', '0000-00-00', '0000-00-00', '0000-00-00', '0000-00-00', '0000-00-00', '0000-00-00', '0000-00-00', '0000-00-00', '0000-00-00', '0000-00-00', '0000-00-00', '0000-00-00', '0000-00-00', '0000-00-00', '0000-00-00', 5);
+
 -- --------------------------------------------------------
 
 --
@@ -260,6 +276,15 @@ CREATE TABLE `family_plan_rem` (
   `lam_remarks` text DEFAULT NULL,
   `family_id` int(11) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+
+--
+-- Dumping data for table `family_plan_rem`
+--
+
+INSERT INTO `family_plan_rem` (`id`, `reasons`, `reasons_date`, `deworming_drugs_1st_dose_date`, `deworming_drugs_2nd_dose_date`, `deworming_drugs_yndwrm`, `lam_remarks`, `family_id`) VALUES
+(0, '', '0000-00-00', '0000-00-00', '0000-00-00', '', '', 1),
+(0, 'C', '0000-00-00', '2022-03-11', '2024-11-16', 'No', 'Comeback after 1month', 3),
+(0, 'B', '0000-00-00', '2024-12-29', '2025-01-07', 'No', '', 5);
 
 -- --------------------------------------------------------
 
@@ -351,7 +376,7 @@ CREATE TABLE `immunization` (
 --
 
 INSERT INTO `immunization` (`id`, `reg`, `bday`, `serial`, `se_status`, `sex`, `fname`, `mname`, `lname`, `suffix`, `zone`, `brgy`, `mun`, `prov`, `cpab`, `mother_fname`, `mother_mname`, `mother_lname`) VALUES
-(1, '2024-12-01', '2024-11-30', '1234567890', 'NHTS', 'Male', 'Zhongli', 'Asis', 'morax', '', 'Purok 3', 'vababa', 'Legazpi', 'Albay', 'TT2/Td2', 'Geneva', 'Asis', 'Morax');
+(1, '2024-12-01', '2024-11-30', '1234567890', 'NHTS', 'Male', 'Zhongli', 'Asis', 'morax', '', 'Purok 3', 'Bagumbayan', 'Daraga', 'Albay', 'TT2/Td2', 'Geneva', 'Asis', 'Morax');
 
 -- --------------------------------------------------------
 
@@ -426,7 +451,7 @@ CREATE TABLE `immunization_2` (
 --
 
 INSERT INTO `immunization_2` (`id`, `length_at_birth`, `weight_at_birth`, `birth_weight_status`, `breastfeeding_initiation_date`, `bcg_date`, `hepa_b_bd_date`, `age_in_months_1`, `length_cm_1`, `date_taken_1`, `weight_kg_1`, `date_taken_2`, `sst_1`, `lbw_given_iron_1`, `lbw_given_iron_2`, `lbw_given_iron_3`, `dpt_hib_hepb_1st_dose_2`, `dpt_hib_hepb_2nd_dose_2`, `dpt_hib_hepb_3rd_dose_2`, `opb_1st_dose_2`, `opb_2nd_dose_2`, `opb_3rd_dose_2`, `pcb_1st_dose_2`, `pcb_2nd_dose_2`, `pcb_3rd_dose_2`, `ipv_3rd_dose_2`, `ebf_1_5_months_2`, `date_assessed_1_5_months_2`, `ebf_2_5_months_2`, `date_assessed_2_5_months_2`, `ebf_3_5_months_2`, `date_assessed_3_5_months_2`, `ebf_4_5_months_2`, `date_assessed_4_5_months_2`, `immu_id`) VALUES
-(1, 69.00, 5.00, 'N', '2024-12-12', '2024-12-12', '2024-12-12', 0, 0.00, '0000-00-00', 0.00, '0000-00-00', '', '0000-00-00', '0000-00-00', '0000-00-00', '0000-00-00', '0000-00-00', '0000-00-00', '0000-00-00', '0000-00-00', '0000-00-00', '0000-00-00', '0000-00-00', '0000-00-00', '0000-00-00', '', '0000-00-00', '', '0000-00-00', '', '0000-00-00', '', '0000-00-00', 1);
+(1, 69.00, 5.00, 'N', '2024-12-12', '2024-12-12', '2024-12-12', 2, 54.00, '2024-12-31', 5.00, '2024-12-31', 'N', '2024-12-14', '2024-12-31', '0000-00-00', '2024-12-13', '0000-00-00', '0000-00-00', '2024-12-12', '0000-00-00', '0000-00-00', '0000-00-00', '0000-00-00', '0000-00-00', '0000-00-00', '', '0000-00-00', '', '0000-00-00', '', '0000-00-00', '', '0000-00-00', 1);
 
 -- --------------------------------------------------------
 
@@ -522,6 +547,15 @@ CREATE TABLE `influenza_vaccination` (
   `date_of_birth` date NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
+--
+-- Dumping data for table `influenza_vaccination`
+--
+
+INSERT INTO `influenza_vaccination` (`id`, `first_name`, `middle_name`, `last_name`, `suffix`, `zone`, `barangay`, `city_municipality`, `province`, `vaccination_date`, `vaccination_site`, `date_of_birth`) VALUES
+(2, 'Zhongli', 'sasasa', 'Sato', 'adsdwds', 'Purok 1', 'HAhaha', 'Daraga', 'Albay', '2024-12-02', 'Left', '2024-12-02'),
+(4, 'Mavuika', 'Pyro', 'Natlan', '', 'Purok 1', 'Christian', 'Legazpi', 'Albay', '2024-12-12', 'Left', '2000-01-11'),
+(5, 'Zhongli', 'asdfrg', 'asdfg', 'sff', 'Purok 2', 'Bagumbayansfsf', 'Daragasfsf', 'Albayfsf', '2024-12-03', 'Left', '2024-11-29');
+
 -- --------------------------------------------------------
 
 --
@@ -597,6 +631,13 @@ CREATE TABLE `nutrition` (
   `mother_lname` varchar(255) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
+--
+-- Dumping data for table `nutrition`
+--
+
+INSERT INTO `nutrition` (`id`, `reg`, `bday`, `serial`, `se_status`, `sex`, `length`, `weight`, `fname`, `mname`, `lname`, `suffix`, `zone`, `brgy`, `city`, `province`, `mother_fname`, `mother_mname`, `mother_lname`) VALUES
+(1, '2024-12-11', '2023-06-11', '', 'NHTS', 'Male', '50', '3', 'Randiel', '', 'Asis', '', 'Purok 1', 'Bagumbayan', 'Daraga', 'Albay', 'Rica', '', 'Asis');
+
 -- --------------------------------------------------------
 
 --
@@ -612,8 +653,15 @@ CREATE TABLE `nutrition_1` (
   `deworming_1st_dose_date` date DEFAULT NULL,
   `deworming_2nd_dose_date` date DEFAULT NULL,
   `deworming_yn` varchar(3) DEFAULT NULL,
-  `nutrition_id` int(11) DEFAULT NULL
+  `nutrition_id` int(11) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+
+--
+-- Dumping data for table `nutrition_1`
+--
+
+INSERT INTO `nutrition_1` (`id`, `nutritional_status`, `mnp_date`, `vitamin_a_1st_dose_date`, `vitamin_a_2nd_dose_date`, `deworming_1st_dose_date`, `deworming_2nd_dose_date`, `deworming_yn`, `nutrition_id`) VALUES
+(1, 'N', '2024-12-11', '2024-12-13', '2024-12-22', '2024-12-11', '2024-12-13', 'Yes', 0);
 
 -- --------------------------------------------------------
 
@@ -632,6 +680,13 @@ CREATE TABLE `nutrition_2` (
   `nutritional_status2` varchar(50) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
+--
+-- Dumping data for table `nutrition_2`
+--
+
+INSERT INTO `nutrition_2` (`id`, `nutrition_id`, `vitamin_a_1st_dose_date`, `vitamin_a_2nd_dose_date`, `deworming_1st_dose_date`, `deworming_2nd_dose_date`, `deworming_yn`, `nutritional_status2`) VALUES
+(1, 0, '0000-00-00', '0000-00-00', '0000-00-00', '0000-00-00', '', '');
+
 -- --------------------------------------------------------
 
 --
@@ -648,6 +703,13 @@ CREATE TABLE `nutrition_3` (
   `deworming_yn` varchar(3) DEFAULT NULL,
   `nutritional_status3` varchar(10) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+
+--
+-- Dumping data for table `nutrition_3`
+--
+
+INSERT INTO `nutrition_3` (`id`, `nutrition_id`, `vitamin_a_1st_dose_date`, `vitamin_a_2nd_dose_date`, `deworming_1st_dose_date`, `deworming_2nd_dose_date`, `deworming_yn`, `nutritional_status3`) VALUES
+(1, 0, '0000-00-00', '0000-00-00', '0000-00-00', '0000-00-00', '', '');
 
 -- --------------------------------------------------------
 
@@ -666,6 +728,13 @@ CREATE TABLE `nutrition_4` (
   `nutritional_status4` varchar(10) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
+--
+-- Dumping data for table `nutrition_4`
+--
+
+INSERT INTO `nutrition_4` (`id`, `nutrition_id`, `vitamin_a_1st_dose_date`, `vitamin_a_2nd_dose_date`, `deworming_1st_dose_date`, `deworming_2nd_dose_date`, `deworming_yn`, `nutritional_status4`) VALUES
+(1, 0, '0000-00-00', '0000-00-00', '0000-00-00', '0000-00-00', '', '');
+
 -- --------------------------------------------------------
 
 --
@@ -679,6 +748,13 @@ CREATE TABLE `nutrition_5` (
   `remarks` text DEFAULT NULL,
   `nutrition_id` int(11) DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+
+--
+-- Dumping data for table `nutrition_5`
+--
+
+INSERT INTO `nutrition_5` (`id`, `mam_status`, `sam_status`, `remarks`, `nutrition_id`) VALUES
+(1, '', '', '', 0);
 
 -- --------------------------------------------------------
 
@@ -873,7 +949,8 @@ INSERT INTO `residents` (`id`, `fname`, `mname`, `lname`, `suffix`, `sex`, `bday
 (1, 'Furina', 'Focalors', 'De Fontaine', '', 'Male', '2023-06-06', 'Daraga', 'Roman Catholic', 'Filipino', 'N/A', 'Purok 1', 'Bagumbayan', 'Daraga', 'Albay', '4501', '09467812431', 'Preschool', 'Tambay', 'Single', 'Not in the Labor Force', 'Yes', 'Yes', 'Yes', 'Fully Vaccinated', 'Active', '123.71827', '13.142307', NULL, '', NULL),
 (2, 'Navia', 'spina', 'De Rosula', '', 'Female', '2019-06-28', 'Daraga', 'Roman Catholic', 'Filipino', '', 'Purok 3', 'Bagumbayan', 'Daraga', 'Albay', '4501', '', 'Preschool', 'Tambay sa bahay', 'Single', 'Employed', 'Yes', 'Yes', 'Yes', 'Fully Vaccinated', 'Active', '123.71580578679966', '13.141973617231812', NULL, '', NULL),
 (3, 'danica', 'Focalors', 'De Fontaine', '', 'Female', '2024-09-24', 'Daraga', 'Roman Catholic', 'Filipino', 'N/A', 'Purok 4', 'Bagumbayan', 'Daraga', 'Albay', '4501', '09467812431', 'Preschool', 'Tambay', 'Single', 'Employed', 'Yes', 'Yes', 'Yes', 'Fully Vaccinated', 'Active', '123.71643033164248', '13.140564314980484', NULL, '', 'qrcodes/3.png'),
-(4, 'Charlotte', 'Focalors', 'De Bird', '', 'Female', '2002-04-29', 'Fontaine', 'Hydro', 'Filipino', 'Sheesh', 'Purok 1', 'Bagumbayan', 'Legazpi', 'Albay', '4500', '09467812431', 'Preschool', 'Tambay sa bahay', 'Single', 'Employed', 'Yes', 'Yes', 'Yes', 'Fully Vaccinated', 'Active', '123.75236238820679', '13.13891354034876', NULL, '', 'qrcodes/4.png');
+(4, 'Charlotte', 'Focalors', 'De Bird', '', 'Female', '2002-04-29', 'Fontaine', 'Hydro', 'Filipino', 'Sheesh', 'Purok 1', 'Bagumbayan', 'Legazpi', 'Albay', '4500', '09467812431', 'Preschool', 'Tambay sa bahay', 'Single', 'Employed', 'Yes', 'Yes', 'Yes', 'Fully Vaccinated', 'Active', '123.75236238820679', '13.13891354034876', NULL, '', 'qrcodes/4.png'),
+(11, 'Mavuika', 'Pyro', 'Natlan', '', 'Female', '2000-01-11', 'Natlan', 'Pyro', 'Natlan', 'sdfghjk', 'Purok 1', 'Christian', 'Legazpi', 'Albay', '4500', '0978787878923', 'Preschool', 'Archon', 'Single', 'Employed', 'Yes', 'Yes', 'Yes', 'Fully Vaccinated', 'Active', '123.73407425235287', '13.136723639200417', '94365895', '', '94365895_qrcode.png');
 
 -- --------------------------------------------------------
 
@@ -958,6 +1035,12 @@ ALTER TABLE `contact_us`
   ADD PRIMARY KEY (`id`);
 
 --
+-- Indexes for table `family_planning`
+--
+ALTER TABLE `family_planning`
+  ADD PRIMARY KEY (`id`);
+
+--
 -- Indexes for table `home`
 --
 ALTER TABLE `home`
@@ -1007,6 +1090,12 @@ ALTER TABLE `immunization_5`
   ADD PRIMARY KEY (`id`);
 
 --
+-- Indexes for table `influenza_vaccination`
+--
+ALTER TABLE `influenza_vaccination`
+  ADD UNIQUE KEY `id` (`id`);
+
+--
 -- Indexes for table `logo`
 --
 ALTER TABLE `logo`
@@ -1017,6 +1106,43 @@ ALTER TABLE `logo`
 --
 ALTER TABLE `messages`
   ADD PRIMARY KEY (`msg_id`);
+
+--
+-- Indexes for table `nutrition`
+--
+ALTER TABLE `nutrition`
+  ADD PRIMARY KEY (`id`);
+
+--
+-- Indexes for table `nutrition_1`
+--
+ALTER TABLE `nutrition_1`
+  ADD PRIMARY KEY (`id`),
+  ADD KEY `fk_nutrition_id` (`nutrition_id`);
+
+--
+-- Indexes for table `nutrition_2`
+--
+ALTER TABLE `nutrition_2`
+  ADD PRIMARY KEY (`id`);
+
+--
+-- Indexes for table `nutrition_3`
+--
+ALTER TABLE `nutrition_3`
+  ADD PRIMARY KEY (`id`);
+
+--
+-- Indexes for table `nutrition_4`
+--
+ALTER TABLE `nutrition_4`
+  ADD PRIMARY KEY (`id`);
+
+--
+-- Indexes for table `nutrition_5`
+--
+ALTER TABLE `nutrition_5`
+  ADD PRIMARY KEY (`id`);
 
 --
 -- Indexes for table `organization`
@@ -1117,6 +1243,12 @@ ALTER TABLE `contact_us`
   MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
 
 --
+-- AUTO_INCREMENT for table `family_planning`
+--
+ALTER TABLE `family_planning`
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=6;
+
+--
 -- AUTO_INCREMENT for table `home`
 --
 ALTER TABLE `home`
@@ -1165,6 +1297,12 @@ ALTER TABLE `immunization_5`
   MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
 
 --
+-- AUTO_INCREMENT for table `influenza_vaccination`
+--
+ALTER TABLE `influenza_vaccination`
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=6;
+
+--
 -- AUTO_INCREMENT for table `logo`
 --
 ALTER TABLE `logo`
@@ -1175,6 +1313,42 @@ ALTER TABLE `logo`
 --
 ALTER TABLE `messages`
   MODIFY `msg_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=4;
+
+--
+-- AUTO_INCREMENT for table `nutrition`
+--
+ALTER TABLE `nutrition`
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=4;
+
+--
+-- AUTO_INCREMENT for table `nutrition_1`
+--
+ALTER TABLE `nutrition_1`
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=4;
+
+--
+-- AUTO_INCREMENT for table `nutrition_2`
+--
+ALTER TABLE `nutrition_2`
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=4;
+
+--
+-- AUTO_INCREMENT for table `nutrition_3`
+--
+ALTER TABLE `nutrition_3`
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=4;
+
+--
+-- AUTO_INCREMENT for table `nutrition_4`
+--
+ALTER TABLE `nutrition_4`
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=4;
+
+--
+-- AUTO_INCREMENT for table `nutrition_5`
+--
+ALTER TABLE `nutrition_5`
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=4;
 
 --
 -- AUTO_INCREMENT for table `organization`
@@ -1216,7 +1390,7 @@ ALTER TABLE `purok_boundaries`
 -- AUTO_INCREMENT for table `residents`
 --
 ALTER TABLE `residents`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=5;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=12;
 
 --
 -- AUTO_INCREMENT for table `users`
@@ -1239,6 +1413,12 @@ ALTER TABLE `animal_bite_records`
 --
 ALTER TABLE `hypertension`
   ADD CONSTRAINT `hypertension_ibfk_1` FOREIGN KEY (`resident_id`) REFERENCES `residents` (`id`);
+
+--
+-- Constraints for table `nutrition_1`
+--
+ALTER TABLE `nutrition_1`
+  ADD CONSTRAINT `fk_nutrition_id` FOREIGN KEY (`nutrition_id`) REFERENCES `nutrition` (`id`) ON DELETE CASCADE;
 
 --
 -- Constraints for table `organization`
