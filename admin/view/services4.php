@@ -114,11 +114,11 @@ if ($result) {
             </th>
             <th>
                 <label>BARANGAY<span class="req">*</span></label><br>
-                <input type="text" name="barangay" required value="Bagumbayan">
+                <input type="text" name="barangay" required value="">
             </th>
             <th>
                 <label>CITY/MUNICIPALITY<span class="req">*</span></label><br>
-                <input type="text" name="city_municipality" required value="Daraga">
+                <input type="text" name="city_municipality" required value="">
             </th>
             <th>
                 <label>PROVINCE<span class="req">*</span></label><br>
