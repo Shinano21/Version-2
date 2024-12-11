@@ -9,6 +9,9 @@ if (isset($_GET["id"]) && intval($_GET["id"]) > 0) {
     $conn->begin_transaction();
 
     try {
+        // Delete from related tables using foreign key constraints with cascading
+        // This will automatically handle deletions in related tables if ON DELETE CASCADE is configured.
+
         // Delete from the main table
         $stmt = $conn->prepare("DELETE FROM nutrition WHERE id = ?");
         $stmt->bind_param("i", $idx);
@@ -17,20 +20,6 @@ if (isset($_GET["id"]) && intval($_GET["id"]) > 0) {
             throw new Exception("Error deleting from nutrition: " . $stmt->error);
         }
         $stmt->close();
-
-        // Define related tables to delete from
-        $relatedTables = ['nutrition_1', 'nutrition_2', 'nutrition_3', 'nutrition_4', 'nutrition_5'];
-
-        foreach ($relatedTables as $table) {
-            // Delete from each related table
-            $stmt = $conn->prepare("DELETE FROM $table WHERE nutrition_id = ?");
-            $stmt->bind_param("i", $idx);
-
-            if (!$stmt->execute()) {
-                throw new Exception("Error deleting from $table: " . $stmt->error);
-            }
-            $stmt->close();
-        }
 
         // Commit transaction
         $conn->commit();
