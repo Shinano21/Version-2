@@ -1,30 +1,45 @@
 <?php
 include "../dbcon.php";
 
-// Check if the id is set in the query string
-if (isset($_GET["id"])) {
-    $idx = $_GET["id"];
+// Check if the id is set and valid
+if (isset($_GET["id"]) && intval($_GET["id"]) > 0) {
+    $idx = intval($_GET["id"]);
 
-    // Prepare and execute the DELETE query for the main table (immunization)
-    $stmt = $conn->prepare("DELETE FROM immunization WHERE id = ?");
-    $stmt->bind_param("i", $idx); // Bind the id as an integer
-    $stmt->execute();
-    $stmt->close();
+    // Start transaction
+    $conn->begin_transaction();
 
-    // Prepare and execute the DELETE queries for the related tables
-    $relatedTables = ['immunization_1', 'immunization_2', 'immunization_3', 'immunization_4', 'immunization_5'];
-
-    foreach ($relatedTables as $table) {
-        $stmt = $conn->prepare("DELETE FROM $table WHERE immu_id = ?");
-        $stmt->bind_param("i", $idx); // Bind the id as an integer
-        $stmt->execute();
+    try {
+        // Delete from the main table
+        $stmt = $conn->prepare("DELETE FROM immunization WHERE id = ?");
+        $stmt->bind_param("i", $idx);
+        if (!$stmt->execute()) {
+            throw new Exception("Error deleting from immunization: " . $stmt->error);
+        }
         $stmt->close();
-    }
 
-    // Redirect after successful deletion
-    header("Location: ../services1.php?deleted=success");
+        // Delete from related tables
+        $relatedTables = ['immunization_1', 'immunization_2', 'immunization_3', 'immunization_4', 'immunization_5'];
+
+        foreach ($relatedTables as $table) {
+            $stmt = $conn->prepare("DELETE FROM $table WHERE immu_id = ?");
+            $stmt->bind_param("i", $idx);
+            if (!$stmt->execute()) {
+                throw new Exception("Error deleting from $table: " . $stmt->error);
+            }
+            $stmt->close();
+        }
+
+        // Commit transaction
+        $conn->commit();
+        header("Location: ../services1.php?deleted=success");
+    } catch (Exception $e) {
+        // Rollback on error
+        $conn->rollback();
+        error_log("Error during deletion: " . $e->getMessage());
+        header("Location: ../services1.php?deleted=error");
+    }
 } else {
-    // Handle case when id is not set
+    // Handle missing or invalid id
     header("Location: ../services1.php?deleted=error");
 }
 
