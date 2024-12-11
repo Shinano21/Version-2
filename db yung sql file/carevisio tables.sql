@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Generation Time: Dec 11, 2024 at 10:03 AM
+-- Generation Time: Dec 11, 2024 at 10:31 AM
 -- Server version: 10.4.32-MariaDB
 -- PHP Version: 8.2.12
 
@@ -209,6 +209,13 @@ CREATE TABLE `family_planning` (
   `province` varchar(255) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
+--
+-- Dumping data for table `family_planning`
+--
+
+INSERT INTO `family_planning` (`id`, `date_of_registration`, `date_of_birth`, `family_serial_number`, `se_status`, `type_of_client`, `source`, `previous_method`, `first_name`, `middle_name`, `last_name`, `suffix`, `zone`, `barangay`, `city_municipality`, `province`) VALUES
+(1, '2021-06-11', '2014-02-11', '', 'NHTS', 'CU-CM', 'Public', 'NFP-STM', 'Maria', '', 'Gomez', '', 'Purok 1', 'Baybay', 'Legazpi', 'Albay');
+
 -- --------------------------------------------------------
 
 --
@@ -244,6 +251,15 @@ CREATE TABLE `family_planning_sched` (
   `family_id` int(11) DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
+--
+-- Dumping data for table `family_planning_sched`
+--
+
+INSERT INTO `family_planning_sched` (`id`, `schedule_date_january`, `actual_date_january`, `schedule_date_february`, `actual_date_february`, `schedule_date_march`, `actual_date_march`, `schedule_date_april`, `actual_date_april`, `schedule_date_may`, `actual_date_may`, `schedule_date_june`, `actual_date_june`, `schedule_date_july`, `actual_date_july`, `schedule_date_august`, `actual_date_august`, `schedule_date_september`, `actual_date_september`, `schedule_date_october`, `actual_date_october`, `schedule_date_november`, `actual_date_november`, `schedule_date_december`, `actual_date_december`, `family_id`) VALUES
+(0, '0000-00-00', '0000-00-00', '0000-00-00', '0000-00-00', '0000-00-00', '0000-00-00', '0000-00-00', '0000-00-00', '0000-00-00', '0000-00-00', '0000-00-00', '0000-00-00', '0000-00-00', '0000-00-00', '0000-00-00', '0000-00-00', '0000-00-00', '0000-00-00', '0000-00-00', '0000-00-00', '0000-00-00', '0000-00-00', '0000-00-00', '0000-00-00', 1),
+(0, '0000-00-00', '0000-00-00', '0000-00-00', '0000-00-00', '0000-00-00', '0000-00-00', '0000-00-00', '0000-00-00', '0000-00-00', '0000-00-00', '0000-00-00', '0000-00-00', '0000-00-00', '0000-00-00', '0000-00-00', '0000-00-00', '0000-00-00', '0000-00-00', '0000-00-00', '0000-00-00', '0000-00-00', '0000-00-00', '0000-00-00', '0000-00-00', 3),
+(0, '0000-00-00', '0000-00-00', '0000-00-00', '0000-00-00', '0000-00-00', '0000-00-00', '0000-00-00', '0000-00-00', '0000-00-00', '0000-00-00', '0000-00-00', '0000-00-00', '0000-00-00', '0000-00-00', '0000-00-00', '0000-00-00', '0000-00-00', '0000-00-00', '0000-00-00', '0000-00-00', '0000-00-00', '0000-00-00', '0000-00-00', '0000-00-00', 5);
+
 -- --------------------------------------------------------
 
 --
@@ -260,6 +276,15 @@ CREATE TABLE `family_plan_rem` (
   `lam_remarks` text DEFAULT NULL,
   `family_id` int(11) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+
+--
+-- Dumping data for table `family_plan_rem`
+--
+
+INSERT INTO `family_plan_rem` (`id`, `reasons`, `reasons_date`, `deworming_drugs_1st_dose_date`, `deworming_drugs_2nd_dose_date`, `deworming_drugs_yndwrm`, `lam_remarks`, `family_id`) VALUES
+(0, '', '0000-00-00', '0000-00-00', '0000-00-00', '', '', 1),
+(0, 'C', '0000-00-00', '2022-03-11', '2024-11-16', 'No', 'Comeback after 1month', 3),
+(0, 'B', '0000-00-00', '2024-12-29', '2025-01-07', 'No', '', 5);
 
 -- --------------------------------------------------------
 
@@ -1001,6 +1026,12 @@ ALTER TABLE `contact_us`
   ADD PRIMARY KEY (`id`);
 
 --
+-- Indexes for table `family_planning`
+--
+ALTER TABLE `family_planning`
+  ADD PRIMARY KEY (`id`);
+
+--
 -- Indexes for table `home`
 --
 ALTER TABLE `home`
@@ -1195,6 +1226,12 @@ ALTER TABLE `brgy_health`
 --
 ALTER TABLE `contact_us`
   MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
+
+--
+-- AUTO_INCREMENT for table `family_planning`
+--
+ALTER TABLE `family_planning`
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=6;
 
 --
 -- AUTO_INCREMENT for table `home`
