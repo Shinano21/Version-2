@@ -1,26 +1,38 @@
 <?php
 include "../dbcon.php";
 
-// Check if id is set in the query string
-if (isset($_GET["id"])) {
-    $idx = $_GET["id"];
+// Check if id is set and valid
+if (isset($_GET["id"]) && intval($_GET["id"]) > 0) {
+    $idx = intval($_GET["id"]);
 
-    // Prepare and execute the DELETE query for the influenza_vaccination table
-    $stmt = $conn->prepare("DELETE FROM influenza_vaccination WHERE id = ?");
-    $stmt->bind_param("i", $idx); // Bind the id as an integer
-    $stmt->execute();
+    // Start transaction
+    $conn->begin_transaction();
 
-    // Check if the query was successful
-    if ($stmt->affected_rows > 0) {
-        header("Location: ../services4.php?deleted=success");
-    } else {
+    try {
+        // Prepare and execute the DELETE query for the influenza_vaccination table
+        $stmt = $conn->prepare("DELETE FROM influenza_vaccination WHERE id = ?");
+        $stmt->bind_param("i", $idx);
+        if (!$stmt->execute()) {
+            throw new Exception("Error deleting from influenza_vaccination: " . $stmt->error);
+        }
+
+        // Check if a row was deleted
+        if ($stmt->affected_rows > 0) {
+            $conn->commit(); // Commit transaction
+            header("Location: ../services4.php?deleted=success");
+        } else {
+            throw new Exception("No matching record found for deletion.");
+        }
+        
+        // Close the statement
+        $stmt->close();
+    } catch (Exception $e) {
+        $conn->rollback(); // Rollback transaction on error
+        error_log("Error during deletion: " . $e->getMessage());
         header("Location: ../services4.php?deleted=error");
     }
-
-    // Close the statement
-    $stmt->close();
 } else {
-    // Handle case when id is not set
+    // Handle missing or invalid id
     header("Location: ../services4.php?deleted=error");
 }
 
