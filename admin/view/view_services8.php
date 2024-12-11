@@ -16,6 +16,126 @@ if (!isset($_SESSION["user"]) || $_SESSION["user_type"] == "System Administrator
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <title>View Hypertension Record | CareVisio</title>
     <?php include "../services/head.php"; ?>
+    <style>
+        /* General Styles for the Section */
+#main-content {
+    font-family: Arial, sans-serif;
+    margin: 20px;
+    padding: 20px;
+    background-color: #f9f9f9;
+    border-radius: 8px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+}
+
+/* Style for the Form */
+form {
+    max-width: 900px;
+    margin: 0 auto;
+}
+
+/* Sectioning Styles */
+.sectioning {
+    margin-bottom: 20px;
+    width: 100%;
+}
+
+.sectioning p {
+    font-size: 1.2em;
+    font-weight: bold;
+    color: #333;
+    margin-bottom: 10px;
+}
+
+.sectioning hr {
+    border: 1px solid #ddd;
+    margin-bottom: 10px;
+}
+
+/* Table Styles */
+table {
+    width: 100%;
+    border-collapse: collapse;
+    margin-bottom: 20px;
+}
+
+th, td {
+    padding: 12px;
+    text-align: left;
+    border: 1px solid #ddd;
+}
+
+th {
+    background-color: #f2f2f2;
+    font-weight: bold;
+    color: #333;
+    width: 30%;
+}
+
+td {
+    background-color: #fff;
+    color: #555;
+}
+
+/* Responsive Table Styles */
+@media (max-width: 768px) {
+    table, th, td {
+        display: block;
+        width: 100%;
+    }
+
+    th {
+        text-align: center;
+        padding-top: 10px;
+    }
+
+    td {
+        text-align: right;
+        padding-left: 50%;
+        position: relative;
+    }
+
+    td:before {
+        content: attr(data-label);
+        position: absolute;
+        left: 10px;
+        font-weight: bold;
+    }
+}
+
+/* Specific Styles for the Rows in the Tables */
+table tr:nth-child(even) {
+    background-color: #f9f9f9;
+}
+
+table tr:hover {
+    background-color: #f1f1f1;
+}
+
+/* Padding and Margin Adjustments for Tables */
+table td, table th {
+    padding: 10px;
+}
+
+/* Style for "No record found" Message */
+#main-content .no-record {
+    font-size: 1.2em;
+    color: red;
+    font-weight: bold;
+    text-align: center;
+}
+
+/* Additional Adjustments for Form and Layout */
+.row {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: space-between;
+}
+
+#main-content .relative {
+    position: relative;
+}
+
+    </style>
 </head>
 
 <body onload="display_ct();">
