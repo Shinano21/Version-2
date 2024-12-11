@@ -38,17 +38,75 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/leaflet.draw/1.0.4/leaflet.draw.css" />
     <script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/leaflet.draw/1.0.4/leaflet.draw.js"></script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.7.1/css/all.min.css">
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600&display=swap" rel="stylesheet">
     <style>
-        #map { width: 100%; height: 600px; margin-top: 20px; }
-        .form-group { margin-bottom: 10px; }
-        .form-container { margin-top: 20px; }
+        body {
+            font-family: 'Poppins', sans-serif;
+            background-color: #f4f4f4;
+            margin: 0;
+            padding: 0;
+        }
+        h1 {
+            text-align: center;
+            color: #2c3e50;
+            margin-top: 20px;
+        }
+        .back-link-container { margin: 50px 90px; } 
+        .back-link { color: grey; text-decoration: none; text-align: center; } 
+        .back-link:hover { text-decoration: underline; }
+    .back-link i { margin-right: 8px; /* Add space between icon and text */ }
+        #map { 
+            width: 80%; 
+            height: 600px; 
+            margin: 20px auto; 
+            border-radius: 15px; 
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1); 
+        }
+        .form-container {
+            width: 80%;
+            margin: 20px auto;
+            padding: 20px;
+            background-color: #fff;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+            border-radius: 15px;
+        }
+        .form-group {
+            margin-bottom: 15px;
+        }
+        label {
+            display: block;
+            margin-bottom: 5px;
+            color: #2c3e50;
+        }
+        input[type="text"],
+        input[type="color"] {
+            width: 98%;
+            padding: 10px;
+            border: 1px solid #ccc;
+            border-radius: 5px;
+        }
+        button {
+            margin-top: 20px;
+            display: inline-block;
+            padding: 10px 20px;
+            border: none;
+            background-color: #4D869C;
+            color: white;
+            border-radius: 5px;
+            cursor: pointer;
+        }
+        button:hover {
+            background-color: blue;
+        }
+    .form-actions { display: flex; justify-content: flex-end; /* Aligns the button to the end */ }
     </style>
 </head>
 <body>
+<div class="back-link-container">
+     <a href="purok_tables.php" class="back-link"> <i class="fa fa-long-arrow-left"></i>Back to Maps</a> 
+</div>
     <h1>Add Purok Boundary</h1>
-    <a href="purok_tables.php">
-                                    <h7><i class="fa fa-long-arrow-left">&nbsp;&nbsp;</i> Back to Maps</h7>
-                                </a>
     <div id="map"></div>
     <div class="form-container">
         <form id="addPurokForm">
@@ -60,7 +118,9 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
                 <label for="purokColor">Purok Color:</label>
                 <input type="color" id="purokColor" value="#ff5733" required>
             </div>
-            <button type="button" onclick="savePurok()">Save Purok</button>
+            <div class="form-actions"> 
+                <button type="button" onclick="savePurok()">Save Purok</button> 
+        </div>
         </form>
     </div>
 

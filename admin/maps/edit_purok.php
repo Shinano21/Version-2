@@ -56,35 +56,107 @@ if (!$purok) {
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/leaflet.draw/1.0.4/leaflet.draw.css" />
     <script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/leaflet.draw/1.0.4/leaflet.draw.js"></script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.7.1/css/all.min.css">
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600&display=swap" rel="stylesheet">
     <style>
-        body { font-family: Arial, sans-serif; margin: 0; padding: 0; }
-        h1 { text-align: center; margin: 20px; }
-        .map-container { width: 100%; height: 400px; margin-bottom: 30px; }
-        .form-container { width: 80%; margin: 0 auto 30px; }
-        .form-container input { width: 100%; padding: 10px; margin: 10px 0; }
-        .form-container button { padding: 10px 20px; background-color: #007bff; color: white; border: none; border-radius: 5px; cursor: pointer; }
-        .form-container button:hover { background-color: #0056b3; }
+        body {
+            font-family: 'Poppins', sans-serif;
+            background-color: #f4f4f4;
+            margin: 0;
+            padding: 0;
+        }
+        h1 {
+            text-align: center;
+            color: #2c3e50;
+            margin-top: 20px;
+        }
+        .back-link-container {
+            margin: 50px 90px;
+            text-align: left;
+        }
+        .back-link {
+            color: grey;
+            text-decoration: none;
+        }
+        .back-link i {
+            margin-right: 8px;
+        }
+        .back-link:hover {
+            text-decoration: underline;
+        }
+        .map-container {
+            width: 80%;
+            height: 600px;
+            margin: 20px auto;
+            border-radius: 15px;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+        }
+        .form-container {
+            width: 80%;
+            margin: 20px auto;
+            padding: 20px;
+            background-color: #fff;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+            border-radius: 15px;
+        }
+        .form-group {
+            margin-bottom: 15px;
+        }
+        label {
+            display: block;
+            margin-bottom: 5px;
+            color: #2c3e50;
+        }
+        input[type="text"],
+        input[type="color"] {
+            width: 100%;
+            padding: 10px;
+            border: 1px solid #ccc;
+            border-radius: 5px;
+            box-sizing: border-box;
+        }
+        .form-actions {
+            display: flex;
+            justify-content: flex-end;
+        }
+        button {
+            padding: 10px 20px;
+            border: none;
+            background-color: #4D869C;
+            color: white;
+            border-radius: 5px;
+            cursor: pointer;
+        }
+        button:hover {
+            background-color: #0056b3;
+        }
     </style>
 </head>
 <body>
-<a href="purok_tables.php">
-                                    <h7><i class="fa fa-long-arrow-left">&nbsp;&nbsp;</i> Back to Maps</h7>
-                                </a>
+    <div class="back-link-container">
+        <a href="purok_tables.php" class="back-link">
+            <i class="fa fa-long-arrow-left"></i>Back to Maps
+        </a>
+    </div>
     <h1>Edit Purok: <?php echo htmlspecialchars($purok['purok_name']); ?></h1>
+    
+    <div class="map-container" id="map"></div>
 
-    <!-- Editable Form -->
     <div class="form-container">
-        <label for="purok_name">Purok Name:</label>
-        <input type="text" id="purok_name" value="<?php echo htmlspecialchars($purok['purok_name']); ?>">
-
-        <label for="color">Boundary Color:</label>
-        <input type="color" id="color" value="<?php echo htmlspecialchars($purok['color']); ?>">
-
-        <button id="save-btn">Save Changes</button>
+        <div class="form-group">
+            <label for="purok_name">Purok Name:</label>
+            <input type="text" id="purok_name" value="<?php echo htmlspecialchars($purok['purok_name']); ?>">
+        </div>
+        <div class="form-group">
+            <label for="color">Boundary Color:</label>
+            <input type="color" id="color" value="<?php echo htmlspecialchars($purok['color']); ?>">
+        </div>
+        <div class="form-actions">
+            <button type="button" id="save-btn">Save Changes</button>
+        </div>
     </div>
 
-    <!-- Map Container -->
-    <div class="map-container" id="map"></div>
+   
 
     <script>
     (function() {
@@ -94,14 +166,11 @@ if (!$purok) {
             attribution: '© OpenStreetMap contributors'
         }).addTo(map);
 
-        // Parse the boundary coordinates from JSON
         var boundaryCoordinates = <?php echo $purok['boundary_coordinates']; ?>;
 
-        // Create a Feature Group to hold the polygon
         var drawnItems = new L.FeatureGroup();
         map.addLayer(drawnItems);
 
-        // Add the polygon to the Feature Group
         var polygon = L.geoJSON(boundaryCoordinates, {
             style: {
                 color: '<?php echo htmlspecialchars($purok['color']); ?>',
@@ -109,26 +178,23 @@ if (!$purok) {
                 fillOpacity: 0.5
             }
         }).eachLayer(function(layer) {
-            drawnItems.addLayer(layer); // Add the polygon layer to the Feature Group
+            drawnItems.addLayer(layer);
         });
 
-        // Initialize Leaflet Draw controls
         var drawControl = new L.Control.Draw({
             edit: {
-                featureGroup: drawnItems, // Enables editing of layers in this group
-                remove: false             // Prevent deletion for safety
+                featureGroup: drawnItems,
+                remove: false
             },
-            draw: false                  // Disable drawing of new shapes
+            draw: false
         });
         map.addControl(drawControl);
 
-        // Handle saving edits
         document.getElementById('save-btn').addEventListener('click', function() {
-            var updatedLayer = drawnItems.getLayers()[0]; // Get the edited polygon layer
+            var updatedLayer = drawnItems.getLayers()[0];
             var updatedGeoJSON = updatedLayer.toGeoJSON();
 
-            // Send the updated data to the server
-            fetch('', { // Empty string refers to the current file
+            fetch('', {
                 method: 'POST',
                 headers: {
                     'Content-Type': 'application/json'
