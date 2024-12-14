@@ -4,6 +4,8 @@
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>Create Account - TechCare</title>
+    <link rel="shortcut icon" href="user/images/techcareLogo2.png" type="image/x-icon">
+    
      <style>
       body {
         font-family: Arial, sans-serif;
@@ -224,6 +226,17 @@
     cursor: pointer;
     border-radius: 5px;
 }
+.date-label { 
+  font-size: 13px; 
+  color: grey;
+  /* margin-bottom: 20px; */
+}
+label[for="profile_image"] {
+  font-size: 13px;
+  margin-bottom: 0.5rem;
+  color: grey;
+}
+
 
     </style>
     <script>
@@ -371,11 +384,13 @@
             placeholder="Last Name"
             required
           />
+          <label for="birthday" class="date-label">Date of Birth</label>
           <input
             type="date"
             name="birthday"
             placeholder="Birthday"
             required
+            style="margin-bottom: 1rem;"
           />
           <input type="email" name="email" placeholder="Email" required />
           <input
@@ -385,6 +400,7 @@
             placeholder="Password"
             required
           />
+          <label for="profile_image">Upload Profile</label>
           <input type="file" name="profile_image" required />
           <div id="error-message" class="error-message"></div>
           <div class="show-password">

@@ -54,7 +54,7 @@ if(!isset($_SESSION["user"])){
                 </div>
                 <!-- /# row -->
                 <section id="main-content">
-                    <div class="row">
+                    <div class="row" id="main-data">
 
                         <a href="#" class="asddasd a1">
                             <div class="dash3">
@@ -364,6 +364,13 @@ if(!isset($_SESSION["user"])){
 
 
                     <style>
+                        #main-data{
+                            background-color: white;
+                        }
+                        body{
+                            background-color: #CDE8E5;
+
+                        }
                     table {
                         width: 100%;
                         box-shadow: 0px 0px 2px gray;
@@ -438,27 +445,27 @@ if(!isset($_SESSION["user"])){
                     }
 
                     .a1 {
-                        background-color: rgb(215, 215, 253);
+                        background-color: #CDE8E5;
                     }
 
                     .a2 {
-                        background-color: rgb(249, 217, 219);
+                        background-color: #EEF7FF;
                     }
 
                     .a3 {
-                        background-color: rgb(197, 230, 228);
+                        background-color: #CDE8E5;
                     }
 
                     .a4 {
-                        background-color: rgb(240, 181, 220);
+                        background-color: #EEF7FF;
                     }
 
                     .a5 {
-                        background-color: rgb(183, 213, 181);
+                        background-color: #CDE8E5;
                     }
 
                     .a6 {
-                        background-color: rgb(246, 207, 187);
+                        background-color: #EEF7FF;
                     }
                     </style>
 
