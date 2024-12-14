@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Generation Time: Dec 11, 2024 at 03:33 PM
+-- Generation Time: Dec 14, 2024 at 04:30 PM
 -- Server version: 10.4.32-MariaDB
 -- PHP Version: 8.2.12
 
@@ -144,7 +144,9 @@ CREATE TABLE `anti_pneumonia` (
 --
 
 INSERT INTO `anti_pneumonia` (`id`, `first_name`, `middle_name`, `last_name`, `suffix`, `zone`, `barangay`, `city_municipality`, `province`, `vaccination_date`, `vaccination_site`, `date_of_birth`) VALUES
-(4, 'carlo', 'andrie', 'abagay', '', 'Purok 1', 'Bagumbayan', 'Daraga', 'Albay', '2024-01-05', 'left', '2023-12-20');
+(1, 'Zhongli', 'Asis', 'Lee', '', 'Purok 1', 'Baybay', 'Legazpi', 'Albay', '2024-12-15', 'Right', '2024-12-16'),
+(4, 'carlo', 'andrie', 'abagay', '', 'Purok 1', 'Bagumbayan', 'Daraga', 'Albay', '2024-01-05', 'left', '2023-12-20'),
+(5, 'Zhongli', 'sasasa', 'Sato', '', 'Purok 1', 'Pigcale', 'Legazpi', 'Albay', '2024-12-11', 'Left', '2024-12-15');
 
 -- --------------------------------------------------------
 
@@ -214,7 +216,8 @@ CREATE TABLE `family_planning` (
 --
 
 INSERT INTO `family_planning` (`id`, `date_of_registration`, `date_of_birth`, `family_serial_number`, `se_status`, `type_of_client`, `source`, `previous_method`, `first_name`, `middle_name`, `last_name`, `suffix`, `zone`, `barangay`, `city_municipality`, `province`) VALUES
-(1, '2021-06-11', '2014-02-11', '', 'NHTS', 'CU-CM', 'Public', 'NFP-STM', 'Maria', '', 'Gomez', '', 'Purok 1', 'Baybay', 'Legazpi', 'Albay');
+(1, '2021-06-11', '2014-02-11', '', 'NHTS', 'CU-CM', 'Public', 'NFP-STM', 'Maria', '', 'Gomez', '', 'Purok 1', 'Baybay', 'Legazpi', 'Albay'),
+(6, '2024-12-20', '2024-12-12', '1234', 'NHTS', 'CU', 'Public', 'NFP-SDM', 'Randiel ', 'Zamora', 'Ased', '', 'Purok 2', 'Baybay', 'Legazpi', 'Albay');
 
 -- --------------------------------------------------------
 
@@ -258,7 +261,8 @@ CREATE TABLE `family_planning_sched` (
 INSERT INTO `family_planning_sched` (`id`, `schedule_date_january`, `actual_date_january`, `schedule_date_february`, `actual_date_february`, `schedule_date_march`, `actual_date_march`, `schedule_date_april`, `actual_date_april`, `schedule_date_may`, `actual_date_may`, `schedule_date_june`, `actual_date_june`, `schedule_date_july`, `actual_date_july`, `schedule_date_august`, `actual_date_august`, `schedule_date_september`, `actual_date_september`, `schedule_date_october`, `actual_date_october`, `schedule_date_november`, `actual_date_november`, `schedule_date_december`, `actual_date_december`, `family_id`) VALUES
 (0, '0000-00-00', '0000-00-00', '0000-00-00', '0000-00-00', '0000-00-00', '0000-00-00', '0000-00-00', '0000-00-00', '0000-00-00', '0000-00-00', '0000-00-00', '0000-00-00', '0000-00-00', '0000-00-00', '0000-00-00', '0000-00-00', '0000-00-00', '0000-00-00', '0000-00-00', '0000-00-00', '0000-00-00', '0000-00-00', '0000-00-00', '0000-00-00', 1),
 (0, '0000-00-00', '0000-00-00', '0000-00-00', '0000-00-00', '0000-00-00', '0000-00-00', '0000-00-00', '0000-00-00', '0000-00-00', '0000-00-00', '0000-00-00', '0000-00-00', '0000-00-00', '0000-00-00', '0000-00-00', '0000-00-00', '0000-00-00', '0000-00-00', '0000-00-00', '0000-00-00', '0000-00-00', '0000-00-00', '0000-00-00', '0000-00-00', 3),
-(0, '0000-00-00', '0000-00-00', '0000-00-00', '0000-00-00', '0000-00-00', '0000-00-00', '0000-00-00', '0000-00-00', '0000-00-00', '0000-00-00', '0000-00-00', '0000-00-00', '0000-00-00', '0000-00-00', '0000-00-00', '0000-00-00', '0000-00-00', '0000-00-00', '0000-00-00', '0000-00-00', '0000-00-00', '0000-00-00', '0000-00-00', '0000-00-00', 5);
+(0, '0000-00-00', '0000-00-00', '0000-00-00', '0000-00-00', '0000-00-00', '0000-00-00', '0000-00-00', '0000-00-00', '0000-00-00', '0000-00-00', '0000-00-00', '0000-00-00', '0000-00-00', '0000-00-00', '0000-00-00', '0000-00-00', '0000-00-00', '0000-00-00', '0000-00-00', '0000-00-00', '0000-00-00', '0000-00-00', '0000-00-00', '0000-00-00', 5),
+(0, '0000-00-00', '0000-00-00', '0000-00-00', '0000-00-00', '0000-00-00', '0000-00-00', '0000-00-00', '0000-00-00', '0000-00-00', '0000-00-00', '0000-00-00', '0000-00-00', '0000-00-00', '0000-00-00', '0000-00-00', '0000-00-00', '0000-00-00', '0000-00-00', '0000-00-00', '0000-00-00', '0000-00-00', '0000-00-00', '0000-00-00', '0000-00-00', 6);
 
 -- --------------------------------------------------------
 
@@ -284,7 +288,8 @@ CREATE TABLE `family_plan_rem` (
 INSERT INTO `family_plan_rem` (`id`, `reasons`, `reasons_date`, `deworming_drugs_1st_dose_date`, `deworming_drugs_2nd_dose_date`, `deworming_drugs_yndwrm`, `lam_remarks`, `family_id`) VALUES
 (0, '', '0000-00-00', '0000-00-00', '0000-00-00', '', '', 1),
 (0, 'C', '0000-00-00', '2022-03-11', '2024-11-16', 'No', 'Comeback after 1month', 3),
-(0, 'B', '0000-00-00', '2024-12-29', '2025-01-07', 'No', '', 5);
+(0, 'B', '0000-00-00', '2024-12-29', '2025-01-07', 'No', '', 5),
+(0, NULL, '0000-00-00', '0000-00-00', '0000-00-00', NULL, 'q3essssdssdfg', 6);
 
 -- --------------------------------------------------------
 
@@ -553,7 +558,7 @@ CREATE TABLE `influenza_vaccination` (
 
 INSERT INTO `influenza_vaccination` (`id`, `first_name`, `middle_name`, `last_name`, `suffix`, `zone`, `barangay`, `city_municipality`, `province`, `vaccination_date`, `vaccination_site`, `date_of_birth`) VALUES
 (2, 'Zhongli', 'sasasa', 'Sato', 'adsdwds', 'Purok 1', 'HAhaha', 'Daraga', 'Albay', '2024-12-02', 'Left', '2024-12-02'),
-(4, 'Mavuika', 'Pyro', 'Natlan', '', 'Purok 1', 'Christian', 'Legazpi', 'Albay', '2024-12-12', 'Left', '2000-01-11'),
+(4, 'Mavuika', 'Pyro', 'Natlan', '', 'Purok 1', 'aserere', 'ererere', 'Albay', '2024-12-12', 'Left', '2000-01-11'),
 (5, 'Zhongli', 'asdfrg', 'asdfg', 'sff', 'Purok 2', 'Bagumbayansfsf', 'Daragasfsf', 'Albayfsf', '2024-12-03', 'Left', '2024-11-29');
 
 -- --------------------------------------------------------
@@ -636,7 +641,8 @@ CREATE TABLE `nutrition` (
 --
 
 INSERT INTO `nutrition` (`id`, `reg`, `bday`, `serial`, `se_status`, `sex`, `length`, `weight`, `fname`, `mname`, `lname`, `suffix`, `zone`, `brgy`, `city`, `province`, `mother_fname`, `mother_mname`, `mother_lname`) VALUES
-(1, '2024-12-11', '2023-06-11', '', 'NHTS', 'Male', '50', '3', 'Randiel', '', 'Asis', '', 'Purok 1', 'Bagumbayan', 'Daraga', 'Albay', 'Rica', '', 'Asis');
+(1, '2024-12-11', '2023-06-11', '', 'NHTS', 'Male', '50', '3', 'Randiel', '', 'Asis', '', 'Purok 1', 'Bagumbayan', 'Daraga', 'Albay', 'Rica', '', 'Asis'),
+(4, '2020-06-13', '1999-06-13', '', 'NHTS', 'Male', '50', '3', 'Ethan', 'N/A', 'Lee', '', 'Purok 2', 'Pigcale', 'Legazpi', 'Albay', 'Ella', '', 'Lee');
 
 -- --------------------------------------------------------
 
@@ -661,7 +667,8 @@ CREATE TABLE `nutrition_1` (
 --
 
 INSERT INTO `nutrition_1` (`id`, `nutritional_status`, `mnp_date`, `vitamin_a_1st_dose_date`, `vitamin_a_2nd_dose_date`, `deworming_1st_dose_date`, `deworming_2nd_dose_date`, `deworming_yn`, `nutrition_id`) VALUES
-(1, 'N', '2024-12-11', '2024-12-13', '2024-12-22', '2024-12-11', '2024-12-13', 'Yes', 0);
+(1, 'N', '2024-12-11', '2024-12-13', '2024-12-22', '2024-12-11', '2024-12-13', 'Yes', 0),
+(4, 'N', '2021-07-13', '2023-06-13', '2023-06-13', '2024-12-08', '2024-12-13', 'Yes', 4);
 
 -- --------------------------------------------------------
 
@@ -685,7 +692,8 @@ CREATE TABLE `nutrition_2` (
 --
 
 INSERT INTO `nutrition_2` (`id`, `nutrition_id`, `vitamin_a_1st_dose_date`, `vitamin_a_2nd_dose_date`, `deworming_1st_dose_date`, `deworming_2nd_dose_date`, `deworming_yn`, `nutritional_status2`) VALUES
-(1, 0, '0000-00-00', '0000-00-00', '0000-00-00', '0000-00-00', '', '');
+(1, 0, '0000-00-00', '0000-00-00', '0000-00-00', '0000-00-00', '', ''),
+(4, 4, '0000-00-00', '0000-00-00', '0000-00-00', '0000-00-00', '', '');
 
 -- --------------------------------------------------------
 
@@ -709,7 +717,8 @@ CREATE TABLE `nutrition_3` (
 --
 
 INSERT INTO `nutrition_3` (`id`, `nutrition_id`, `vitamin_a_1st_dose_date`, `vitamin_a_2nd_dose_date`, `deworming_1st_dose_date`, `deworming_2nd_dose_date`, `deworming_yn`, `nutritional_status3`) VALUES
-(1, 0, '0000-00-00', '0000-00-00', '0000-00-00', '0000-00-00', '', '');
+(1, 0, '0000-00-00', '0000-00-00', '0000-00-00', '0000-00-00', '', ''),
+(4, 4, '0000-00-00', '0000-00-00', '0000-00-00', '0000-00-00', '', '');
 
 -- --------------------------------------------------------
 
@@ -733,7 +742,8 @@ CREATE TABLE `nutrition_4` (
 --
 
 INSERT INTO `nutrition_4` (`id`, `nutrition_id`, `vitamin_a_1st_dose_date`, `vitamin_a_2nd_dose_date`, `deworming_1st_dose_date`, `deworming_2nd_dose_date`, `deworming_yn`, `nutritional_status4`) VALUES
-(1, 0, '0000-00-00', '0000-00-00', '0000-00-00', '0000-00-00', '', '');
+(1, 0, '0000-00-00', '0000-00-00', '0000-00-00', '0000-00-00', '', ''),
+(4, 4, '0000-00-00', '0000-00-00', '0000-00-00', '0000-00-00', '', '');
 
 -- --------------------------------------------------------
 
@@ -754,7 +764,8 @@ CREATE TABLE `nutrition_5` (
 --
 
 INSERT INTO `nutrition_5` (`id`, `mam_status`, `sam_status`, `remarks`, `nutrition_id`) VALUES
-(1, '', '', '', 0);
+(1, '', '', '', 0),
+(4, '', '', '', 4);
 
 -- --------------------------------------------------------
 
@@ -1231,6 +1242,12 @@ ALTER TABLE `announcements`
   MODIFY `id` int(11) NOT NULL AUTO_INCREMENT;
 
 --
+-- AUTO_INCREMENT for table `anti_pneumonia`
+--
+ALTER TABLE `anti_pneumonia`
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=6;
+
+--
 -- AUTO_INCREMENT for table `brgy_health`
 --
 ALTER TABLE `brgy_health`
@@ -1246,7 +1263,7 @@ ALTER TABLE `contact_us`
 -- AUTO_INCREMENT for table `family_planning`
 --
 ALTER TABLE `family_planning`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=6;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=7;
 
 --
 -- AUTO_INCREMENT for table `home`
@@ -1318,37 +1335,37 @@ ALTER TABLE `messages`
 -- AUTO_INCREMENT for table `nutrition`
 --
 ALTER TABLE `nutrition`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=4;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=5;
 
 --
 -- AUTO_INCREMENT for table `nutrition_1`
 --
 ALTER TABLE `nutrition_1`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=4;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=5;
 
 --
 -- AUTO_INCREMENT for table `nutrition_2`
 --
 ALTER TABLE `nutrition_2`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=4;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=5;
 
 --
 -- AUTO_INCREMENT for table `nutrition_3`
 --
 ALTER TABLE `nutrition_3`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=4;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=5;
 
 --
 -- AUTO_INCREMENT for table `nutrition_4`
 --
 ALTER TABLE `nutrition_4`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=4;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=5;
 
 --
 -- AUTO_INCREMENT for table `nutrition_5`
 --
 ALTER TABLE `nutrition_5`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=4;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=5;
 
 --
 -- AUTO_INCREMENT for table `organization`
