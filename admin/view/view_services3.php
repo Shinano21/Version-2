@@ -173,18 +173,36 @@ if ($result) {
 
             </select>
         </th>
-        <th>
-            <label>BARANGAY<span class="req">*</span></label><br>
-            <input type="text" name="barangay" required value="Bagumbayan">
-        </th>
-        <th>
-            <label>CITY/MUNICIPALITY<span class="req">*</span></label><br>
-            <input type="text" name="city_municipality" required value="Daraga">
-        </th>
-        <th>
-            <label>PROVINCE<span class="req">*</span></label><br>
-            <input type="text" name="province" required value="Albay">
-        </th>
+        <tr>
+    <th>
+        <label for="barangay">BARANGAY <span class="req">*</span></label><br>
+        <input 
+            type="text" 
+            id="barangay" 
+            name="barangay" 
+            value="<?php echo $row['barangay']; ?>"
+        >
+    </th>
+    <th>
+        <label for="city_municipality">CITY/MUNICIPALITY <span class="req">*</span></label><br>
+        <input 
+            type="text" 
+            id="city_municipality" 
+            name="city_municipality" 
+            value="<?php echo $row['city_municipality']; ?>"
+        >
+    </th>
+    <th>
+        <label for="province">PROVINCE <span class="req">*</span></label><br>
+        <input 
+            type="text" 
+            id="province" 
+            name="province" 
+            value="<?php echo $row['province']; ?>"
+        >
+    </th>
+</tr>
+
     </tr>
 </table>
 

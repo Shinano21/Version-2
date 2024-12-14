@@ -238,8 +238,9 @@ $sql3 = "INSERT INTO nutrition_3 (nutrition_id, vitamin_a_1st_dose_date, vitamin
       }
 }
 
-if(isset($_POST["add_family"])){
-    $idx = $_POST["add_family"];
+if (isset($_POST["add_family"])) { // Use 'update_family' to differentiate
+    // Retrieve form data
+    $idx = $_POST["add_family"]; // ID of the family record
     $date_of_registration = $_POST['date_of_registration'];
     $date_of_birth = $_POST['date_of_birth'];
     $family_serial_number = $_POST['family_serial_number'];
@@ -255,84 +256,157 @@ if(isset($_POST["add_family"])){
     $barangay = $_POST['barangay'];
     $city_municipality = $_POST['city_municipality'];
     $province = $_POST['province'];
-    $sql = "DELETE FROM family_planning WHERE id = '$idx'";
-    mysqli_query($conn, $sql);
-    $sql = "DELETE FROM family_planning_sched WHERE family_id = '$idx'";
-    mysqli_query($conn, $sql);
-    $sql = "DELETE FROM family_plan_rem WHERE family_id = '$idx'";
-    mysqli_query($conn, $sql);
-    $sql = "INSERT INTO family_planning (date_of_registration, date_of_birth, family_serial_number, se_status, type_of_client, source, previous_method, first_name, middle_name, last_name, suffix, zone, barangay, city_municipality, province)
-            VALUES ('$date_of_registration', '$date_of_birth', '$family_serial_number', '$se_status', '$type_of_client', '$source', '$previous_method', '$first_name', '$middle_name', '$last_name', '$suffix', '$zone', '$barangay', '$city_municipality', '$province')";
 
-if(mysqli_query($conn, $sql)){
-    $fid = mysqli_insert_id($conn);
-    $scheduleDateJanuary = $_POST['schedule_date_january'];
-    $actualDateJanuary = $_POST['actual_date_january'];
-    $scheduleDateFebruary = $_POST['schedule_date_february'];
-    $actualDateFebruary = $_POST['actual_date_february'];
-    $scheduleDateMarch = $_POST['schedule_date_march'];
-    $actualDateMarch = $_POST['actual_date_march'];
-    $scheduleDateApril = $_POST['schedule_date_april'];
-    $actualDateApril = $_POST['actual_date_april'];
-    $scheduleDateMay = $_POST['schedule_date_may'];
-    $actualDateMay = $_POST['actual_date_may'];
-    $scheduleDateJune = $_POST['schedule_date_june'];
-    $actualDateJune = $_POST['actual_date_june'];
-    $scheduleDateJuly = $_POST['schedule_date_july'];
-    $actualDateJuly = $_POST['actual_date_july'];
-    $scheduleDateAugust = $_POST['schedule_date_august'];
-    $actualDateAugust = $_POST['actual_date_august'];
-    $scheduleDateSeptember = $_POST['schedule_date_september'];
-    $actualDateSeptember = $_POST['actual_date_september'];
-    $scheduleDateOctober = $_POST['schedule_date_october'];
-    $actualDateOctober = $_POST['actual_date_october'];
-    $scheduleDateNovember = $_POST['schedule_date_november'];
-    $actualDateNovember = $_POST['actual_date_november'];
-    $scheduleDateDecember = $_POST['schedule_date_december'];
-    $actualDateDecember = $_POST['actual_date_december'];
-$sql1 = "INSERT INTO family_planning_sched (
-    schedule_date_january, actual_date_january,
-    schedule_date_february, actual_date_february,
-    schedule_date_march, actual_date_march,
-    schedule_date_april, actual_date_april,
-    schedule_date_may, actual_date_may,
-    schedule_date_june, actual_date_june,
-    schedule_date_july, actual_date_july,
-    schedule_date_august, actual_date_august,
-    schedule_date_september, actual_date_september,
-    schedule_date_october, actual_date_october,
-    schedule_date_november, actual_date_november,
-    schedule_date_december, actual_date_december,
-    family_id
-) VALUES (
-    '$scheduleDateJanuary', '$actualDateJanuary',
-    '$scheduleDateFebruary', '$actualDateFebruary',
-    '$scheduleDateMarch', '$actualDateMarch',
-    '$scheduleDateApril', '$actualDateApril',
-    '$scheduleDateMay', '$actualDateMay',
-    '$scheduleDateJune', '$actualDateJune',
-    '$scheduleDateJuly', '$actualDateJuly',
-    '$scheduleDateAugust', '$actualDateAugust',
-    '$scheduleDateSeptember', '$actualDateSeptember',
-    '$scheduleDateOctober', '$actualDateOctober',
-    '$scheduleDateNovember', '$actualDateNovember',
-    '$scheduleDateDecember', '$actualDateDecember',
-    '$fid'
-)";
-mysqli_query($conn, $sql1);
-$reasons = $_POST["reason1"];
-$reasonsDate = $_POST["reason_date"];
-$dewormingDrugs1stDoseDate = $_POST["deworming_1st_dose_date"];
-$dewormingDrugs2ndDoseDate = $_POST["deworming_2nd_dose_date"];
-$dewormingDrugsYndwrm =  $_POST["deworming_yndwrm"];
-$lamRemarks = $_POST["lam_remarks"];
-$sql2 = "INSERT INTO family_plan_rem (reasons, reasons_date, deworming_drugs_1st_dose_date, deworming_drugs_2nd_dose_date, deworming_drugs_yndwrm, lam_remarks,family_id)
-VALUES ('$reasons', '$reasonsDate', '$dewormingDrugs1stDoseDate', '$dewormingDrugs2ndDoseDate', '$dewormingDrugsYndwrm', '$lamRemarks','$fid')";
-mysqli_query($conn, $sql2);
-header("Location:../services3.php?added=Success");
+    // Begin transaction
+    mysqli_begin_transaction($conn);
+
+    try {
+        // Update the main family planning record
+        $sql = "UPDATE family_planning 
+                SET date_of_registration = ?, 
+                    date_of_birth = ?, 
+                    family_serial_number = ?, 
+                    se_status = ?, 
+                    type_of_client = ?, 
+                    source = ?, 
+                    previous_method = ?, 
+                    first_name = ?, 
+                    middle_name = ?, 
+                    last_name = ?, 
+                    suffix = ?, 
+                    zone = ?, 
+                    barangay = ?, 
+                    city_municipality = ?, 
+                    province = ?
+                WHERE id = ?";
+        $stmt = mysqli_prepare($conn, $sql);
+        mysqli_stmt_bind_param(
+            $stmt,
+            'sssssssssssssssi',
+            $date_of_registration,
+            $date_of_birth,
+            $family_serial_number,
+            $se_status,
+            $type_of_client,
+            $source,
+            $previous_method,
+            $first_name,
+            $middle_name,
+            $last_name,
+            $suffix,
+            $zone,
+            $barangay,
+            $city_municipality,
+            $province,
+            $idx
+        );
+        mysqli_stmt_execute($stmt);
+
+        // Update family planning schedule
+        $scheduleDates = [
+            'schedule_date_january' => $_POST['schedule_date_january'],
+            'actual_date_january' => $_POST['actual_date_january'],
+            'schedule_date_february' => $_POST['schedule_date_february'],
+            'actual_date_february' => $_POST['actual_date_february'],
+            'schedule_date_march' => $_POST['schedule_date_march'],
+            'actual_date_march' => $_POST['actual_date_march'],
+            'schedule_date_april' => $_POST['schedule_date_april'],
+            'actual_date_april' => $_POST['actual_date_april'],
+            'schedule_date_may' => $_POST['schedule_date_may'],
+            'actual_date_may' => $_POST['actual_date_may'],
+            'schedule_date_june' => $_POST['schedule_date_june'],
+            'actual_date_june' => $_POST['actual_date_june'],
+            'schedule_date_july' => $_POST['schedule_date_july'],
+            'actual_date_july' => $_POST['actual_date_july'],
+            'schedule_date_august' => $_POST['schedule_date_august'],
+            'actual_date_august' => $_POST['actual_date_august'],
+            'schedule_date_september' => $_POST['schedule_date_september'],
+            'actual_date_september' => $_POST['actual_date_september'],
+            'schedule_date_october' => $_POST['schedule_date_october'],
+            'actual_date_october' => $_POST['actual_date_october'],
+            'schedule_date_november' => $_POST['schedule_date_november'],
+            'actual_date_november' => $_POST['actual_date_november'],
+            'schedule_date_december' => $_POST['schedule_date_december'],
+            'actual_date_december' => $_POST['actual_date_december']
+        ];
+
+        // Prepare statement for family planning schedule update
+$sql_sched = "UPDATE family_planning_sched 
+SET schedule_date_january = ?, actual_date_january = ?,
+    schedule_date_february = ?, actual_date_february = ?,
+    schedule_date_march = ?, actual_date_march = ?,
+    schedule_date_april = ?, actual_date_april = ?,
+    schedule_date_may = ?, actual_date_may = ?,
+    schedule_date_june = ?, actual_date_june = ?,
+    schedule_date_july = ?, actual_date_july = ?,
+    schedule_date_august = ?, actual_date_august = ?,
+    schedule_date_september = ?, actual_date_september = ?,
+    schedule_date_october = ?, actual_date_october = ?,
+    schedule_date_november = ?, actual_date_november = ?,
+    schedule_date_december = ?, actual_date_december = ?
+WHERE family_id = ?";
+$stmt_sched = mysqli_prepare($conn, $sql_sched);
+
+// Create array of schedule values
+$params = array_merge(array_values($scheduleDates), [$idx]);
+
+// Bind parameters dynamically
+mysqli_stmt_bind_param(
+$stmt_sched,
+str_repeat('s', count($scheduleDates)) . 'i', // 24 strings + 1 integer
+...$params
+);
+
+// Execute the statement
+mysqli_stmt_execute($stmt_sched);
+
+
+        // Update family plan remarks
+        $reasons = $_POST["reason1"];
+        $reasonsDate = $_POST["reason_date"];
+        $dewormingDrugs1stDoseDate = $_POST["deworming_1st_dose_date"];
+        $dewormingDrugs2ndDoseDate = $_POST["deworming_2nd_dose_date"];
+        $dewormingDrugsYndwrm = $_POST["deworming_yndwrm"];
+        $lamRemarks = $_POST["lam_remarks"];
+
+        $sql_rem = "UPDATE family_plan_rem 
+                    SET reasons = ?, 
+                        reasons_date = ?, 
+                        deworming_drugs_1st_dose_date = ?, 
+                        deworming_drugs_2nd_dose_date = ?, 
+                        deworming_drugs_yndwrm = ?, 
+                        lam_remarks = ?
+                    WHERE family_id = ?";
+        $stmt_rem = mysqli_prepare($conn, $sql_rem);
+        mysqli_stmt_bind_param(
+            $stmt_rem,
+            'ssssssi',
+            $reasons,
+            $reasonsDate,
+            $dewormingDrugs1stDoseDate,
+            $dewormingDrugs2ndDoseDate,
+            $dewormingDrugsYndwrm,
+            $lamRemarks,
+            $idx
+        );
+        mysqli_stmt_execute($stmt_rem);
+
+        // Commit transaction
+        mysqli_commit($conn);
+
+        // Redirect to success page
+        header("Location: ../services3.php?updated=Success");
+    } catch (Exception $e) {
+        // Rollback transaction on error
+        mysqli_rollback($conn);
+
+        // Log and display error
+        error_log("Error updating family record: " . $e->getMessage());
+        echo "Error updating family record. Please try again.";
+    }
 }
     
-}
+
 if(isset($_POST["addinflu"])){
     $idx = $_POST["addinflu"];
     $sql = "DELETE FROM influenza_vaccination WHERE id = '$idx'";
