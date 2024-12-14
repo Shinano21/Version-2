@@ -394,6 +394,10 @@ $random_id_card_no = generateUniqueID($conn);
         </div>
     </form>
     <style>
+         body{
+                            background-color: #CDE8E5;
+
+                        }
     #map {
         width: 100%;
         height: 60vh;

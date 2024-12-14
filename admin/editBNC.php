@@ -90,11 +90,16 @@ if ($_SERVER["REQUEST_METHOD"] === "POST") {
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <title>Edit Barangay Nutrition Committee Member</title>
+    <title>Edit Barangay Nutrition Committee Member | TechCare</title>
     <!-- <link rel="stylesheet" href="css/style.css"> -->
     <?php include "partials/head.php"; ?>
     <link rel="stylesheet" href="css/wsHome.css">
     <link href='https://unpkg.com/boxicons@2.1.4/css/boxicons.min.css' rel='stylesheet'>
+    <style>
+          body{
+    background-color: #CDE8E5;
+  }
+    </style>
 </head>
 < onload="display_ct();">
 <?php include "partials/sidebar.php"?>

@@ -72,6 +72,11 @@ if ($row = mysqli_fetch_assoc($result)) {
     <link rel="stylesheet" href="css/wsHome.css">
     <link href="https://unpkg.com/leaflet@1.7.1/dist/leaflet.css" rel="stylesheet" />
     <script src="https://unpkg.com/leaflet@1.7.1/dist/leaflet.js"></script>
+    <style>
+          body{
+    background-color: #CDE8E5;
+  }
+    </style>
 </head>
 <body onload="display_ct();">
 

@@ -19,10 +19,13 @@ $filterYear = isset($_GET['year']) ? $_GET['year'] : '';
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <meta name="theme-name" content="focus" />
-    <title>Animal Bite Records | CareVisio</title>
+    <title>Animal Bite Records | TechCare</title>
     <?php include "partials/head.php"; ?>
     <link rel="stylesheet" href="css/tables.css">
     <style>
+              body{
+               background-color: #CDE8E5;
+            }
         /* Dropdown Styling */
         .dropdown {
             position: relative;

@@ -18,7 +18,7 @@ if (!isset($_SESSION["user"]) || $_SESSION["user_type"] == "System Administrator
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <!-- theme meta -->
     <meta name="theme-name" content="focus" />
-    <title>Add Family Planning Record | CareVisio</title>
+    <title>Add Family Planning Record | TechCare</title>
     <?php include "head.php"; ?>
 </head>
 
@@ -313,6 +313,9 @@ if (!isset($_SESSION["user"]) || $_SESSION["user_type"] == "System Administrator
             </div>
 
             <style>
+                      body{
+               background-color: #CDE8E5;
+            }
             .month {
                 width: 32%;
                 padding: 15px;

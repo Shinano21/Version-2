@@ -11,10 +11,15 @@ if (!isset($_SESSION["user"]) || $_SESSION["user_type"] == "System Administrator
 <html lang="en">
 
 <head>
-    <title>Add Health Team Member | CareVisio</title>
+    <title>Add Health Team Member | TechCare</title>
     <?php include "partials/head.php"; ?>
     <link rel="stylesheet" href="css/wsHome.css">
     <link href='https://unpkg.com/boxicons@2.1.4/css/boxicons.min.css' rel='stylesheet'>
+    <style>
+          body{
+    background-color: #CDE8E5;
+  }
+    </style>
 </head>
 
 <body onload="display_ct();">

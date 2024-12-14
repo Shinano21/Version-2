@@ -54,13 +54,17 @@ $result = mysqli_query($conn, $sql);
     integrity="sha384-Vkoo8x4CGsO3+Hhxv8T/Q5PaXtkKtu6ug5TOeNV6gBiFeWPGFN9MuhOf23Q9Ifjh" crossorigin="anonymous">
   <link rel="stylesheet" href="//cdn.datatables.net/1.10.20/css/jquery.dataTables.min.css">
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
-<link rel="icon" type="image/png" href="images/favicon.png"/>
-  <title>Add New Student | Coding Cush</title>
+  <link rel="icon" href="../images/techcareLogo2.png" type="image/x-icon">
+
+  <title>Generate ID | TechCare</title>
 
 </head>
 
 <style>
   /* From Uiverse.io by SachinKumar666 */ 
+  body{
+    background-color: #CDE8E5;
+  }
 
 .container {
    padding: 20px;
@@ -118,6 +122,7 @@ $result = mysqli_query($conn, $sql);
     left: 10%;
     transform: translateX(-50%);
     color: #646665;
+    
 }
 
 </style>

@@ -18,10 +18,13 @@ $filterYear = isset($_GET['year']) ? $_GET['year'] : '';
     <meta charset="utf-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1">
-    <title>Prenatal Records | CareVisio</title>
+    <title>Prenatal Records | TechCare</title>
     <?php include "partials/head.php"; ?>
     <link rel="stylesheet" href="css/tables.css">
     <style>
+              body{
+               background-color: #CDE8E5;
+            }
         /* Dropdown Styling */
         .dropdown {
             position: relative;
