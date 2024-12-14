@@ -107,13 +107,11 @@
 
     <!-- Bootstrap CSS -->
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" integrity="sha384-JcKb8q3iqJ61gNV9KGb8thSsNjpSL0n8PARn9HuZOnIxN0hoP+VmmDGMN5t9UJ0Z" crossorigin="anonymous">
-    <link rel="icon" type="image/png" href="images/favicon.png"/>
     <link rel="stylesheet" href="css/dashboard.css">
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
-    
-    <link rel="icon" type="image/png" href="images/favicon.png"/>
+  <link rel="icon" href="../images/techcareLogo2.png" type="image/x-icon">
 
-    <title>Card Generation | Coding Cush Technology</title>
+    <title>Card Generation | TechCare</title>
        <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Orbitron&display=swap" rel="stylesheet">
@@ -123,6 +121,7 @@
 <style>
 body{
    font-family:'arial';
+   background-color: #CDE8E5;
    }
 
 .lavkush img {

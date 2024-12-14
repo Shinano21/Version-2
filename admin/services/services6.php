@@ -20,7 +20,7 @@ $result = mysqli_query($conn, $query);
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <!-- theme meta -->
     <meta name="theme-name" content="focus" />
-    <title>Add Animal Bite Record | CareVisio</title>
+    <title>Add Animal Bite Record | TechCare</title>
     <?php include "head.php"; ?>
     <!-- Include Select2 CSS -->
 <link href="https://cdn.jsdelivr.net/npm/select2@4.1.0-rc.0/dist/css/select2.min.css" rel="stylesheet" />
@@ -128,7 +128,9 @@ $result = mysqli_query($conn, $query);
                         </div>
 
                         <style>
-                            body{
+                            
+                                body{
+                                background-color: #CDE8E5;
                                 overflow-x: hidden;
                             }
                             button[type="submit"] {

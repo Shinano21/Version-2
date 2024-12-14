@@ -17,9 +17,14 @@ if (!isset($_SESSION["user"]) || $_SESSION["user_type"] == "System Administrator
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <!-- theme meta -->
     <meta name="theme-name" content="focus" />
-    <title>Immunization and Nutrition Records | CareVisio</title>
+    <title>Immunization and Nutrition Records | TechCare</title>
     <?php include "partials/head.php"; ?>
     <link rel="stylesheet" href="css/tables.css">
+    <style>
+         body{
+               background-color: #CDE8E5;
+            }
+    </style>
 </head>
 
 <body onload="display_ct();">

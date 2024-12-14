@@ -366,6 +366,7 @@ if(!isset($_SESSION["user"])){
                     <style>
                         #main-data{
                             background-color: white;
+                            border-radius: 10px;
                         }
                         body{
                             background-color: #CDE8E5;

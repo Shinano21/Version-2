@@ -69,9 +69,12 @@ $residents_result = mysqli_query($conn, $residents_query);
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <meta name="theme-name" content="focus" />
-    <title>Add Prenatal Record | CareVisio</title>
+    <title>Add Prenatal Record | TechCare</title>
     <?php include "head.php"; ?>
     <style>
+              body{
+               background-color: #CDE8E5;
+            }
         form {
             display: flex;
             flex-direction: column;
@@ -264,7 +267,19 @@ $residents_result = mysqli_query($conn, $residents_query);
             </div>
         </div>
     </div>
-
+    <script>
+        function display_ct() {
+            var refresh = 1000; // Refresh rate in milliseconds
+            setTimeout(display_ct, refresh);
+            var x = new Date();
+            var options = { timeZone: 'Asia/Manila', hour12: true, hour: '2-digit', minute: '2-digit', second: '2-digit' };
+            var timeString = x.toLocaleTimeString('en-US', options);
+            var datePart = x.toLocaleDateString('en-US', { weekday: 'short', day: '2-digit', month: 'short', year: 'numeric' });
+            var x1 = datePart + ' - ' + timeString;
+            document.getElementById('ct').innerHTML = x1;
+        }
+        display_ct();
+    </script>
 </body>
 
 </html>

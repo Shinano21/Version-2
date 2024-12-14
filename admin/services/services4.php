@@ -18,7 +18,7 @@ if (!isset($_SESSION["user"]) || $_SESSION["user_type"] == "System Administrator
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <!-- theme meta -->
     <meta name="theme-name" content="focus" />
-    <title>Add Influenza Vaccination Record | CareVisio</title>
+    <title>Add Influenza Vaccination Record | TechCare</title>
     <?php include "head.php"; ?>
 </head>
 
@@ -158,6 +158,9 @@ if (!isset($_SESSION["user"]) || $_SESSION["user_type"] == "System Administrator
                         </div>
 
                         <style>
+                                  body{
+               background-color: #CDE8E5;
+            }
                         button[type="submit"] {
                             padding: 10px 40px;
                             border: none;

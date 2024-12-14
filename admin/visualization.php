@@ -16,6 +16,11 @@ if (!isset($_SESSION["user"]) || $_SESSION["user_type"] == "System Administrator
 <head>
     <title>Visualization | TechCare</title>
     <?php include "partials/head.php"; ?>
+    <style>
+         body{
+               background-color: #CDE8E5;
+            }
+    </style>
 </head>
 
 <body onload="display_ct();">

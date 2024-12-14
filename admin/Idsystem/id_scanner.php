@@ -10,7 +10,7 @@
           <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap" rel="stylesheet">
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
 
-    <title>ID QR Scanner / Reader
+    <title>ID QR Scanner | TechCare
     </title>
     <style>
        
@@ -21,6 +21,7 @@ body {
     margin-top: 50px;
     padding: 25px;
     height: 100vh;
+    background-color: #CDE8E5;
     /* background: rgb(128 0 0 / 66%); */
 }
 h1 {
@@ -207,7 +208,10 @@ video {
     left: 10%;
     transform: translateX(-50%);
     color: #646665;
+    text-decoration: none;
+
 }
+#backToHome:hover { text-decoration: underline; }
 
     </style>
 </head>

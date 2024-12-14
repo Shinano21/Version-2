@@ -21,7 +21,7 @@ $result = mysqli_query($conn, $query);
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <!-- theme meta -->
     <meta name="theme-name" content="focus" />
-    <title>Add Hypertension Record | CareVisio</title>
+    <title>Add Hypertension Record | TechCare</title>
     <?php include "head.php"; ?>
 </head>
 
@@ -101,7 +101,9 @@ $result = mysqli_query($conn, $query);
     <script src="js/scripts.js"></script> <!-- Link your JS file -->
 
     <style>
+    
         body {
+            background-color: #CDE8E5;
             overflow-x: hidden;
         }
         button[type="submit"] {
