@@ -113,7 +113,7 @@ if (!isset($_SESSION["user"]) || $_SESSION["user_type"] == "System Administrator
                                         </th>
                                         <th>
                                             <label>CITY/MUNICIPALITY<span class="req">*</span></label><br>
-                                            <input type="text" name="city_municipality" required value="">
+                                            <input type="text" name="city_municipality" required value="Legazpi">
                                         </th>
                                         <th>
                                             <label>PROVINCE<span class="req">*</span></label><br>

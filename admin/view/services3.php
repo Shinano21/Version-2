@@ -174,17 +174,18 @@ if ($result) {
             </select>
         </th>
         <th>
-            <label>BARANGAY<span class="req">*</span></label><br>
-            <input type="text" name="barangay" required value="Bagumbayan">
-        </th>
-        <th>
-            <label>CITY/MUNICIPALITY<span class="req">*</span></label><br>
-            <input type="text" name="city_municipality" required value="Daraga">
-        </th>
-        <th>
-            <label>PROVINCE<span class="req">*</span></label><br>
-            <input type="text" name="province" required value="Albay">
-        </th>
+    <label>BARANGAY<span class="req">*</span></label><br>
+    <input type="text" name="barangay" required value="<?php echo $row['barangay']; ?>">
+</th>
+<th>
+    <label>CITY/MUNICIPALITY<span class="req">*</span></label><br>
+    <input type="text" name="city_municipality" required value="<?php echo $row['city_municipality']; ?>">
+</th>
+<th>
+    <label>PROVINCE<span class="req">*</span></label><br>
+    <input type="text" name="province" required value="<?php echo $row['province']; ?>">
+</th>
+
     </tr>
 </table>
 
@@ -245,7 +246,7 @@ if ($result) {
         <th colspan="2">
             REASONS
             <br>
-            <select name="reason1" required>
+            <select name="reason1" >
                 <option value="" disabled selected hidden>Select</option>
                 <option value="A" <?php if($row["reasons"]=="A"){ echo "selected";}?>>Pregnant</option>
                 <option value="B" <?php if($row["reasons"]=="B"){ echo "selected";}?>>Desire to become pregnant</option>
