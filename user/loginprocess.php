@@ -42,19 +42,5 @@ if(isset($_POST["submit"])){
     exit();
 }
   
-
-  // if (mysqli_num_rows($result) > 0) {
-  //   // output data of each row
-  //   while($row = mysqli_fetch_assoc($result)) {
-  //       $_SESSION["firstname"] = $row["firstname"];
-  //       $_SESSION["lastname"] = $row["lastname"];
-  //       $_SESSION["user"] = $row["user"];
-  //       header("Location:home.php?");
-  //   }
-  // } else {
-  //   header("Location:index.php?error=INCORRECT USER OR PASSWORD");
-  // }
-  
-  // mysqli_close($conn);
 }
 ?>
