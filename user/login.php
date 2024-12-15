@@ -154,27 +154,41 @@ include "dbcon.php"
 </head>
 
 <body>
-    <div id="main">
-        <div id="left"></div>
-        <div id="right">
-            <div id="title">
-                <p>Legazpi</p>
-            </div>
-            <div id="lgn-form">
-                <h1>Welcome Back!</h1>
-                <p class="text">Enter your details to login</p>
+<div id="main">
+    <div id="left"></div>
+    <div id="right">
+        <div id="title">
+            <p>Legazpi</p>
+        </div>
+        <div id="lgn-form">
+            <h1>Welcome Back!</h1>
+            <p class="text">Enter your details to login</p>
 
-                <form action="loginprocess.php" method="post">
-                    <input type="email" id="user" placeholder="Email" name="user" required>
-                    <input type="password" id="password" placeholder="Password" name="password" required>
-                    <input type="submit" value="Login" name="submit">
-                </form>
+            <form action="loginprocess.php" method="post">
+                <input type="email" id="user" placeholder="Email" name="user" required>
+                <input type="password" id="password" placeholder="Password" name="password" required>
+                <!-- Show Password Checkbox -->
+                <div>
+                    <input type="checkbox" id="show-password">
+                    <label for="show-password">Show Password</label>
+                </div>
+                <input type="submit" value="Login" name="submit">
+            </form>
 
-                <p id="dsd">Don't have an account? <a href="../signup.php">Sign up here</a></p>
-                <p id="dsd2">Forgot Password? <a href="Forgot.html">Forgot Password</a></p>
-            </div>
+            <p id="dsd">Don't have an account? <a href="../signup.php">Sign up here</a></p>
+            <p id="dsd2">Forgot Password? <a href="Forgot.html">Forgot Password</a></p>
         </div>
     </div>
+</div>
+
+<script>
+    // Toggle password visibility
+    document.getElementById('show-password').addEventListener('change', function () {
+        const passwordField = document.getElementById('password');
+        passwordField.type = this.checked ? 'text' : 'password';
+    });
+</script>
+
 </body>
 
 </html>
