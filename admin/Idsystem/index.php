@@ -68,6 +68,7 @@ $result = mysqli_query($conn, $sql);
 
 .container {
    padding: 20px;
+   margin-top: 85px !important; /* Adjust the value as needed */
   /* display: flex;
   justify-content: center;
   align-items: center;
@@ -96,7 +97,7 @@ $result = mysqli_query($conn, $sql);
  letter-spacing: 2px;
  cursor: pointer;
  border-radius: 10px;
- border: 2px dashed #00BFA6;
+ /* border: 2px dashed #00BFA6; */
  box-shadow: rgba(50, 50, 93, 0.25) 0px 2px 5px -1px, rgba(0, 0, 0, 0.3) 0px 1px 3px -1px;
  transition: .4s;
 }
@@ -110,6 +111,7 @@ $result = mysqli_query($conn, $sql);
  border: 2px dashed #00BFA6;
  background-color: #fff;
  color: #00BFA6;
+ text-decoration: none;
 }
 
 .btn-generate:active {
@@ -146,7 +148,7 @@ $result = mysqli_query($conn, $sql);
             <input type="hidden" name="snoEdit" id="snoEdit">
             <div class="form-group">
               <label for="name">Student Name</label>
-              <input type="text" class="form-control" id="nameEdit" name="nameEdit">
+              <input type="text" class="form-control" id="nameEdit" name="nameEdit" disabled>
             </div>
 
             <div class="form-group">
