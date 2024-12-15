@@ -104,7 +104,7 @@ $residents_result = mysqli_query($conn, $residents_query);
                     <div class="col-lg-8 p-r-0 title-margin-right">
                         <div class="page-header">
                             <div class="page-title">
-                                <a href="../services_prenatal.php">
+                                <a href="../services7.php">
                                     <h7><i class="fa fa-long-arrow-left">&nbsp;&nbsp;</i> Back to Prenatal Records</h7>
                                 </a>
                                 <h1>Update Prenatal Record</h1>
