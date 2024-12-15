@@ -236,6 +236,20 @@ label[for="profile_image"] {
   margin-bottom: 0.5rem;
   color: grey;
 }
+input[type="date"] {
+   padding: 0.30rem; 
+   border: 1px solid #ccc; 
+   border-radius: 5px; font-size: 
+   1rem; color: #333; 
+   background-color: #f9f9f9; 
+   transition: border-color 0.3s, 
+   box-shadow 0.3s; 
+  } 
+  input[type="date"]:focus { 
+    border-color: #4D869C; 
+    box-shadow: 0 0 5px rgba(77, 134, 156, 0.5); 
+    outline: none; 
+  }
 
 
     </style>
@@ -423,14 +437,14 @@ label[for="profile_image"] {
 
     <?php if ($message === "success"): ?>
       <div id="success-popup" class="success-popup" style="display:block;">
-        <img src="images/happy.png" alt="Success Icon" />
+        <img src="src/checkmark.png" alt="Success Icon" />
         <h2>Success!</h2>
         <p>Your account has been successfully created.</p>
         <button onclick="window.location.href='user/login.php'">Back to Login</button>
       </div>
     <?php elseif ($message): ?>
       <div id="error-popup" class="error-popup" style="display:block;">
-    <img src="images/sad.png" alt="Error Icon" />
+    <img src="src/cross.png" alt="Error Icon" />
     <h2>Error!</h2>
     <p><?php echo htmlspecialchars($message, ENT_QUOTES, 'UTF-8'); ?></p>
     <button onclick="window.location.href='signup.php'">Try Again</button>

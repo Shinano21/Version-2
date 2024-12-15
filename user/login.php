@@ -151,6 +151,60 @@ include "dbcon.php";
             align-items: center;
             margin-top: 5px;
         }
+/* Error Popup Styling */
+#error-popup {
+    font-family: "Poppins", sans-serif;
+    display: none;
+    position: fixed;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    background-color: #fff0f0; /* Light red background for error */
+    border: 5px solid #ff4d4d; /* Bright red border */
+    padding: 20px 30px;
+    box-shadow: 0 5px 15px rgba(0, 0, 0, 0.2);
+    border-radius: 15px; /* Smooth corners */
+    text-align: center;
+    max-width: 300px; /* Limit popup width */
+    width: 80%; /* Responsive width */
+    box-sizing: border-box;
+    z-index: 1000; /* Ensure it's on top */
+}
+
+#error-popup img {
+    max-width: 60px; /* Fixed size for icon */
+    height: auto; /* Maintain aspect ratio */
+    margin-bottom: 15px; /* Space below the image */
+}
+
+#error-popup h2 {
+    color: #d9534f; /* Darker red for heading */
+    font-size: 24px; /* Larger heading size */
+    margin: 0 0 10px 0; /* Add spacing below the heading */
+}
+
+#error-popup p {
+    font-size: 16px;
+    color: #333;
+    margin: 0 0 20px 0; /* Add spacing below the message */
+    line-height: 1.5; /* Improve readability */
+}
+
+#error-popup button {
+    background-color: #d9534f; /* Dark red button */
+    color: white;
+    border: none;
+    padding: 10px 20px;
+    font-size: 14px;
+    cursor: pointer;
+    border-radius: 5px;
+    transition: background-color 0.3s ease;
+}
+
+#error-popup button:hover {
+    background-color: #c9302c; /* Darker red on hover */
+}
+
     </style>
 </head>
 
@@ -186,6 +240,13 @@ include "dbcon.php";
     </div>
 </div>
 
+<!-- Error Popup -->
+<div id="error-popup">
+    <img src="../src/cross.png" alt="Error Icon" />
+    <p id="error-message"></p>
+        <button onclick="closePopup()">Close</button>
+    </div>
+
 <!-- JavaScript for Show Password -->
 <script>
     document.getElementById('show-password').addEventListener('change', function () {
@@ -194,6 +255,27 @@ include "dbcon.php";
     });
 </script>
 
+<script>
+        // Function to show the popup
+        function showPopup(message) {
+            const errorPopup = document.getElementById('error-popup');
+            const errorMessage = document.getElementById('error-message');
+            errorMessage.textContent = message;
+            errorPopup.style.display = 'block';
+        }
+
+        // Function to close the popup
+        function closePopup() {
+            document.getElementById('error-popup').style.display = 'none';
+        }
+
+        // Check for error messages in the URL
+        const urlParams = new URLSearchParams(window.location.search);
+        const error = urlParams.get('error');
+        if (error) {
+            showPopup(error);
+        }
+    </script>
 </body>
 
 </html>
