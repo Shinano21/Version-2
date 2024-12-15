@@ -172,7 +172,7 @@ if ($result) {
 </th>
 <th>
     <label>CITY/MUNICIPALITY<span class="req">*</span></label><br>
-    <input type="text" name="municipality" required value="<?php echo $row['mun']; ?>">
+    <input type="text" name="municipality" required value="Legazpi">
 </th>
 <th>
     <label>PROVINCE<span class="req">*</span></label><br>
