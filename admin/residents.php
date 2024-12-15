@@ -30,7 +30,7 @@ $random_id_card_no = generateUniqueID($conn);
 <html lang="en">
 
 <head>
-    <title><b>Resident Records | TechCare</b></title>
+    <title>Resident Records | TechCare</title>
     <?php include "partials/head.php"; ?>
     <link rel="stylesheet" href="css/tables.css">
 </head>
