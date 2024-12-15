@@ -1,4 +1,4 @@
-<?php
+<s?php
 session_start();
 
 include "dbcon.php";
@@ -30,7 +30,7 @@ $random_id_card_no = generateUniqueID($conn);
 <html lang="en">
 
 <head>
-    <title>Resident Records | TechCare</title>
+    <title><b>Resident Records | TechCare</b></title>
     <?php include "partials/head.php"; ?>
     <link rel="stylesheet" href="css/tables.css">
 </head>
