@@ -218,28 +218,40 @@ if (isset($_SESSION["user"])) {
     ?>
     
     <main>
-        <div class="left">
-            <img src="src/logo.svg" alt="Logo">
-        </div>
-        <div class="right">
-            <p>SIGN IN</p>
-            <form action="login_process.php" id="form" method="post">
-                <div class="input-group">
-                    <i class="fas fa-envelope"></i>
-                    <input type="email" placeholder="Email" id="username" name="user" value="<?php echo isset($_COOKIE['user_email']) ? $_COOKIE['user_email'] : ''; ?>">
-                </div>
-                <div class="input-group">
-                    <i class="fas fa-lock"></i>
-                    <input type="password" placeholder="Password" id="password" name="password" value="<?php echo isset($_COOKIE['user_password']) ? $_COOKIE['user_password'] : ''; ?>">
-                </div>
-                <div class="rem">
-                    <input type="checkbox" name="remember">
-                    <label for="remember">Remember Me (30 Days)</label>
-                </div>
-                    <p id="dsd2">Forgot Password? <a href="forgot/Forgot.html">Forgot Password</a></p>
-                <button type="submit" id="login" name="submit">Login</button>
-            </form>
-        </div>
-    </main>
+    <div class="left">
+        <img src="src/logo.svg" alt="Logo">
+    </div>
+    <div class="right">
+        <p>SIGN IN</p>
+        <form action="login_process.php" id="form" method="post">
+            <div class="input-group">
+                <i class="fas fa-envelope"></i>
+                <input type="email" placeholder="Email" id="username" name="user" value="<?php echo isset($_COOKIE['user_email']) ? $_COOKIE['user_email'] : ''; ?>">
+            </div>
+            <div class="input-group">
+                <i class="fas fa-lock"></i>
+                <input type="password" placeholder="Password" id="password" name="password" value="<?php echo isset($_COOKIE['user_password']) ? $_COOKIE['user_password'] : ''; ?>">
+            </div>
+            <!-- Show Password Checkbox -->
+            <div class="rem">
+                <input type="checkbox" id="show-password">
+                <label for="show-password">Show Password</label>
+            </div>
+            <div class="rem">
+                <input type="checkbox" name="remember">
+                <label for="remember">Remember Me (30 Days)</label>
+            </div>
+            <p id="dsd2">Forgot Password? <a href="forgot/Forgot.html">Forgot Password</a></p>
+            <button type="submit" id="login" name="submit">Login</button>
+        </form>
+    </div>
+</main>
 </body>
+<script>
+    // Toggle password visibility
+    document.getElementById('show-password').addEventListener('change', function () {
+        const passwordField = document.getElementById('password');
+        passwordField.type = this.checked ? 'text' : 'password';
+    });
+</script>
 </html>
