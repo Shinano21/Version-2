@@ -1,5 +1,5 @@
 <?php
-include "dbcon.php"
+include "dbcon.php";
 ?>
 <!DOCTYPE html>
 <html lang="en">
@@ -7,7 +7,7 @@ include "dbcon.php"
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Log In - CareVisio</title>
+    <title>Log In - TechCare</title>
     <link rel="shortcut icon" href="images/techcareLogo2.png" type="image/x-icon">
     <style>
         body {
@@ -65,7 +65,8 @@ include "dbcon.php"
         }
 
         input[type="email"],
-        input[type="password"] {
+        input[type="password"],
+        input[type="text"] {
             width: 90%;
             padding: 12px;
             margin: 10px 0;
@@ -95,30 +96,23 @@ include "dbcon.php"
             margin-top: 30px;
             text-align: center;
         }
+
         #dsd2 {
             font-size: 12px;
             text-align: center;
         }
 
-        #dsd a {
-            text-decoration: none;
-            font-weight: 600;
-            color: #4D869C;
-        }
-
-        #dsd a:hover {
-            text-decoration: underline;
-        }
+        #dsd a,
         #dsd2 a {
             text-decoration: none;
             font-weight: 600;
             color: #4D869C;
         }
 
+        #dsd a:hover,
         #dsd2 a:hover {
             text-decoration: underline;
         }
-
 
         /* Responsive Design */
         @media (max-width: 768px) {
@@ -150,6 +144,13 @@ include "dbcon.php"
                 font-size: 14px;
             }
         }
+        .showpass{
+            display: flex;
+            font-size: 13px;
+            justify-content: start;
+            align-items: center;
+            margin-top: 5px;
+        }
     </style>
 </head>
 
@@ -166,12 +167,16 @@ include "dbcon.php"
 
             <form action="loginprocess.php" method="post">
                 <input type="email" id="user" placeholder="Email" name="user" required>
+                
+                <!-- Password Field -->
                 <input type="password" id="password" placeholder="Password" name="password" required>
-                <!-- Show Password Checkbox -->
-                <div>
+                
+                <!-- Show Password Toggle -->
+                <div class="showpass">
                     <input type="checkbox" id="show-password">
                     <label for="show-password">Show Password</label>
                 </div>
+                
                 <input type="submit" value="Login" name="submit">
             </form>
 
@@ -181,8 +186,8 @@ include "dbcon.php"
     </div>
 </div>
 
+<!-- JavaScript for Show Password -->
 <script>
-    // Toggle password visibility
     document.getElementById('show-password').addEventListener('change', function () {
         const passwordField = document.getElementById('password');
         passwordField.type = this.checked ? 'text' : 'password';

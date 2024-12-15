@@ -124,10 +124,10 @@ if (isset($_SESSION["user"])) {
     }
 
     .rem {
-        font-size: 10px;
+        font-size: 13px;
         display: flex;
         align-items: center;
-        margin-bottom: 20px;
+        margin-bottom: 7px;
     }
 
     .rem input {
@@ -157,7 +157,7 @@ if (isset($_SESSION["user"])) {
     #dsd2 {
     font-size: 10px;
     color: #555; /* Neutral color for text */
-    margin-top: 5px;
+    margin-top: 45px;
     text-align: center; /* Aligns the text to the right */
 }
 
