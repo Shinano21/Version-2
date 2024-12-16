@@ -1,11 +1,11 @@
 <?php
-include "dbcon.php"; // Include the database connection file
+include "../dbcon.php"; // Include the database connection file
 
 // Fetch filter inputs for checkup_date
-$filterMonth = isset($_GET['month']) ? $_GET['month'] : '';
-$filterYear = isset($_GET['year']) ? $_GET['year'] : '';
+$filterMonth = isset($_GET['month']) ? intval($_GET['month']) : '';
+$filterYear = isset($_GET['year']) ? intval($_GET['year']) : '';
 
-// Construct the SQL query based on the checkup_date filter
+// Construct the base SQL query
 $sql = "SELECT p.prenatal_id, r.fname, r.lname, p.checkup_date, p.gestational_age, 
                p.blood_pressure, p.weight, p.fetal_heartbeat, p.remarks 
         FROM prenatal p 
@@ -15,20 +15,33 @@ $sql = "SELECT p.prenatal_id, r.fname, r.lname, p.checkup_date, p.gestational_ag
 // Apply filters for checkup date if specified
 $conditions = [];
 if ($filterMonth) {
-    $conditions[] = "MONTH(p.checkup_date) = '$filterMonth'";
+    $conditions[] = "MONTH(p.checkup_date) = $filterMonth";
 }
 if ($filterYear) {
-    $conditions[] = "YEAR(p.checkup_date) = '$filterYear'";
+    $conditions[] = "YEAR(p.checkup_date) = $filterYear";
 }
 
 if (!empty($conditions)) {
     $sql .= " AND " . implode(" AND ", $conditions);
 }
 
+// Get the search input
+$search = isset($_POST['search']) ? mysqli_real_escape_string($conn, $_POST['search']) : '';
+
+// Add search condition
+if (!empty($search)) {
+    $sql .= " AND CONCAT(r.fname, ' ', r.mname, ' ', r.lname, ' ', r.suffix) LIKE '%$search%'";
+}
+
 $sql .= " ORDER BY p.checkup_date DESC"; // Order by checkup date
 
 // Execute the query
 $result = mysqli_query($conn, $sql);
+
+// Check if the query was successful
+if (!$result) {
+    die("Query failed: " . mysqli_error($conn));
+}
 
 // Check if there are results
 if (mysqli_num_rows($result) > 0) {

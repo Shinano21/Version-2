@@ -18,34 +18,14 @@ if (!isset($_SESSION["user"]) || $_SESSION["user_type"] == "System Administrator
     <?php include "partials/head.php"; ?>
     <link rel="stylesheet" href="css/tables.css">
     <style>
-         body{
-               background-color: #CDE8E5;
-            }
-        .dropdown {
-            position: relative;
-            display: inline-block;
+        body {
+            background-color: #CDE8E5;
+            font-family: Arial, sans-serif;
         }
-        .dropdown-content {
-            display: none;
-            position: absolute;
-            background-color: #f9f9f9;
-            min-width: 160px;
-            box-shadow: 0px 8px 16px rgba(0, 0, 0, 0.2);
-            z-index: 1;
+        .content-wrap {
+            margin: 20px;
         }
-        .dropdown-content a {
-            color: black;
-            padding: 12px 16px;
-            text-decoration: none;
-            display: block;
-        }
-        .dropdown-content a:hover {
-            background-color: #f1f1f1;
-        }
-        .dropdown:hover .dropdown-content {
-            display: block;
-        }
-        .printBtn {
+        .addBtn, .printBtn {
             background-color: #007bff;
             color: white;
             padding: 10px 20px;
@@ -53,9 +33,38 @@ if (!isset($_SESSION["user"]) || $_SESSION["user_type"] == "System Administrator
             border: none;
             cursor: pointer;
             border-radius: 4px;
+            margin-right: 10px;
         }
-        .printBtn:hover {
+        .addBtn:hover, .printBtn:hover {
             background-color: #0056b3;
+        }
+        .searchBar {
+            padding: 5px;
+            font-size: 14px;
+        }
+        .filters {
+            display: flex;
+            gap: 10px;
+            margin-bottom: 20px;
+        }
+        .filters select {
+            padding: 5px;
+            font-size: 14px;
+        }
+        .tableResidents {
+            width: 100%;
+            border-collapse: collapse;
+        }
+        .tableResidents th, .tableResidents td {
+            border: 1px solid #ddd;
+            padding: 8px;
+            text-align: left;
+        }
+        .tableResidents th {
+            background-color: #f4f4f4;
+        }
+        .tableResidents tr:hover {
+            background-color: #f1f1f1;
         }
     </style>
 </head>
@@ -76,7 +85,7 @@ if (!isset($_SESSION["user"]) || $_SESSION["user_type"] == "System Administrator
                 <div class="row" id="header-row">
                     <div class="title-page">
                         <h1>Hypertension Records</h1>
-                        <h6>Hypertension Checkup Details</h6>
+                        <h6>Manage Hypertension Checkup Details</h6>
                     </div>
                     <div class="bc-page">
                         <ol class="bc">
@@ -88,66 +97,66 @@ if (!isset($_SESSION["user"]) || $_SESSION["user_type"] == "System Administrator
 
                 <section id="main-content">
                     <div class="row">
-                        <div class="filters">
-                            <div class="monthFilter">
-                                <span for="monthSelect">Filter by Month:</span>
-                                <select id="monthSelect" class="monthSelect" onchange="applyFilters()">
-                                    <option value="" selected>All Months</option>
-                                    <?php
-                                    for ($month = 1; $month <= 12; $month++) {
-                                        $monthName = date("F", mktime(0, 0, 0, $month, 1));
-                                        $selected = (isset($_GET['month']) && $_GET['month'] == $month) ? "selected" : "";
-                                        echo "<option value='$month' $selected>$monthName</option>";
-                                    }
-                                    ?>
-                                </select>
-                            </div>
-                            <div class="yearFilter">
-                                <span for="yearSelect">Year:</span>
-                                <select id="yearSelect" class="yearSelect" onchange="applyFilters()">
-                                    <option value="" selected>All Years</option>
-                                    <?php
-                                    $currentYear = date('Y');
-                                    for ($year = $currentYear; $year >= 1500; $year--) {
-                                        $selected = (isset($_GET['year']) && $_GET['year'] == $year) ? "selected" : "";
-                                        echo "<option value='$year' $selected>$year</option>";
-                                    }
-                                    ?>
-                                </select>
-                            </div>
-                        </div>
-
-                        <div class="buttons">
-                            <a href="services/services8.php">
-                                <button class="addBtn"><span class="fa fa-plus"></span>&nbsp;&nbsp;Add Record</button>
-                            </a>
-                            <div class="dropdown">
-                                <button class="printBtn">
-                                    <span class="fa fa-print"></span>&nbsp;&nbsp;Print Records
-                                </button>
-                                <div class="dropdown-content">
-                                    <a href="template/services8.php" target="_blank">Print Services</a>
-                                    <a href="template/list8.php" target="_blank">Print List</a>
+                        <div class="col-md-12">
+                            <div class="filters">
+                                <div class="monthFilter">
+                                    <label for="monthSelect">Filter by Month:</label>
+                                    <select id="monthSelect" class="monthSelect" onchange="applyFilters()">
+                                        <option value="" selected>All Months</option>
+                                        <?php
+                                        for ($month = 1; $month <= 12; $month++) {
+                                            $monthName = date("F", mktime(0, 0, 0, $month, 1));
+                                            $selected = (isset($_GET['month']) && $_GET['month'] == $month) ? "selected" : "";
+                                            echo "<option value='$month' $selected>$monthName</option>";
+                                        }
+                                        ?>
+                                    </select>
+                                </div>
+                                <div class="yearFilter">
+                                    <label for="yearSelect">Year:</label>
+                                    <select id="yearSelect" class="yearSelect" onchange="applyFilters()">
+                                        <option value="" selected>All Years</option>
+                                        <?php
+                                        $currentYear = date('Y');
+                                        for ($year = $currentYear; $year >= 1500; $year--) {
+                                            $selected = (isset($_GET['year']) && $_GET['year'] == $year) ? "selected" : "";
+                                            echo "<option value='$year' $selected>$year</option>";
+                                        }
+                                        ?>
+                                    </select>
                                 </div>
                             </div>
-                        </div>
 
-                        <div class="tab">
-                            <table id="residentTable" class="tableResidents">
-                                <thead class="head">
-                                    <tr>
-                                        <th>Full Name</th>
-                                        <th>Checkup Date</th>
-                                        <th>Medicine Type</th>
-                                        <th>Blood Pressure</th>
-                                        <th>Remarks</th>
-                                        <th class="lastCol">Action</th>
-                                    </tr>
-                                </thead>
-                                <tbody>
-                                    <?php include "data/showHypertension.php"; ?>
-                                </tbody>
-                            </table>
+                            <div class="buttons">
+                                <a href="services/services8.php">
+                                    <button class="addBtn"><span class="fa fa-plus"></span>&nbsp;&nbsp;Add Record</button>
+                                </a>
+                                <button class="printBtn" onclick="window.print();">
+                                    <span class="fa fa-print"></span>&nbsp;&nbsp;Print Records
+                                </button>
+                                <div class="searchTable">
+                                    <label for="searchInput">Search:</label>
+                                    <input type="text" id="searchInput" class="searchBar" placeholder="Enter keyword">
+                                </div>
+                            </div>
+
+                            <div class="tab">
+                                <table id="residentTable" class="tableResidents">
+                                    <thead class="head">
+                                        <tr>
+                                            <th>Full Name</th>
+                                            <th>Checkup Date</th>
+                                            <th>Medicine Type</th>
+                                            <th>Blood Pressure</th>
+                                            <th>Remarks</th>
+                                            <th>Action</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        <?php include "data/showHypertension.php"; ?>
+                                    </tbody>
+                                </table>
+                            </div>
                         </div>
                     </div>
                 </section>
@@ -178,6 +187,15 @@ if (!isset($_SESSION["user"]) || $_SESSION["user_type"] == "System Administrator
             document.getElementById('ct').innerHTML = x1;
         }
         display_ct();
+
+        document.getElementById('searchInput').addEventListener('input', function() {
+            const filter = this.value.toLowerCase();
+            const rows = document.querySelectorAll('#residentTable tbody tr');
+            rows.forEach(row => {
+                const text = row.textContent.toLowerCase();
+                row.style.display = text.includes(filter) ? '' : 'none';
+            });
+        });
     </script>
 
     <?php include "partials/scripts.php"; ?>
