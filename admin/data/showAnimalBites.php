@@ -23,6 +23,20 @@ if (!empty($conditions)) {
     $query .= " WHERE " . implode(" AND ", $conditions);
 }
 
+// Get the search input
+$search = isset($_POST['search']) ? mysqli_real_escape_string($conn, $_POST['search']) : '';
+
+// SQL query with search functionality
+$query = "SELECT ab.*, r.fname AS first_name, r.lname AS last_name, r.mname AS middle_name, r.suffix, r.bday,
+                 ab.bite_date, ab.bite_location, ab.bitten_location, ab.treatment_center, ab.remarks
+          FROM animal_bite_records ab
+          JOIN residents r ON ab.resident_id = r.id";
+
+// Add search condition
+if (!empty($search)) {
+    $query .= " WHERE CONCAT(r.fname, ' ', r.mname, ' ', r.lname, ' ', r.suffix) LIKE '%$search%'";
+}
+
 // Execute the query
 $result = mysqli_query($conn, $query);
 
