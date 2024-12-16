@@ -13,9 +13,17 @@ if(!isset($_SESSION["user"])){
 <html lang="en">
 
 <head>
-    <title>Edit Profile | CareVisio</title>
+    <title>Edit Profile | TechCare</title>
     <?php include "partials/head.php"; ?>
     <link rel="stylesheet" href="css/editProfile.css">
+    <style>
+         body{
+               background-color: #CDE8E5;
+            }
+            .content-wrap{
+                background-color: white;
+            }
+    </style>
 </head>
 <body onload="display_ct();">
     <?php

@@ -23,14 +23,14 @@
         <script>
         let bg_img = document.querySelector('.main');
         <?php
-        // Assuming $bgImg contains the image data
-        if ($announcePic !== null) {
-            $imageType = strpos($announcePic, '/png') !== false ? 'png' : 'jpeg';
-            echo "bg_img.style.backgroundImage = 'url(\'data:image/{$imageType};base64," . base64_encode($announcePic) . "\')';";
-        } else {
-            echo "// Handle case when no image is available";
-        }
-    ?>
+// Define a static path for the image
+$imagePath = "images/ann3.jpg";
+$imageData = file_get_contents($imagePath);
+$imageType = strpos($imagePath, '.png') !== false ? 'png' : 'jpeg';
+echo "bg_img.style.backgroundImage = 'url(\"data:image/{$imageType};base64," . base64_encode($imageData) . "\")';";
+?>
+
+
         </script>
         <div class="contentbg">
             <div class="content">
@@ -104,13 +104,17 @@
                     <p style="font-size: x-small; color: #888D8F;"><?php echo $program['announce_type']; ?></p>
                 </div>
                 <?php
-                    if ($program['announce_pic'] !== null) {
-                      $imageType = strpos($program['announce_pic'], '/png') !== false ? 'png' : 'jpeg';
-                      echo "<img src='data:image/{$imageType};base64," . base64_encode($program['announce_pic']). "' />";
-                    } else {
-                      echo "No image available";
-                    }
-                    ?>
+if (!empty($program['announce_pic'])) {
+    // Define the image path
+    $imagePath = "../admin/cms/uploads/" . $program['announce_pic']; // Adjust path to your uploads folder
+    
+    // Output the image directly
+    echo "<img src='{$imagePath}' alt='Program Image' style='max-width: 100%; height: auto;'/>";
+} else {
+    echo "<p>No image available</p>";
+}
+?>
+
             </div>
             <?php endforeach; ?>
         </div>

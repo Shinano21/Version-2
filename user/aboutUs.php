@@ -19,7 +19,7 @@ function buildHierarchy($parent_id = null, $conn) {
         while ($row = $result->fetch_assoc()) {
             $name = htmlspecialchars($row['name']);
             $position = htmlspecialchars($row['position']);
-            $photo = $row['photo'] ? "admin/images/bnc/" . $row['photo'] : "admin/images/default_avatar.png";
+            $photo = $row['photo'] ? "../admin/images/bnc/" . $row['photo'] : "../admin/images/default_avatar.png";
 
             echo "<li>";
             echo "<a href='#'>";
@@ -63,13 +63,12 @@ function buildHierarchy($parent_id = null, $conn) {
         <script>
         let bg_img = document.querySelector('.main');
         <?php
-        if ($headerPic !== null) {
-            $imageType = strpos($headerPic, '/png') !== false ? 'png' : 'jpeg';
-            echo "bg_img.style.backgroundImage = 'url(\"data:image/{$imageType};base64," . base64_encode($headerPic) . "\")';";
-        } else {
-            echo "bg_img.style.backgroundImage = 'url(\"default_image.jpg\")';";
-        }
-        ?>
+    if ($headerPic !== null) {
+        echo "bg_img.style.backgroundImage = 'url(\"../admin/cms/uploads/$headerPic\")';";
+    } else {
+        echo "bg_img.style.backgroundImage = 'url(\"../admin/images/default_image.jpg\")';";
+    }
+    ?>
         </script>
 
         <div class="contentbg">
@@ -83,70 +82,62 @@ function buildHierarchy($parent_id = null, $conn) {
         </div>
     </div>
 
-    <!-- Chairman Info -->
-    <div class="chairCont">
-        <div class="chairImg">
-            <?php
-            if ($sectionPic !== null) {
-                $imageType = strpos($sectionPic, '/png') !== false ? 'png' : 'jpeg';
-                echo "<img src='data:image/{$imageType};base64," . base64_encode($sectionPic). "' />";
-            } else {
-                echo "No image available";
-            }
-            ?>
-        </div>
+        <!-- Chairman Info Section -->
+        <div class="chairCont">
+    <div class="chairImg">
+    <?php
+    $imagePath = $sectionPic ? "../admin/cms/uploads/$sectionPic" : "../admin/images/default_avatar.png";
+    echo "<img src='$imagePath' alt='Chairman Image'>";
+    ?>
+</div>
+
         <div class="chairDits">
-            <h1><?php echo $sectionHead; ?></h1>
-            <h3><?php echo $sectionSubhead; ?></h3>
-            <p><?php echo $sectionBody; ?></p>
+            <h1><?php echo htmlspecialchars($sectionHead); ?></h1>
+            <h3><?php echo htmlspecialchars($sectionSubhead); ?></h3>
+            <p><?php echo htmlspecialchars($sectionBody); ?></p>
         </div>
     </div>
 
-    <!-- Mission Vision -->
-    <div class="mvCont">
-        <div class="mission">
-            <div class="mvText">
-                <h1>Mission</h1>
-                <p><?php echo $mission; ?></p>
-            </div>
-            <div class="mvPic">
-                <?php
-                if ($missionPic !== null) {
-                    $imageType = strpos($missionPic, '/png') !== false ? 'png' : 'jpeg';
-                    echo "<img src='data:image/{$imageType};base64," . base64_encode($missionPic). "' />";
-                } else {
-                    echo "No image available";
-                }
-                ?>
-            </div>
+<!-- Mission and Vision Section -->
+<div class="mvCont">
+    <!-- Mission Section -->
+    <div class="mission">
+        <div class="mvText">
+            <h1>Mission</h1>
+            <p><?php echo htmlspecialchars($mission); ?></p>
         </div>
-        <div class="vision">
-            <div class="mvPic">
-                <?php
-                if ($visionPic !== null) {
-                    $imageType = strpos($visionPic, '/png') !== false ? 'png' : 'jpeg';
-                    echo "<img src='data:image/{$imageType};base64," . base64_encode($visionPic). "' />";
-                } else {
-                    echo "No image available";
-                }
-                ?>
-            </div>
-            <div class="mvText">
-                <h1>Vision</h1>
-                <p><?php echo $vision; ?></p>
-            </div>
+        <div class="mvPic">
+            <?php
+            $missionImagePath = !empty($missionPic) ? "../admin/cms/uploads/$missionPic" : "admin/images/default_image.jpg";
+            ?>
+            <img src="<?php echo $missionImagePath; ?>" alt="Mission Image">
         </div>
     </div>
+    <!-- Vision Section -->
+    <div class="vision">
+        <div class="mvPic">
+            <?php
+            $visionImagePath = !empty($visionPic) ? "../admin/cms/uploads/$visionPic" : "../admin/images/default_image.jpg";
+            ?>
+            <img src="<?php echo $visionImagePath; ?>" alt="Vision Image">
+        </div>
+        <div class="mvText">
+            <h1>Vision</h1>
+            <p><?php echo htmlspecialchars($vision); ?></p>
+        </div>
+    </div>
+</div>
+    </div>
 
-    <!-- Org Chart Section -->
-    <div class="orgCont">
+   <!-- Organization Chart Section -->
+   <div class="orgCont">
         <div class="orgTitle">
             <h1>Barangay Nutrition Committee</h1>
             <p>Get to Know the Barangay Nutrition Committee</p>
         </div>
         <div class="tree">
             <?php
-            // Render the org chart
+            // Build the hierarchy starting from the top-level nodes
             buildHierarchy(null, $conn);
             ?>
         </div>
