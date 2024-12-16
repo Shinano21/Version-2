@@ -210,7 +210,29 @@ if (isset($_SESSION["user_type"]) && $_SESSION["user_type"] == "System Administr
         window.location.href = url;
     }
 </script>
+<script>
+    // Event listener for the search input
+    document.getElementById('searchInput').addEventListener('keyup', function () {
+        const searchValue = this.value;
 
+        // Create an AJAX request
+        const xhr = new XMLHttpRequest();
+        xhr.open('POST', 'data/showAnimalBites.php', true); // Correct path to the PHP file
+        xhr.setRequestHeader('Content-Type', 'application/x-www-form-urlencoded');
+
+        // On successful response
+        xhr.onload = function () {
+            if (xhr.status === 200) {
+                document.querySelector('#residentTable tbody').innerHTML = xhr.responseText; // Update table
+            } else {
+                console.error('Error fetching data');
+            }
+        };
+
+        // Send the search value to the PHP backend
+        xhr.send('search=' + encodeURIComponent(searchValue));
+    });
+</script>
 <!-- Script imports -->
 <script src="../js/lib/jquery.min.js"></script>
 <script src="../js/lib/jquery.nanoscroller.min.js"></script>
