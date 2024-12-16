@@ -244,7 +244,11 @@ $residents_result = mysqli_query($conn, $residents_query);
                         </div>
 
                         <style>
-                            body { overflow-x: hidden; }
+                            body { 
+                                overflow-x: hidden; 
+               background-color: #CDE8E5;
+                                
+                            }
                             button[type="submit"] {
                                 padding: 10px 40px; border: none; box-shadow: 0px 0px 3px gray;
                                 color: white; background-color: rgb(92, 84, 243); border-radius: 10px; float: right; margin: 1%;

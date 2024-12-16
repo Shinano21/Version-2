@@ -16,6 +16,9 @@ if (!isset($_SESSION["user"]) || $_SESSION["user_type"] == "System Administrator
     <title>View Animal Bite Record | CareVisio</title>
     <?php include "../services/head.php"; ?>
     <style>
+         body{
+               background-color: #CDE8E5;
+            }
 /* General Styles for the Section */
 #main-content {
     font-family: Arial, sans-serif;

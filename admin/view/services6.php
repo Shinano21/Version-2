@@ -172,6 +172,8 @@ $residents_result = mysqli_query($conn, $residents_query);
                         <style>
                             body {
                                 overflow-x: hidden;
+               background-color: #CDE8E5;
+
                             }
                             button[type="submit"] {
                                 padding: 10px 40px;

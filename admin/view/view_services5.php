@@ -176,6 +176,9 @@ if ($result) {
       
                     </div>  
                     <style>
+                        body{
+               background-color: #CDE8E5;
+            }
                         button[type="submit"]{
                             padding:10px 40px;
                             border:none;

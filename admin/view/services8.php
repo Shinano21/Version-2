@@ -142,6 +142,8 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
     <style>
         body {
             overflow-x: hidden;
+            background-color: #CDE8E5;
+
         }
         button[type="submit"] {
             padding: 10px 40px;

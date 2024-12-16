@@ -17,6 +17,9 @@ if (!isset($_SESSION["user"]) || $_SESSION["user_type"] == "System Administrator
     <title>View Prenatal Record | CareVisio</title>
     <?php include "../services/head.php"; ?>
     <style>
+         body{
+               background-color: #CDE8E5;
+            }
         /* General Styles for the Section */
 #main-content {
     font-family: Arial, sans-serif;
@@ -318,5 +321,18 @@ table td, table th {
             </div>
         </div>
     </div>
+    <script>
+        function display_ct() {
+            var refresh = 1000; // Refresh rate in milliseconds
+            setTimeout(display_ct, refresh);
+            var x = new Date();
+            var options = { timeZone: 'Asia/Manila', hour12: true, hour: '2-digit', minute: '2-digit', second: '2-digit' };
+            var timeString = x.toLocaleTimeString('en-US', options);
+            var datePart = x.toLocaleDateString('en-US', { weekday: 'short', day: '2-digit', month: 'short', year: 'numeric' });
+            var x1 = datePart + ' - ' + timeString;
+            document.getElementById('ct').innerHTML = x1;
+        }
+        display_ct();
+    </script>
 </body>
 </html>

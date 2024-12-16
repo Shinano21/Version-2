@@ -18,6 +18,9 @@ if (!isset($_SESSION["user"]) || $_SESSION["user_type"] == "System Administrator
     <?php include "../services/head.php"; ?>
     <style>
         /* General Styles for the Section */
+        body{
+               background-color: #CDE8E5;
+            }
 #main-content {
     font-family: Arial, sans-serif;
     margin: 20px;
