@@ -4,11 +4,11 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Update Profile - CareVisio</title>
+    <title>Update Profile - TechCare</title>
     <link rel="stylesheet" href="global.css">
     <link rel="stylesheet" href="../css/editProfile.css">
 
-    <link rel="shortcut icon" href="../src/favicon.png" type="image/x-icon">
+    <link rel="shortcut icon" href="../src/techcareLogo2.png" type="image/x-icon">
 </head>
 
 <body>
@@ -32,33 +32,34 @@
             <div class="photoBackdrop">
                 <div class="rect"></div>
                 <div class="image">
-                    <img src='images/<?php echo $row['img']; ?>' alt='profile'>    
+                <img src='../uploads/<?php echo $row['profile_image']; ?>' alt='profile'>
+  
                 </div>
             </div>
             <form action="updateProfile.php" method="post" enctype="multipart/form-data">
                 <div class="form">
                     <div class="formInput">
                         <p>First Name</p>
-                        <input type="text" name="fname" value="<?php echo $row['fname']; ?>" placeholder="Your first name here"
+                        <input type="text" name="fname" value="<?php echo $row['first_name']; ?>" placeholder="Your first name here"
                             required>
                     </div>
                     <div class="formInput">
                         <p>Middle Name</p>
-                        <input type="text" name="mname" value="<?php echo $row['mname']; ?>"
+                        <input type="text" name="mname" value="<?php echo $row['middle_name']; ?>"
                             placeholder="Your middle name here">
                     </div>
                     <div class="formInput">
                         <p>Last Name</p>
-                        <input type="text" name="lname" value="<?php echo $row['lname']; ?>" placeholder="Your last name here"
+                        <input type="text" name="lname" value="<?php echo $row['last_name']; ?>" placeholder="Your last name here"
                             required>
                     </div>
                     <div class="formInput">
                         <p>Birth Date</p>
-                        <input type="date" name="bday" value="<?php echo $row['bday']; ?>" required>
+                        <input type="date" name="bday" value="<?php echo $row['birthday']; ?>" required>
                     </div>
                     <div class="formInput">
                         <p>Select Profile Picture</p>
-                        <input type="file" name="profile_pic" placeholder="Choose File" value="<?php echo $row['img']; ?>" required>
+                        <input type="file" name="profile_pic" placeholder="Choose File" value="<?php echo $row['profile_image']; ?>" required>
                     </div>
                 </div>
                 <button type="submit" name="submit">Update Profile</button>
