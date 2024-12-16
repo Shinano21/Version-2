@@ -135,7 +135,7 @@ if (isset($_SESSION["user"])) {
     }
 
     .rem label {
-        color: #333;
+        color: #555555;
     }
 
     /* Login Button */
