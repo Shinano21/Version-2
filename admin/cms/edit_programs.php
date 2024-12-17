@@ -1,36 +1,56 @@
 <?php
 include "../dbcon.php";
-$data = $_POST["submit"];
 
-$result = $conn->query("SELECT COUNT(*) FROM home");
-$row = $result->fetch_assoc();
 if (isset($_POST["submit"])) {
 
-    $header = file_get_contents($_FILES["bg_img"]["tmp_name"]);
-    if ($row['COUNT(*)'] == 0) {
-        $sql = "INSERT INTO `home` (`programs_pic`)
-        VALUES (?)";
+    // Check if a file was uploaded
+    if (isset($_FILES["bg_img"]) && $_FILES["bg_img"]["error"] === UPLOAD_ERR_OK) {
+        
+        // Get the file details
+        $file_name = basename($_FILES["bg_img"]["name"]);  // Extract only the file name
+        $upload_dir = "uploads/";  // Folder to store uploaded files
+        $upload_path = $upload_dir . $file_name;  // Full path to save the file
+
+        // Move the uploaded file to the "uploads" folder
+        if (move_uploaded_file($_FILES["bg_img"]["tmp_name"], $upload_path)) {
+
+            // Check if the table already has a record
+            $result = $conn->query("SELECT COUNT(*) as total FROM home");
+            $row = $result->fetch_assoc();
+
+            if ($row['total'] == 0) {
+                // Insert new record if table is empty
+                $sql = "INSERT INTO `home` (`programs_pic`) VALUES (?)";
+            } else {
+                // Update the existing record
+                $sql = "UPDATE `home` SET `programs_pic` = ?";
+            }
+
+            // Prepare and execute the statement
+            $stmt = mysqli_prepare($conn, $sql);
+            mysqli_stmt_bind_param($stmt, "s", $file_name);
+            mysqli_stmt_execute($stmt);
+
+            // Check if the query was successful
+            if (mysqli_stmt_affected_rows($stmt) > 0) {
+                echo '<script>';
+                echo 'alert("Saved successfully!");';
+                echo 'window.location.href = "../wsProgramSettings.php";';
+                echo '</script>';
+            } else {
+                echo '<script>';
+                echo 'alert("No changes made or error occurred!");';
+                echo '</script>';
+            }
+        } else {
+            echo '<script>';
+            echo 'alert("Failed to move uploaded file. Please check folder permissions.");';
+            echo '</script>';
+        }
     } else {
-        $sql = "UPDATE `home` SET `programs_pic` = ?";
-    }
-    $stmt = mysqli_prepare($conn, $sql);
-    mysqli_stmt_bind_param($stmt, "s", $header);
-    mysqli_stmt_execute($stmt);
-    
-    // Check if the update was successful
-    if (mysqli_stmt_affected_rows($stmt) > 0) {
-        // Display a pop-up success message using JavaScript
         echo '<script>';
-        echo 'alert("Saved successfully!");';
-        echo 'window.location.href = "../wsProgramSettings.php";';  // Optional: Redirect after displaying the alert
+        echo 'alert("No file uploaded or an error occurred.");';
         echo '</script>';
-    } else {
-        // Redirect with an error message or appropriate handling
-        header("Location: update_error.php");
-        exit();
     }
-    
-
 }
-
 ?>

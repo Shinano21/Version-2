@@ -23,11 +23,12 @@
         <script>
         let bg_img = document.querySelector('.main');
         <?php
-// Define a static path for the image
-$imagePath = "images/ann3.jpg";
-$imageData = file_get_contents($imagePath);
-$imageType = strpos($imagePath, '.png') !== false ? 'png' : 'jpeg';
-echo "bg_img.style.backgroundImage = 'url(\"data:image/{$imageType};base64," . base64_encode($imageData) . "\")';";
+if ($announcePic !== null) {
+    $imagePath = "../admin/cms/uploads/" . $announcePic; // Adjust the path as needed
+    echo "bg_img.style.backgroundImage = 'url(\"" . $imagePath . "\")';";
+} else {
+    echo "// Handle case when no image is available";
+}
 ?>
 
 

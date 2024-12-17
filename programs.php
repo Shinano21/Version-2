@@ -22,14 +22,13 @@
         <script>
         let bg_img = document.querySelector('.main');
         <?php
-        // Assuming $bgImg contains the image data
-        if ($programsPic !== null) {
-            $imageType = strpos($programsPic, '/png') !== false ? 'png' : 'jpeg';
-            echo "bg_img.style.backgroundImage = 'url(\'data:image/{$imageType};base64," . base64_encode($programsPic) . "\')';";
-        } else {
-            echo "// Handle case when no image is available";
-        }
-    ?>
+if ($programsPic !== null) {
+    $imagePath = "admin/cms/uploads/" . $programsPic; // Adjust the path as needed
+    echo "bg_img.style.backgroundImage = 'url(\"" . $imagePath . "\")';";
+} else {
+    echo "// Handle case when no image is available";
+}
+?>
         </script>
         <div class="contentbg">
             <div class="content">
