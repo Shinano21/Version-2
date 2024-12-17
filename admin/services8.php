@@ -38,10 +38,10 @@ if (!isset($_SESSION["user"]) || $_SESSION["user_type"] == "System Administrator
         .addBtn:hover, .printBtn:hover {
             background-color: #0056b3;
         }
-        .searchBar {
+        /* .searchBar {
             padding: 5px;
             font-size: 14px;
-        }
+        } */
         .filters {
             display: flex;
             gap: 10px;
@@ -61,11 +61,13 @@ if (!isset($_SESSION["user"]) || $_SESSION["user_type"] == "System Administrator
             text-align: left;
         }
         .tableResidents th {
-            background-color: #f4f4f4;
-        }
-        .tableResidents tr:hover {
             background-color: #f1f1f1;
         }
+        .tableResidents td {
+            background-color: #f1f1f1;
+        }
+        .head th { text-align: center; }
+        
     </style>
 </head>
 <body onload="display_ct();">
@@ -97,7 +99,6 @@ if (!isset($_SESSION["user"]) || $_SESSION["user_type"] == "System Administrator
 
                 <section id="main-content">
                     <div class="row">
-                        <div class="col-md-12">
                             <div class="filters">
                                 <div class="monthFilter">
                                     <label for="monthSelect">Filter by Month:</label>
@@ -134,13 +135,17 @@ if (!isset($_SESSION["user"]) || $_SESSION["user_type"] == "System Administrator
                                 <button class="printBtn" onclick="window.print();">
                                     <span class="fa fa-print"></span>&nbsp;&nbsp;Print Records
                                 </button>
+
+                            </div>
+
+                            <div class="tab">
+                            <div class="buttons">
                                 <div class="searchTable">
                                     <label for="searchInput">Search:</label>
                                     <input type="text" id="searchInput" class="searchBar" placeholder="Enter keyword">
                                 </div>
                             </div>
 
-                            <div class="tab">
                                 <table id="residentTable" class="tableResidents">
                                     <thead class="head">
                                         <tr>
@@ -149,13 +154,21 @@ if (!isset($_SESSION["user"]) || $_SESSION["user_type"] == "System Administrator
                                             <th>Medicine Type</th>
                                             <th>Blood Pressure</th>
                                             <th>Remarks</th>
-                                            <th>Action</th>
+                                            <th style="text-align: center;">Action</th>
                                         </tr>
                                     </thead>
                                     <tbody>
                                         <?php include "data/showHypertension.php"; ?>
                                     </tbody>
                                 </table>
+                                <div class="showPages">
+                                <p>Showing 1 to X of Y entries</p>
+                                <div class="page-indicator">
+                                    <span id="prev" class="indicator previous">Previous</span>
+                                    <span class="num">1</span>
+                                    <span id="next" class="indicator next">Next</span>
+                                </div>
+                            </div>
                             </div>
                         </div>
                     </div>
