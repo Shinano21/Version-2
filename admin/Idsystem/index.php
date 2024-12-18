@@ -243,7 +243,7 @@ $result = mysqli_query($conn, $sql);
           <td>{$full_name}</td>
           <td>{$row['id_card_no']}</td>
           <td>
-            <button class='edit btn btn-sm btn-primary' id='{$row['id']}'>Edit Card No.</button>
+            <button class='edit btn btn-sm btn-primary' id='{$row['id']}'>View Resident</button>
           
           </td>
         </tr>";

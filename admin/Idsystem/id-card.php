@@ -33,60 +33,81 @@
 
                 // Card HTML
                 $html .= "
-                    <!-- ID Card Display -->
-                    <div class='container' style='text-align:left; border:2px dotted black;'>
-                        <div class='header'></div>
-
-                        <div class='container-2'>
-                            <div class='box-1'>
-                                <img src='$profile' alt='Profile Image'/>
-                            </div>
-                            <div class='box-2'>
-                                <h2>$full_name</h2>
-                                <p style='font-size: 14px;'>Resident</p>
-                            </div>
-                            <div class='box-3'>
-                                <img src='assets/images/logo.svg' alt='Logo' style='width: 90px; height: 90px;'/>
+                <!-- Flippable ID Card -->
+                <div class='card'>
+                    <div class='card-inner'>
+                        <!-- Front Side -->
+                        <div class='card-front' id='card-front'>
+                            <!-- Full ID Card Content -->
+                            <div class='container' style='text-align:left; border:2px dotted black;'>
+                                <div class='header'></div>
+            
+                                <div class='container-2'>
+                                    <div class='box-1'>
+                                        <img src='$profile' alt='Profile Image'/>
+                                    </div>
+                                    <div class='box-2'>
+                                        <h2>$full_name</h2>
+                                        <p style='font-size: 14px;'>Resident</p>
+                                    </div>
+                                    <div class='box-3'>
+                                        <img src='assets/images/logo.svg' alt='Logo' style='width: 90px; height: 90px;'/>
+                                    </div>
+                                </div>
+            
+                                <div class='container-3'>
+                                    <div class='info-1'>
+                                        <div class='id'>
+                                            <h4>ID No</h4>
+                                            <p>$id_card_no</p>
+                                        </div>
+            
+                                        <div class='dob'>
+                                            <h4>Birthday</h4>
+                                            <p>$bday</p>
+                                        </div>
+                                    </div>
+                                    <div class='info-2'>
+                                        <div class='join-date'>
+                                            <h4>Sex</h4>
+                                            <p>$sex</p>
+                                        </div>
+                                        <div class='expire-date'>
+                                            <h4>Zone</h4>
+                                            <p>$zone</p>
+                                        </div>
+                                    </div>
+                                    <div class='info-3'>
+                                        <div class='email'>
+                                            <h4>Address</h4>
+                                            <p>$address</p>
+                                        </div>
+                                    </div>
+                                    <div class='info-4'>
+                                        <div class='qr-code' style='text-align:center;'>
+                                            <img src='$qr_code_path' alt='QR Code' style='width:100px; height:100px;'/>
+                                        </div>
+                                    </div>
+                                </div>
                             </div>
                         </div>
+            
+                        <!-- Back Side -->
+                     <div class='card-back' id='card-back'>
+    <div class='back-content' style='padding: 20px; text-align: center; '>
+        <h3>Terms and Conditions</h3>
+        <p><strong>1. Proof of Identity:</strong> This ID card is issued by Barangay of $address and serves as proof of residency for the holder. It is not a substitute for government-issued identification.</p>
+        <p><strong>2. Non-Transferable:</strong> This ID card is strictly personal and cannot be used by anyone other than the authorized holder.</p>
+        <p><strong>3. Purpose:</strong> The card is intended for barangay-related transactions, community services, and emergency identification. It should not be used for commercial or unlawful purposes.</p>
+        <p><strong>4. Loss or Damage:</strong> Report lost, stolen, or damaged cards to the Barangay Office immediately. Replacement fees may apply.</p>
+       
+    </div>
+</div>
 
-                        <div class='container-3'>
-                            <div class='info-1'>
-                                <div class='id'>
-                                    <h4>ID No</h4>
-                                    <p>$id_card_no</p>
-                                </div>
-
-                                <div class='dob'>
-                                    <h4>Birthday</h4>
-                                    <p>$bday</p>
-                                </div>
-                            </div>
-                            <div class='info-2'>
-                                <div class='join-date'>
-                                    <h4>Sex</h4>
-                                    <p>$sex</p>
-                                </div>
-                                <div class='expire-date'>
-                                    <h4>Zone</h4>
-                                    <p>$zone</p>
-                                </div>
-                            </div>
-                            <div class='info-3'>
-                                <div class='email'>
-                                    <h4>Address</h4>
-                                    <p>$address</p>
-                                </div>
-                            </div>
-                         <div class='info-4'>
-                                <div class='qr-code' style='text-align:center;'>
-                                    <img src='$qr_code_path' alt='QR Code' style='width:100px; height:100px;'/>
-                                        
-                                </div>
-                            </div>
-                        </div>
                     </div>
-                ";
+                </div>
+            ";
+            
             }
             
         } else {
@@ -106,263 +127,16 @@
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
 
     <!-- Bootstrap CSS -->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet">
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" integrity="sha384-JcKb8q3iqJ61gNV9KGb8thSsNjpSL0n8PARn9HuZOnIxN0hoP+VmmDGMN5t9UJ0Z" crossorigin="anonymous">
     <link rel="stylesheet" href="css/dashboard.css">
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
   <link rel="icon" href="../images/techcareLogo2.png" type="image/x-icon">
-
+<link rel="stylesheet" href="CSS/styles.css">
     <title>Card Generation | TechCare</title>
        <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Orbitron&display=swap" rel="stylesheet">
-
-
-
-<style>
-body{
-   font-family:'arial';
-   background-color: #CDE8E5;
-   }
-
-.lavkush img {
-  border-radius: 8px;
-  border: 2px solid blue;
-}
-span{
-
-    font-family: 'Orbitron', sans-serif;
-    font-size:16px;
-}
-hr.new2 {
-  border-top: 1px dashed black;
-  width:350px;
-  text-align:left;
-  align-items:left;
-}
- /* second id card  */
- p{
-     font-size: 13px;
-     margin-top: -5px;
- }
- .container {
-    width: 80vh;
-    height: 45vh;
-    margin: auto;
-    /* background-color: white; */
-    background-color: #FFDEE9;
-background-image: linear-gradient(0deg, #FFDEE9 0%, #B5FFFC 100%);
-
-    box-shadow: 0 1px 10px rgb(146 161 176 / 50%);
-    overflow: hidden;
-    border-radius: 10px;
-}
-
-.header {
-    /* border: 2px solid black; */
-    width: 73vh;
-    height: 15vh;
-    margin: 20px auto;
-    background-color: black;
-    background-size: cover;
-    /* box-shadow: 0 1px 10px rgb(146 161 176 / 50%); */
-    /* border-radius: 10px; */
-    background-image: url(assets/images/logo2.png);
-    overflow: hidden;
-    font-family: 'Poppins', sans-serif;
-    border-radius: 0px 30px 0px 30px;
-}
-
-.header h1 {
-    color: rgb(27, 27, 49);
-    text-align: right;
-    margin-right: 20px;
-    margin-top: 15px;
-}
-
-.header p {
-    color: rgb(157, 51, 0);
-    text-align: right;
-    margin-right: 22px;
-    margin-top: -10px;
-}
-
-.container-2 {
-    /* border: 2px solid red; */
-    width: 73vh;
-    height: 10vh;
-    margin: 0px auto;
-    margin-top: -20px;
-    display: flex;
-}
-
-.box-1 {
-    border: 4px solid black;
-    width: 90px;
-    height: 95px;
-    margin: -25px 25px;
-    border-radius: 3px;
-}
-
-.box-1 img {
-    width: 82px;
-    height: 87px;
-}
-
-.box-2 {
-    /* border: 2px solid purple; */
-    width: 33vh;
-    height: 8vh;
-    margin: 7px 0px;
-    padding: 5px 7px 0px 0px;
-    text-align: left;
-    font-family: 'Poppins', sans-serif;
-}
-
-.box-2 h2 {
-    font-size: 1.3rem;
-    margin-top: -5px;
-    color: rgb(27, 27, 49);
-    ;
-}
-
-.box-2 p {
-    font-size: 0.7rem;
-    margin-top: -5px;
-    color: rgb(179, 116, 0);
-}
-
-.box-3 {
-    /* border: 2px solid rgb(21, 255, 0); */
-    width: 8vh;
-    height: 8vh;
-    margin: 8px 0px 8px 30px;
-}
-
-.box-3 img {
-    width: 8vh;
-}
-
-.container-3 {
-    /* border: 2px solid rgb(111, 2, 161); */
-    width: 73vh;
-    height: 12vh;
-    margin: 0px auto;
-    margin-top: 10px;
-    display: flex;
-    font-family: 'Shippori Antique B1', sans-serif;
-    font-size: 0.7rem;
-}
-
-.info-1 {
-    /* border: 1px solid rgb(255, 38, 0); */
-    width: 17vh;
-    height: 12vh;
-}
-
-.id {
-    /* border: 1px solid rgb(2, 92, 17); */
-    width: 17vh;
-    height: 5vh;
-}
-
-.id h4 {
-    color: rgb(179, 116, 0);
-    font-size:15px;
-}
-
-.dob {
-    /* border: 1px solid rgb(0, 46, 105); */
-    width: 17vh;
-    height: 5vh;
-    margin: 8px 0px 0px 0px;
-}
-
-.dob h4 {
-    color: rgb(179, 116, 0);
-    font-size:15px;
-}
-
-.info-2 {
-    /* border: 1px solid rgb(4, 0, 59); */
-    width: 17vh;
-    height: 12vh;
-}
-
-.join-date {
-    /* border: 1px solid rgb(2, 92, 17); */
-    width: 17vh;
-    height: 5vh;
-}
-
-.join-date h4 {
-    color: rgb(179, 116, 0);
-    font-size:15px;
-}
-
-.expire-date {
-    /* border: 1px solid rgb(0, 46, 105); */
-    width: 17vh;
-    height: 5vh;
-    margin: 8px 0px 0px 0px;
-}
-
-.expire-date h4 {
-    color: rgb(179, 116, 0);
-    font-size:15px;
-}
-
-.info-3 {
-    /* border: 1px solid rgb(255, 38, 0); */
-    width: 17vh;
-    height: 12vh;
-}
-
-.email {
-    /* border: 1px solid rgb(2, 92, 17); */
-    width: 22vh;
-    height: 5vh;
-}
-
-.email h4 {
-    color: rgb(179, 116, 0);
-    font-size:15px;
-}
-
-.phone {
-    /* border: 1px solid rgb(0, 46, 105); */
-    width: 17vh;
-    height: 5vh;
-    margin: 8px 0px 0px 0px;
-}
-
-.info-4 {
-    /* border: 2px solid rgb(255, 38, 0); */
-    width: 22vh;
-    height: 12vh;
-    margin: 0px 0px 0px 0px;
-    font-size:15px;
-}
-
-.phone h4 {
-    color: rgb(179, 116, 0);
-    font-size:15px;
-}
-
-.sign {
-    /* border: 1px solid rgb(0, 46, 105); */
-    width: 17vh;
-    height: 5vh;
-    margin: 41px 0px 0px 20px;
-    text-align: center;
-}
-#backToHome {
-    position: absolute;
-    top: 20px;
-    left: 10%;
-    transform: translateX(-50%);
-    color: #646665;
-}
-    </style>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/dom-to-image/2.6.0/dom-to-image.js"></script>
   </head>
   <body>
@@ -373,21 +147,43 @@ background-image: linear-gradient(0deg, #FFDEE9 0%, #B5FFFC 100%);
  </a>
  <br>
 <div class="row" style="margin: 50px 20px 5px 20px">
-  <div class="col-sm-6">
-    <div class="card jumbotron">
-      <div class="card-body">
-        <form class="form" method="POST" action="id-card.php">.
-        <label for="exampleInputEmail1" style="font-weight: bold;">Resident Id Card No.</label>
-        <input class="form-control mr-sm-2" type="search" placeholder="Enter Id Card No." name="id_no">
-        <small id="emailHelp" class="form-text text-muted">Every resident should have unique Id no.</small>
-        <br>
-        <button class="btn btn-outline-primary my-2 my-sm-0" type="submit" name="search">Generate</button>
-        </form>
-      </div>
+<div class="col-sm-6 mx-auto mt-5">
+  <div class="card shadow-sm">
+    <div class="card-header text-white text-center" style="background-color: #4D869C;">
+      <h5 >Resident ID Card Generator</h5>
+    </div>
+    <div class="card-body bg-light">
+      <form class="form" method="POST" action="id-card.php">
+        <div class="mb-3">
+          <label for="id_no" class="form-label font-weight-bold">Resident ID Card No.</label>
+          <input 
+            class="form-control" 
+            type="search" 
+            placeholder="Enter ID Card No." 
+            name="id_no" 
+            id="id_no" 
+            required>
+          <small id="emailHelp" class="form-text text-muted">
+            Every resident should have a unique ID number.
+          </small>
+        </div>
+        <div class="d-flex justify-content-center" >
+          <button 
+            class="btn btn-primary" 
+            type="submit" 
+            name="search"
+            style="background-color: #4D869C;"
+            >
+            Generate
+          </button>
+        </div>
+      </form>
     </div>
   </div>
+</div>
+
   <div class="col-sm-6">
-      <div class="card">
+      <div class="cards">
           <div class="card-header" style="display: flex; justify-content:center; font-weight: bold;" >
               Here is your Id Card
           </div>
@@ -397,7 +193,26 @@ background-image: linear-gradient(0deg, #FFDEE9 0%, #B5FFFC 100%);
         <br>
         
      </div>
-<button id="demo" class="downloadtable btn btn-primary" style="background-color: #4D869C;" onclick="downloadtable()"> Download Id Card</button>
+     <div class="btn-group">
+  <button type="button" class="btn btn-primary dropdown-toggle" style="background-color: #4D869C;" data-bs-toggle="dropdown" aria-expanded="false">
+    Download Image ID
+  </button>
+  <ul class="dropdown-menu">
+    <li><a class="dropdown-item" href="#" onclick="downloadFrontCard()">Download Front</a></li>
+    <li><a class="dropdown-item" href="#" onclick="downloadBackCard()">Download Back</a></li>
+  </ul>
+</div>
+
+<div class="btn-group">
+  <button type="button" class="btn btn-primary dropdown-toggle" style="background-color: #4D869C;" data-bs-toggle="dropdown" aria-expanded="false">
+    Print ID
+  </button>
+  <ul class="dropdown-menu">
+    <li><a class="dropdown-item" href="#" onclick="printFrontCard()">Print Front</a></li>
+    <li><a class="dropdown-item" href="#" onclick="printBackCard()">Print Back</a></li>
+    <li><a class="dropdown-item" href="#" onclick="printCombinedCard()">Print Combined</a></li>
+  </ul>
+</div>
 
   </div>
   </div>
@@ -410,37 +225,217 @@ background-image: linear-gradient(0deg, #FFDEE9 0%, #B5FFFC 100%);
     <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js" integrity="sha384-B4gt1jrGC7Jh4AgTPSdUtOBvfO8shuf57BaghqFfPlYxofvL8/KUEfYiJOMMV+rV" crossorigin="anonymous"></script>
 
     <script>
+function downloadFrontCard() {
+    var node = document.getElementById('card-front');
 
-    function downloadtable() {
+    // Capture the front side only
+    domtoimage.toPng(node)
+        .then(function (dataUrl) {
+            downloadURI(dataUrl, "resident-id-card-front.png");
+        })
+        .catch(function (error) {
+            console.error('Oops, something went wrong', error);
+        });
+}
 
-        var node = document.getElementById('mycard');
+function downloadURI(uri, name) {
+    var link = document.createElement("a");
+    link.download = name;
+    link.href = uri;
+    document.body.appendChild(link);
+    link.click();
+    document.body.removeChild(link);
+}
+</script>
 
-        domtoimage.toPng(node)
-            .then(function (dataUrl) {
-                var img = new Image();
-                img.src = dataUrl;
-                downloadURI(dataUrl, "staff-id-card.png")
-            })
-            .catch(function (error) {
-                console.error('oops, something went wrong', error);
-            });
+<script>
+function downloadBackCard() {
+    var node = document.getElementById('card-back');
 
-    }
+    // Temporarily fix inversion for capturing
+    node.style.transform = 'none';
 
+    domtoimage.toPng(node)
+        .then(function (dataUrl) {
+            downloadURI(dataUrl, "resident-id-card-back.png");
+            // Restore the original transform after capturing
+            node.style.transform = '';
+        })
+        .catch(function (error) {
+            console.error('Oops, something went wrong', error);
+            node.style.transform = ''; // Restore on error
+        });
+}
 
+function downloadURI(uri, name) {
+    var link = document.createElement("a");
+    link.download = name;
+    link.href = uri;
+    document.body.appendChild(link);
+    link.click();
+    document.body.removeChild(link);
+}
+</script>
 
-    function downloadURI(uri, name) {
-        var link = document.createElement("a");
-        link.download = name;
-        link.href = uri;
-        document.body.appendChild(link);
-        link.click();
-        document.body.removeChild(link);
-        delete link;
-    }
+<script>
+function downloadImage(elementId, callback) {
+    var node = document.getElementById(elementId);
 
+    domtoimage.toPng(node)
+        .then(function (dataUrl) {
+            callback(dataUrl);
+        })
+        .catch(function (error) {
+            console.error('Oops, something went wrong', error);
+        });
+}
 
+function printImage(dataUrl) {
+    var printWindow = window.open('', '', 'height=600,width=800');
+    printWindow.document.write('<html><head><title>Print ID Card</title></head><body>');
+    printWindow.document.write('<img src="' + dataUrl + '" />');
+    printWindow.document.write('</body></html>');
+    printWindow.document.close();
+    printWindow.print();
+}
+
+function printFrontCard() {
+    downloadImage('card-front', printImage);
+}
+
+function printBackCard() {
+    downloadImage('card-back', printImage);
+}
 
 </script>
+
+<!-- <script>
+function downloadImage(elementId, callback) {
+    var node = document.getElementById(elementId);
+
+    // Temporarily fix inversion for the back side
+    if (elementId === 'card-back') {
+        node.style.transform = 'none';
+    }
+
+    domtoimage.toPng(node)
+        .then(function (dataUrl) {
+            callback(dataUrl);
+            // Restore the original transform after capturing
+            if (elementId === 'card-back') {
+                node.style.transform = '';
+            }
+        })
+        .catch(function (error) {
+            console.error('Oops, something went wrong', error);
+            // Restore the original transform on error
+            if (elementId === 'card-back') {
+                node.style.transform = '';
+            }
+        });
+}
+
+function printCombinedCard() {
+    var frontDataUrl, backDataUrl;
+
+    downloadImage('card-front', function(dataUrl) {
+        frontDataUrl = dataUrl;
+        checkAndPrint();
+    });
+
+    downloadImage('card-back', function(dataUrl) {
+        backDataUrl = dataUrl;
+        checkAndPrint();
+    });
+
+    function checkAndPrint() {
+        if (frontDataUrl && backDataUrl) {
+            var printWindow = window.open('', '', 'height=600,width=800');
+            printWindow.document.write('<html><head><title>Print ID Card</title></head><body>');
+            printWindow.document.write('<div><img src="' + frontDataUrl + '" /></div>');
+            printWindow.document.write('<div><img src="' + backDataUrl + '" /></div>');
+            printWindow.document.write('</body></html>');
+            printWindow.document.close();
+            printWindow.print();
+        }
+    }
+}
+</script> -->
+<script>
+function downloadImage(elementId, callback) {
+    var node = document.getElementById(elementId);
+
+    // Temporarily fix inversion for the back side
+    if (elementId === 'card-back') {
+        node.style.transform = 'none';
+    }
+
+    domtoimage.toPng(node)
+        .then(function (dataUrl) {
+            callback(dataUrl);
+            // Restore the original transform after capturing
+            if (elementId === 'card-back') {
+                node.style.transform = '';
+            }
+        })
+        .catch(function (error) {
+            console.error('Oops, something went wrong', error);
+            // Restore the original transform on error
+            if (elementId === 'card-back') {
+                node.style.transform = '';
+            }
+        });
+}
+
+function printImage(dataUrl, width, height) {
+    var printWindow = window.open('', '', 'height=600,width=800');
+    printWindow.document.write('<html><head><title>Print ID Card</title></head><body>');
+    printWindow.document.write('<div><img src="' + dataUrl + '" style="width:' + width + 'px; height:' + height + 'px;" /></div>');
+    printWindow.document.write('</body></html>');
+    printWindow.document.close();
+    printWindow.print();
+}
+
+function printFrontCard() {
+    downloadImage('card-front', function(dataUrl) {
+        printImage(dataUrl, 336, 212); // Approx. 3.375 inches by 2.125 inches in pixels (assuming 96 DPI)
+    });
+}
+
+function printBackCard() {
+    downloadImage('card-back', function(dataUrl) {
+        printImage(dataUrl, 336, 212); // Approx. 3.375 inches by 2.125 inches in pixels (assuming 96 DPI)
+    });
+}
+
+function printCombinedCard() {
+    var frontDataUrl, backDataUrl;
+
+    downloadImage('card-front', function(dataUrl) {
+        frontDataUrl = dataUrl;
+        checkAndPrint();
+    });
+
+    downloadImage('card-back', function(dataUrl) {
+        backDataUrl = dataUrl;
+        checkAndPrint();
+    });
+
+    function checkAndPrint() {
+        if (frontDataUrl && backDataUrl) {
+            var printWindow = window.open('', '', 'height=600,width=800');
+            printWindow.document.write('<html><head><title>Print ID Card</title></head><body>');
+            printWindow.document.write('<div><img src="' + frontDataUrl + '" style="width:336px; height:212px;" /></div>'); // Front side
+            printWindow.document.write('<div><img src="' + backDataUrl + '" style="width:336px; height:212px;" /></div>'); // Back side
+            printWindow.document.write('</body></html>');
+            printWindow.document.close();
+            printWindow.print();
+        }
+    }
+}
+</script>
+
+
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
   </body>
 </html>
