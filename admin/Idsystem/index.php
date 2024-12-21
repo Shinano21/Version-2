@@ -2,43 +2,11 @@
 // Connect to the Database
 include('config.php');
 
-$update = false;
-$delete = false;
-$already_card = false;
-
-if (isset($_GET['delete'])) {
-    // Handle delete action
-    $id = $_GET['delete'];
-    $delete = true;
-    $sql = "DELETE FROM `residents` WHERE `id` = $id";
-    $result = mysqli_query($conn, $sql);
-}
-
-if ($_SERVER['REQUEST_METHOD'] == 'POST') {
-    if (isset($_POST['snoEdit'])) {
-        // Update the record
-        $id = $_POST["snoEdit"];
-        $fname = $_POST["fnameEdit"];
-        $id_card_no = $_POST["id_noEdit"];
-
-        // SQL query to update the record
-        $sql = "UPDATE `residents` SET `fname` = '$fname', `id_card_no` = '$id_card_no' WHERE `residents`.`id` = $id";
-        $result = mysqli_query($conn, $sql);
-
-        if ($result) {
-            $update = true;
-        } else {
-            echo "We could not update the record successfully: " . mysqli_error($conn);
-        }
-    }
-}
-
 // Fetch all residents' data for display
 $sql = "SELECT id, fname, mname, lname, suffix, sex, bday, street, zone, brgy, mun, contact, id_card_no FROM residents";
 $result = mysqli_query($conn, $sql);
-
-
 ?>
+
 
 
 <!doctype html>
@@ -127,79 +95,51 @@ $result = mysqli_query($conn, $sql);
     
 }
 
+.edit-btn {
+    background-color: #4D869C; /* Original background color */
+    color: white; /* Text color */
+    border: none; /* Remove border */
+    padding: 8px 16px; /* Add padding */
+    cursor: pointer; /* Add pointer cursor on hover */
+    transition: background-color 0.3s ease, color 0.3s ease; /* Smooth transition for background and text color */
+}
+
+.edit-btn:hover {
+    background-color: #3399FF; /* Slightly blue background color on hover */
+    color: white; /* Font color on hover */
+}
 </style>
 
 <body>
- 
-
-  <!-- Edit Modal -->
-  <div class="modal fade" id="editModal" tabindex="-1" role="dialog" aria-labelledby="editModalLabel"
+ <!-- Edit Modal -->
+<div class="modal fade" id="viewModal" tabindex="-1" role="dialog" aria-labelledby="viewModalLabel"
     aria-hidden="true">
     <div class="modal-dialog" role="document">
-      <div class="modal-content">
-        <div class="modal-header">
-          <h5 class="modal-title" id="editModalLabel">Edit This container</h5>
-          <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-            <span aria-hidden="true">×</span>
-          </button>
-        </div>
-        <form method="POST">
-          <div class="modal-body">
-            <input type="hidden" name="snoEdit" id="snoEdit">
-            <div class="form-group">
-              <label for="name">Student Name</label>
-              <input type="text" class="form-control" id="nameEdit" name="nameEdit" disabled>
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="viewModalLabel">View Resident</h5>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">×</span>
+                </button>
             </div>
+            <div class="modal-body">
+  <p><strong>Name:</strong> <span id="nameView"></span></p>
+  <p><strong>ID Card No:</strong> <span id="id_noView"></span></p>
+  <p><strong>Sex:</strong> <span id="sexView"></span></p>
+  <p><strong>Zone:</strong> <span id="zoneView"></span></p>
+  <p><strong>Street:</strong> <span id="streetView"></span></p>
+  <p><strong>Barangay:</strong> <span id="brgyView"></span></p>
+  <p><strong>Municipality:</strong> <span id="munView"></span></p>
+  <p><strong>Contact:</strong> <span id="contactView"></span></p>
+</div>
 
-            <div class="form-group">
-              <label for="desc">ID Card Number:</label>
-              <input class="form-control" id="id_noEdit" name="id_noEdit" rows="3"></input>
-            </div> 
-          </div>
-          <div class="modal-footer d-block mr-auto">
-            <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
-            <button type="submit" class="btn btn-primary">Save changes</button>
-          </div>
-        </form>
-      </div>
+            <div class="modal-footer d-block ml-auto">
+                <button type="button" class="btn btn-secondary" style="background-color: #4D869C;" data-dismiss="modal">Close</button>
+            </div>
+        </div>
     </div>
-  </div>
+</div>
 
-
-<!-- Navigation bar end  -->
-
-
-  <?php
-  if($delete){
-    echo "<div class='alert alert-success alert-dismissible fade show' role='alert'>
-    <strong>Success!</strong> Your Card has been deleted successfully
-    <button type='button' class='close' data-dismiss='alert' aria-label='Close'>
-      <span aria-hidden='true'>×</span>
-    </button>
-  </div>";
-  }
-  ?>
-  <?php
-  if($update){
-    echo "<div class='alert alert-success alert-dismissible fade show' role='alert'>
-    <strong>Success!</strong> Your Card has been updated successfully
-    <button type='button' class='close' data-dismiss='alert' aria-label='Close'>
-      <span aria-hidden='true'>×</span>
-    </button>
-  </div>";
-  }
-  ?>
-
-     <?php
-  if($already_card){
-    echo "<div class='alert alert-warning alert-dismissible fade show' role='alert'>
-    <strong>Error!</strong> This Card is Already Added.
-    <button type='button' class='close' data-dismiss='alert' aria-label='Close'>
-      <span aria-hidden='true'>×</span>
-    </button>
-  </div>";
-  }
-  ?>
   <a href="../home.php" id="backToHome">
     <h7><i class="fa fa-long-arrow-left">&nbsp;&nbsp;</i> Back to Home</h7>
  </a>
@@ -243,14 +183,15 @@ $result = mysqli_query($conn, $sql);
           <td>{$full_name}</td>
           <td>{$row['id_card_no']}</td>
           <td>
-            <button class='edit btn btn-sm btn-primary' id='{$row['id']}'>View Resident</button>
-          
+            <button class='edit btn btn-sm edit-btn' data-id='{$row['id']}'>View Resident</button>
+
           </td>
         </tr>";
       }
     ?>
   </tbody>
 </table>
+
 
   </div>
   </div>
@@ -273,40 +214,39 @@ $result = mysqli_query($conn, $sql);
 
     });
   </script>
-  <script>
-    edits = document.getElementsByClassName('edit');
-    Array.from(edits).forEach((element) => {
-      element.addEventListener("click", (e) => {
-        console.log("edit ");
-        tr = e.target.parentNode.parentNode;
-        name = tr.getElementsByTagName("td")[0].innerText;
-        id_no = tr.getElementsByTagName("td")[1].innerText;
-        console.log(name, id_no);
-        nameEdit.value = name;
-        id_noEdit.value = id_no;
-        snoEdit.value = e.target.id;
-        console.log(e.target.id)
-        $('#editModal').modal('toggle');
-      })
-    })
+<script>
+  document.addEventListener('DOMContentLoaded', function () {
+  const edits = document.getElementsByClassName('edit');
+  
+  Array.from(edits).forEach((element) => {
+    element.addEventListener("click", function (e) {
+      const residentId = e.target.getAttribute('data-id'); // Get the ID of the resident
 
-    deletes = document.getElementsByClassName('delete');
-    Array.from(deletes).forEach((element) => {
-      element.addEventListener("click", (e) => {
-        console.log("edit ");
-        sno = e.target.id.substr(1);
+      // Perform an AJAX request to fetch the full details of the resident
+      fetch('get_resident_details.php?id=' + residentId)
+        .then(response => response.json())
+        .then(data => {
+          // Populate the modal with the resident's details
+          document.getElementById('nameView').innerText = data.full_name;
+          document.getElementById('id_noView').innerText = data.id_card_no;
+          document.getElementById('sexView').innerText = data.sex;
+          document.getElementById('zoneView').innerText = data.zone;
+          document.getElementById('streetView').innerText = data.street;
+          document.getElementById('brgyView').innerText = data.brgy;
+          document.getElementById('munView').innerText = data.mun;
+          document.getElementById('contactView').innerText = data.contact;
 
-        if (confirm("Are you sure you want to delete this note!")) {
-          console.log("yes");
-          window.location = `index.php?delete=${sno}`;
-          // TODO: Create a form and use post request to submit a form
-        }
-        else {
-          console.log("no");
-        }
-      })
-    })
-  </script>
+          // Show the modal
+          $('#viewModal').modal('toggle');
+        })
+        .catch(error => {
+          console.error('Error fetching resident details:', error);
+        });
+    });
+  });
+});
+
+</script>
 </body>
 
 </html>
