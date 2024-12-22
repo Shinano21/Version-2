@@ -64,7 +64,7 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <meta name="theme-name" content="focus" />
-    <title>Update Hypertension Record | CareVisio</title>
+    <title>Update Hypertension Record | TechCare</title>
     <?php include "../services/head.php"; ?>
 </head>
 
@@ -129,8 +129,12 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
                                 <label for="remarks_type">Remarks:</label>
                                 <textarea id="remarks_type" name="remarks_type"><?php echo $row['remarks_type']; ?></textarea>
                             </div>
-                            <div class="form-group">
-                                <button type="submit" class="submit-btn">Update Record</button>
+                            <div class="form-group"> 
+                                <div class="button-container"> 
+                                    <button type="submit" class="submit-btn">
+                                        Update Record
+                                    </button> 
+                                </div> 
                             </div>
                         </form>
                     </div>
@@ -140,42 +144,72 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
     </div>
 
     <style>
-        body {
-            overflow-x: hidden;
-            background-color: #CDE8E5;
+    body {
+        overflow-x: hidden;
+        background-color: #CDE8E5;
+    }
+    .content-wrap {
+        padding: 20px;
+    }
+    .main {
+        margin: 0 auto;
+        max-width: auto;
+    }
+    #header-row {
+        padding: 20px 0;
+    }
+    /* .title-page h7 {
+        font-size: 1rem;
+        color: #333;
+    } */
+    .title-page h3 {
+        font-size: 1.5rem;
+        margin-top: 10px;
+    }
+    .form-container {
+        padding: 20px;
+        background-color: #f9f9fd;
+        box-shadow: 0px 0px 2px gray;
+        border-radius: 10px;
+    }
+    .form-group {
+        margin-bottom: 15px;
+    }
+    label {
+        display: block;
+        margin-bottom: 5px;
+        font-weight: bold;
+    }
+    .req {
+        color: red;
+    }
+    textarea, input, select {
+        width: 100%;
+        padding: 10px;
+        border: 1px solid #ccc;
+        border-radius: 5px;
+        box-shadow: 0px 0px 2px gray;
+    }
+.button-container { 
+    display: flex; 
+    justify-content: flex-end; /* Align the button to the right */ 
+}
+    .submit-btn {
+        padding: 10px 40px;
+        border: none;
+        box-shadow: 0px 0px 3px gray;
+        color: white;
+        background-color: rgb(92, 84, 243);
+        border-radius: 10px;
+        margin-top: 20px;
+        cursor: pointer;
+        transition: background-color 0.3s ease;
+    }
+    .submit-btn:hover {
+        background-color: #4D869C;
+    }
+</style>
 
-        }
-        button[type="submit"] {
-            padding: 10px 40px;
-            border: none;
-            box-shadow: 0px 0px 3px gray;
-            color: white;
-            background-color: rgb(92, 84, 243);
-            border-radius: 10px;
-            float: right;
-            margin: 1%;
-        }
-        textarea, input, select {
-            border: none;
-            box-shadow: 0px 0px 2px gray;
-            border-radius: 10px;
-            padding: 7px;
-            width: 90%;
-        }
-        .req {
-            color: red;
-        }
-        .form-container {
-            padding: 20px;
-            background-color: #f9f9fd;
-            box-shadow: 0px 0px 2px gray;
-            border-radius: 10px;
-            width: 100%;
-        }
-        #header-row{
-            padding: 20px;
-        }
-    </style>
     <script>
         function display_ct() {
             var refresh = 1000; // Refresh rate in milliseconds
