@@ -230,5 +230,29 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
     <script src="../js/lib/menubar/sidebar.js"></script>
     <script src="../js/lib/preloader/pace.min.js"></script>
     <script src="../js/scripts.js"></script>
+    <script>
+    // Function to make fields readonly if they have pre-filled values
+    function makeFieldsReadonlyIfNotEmpty() {
+        const inputs = document.querySelectorAll("input[type='text'], input[type='date']");
+        inputs.forEach(input => {
+            if (input.value.trim() !== "") {
+                input.setAttribute("readonly", "readonly");
+            } else {
+                input.removeAttribute("readonly");
+            }
+        });
+    }
+
+    // Run the function when the page loads
+    window.onload = makeFieldsReadonlyIfNotEmpty;
+
+    // Optional: Make all fields editable again if needed
+    function enableFields() {
+        const inputs = document.querySelectorAll("input[readonly]");
+        inputs.forEach(input => {
+            input.removeAttribute("readonly");
+        });
+    }
+</script>
 </body>
 </html>
