@@ -346,7 +346,7 @@
                         echo $post_datetime_12hr; 
                     ?>
                 </p>
-                <button onclick="window.location.href='announcementsContent.php?id=<?php echo $row['id']?>'">View More</button>
+                <button onclick="window.location.href='announcementContent.php?id=<?php echo $row['id']?>'">View More</button>
             </div>
             <?php
             }

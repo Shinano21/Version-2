@@ -275,69 +275,74 @@ video {
         <!-- </div> -->
     </div>
 
-    <script
-        src="https://unpkg.com/html5-qrcode">
-    </script>
+    <script src="html5-qrcode/minified/html5-qrcode.min.js"></script>
     <!-- <script src="script.js"></script> -->
 </body>
 <script>
   // Ensure the script runs when the DOM is fully loaded
-function domReady(fn) {
+  function domReady(fn) {
     if (
-        document.readyState === "complete" ||
-        document.readyState === "interactive"
+      document.readyState === "complete" ||
+      document.readyState === "interactive"
     ) {
-        setTimeout(fn, 1000);
+      setTimeout(fn, 1000);
     } else {
-        document.addEventListener("DOMContentLoaded", fn);
+      document.addEventListener("DOMContentLoaded", fn);
     }
-}
+  }
 
-domReady(function () {
-    // Initialize the QR code scanner with reduced fps
-    const htmlscanner = new Html5QrcodeScanner(
-    "my-qr-reader",
-    { fps: 5, qrbox: 250 }
-);
+  domReady(function () {
+    // Initialize the QR code scanner with optimized FPS
+    const htmlscanner = new Html5QrcodeScanner("my-qr-reader", {
+  fps: 60, // Higher frames per second for faster scanning
+  qrbox: { width: 200, height: 200 }, // Narrow the scan box for optimized performance
+  experimentalFeatures: {
+    useBarCodeDetectorIfSupported: true, // Enable experimental barcode detection for speed
+  },
+  rememberLastUsedCamera: true, // Remembers the last selected camera for faster setup
+});
 
-htmlscanner.render(onScanSuccess);
-console.log("QR scanner initialized.");
+
+    htmlscanner.render(onScanSuccess);
+    console.log("QR scanner initialized.");
 
     // Debounce timer to prevent multiple rapid scans
     let debounceTimer = null;
 
     // Define the callback function for successful scan
     function onScanSuccess(decodedText) {
-        console.log("Scanned ID Card Number:", decodedText);
+      console.log("Scanned ID Card Number:", decodedText);
 
-        // Debounce the handler to prevent multiple calls
-        if (debounceTimer) clearTimeout(debounceTimer);
+      // Debounce the handler to prevent multiple calls
+      if (debounceTimer) clearTimeout(debounceTimer);
 
-        debounceTimer = setTimeout(() => {
-            fetchResidentData(decodedText);
-        }, 300); // 300ms debounce delay
+      debounceTimer = setTimeout(() => {
+        fetchResidentData(decodedText);
+      }, 300); // 300ms debounce delay
     }
 
     // Function to fetch resident data from the server
     function fetchResidentData(idCardNo) {
-        fetch('fetch_resident.php', {
-            method: 'POST',
-            headers: {
-                'Content-Type': 'application/json',
-            },
-            body: JSON.stringify({ id_card_no: idCardNo }),
-        })
-            .then(response => response.json())
-            .then(data => {
-                if (data.success) {
-                    // Update the card container with resident details
-                    document.getElementById('resident-image').src = data.profile ? '/Version-2/admin/' + data.profile : 'https://via.placeholder.com/150';
-                    document.querySelector('.resident-info').innerHTML = `
+      fetch("fetch_resident.php", {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify({ id_card_no: idCardNo }),
+      })
+        .then((response) => response.json())
+        .then((data) => {
+          if (data.success) {
+            // Update the card container with resident details
+            document.getElementById("resident-image").src = data.profile
+              ? "/Version-2/admin/" + data.profile
+              : "https://via.placeholder.com/150";
+            document.querySelector(".resident-info").innerHTML = `
                         <p><strong>Name:</strong> ${data.fname} ${data.mname} ${data.lname}</p>
                         <p><strong>Age:</strong> ${data.age}</p>
                         <p><strong>Address:</strong> ${data.street}, ${data.brgy}, ${data.mun}</p>
                     `;
-                    document.querySelector('.additional-info').innerHTML = `
+            document.querySelector(".additional-info").innerHTML = `
                         <p><strong>Sex:</strong> ${data.sex}</p>
                         <p><strong>Birthday:</strong> ${data.bday}</p>
                         <p><strong>Place of Birth:</strong> ${data.pob}</p>
@@ -357,20 +362,16 @@ console.log("QR scanner initialized.");
                         <p><strong>Longitude:</strong> ${data.longitude}</p>
                         <p><strong>Latitude:</strong> ${data.latitude}</p>
                     `;
-                } else {
-                    alert("Resident not found!");
-                }
-            })
-            .catch(error => {
-                console.error("Error fetching resident data:", error);
-                alert("An error occurred while fetching resident data.");
-            });
+          } else {
+            alert("Resident not found!");
+          }
+        })
+        .catch((error) => {
+          console.error("Error fetching resident data:", error);
+          alert("An error occurred while fetching resident data.");
+        });
     }
-
-   
-});
-
-
+  });
 </script>
 
 </html>
