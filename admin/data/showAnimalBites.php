@@ -6,35 +6,45 @@ include('../dbcon.php');
 $filterMonth = isset($_GET['month']) ? $_GET['month'] : '';
 $filterYear = isset($_GET['year']) ? $_GET['year'] : '';
 
-// SQL query to fetch data including filters
-$query = "SELECT ab.*, r.fname AS first_name, r.lname AS last_name, r.mname AS middle_name, r.suffix, r.sex, r.bday
-          FROM animal_bite_records ab
-          JOIN residents r ON ab.resident_id = r.id";
-
-// Apply filters
-$conditions = [];
-if ($filterMonth) {
-    $conditions[] = "MONTH(ab.bite_date) = '$filterMonth'";
-}
-if ($filterYear) {
-    $conditions[] = "YEAR(ab.bite_date) = '$filterYear'";
-}
-if (!empty($conditions)) {
-    $query .= " WHERE " . implode(" AND ", $conditions);
-}
-
 // Get the search input
 $search = isset($_POST['search']) ? mysqli_real_escape_string($conn, $_POST['search']) : '';
 
-// SQL query with search functionality
-$query = "SELECT ab.*, r.fname AS first_name, r.lname AS last_name, r.mname AS middle_name, r.suffix, r.bday,
-                 ab.bite_date, ab.bite_location, ab.bitten_location, ab.treatment_center, ab.remarks
+// Base SQL query
+$query = "SELECT ab.*, 
+                 r.fname AS first_name, 
+                 r.lname AS last_name, 
+                 r.mname AS middle_name, 
+                 r.suffix, 
+                 r.bday,
+                 ab.bite_date, 
+                 ab.bite_location, 
+                 ab.bitten_location, 
+                 ab.treatment_center, 
+                 ab.remarks
           FROM animal_bite_records ab
           JOIN residents r ON ab.resident_id = r.id";
 
-// Add search condition
+// Apply filters and search
+$conditions = [];
+
+// Add month filter
+if (!empty($filterMonth)) {
+    $conditions[] = "MONTH(ab.bite_date) = '$filterMonth'";
+}
+
+// Add year filter
+if (!empty($filterYear)) {
+    $conditions[] = "YEAR(ab.bite_date) = '$filterYear'";
+}
+
+// Add search filter
 if (!empty($search)) {
-    $query .= " WHERE CONCAT(r.fname, ' ', r.mname, ' ', r.lname, ' ', r.suffix) LIKE '%$search%'";
+    $conditions[] = "CONCAT(r.fname, ' ', r.mname, ' ', r.lname, ' ', r.suffix) LIKE '%$search%'";
+}
+
+// Combine conditions into the query
+if (!empty($conditions)) {
+    $query .= " WHERE " . implode(" AND ", $conditions);
 }
 
 // Execute the query
