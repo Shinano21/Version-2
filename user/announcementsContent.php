@@ -30,11 +30,11 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>><?php echo $program['announce_heading']; ?> - CareVisio</title>
+    <title><?php echo $program['announce_heading']; ?> - TechCare</title>
     <link rel="stylesheet" href="global.css">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css">
 
-    <link rel="shortcut icon" href="../src/favicon.png" type="image/x-icon">
+    <link rel="shortcut icon" href="images/techcareLogo2.png" type="image/x-icon">
     
     <style>
     .bodyCont {
@@ -127,13 +127,13 @@
                     <p><?php echo $program['announce_body']; ?></p>
                 </div>
                 <?php
-                    if ($program['announce_pic'] !== null) {
-                      $imageType = strpos($program['announce_pic'], '/png') !== false ? 'png' : 'jpeg';
-                      echo "<img src='data:image/{$imageType};base64," . base64_encode($program['announce_pic']). "' />";
-                    } else {
-                      echo "No image available";
-                    }
-                    ?>
+                if (!empty($program["announce_pic"])) {
+                    $imagePath = '../admin/cms/uploads/' . htmlspecialchars($program['announce_pic'], ENT_QUOTES, 'UTF-8');
+                    echo "<img src='$imagePath' alt='Program Image' />";
+                } else {
+                    echo "<img src='src/default_image.png' alt='Default Image'>";
+                }
+                ?>
                 <p style="font-size: x-small; color: #888D8F;"><?php echo $program['announce_type']; ?></p>
             </div>
         </div>

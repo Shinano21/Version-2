@@ -77,6 +77,8 @@ if ($result_about && $about = mysqli_fetch_assoc($result_about)) {
     <link rel="stylesheet" href="css/global.css">
     <link rel="stylesheet" href="css/aboutUs.css">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css">
+    <link rel="shortcut icon" href="src/techcareLogo2.png" type="image/x-icon">
+
 </head>
 
 <body>
