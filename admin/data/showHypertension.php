@@ -30,11 +30,11 @@ if (!$result) {
 if ($result->num_rows > 0) {
     while ($row = $result->fetch_assoc()) {
         echo "<tr>";
-        echo "<td>" . $row['full_name'] . "</td>";
-        echo "<td>" . $row['checkup_date'] . "</td>";
-        echo "<td>" . $row['medicine_type'] . "</td>";
-        echo "<td>" . $row['blood_pressure'] . "</td>";
-        echo "<td>" . $row['remarks_type'] . "</td>";
+        echo "<td style='color: #333;'>" . $row['full_name'] . "</td>";
+        echo "<td style='color: #333;'>" . $row['checkup_date'] . "</td>";
+        echo "<td style='color: #333;'>" . $row['medicine_type'] . "</td>";
+        echo "<td style='color: #333;'>" . $row['blood_pressure'] . "</td>";
+        echo "<td style='color: #333;'>" . $row['remarks_type'] . "</td>";
         echo "<td>
                  <select style='background-color:#1e80c1;color:white;border:none;padding:10px 20px;' onchange='location = this.value;'>
                     <option value=''>Action</option>

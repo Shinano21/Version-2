@@ -67,7 +67,52 @@ if (!isset($_SESSION["user"]) || $_SESSION["user_type"] == "System Administrator
             background-color: #f1f1f1;
         }
         .head th { text-align: center; }
-        
+   
+        .buttons2 {
+    display: flex;
+    justify-content: space-between; /* Ensures the left section and right section are far apart */
+    align-items: center; /* Vertically aligns both sections */
+    width: 100%; /* Ensures the container spans the full width */
+    margin-bottom: 10px;
+}
+
+.showEntries {
+    display: flex;
+    align-items: center; /* Vertically aligns "Show" text and input field */
+    gap: 5px; /* Adds spacing between "Show", input, and "entries" text */
+}
+
+.showEntries p {
+    margin: 0;
+    font-size: 14px;
+}
+
+.numberInput {
+    border: 1px solid black;
+    background-color: white;
+    padding: 0px;
+    font-size: 14px;
+    border-radius: 4px;
+    width: 60px; /* Keeps the input field compact */
+    text-align: center; /* Centers the number inside the input */
+}
+
+.searchTable {
+    display: flex;
+    align-items: center; /* Vertically aligns search label and input */
+    gap: 5px; /* Adds spacing between the label and the search bar */
+}
+
+.searchBar {
+    padding: 5px;
+    font-size: 14px;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+    width: 200px; /* Adjusts the width of the search input field */
+}
+
+
+
     </style>
 </head>
 <body onload="display_ct();">
@@ -139,7 +184,12 @@ if (!isset($_SESSION["user"]) || $_SESSION["user_type"] == "System Administrator
                             </div>
 
                             <div class="tab">
-                            <div class="buttons">
+                            <div class="buttons2">
+                            <div class="showEntries">
+                                    <p>Show
+                                    <input type="number" value="15" class="numberInput"></input>
+                                    entries</p>
+                                </div>
                                 <div class="searchTable">
                                     <label for="searchInput">Search:</label>
                                     <input type="text" id="searchInput" class="searchBar" placeholder="Enter keyword">

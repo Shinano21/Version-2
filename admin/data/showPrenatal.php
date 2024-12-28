@@ -51,14 +51,14 @@ if (mysqli_num_rows($result) > 0) {
     while ($row = mysqli_fetch_assoc($result)) {
         $rowColor = $even % 2 == 1 ? "style='background-color: rgb(243, 244, 245);'" : "";
         echo "<tr $rowColor>";
-        echo "<td>" . htmlspecialchars($row['lname'] . ", " . $row['fname']) . "</td>";
-        echo "<td>" . htmlspecialchars($row['checkup_date']) . "</td>";
-        echo "<td>" . htmlspecialchars($row['gestational_age']) . " weeks</td>";
-        echo "<td>" . htmlspecialchars($row['blood_pressure']) . "</td>";
-        echo "<td>" . htmlspecialchars($row['weight']) . " kg</td>";
-        echo "<td>" . htmlspecialchars($row['fetal_heartbeat']) . "</td>";
-        echo "<td>" . htmlspecialchars($row['remarks']) . "</td>";
-        echo "<td>
+        echo "<td style='color: #333;'>" . htmlspecialchars($row['lname'] . ", " . $row['fname']) . "</td>";
+        echo "<td style='color: #333;'>" . htmlspecialchars($row['checkup_date']) . "</td>";
+        echo "<td style='color: #333;'>" . htmlspecialchars($row['gestational_age']) . " weeks</td>";
+        echo "<td style='color: #333;'>" . htmlspecialchars($row['blood_pressure']) . "</td>";
+        echo "<td style='color: #333;'>" . htmlspecialchars($row['weight']) . " kg</td>";
+        echo "<td style='color: #333;'>" . htmlspecialchars($row['fetal_heartbeat']) . "</td>";
+        echo "<td style='color: #333;'>" . htmlspecialchars($row['remarks']) . "</td>";
+        echo "<td style='color: #333;'>
                 <select style='background-color: #006BDD; color: white; border: none; padding: 10px 20px;' onchange='location = this.value;'>
                     <option value='' selected hidden>Action</option>
                     <option value='view/view_services7.php?view=" . urlencode($row['prenatal_id']) . "'>View</option>

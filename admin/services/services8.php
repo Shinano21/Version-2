@@ -107,15 +107,19 @@ $result = mysqli_query($conn, $query);
             overflow-x: hidden;
         }
         button[type="submit"] {
-            padding: 10px 40px;
-            border: none;
-            box-shadow: 0px 0px 3px gray;
-            color: white;
-            background-color: rgb(92, 84, 243);
-            border-radius: 10px;
-            float: right;
-            margin: 1%;
-        }
+    display: inline-block;
+    padding: 10px 40px;
+    border: none;
+    box-shadow: 0px 0px 3px gray;
+    color: white;
+    background-color: rgb(92, 84, 243);
+    border-radius: 10px;
+    margin-top: 10px; /* Adjusted for spacing */
+    margin-right: 1%; /* Ensure it doesn't float too close to the right */
+    float: none; /* Prevent overlapping by not floating the button */
+    text-align: center; /* Center the text */
+}
+
         textarea, input, select {
             border: none;
             box-shadow: 0px 0px 2px gray;
@@ -149,6 +153,9 @@ $result = mysqli_query($conn, $query);
         }
         .title-page{
             padding: 20px;
+        }
+        .form-group {
+            display: flex; justify-content: flex-end; /* Align items to the right */
         }
     </style>
 

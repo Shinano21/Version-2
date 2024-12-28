@@ -62,13 +62,13 @@ if (mysqli_num_rows($result) > 0) {
         $fullName = $row['first_name'] . ' ' . $row['middle_name'] . ' ' . $row['last_name'] . ' ' . $row['suffix'];
         
         echo "<tr>";
-        echo "<td>{$fullName}</td>";
-        echo "<td>{$row['bday']}</td>";
-        echo "<td>{$row['bite_date']}</td>";
-        echo "<td>{$row['bite_location']}</td>";
-        echo "<td>{$row['bitten_location']}</td>";
-        echo "<td>{$row['treatment_center']}</td>";
-        echo "<td>{$row['remarks']}</td>";
+        echo "<td style='color: #333;'>{$fullName}</td>";
+        echo "<td style='color: #333;'>{$row['bday']}</td>";
+        echo "<td style='color: #333;'>{$row['bite_date']}</td>";
+        echo "<td style='color: #333;'>{$row['bite_location']}</td>";
+        echo "<td style='color: #333;'>{$row['bitten_location']}</td>";
+        echo "<td style='color: #333;'>{$row['treatment_center']}</td>";
+        echo "<td style='color: #333;'>{$row['remarks']}</td>";
         echo "<td style='display: flex; justify-content:center;'>
                <select style='background-color:#1e80c1;color:white;border:none;padding:10px 20px;' onchange='location = this.value;'>
                    <option value='' selected hidden>Action</option>
