@@ -1,4 +1,17 @@
 <!DOCTYPE html>
+<?php
+include '../dbcon.php';
+
+$sql = "SELECT center_name FROM home LIMIT 1";
+$result = $conn->query($sql);
+$centerName = '';
+if ($result->num_rows > 0) {
+    $row = $result->fetch_assoc();
+    $centerName = $row['center_name'];
+} else {
+    $centerName = "No center name found";
+}
+?>
 <html lang="en">
 
 <head>
@@ -32,7 +45,8 @@
                     <p class="text">Republic of the Philippines</p>
                     <p class="text">Province of Albay</p>
                     <p class="text">Municipality of Legazpi</p>
-                    <p class="text" style="font-weight: 600;">Barangay Bagumbayan Health Center</p>
+                    <p class="text" style="font-weight: 600;"><?php echo $centerName; ?></p>
+
 
                 </div>
                 <div class="space"></div>
