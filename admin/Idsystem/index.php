@@ -36,7 +36,7 @@ $result = mysqli_query($conn, $sql);
 
 .container {
    padding: 20px;
-   margin-top: 85px !important; /* Adjust the value as needed */
+   margin-top: 35px !important; /* Adjust the value as needed */
   /* display: flex;
   justify-content: center;
   align-items: center;
@@ -108,6 +108,30 @@ $result = mysqli_query($conn, $sql);
     background-color: #3399FF; /* Slightly blue background color on hover */
     color: white; /* Font color on hover */
 }
+#header-row {
+    background-color: #d7f0f3; /* Light teal background */
+    padding: 15px 20px; /* Adjust row padding */
+}
+
+#header-row h1 {
+    margin: 0; /* Remove any extra margin */
+    font-size: 1.8rem; /* Adjust title size */
+}
+
+#header-row .breadcrumb {
+    margin: 0; /* Remove any extra margin */
+    padding: 0; /* Adjust breadcrumb padding */
+}
+
+#header-row .breadcrumb a {
+    color: #000; /* Black links for breadcrumb */
+    text-decoration: none;
+}
+
+#header-row .breadcrumb-item.active {
+    color: #6c757d; /* Light gray for the active item */
+}
+
 </style>
 
 <body>
@@ -143,8 +167,23 @@ $result = mysqli_query($conn, $sql);
   <a href="../home.php" id="backToHome">
     <h7><i class="fa fa-long-arrow-left">&nbsp;&nbsp;</i> Back to Home</h7>
  </a>
+ <div class="row align-items-center py-3 px-5 mt-5" id="header-row;">
+    <!-- Left Section -->
+    <div class="col-md-6 d-flex align-items-center">
+        <h1 class=" mb-0" style="font-size: 1.8rem; padding-left:90px; color: #333;">ID System</h1>
+    </div>
 
-  <div class="container my-4 mt-5">
+    <!-- Right Section -->
+    <div class="col-md-6 d-flex justify-content-end align-items-center">
+        <ol class="breadcrumb mb-0" style="background: none; padding-right: 90px;">
+            <li class="breadcrumb-item" ><a style="color: #333;" href="../home.php">Dashboard</a></li>
+            <li class="breadcrumb-item active">Genarate ID</li>
+        </ol>
+    </div>
+</div>
+
+
+  <div class="container my-4">
 
   <a href="id-card.php" class="btn-generate">
   <i class="fa fa-address-card"></i> Generate ID Card

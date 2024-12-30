@@ -73,12 +73,12 @@ button {
     cursor: pointer;
     margin-top: 15px;
     margin-bottom: 10px;
-    background-color: #008000ad;
+    background-color: #4D869C;
     transition: 0.3s background-color;
 }
 
 button:hover {
-    background-color: #008000;
+    background-color: blue;
 }
 
 #html5-qrcode-anchor-scan-type-change {
@@ -212,7 +212,14 @@ video {
 
 }
 #backToHome:hover { text-decoration: underline; }
-
+#header-row{
+display: flex;
+align-items: center;
+justify-content: space-between;
+}
+a:hover {
+    color: black;
+  }
     </style>
 </head>
 
@@ -220,6 +227,28 @@ video {
 <a href="../home.php" id="backToHome">
     <h7><i class="fa fa-long-arrow-left">&nbsp;&nbsp;</i> Back to Home</h7>
  </a>
+
+ <div class="row align-items-center py-3 px-5 mt-5" id="header-row">
+    <!-- Left Section -->
+    <div class="col-md-6 d-flex align-items-center justify-content-start" style="padding-left: 50px;">
+        <h1 class="mb-0" style="font-weight:500; font-size: 1.8rem; color: #333;">ID System</h1>
+    </div>
+
+    <!-- Right Section -->
+    <div class="col-md-6 d-flex justify-content-end align-items-center" style="padding-right: 50px;">
+        <nav>
+            <ol class="breadcrumb mb-0" style="background: none; margin: 0; padding: 0; list-style: none;">
+                <li class="breadcrumb-item" style="display: inline;">
+                    <a href="../home.php" style="color: #333; text-decoration: none;">Dashboard </a>
+                </li>
+                <li class="breadcrumb-item active" style="display: inline; margin-left: 10px; color: #6c757d;">
+                    / Scan ID
+                </li>
+            </ol>
+        </nav>
+    </div>
+</div>
+
     <div class="container">
         <div class="section">
             <h1 class="title">ID Scanner</h1>
