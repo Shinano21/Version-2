@@ -43,11 +43,11 @@
             echo "<th> " . $rows[$i]['bday'] . "</th>";
             echo "<th> " . $rows[$i]['zone'] . "</th>";
             echo "<th> " . $rows[$i]['contact'] . "</th>";
-            echo "<th> <select style='background-color:#006BDD;color:white;border:none;padding:10px 20px;' onchange='handleAction(this.value)'>";
+            echo "<th> <select style='background-color:#006BDD;color:white;border:none;padding:10px 20px;'  onchange='location = this.value;'>";
             echo "<option value='' selected hidden>Action</option>";
             echo "<option value='view_resident.php?id=" . $rows[$i]['id'] . "'>View</option>";
             echo "<option value='update.php?id=" . $rows[$i]['id'] . "'>Update</option>";
-            echo "<option value='delete:" . $rows[$i]['id'] . "'>Delete</option>";
+            echo "<option value='delete_resident.php?id=" . $rows[$i]['id'] . "'>Delete</option>";
             echo "</select> </th></tr>";
             $even++;
         }
@@ -55,17 +55,3 @@
         echo "No data found.";
     }
 ?>
-<script>
-    function handleAction(value) {
-        if (value.startsWith("delete:")) {
-            const id = value.split(":")[1];
-            const popupWidth = 400;
-            const popupHeight = 200;
-            const left = (window.screen.width / 2) - (popupWidth / 2);
-            const top = (window.screen.height / 2) - (popupHeight / 2);
-            window.open(`delete_resident.php?id=${id}`, "Confirm Delete", `width=${popupWidth},height=${popupHeight},top=${top},left=${left}`);
-        } else if (value) {
-            location.href = value;
-        }
-    }
-</script>
