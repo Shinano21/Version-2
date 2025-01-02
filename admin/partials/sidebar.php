@@ -5,14 +5,14 @@
                 <div class="logo">
                     <a href="home.php"><img src="src/logo.svg" style="width:80%;margin-left:-50%;" alt="" class="large-logo" /> </a>
                 </div>
-                <li><a href="home.php"><i class="fa fa-home"></i> Dashboard </a></li>
-                <li><a href="residents.php"><i class="fa fa-users"></i> Residents</a></li>
+                <li><a href="home.php"><i class="fa fa-th-large"></i> Dashboard </a></li>
+                <li><a href="residents.php"><i class="fa fa-user-circle"></i> Residents</a></li>
 
                 <li>
-                    <a class="sidebar-sub-toggle">
-                        <i class="fa fa-heart"></i> Services
-                        <span class="sidebar-collapse-icon ti-angle-down"></span>
-                    </a>
+                <a class="sidebar-sub-toggle">
+    <i class="fa fa-briefcase"></i> Services
+    <span class="sidebar-collapse-icon ti-angle-down"></span>
+</a>
                     <ul>
                         <li style="font-size:0.7rem;text-indent:2%;"><a href="services1.php"><i
                                     class="fa fa-heart-o" style="font-size:9px;"></i>Immunization and Nutrition</a></li>
@@ -34,9 +34,9 @@
                                     
                     </ul>
                 </li>
-                <li><a href="visualization.php"><i class="fa fa-bar-chart"></i>Data Visualization</a></li>
-                <li><a href="masterlists.php"><i class="fa fa-list-alt"></i> Masterlists</a></li>
-                <li><a href="../index.php" target="_blank"><i class="fa fa-tablet"></i> Website </a></li>
+                <li><a href="visualization.php"><i class="fa fa-table"></i> Data Visualization</a></li>
+                <li><a href="masterlists.php"><i class="fa fa-list"></i> Masterlists</a></li>
+                <li><a href="../index.php" target="_blank"><i class="fa fa-globe"></i> Website </a></li>
                 <li><a href="maps/purok_tables.php"><i class="fa fa-map"></i> Map</a></li>
 
                 <li><a class="sidebar-sub-toggle"><i class="fa fa-cogs"></i> Website Settings <span

@@ -75,7 +75,7 @@ if(!isset($_SESSION["user"])){
                                 ?>
                                 </div>
 
-                                <div class="dvi dasd"><img src="src/a1.png">
+                                <div class="dvi dasd"><img src="src/group (2).png">
                                     <br>
                                     <h7><b>Total Population</b></h7>
                                 </div>
@@ -101,7 +101,7 @@ if(!isset($_SESSION["user"])){
                             ?>
                                 </div>
 
-                                <div class="dvi dasd"><img src="src/a2.png">
+                                <div class="dvi dasd"><img src="src/female (1).png">
                                     <br>
                                     <h7><b>Total Female</b></h7>
                                 </div>
@@ -127,7 +127,7 @@ if(!isset($_SESSION["user"])){
                         ?>
                                 </div>
 
-                                <div class="dvi dasd"><img src="src/a3.png">
+                                <div class="dvi dasd"><img src="src/male (1).png">
                                     <br>
                                     <h7><b>Total Male</b></h7>
                                 </div>
@@ -154,7 +154,7 @@ if(!isset($_SESSION["user"])){
                         ?>
                                 </div>
 
-                                <div class="dvi dasd"><img src="src/a4.png">
+                                <div class="dvi dasd"><img src="src/baby-diaper.png">
                                     <br>
                                     <h7><b>Total Infants</b></h7>
                                 </div>
@@ -183,7 +183,7 @@ if(!isset($_SESSION["user"])){
                                     ?>
                                 </div>
 
-                                <div class="dvi dasd"><img src="src/a5.png">
+                                <div class="dvi dasd"><img src="src/sibling.png">
                                     <br>
                                     <h7><b>Total Children </b></h7>
                                 </div>
@@ -211,7 +211,7 @@ if(!isset($_SESSION["user"])){
             ?>
                                 </div>
 
-                                <div class="dvi dasd"><img src="src/a6.png">
+                                <div class="dvi dasd"><img src="src/elderly.png">
                                     <br>
                                     <h7><b>Total Senior Citizens</b></h7>
                                 </div>
@@ -423,7 +423,7 @@ if(!isset($_SESSION["user"])){
                     .dvi>img {
                         height: 50%;
                         width: 50%;
-                        border-radius: 50%;
+                        /* border-radius: 50%; */
                         margin: 5% 0 20% 0;
                     }
 

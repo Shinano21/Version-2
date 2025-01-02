@@ -1,7 +1,9 @@
 <style>
     /* Footer */
   footer {
-    background-color: #212529;
+    /* background-color: #212529; */
+    background-color: #4D869C;
+/* background-image: linear-gradient(90deg, #74EBD5 0%, #9FACE6 100%); */
     padding: 20px;
     position: relative;
     bottom: 0;
