@@ -78,7 +78,7 @@
       <?php if ($_GET['user_id'] == $_SESSION['unique_id']) : ?>
         <div id="select-user-message">
           <div class="centered-content">
-            <img src="images/send.png" alt="Send Image">
+            <img src="images/8440.jpg" alt="Send Image">
             <p>Select a conversation or start a new one</p>
           </div>
         </div>
