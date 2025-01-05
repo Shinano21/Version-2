@@ -1,7 +1,8 @@
 <style>
     /* Footer */
   footer {
-    background-color: #212529;
+    /* background-color: #212529; */
+    background-color: #4D869C;
     padding: 20px;
     position: relative;
     bottom: 0;

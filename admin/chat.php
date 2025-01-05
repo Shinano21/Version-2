@@ -221,7 +221,7 @@ if(!isset($_SESSION["user"])){
                     
                     <div id="select-user-message">
                       <div class="centered-content">
-                        <img src="../user/images/send.png" alt="Send Image">
+                        <img src="../user/images/8440.jpg" alt="Send Image">
                         <p>Select a conversation or start a new one</p>
                       </div>
                     </div>

@@ -89,7 +89,7 @@ background-image: linear-gradient(90deg, #74EBD5 0%, #9FACE6 100%);
         color: white;
     }
 
-@media only screen and (max-width: 768px) {
+    @media only screen and (max-width: 768px) {
     .nav-links {
         visibility: hidden;
         opacity: 0;
@@ -98,55 +98,68 @@ background-image: linear-gradient(90deg, #74EBD5 0%, #9FACE6 100%);
         top: 80px;
         left: 0;
         width: 100%;
-        height: 37%;
-        background-color: rgb(92, 84, 243);
+        height: auto; /* Adjust height dynamically based on content */
+        background-color: rgb(92, 84, 243); /* Default background */
         text-align: center;
         transition: visibility 0s, opacity 0.5s ease;
         z-index: 1000;
     }
+
     .nav-links.active {
         visibility: visible;
         opacity: 1;
         transition: opacity 0.5s ease;
-        background-color: white;
+        background-color: white; /* Background when menu is active */
     }
+
     .nav-links a {
-        margin: 15px 0;
+        margin: 10px 0; /* Adjust spacing between links */
+        padding: 10px 15px; /* Add padding for better clickability */
         color: black;
         text-decoration: none;
         font-weight: 500;
         font-size: 14px;
+        display: block; /* Ensure links take full width */
     }
+
+    .nav-links a:hover {
+        background-color: rgba(58, 142, 246, 0.1); /* Add hover effect */
+        color: #3A8EF6; /* Highlight color on hover */
+    }
+
     .nav-links a.active {
-        color: #3A8EF6;
-        font-weight: 500;
+        color: #3A8EF6; /* Active link color */
+        font-weight: 600; /* Bold the active link */
+        background-color: rgba(58, 142, 246, 0.1); /* Active link background */
     }
+
     .nav-container .menu-icon {
         display: block;
         margin-right: 20px;
         cursor: pointer;
     }
-    .logo {
-        height: 80%;
-        padding-left: 0;
-    }
+
+
+
     .nav-links a.signUp {
-        height: 0;
         color: black;
-        padding: 0;
-        background-color: none;
+        padding: 10px 15px; /* Adjust padding for consistent design */
+        background-color: transparent; /* Remove any background */
         border: none;
         border-radius: 0;
-        margin: 15px 0;
+        margin: 10px 0;
         font-weight: 500;
         font-size: 14px;
     }
+
     .nav-links a.signUp:hover,
     .nav-links a.signUp:active,
     .nav-links a.signUp:focus {
-        color: #3A8EF6 !important;
+        color: #3A8EF6 !important; /* Ensure hover/active/focus states match */
+        background-color: rgba(58, 142, 246, 0.1); /* Add hover effect */
     }
 }
+
 
 </style>
 </head>

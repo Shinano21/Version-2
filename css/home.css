@@ -1,12 +1,14 @@
 /* Main Body */
+
 .main {
   height: calc(100vh - 80px);
   width: 100%;
   position: relative;
-  background-size: 100% 230%;
-  background-position: 0 50%;
+  background-size: cover; /* Changed from 100% 230% for a better responsive design */
+  background-position: center;
   display: flex;
   align-items: center; 
+  justify-content: center; /* Added to center contents horizontally */
   margin-top: 20px;
 }
 
@@ -19,77 +21,84 @@
   background-color: rgba(0, 0, 0, 0.6);
   display: flex;
   align-items: center;
+  justify-content: center; /* Added to center contents horizontally */
 }
+
 .content {
-  height: auto;
-  width: 90%;
-  margin: 0 35px;
-  position: absolute;
-  top: 50%;
-  left: 50%;
-  transform: translate(-50%,-50%);
+  max-width: 90%;
+  padding: 20px; /* Added padding for better spacing */
+  position: relative;
   z-index: 4;
-  justify-content: space-between;
+  text-align: center; /* Added to center-align the text */
 }
+
 .texts {
-  height: 100%;
   color: white;
-  float: left;
 }
-.texts>h1 {
-  font-weight: bold;
-  font-size: 45px;
+
+.texts > h1 {
+  font-weight: 600;
+  font-size: 60px;
   font-family: 'Poppins', 'sans-serif';
-  margin-top: -5px;
+  margin-top: 0; /* Removed negative margin */
   text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.5);
   text-transform: uppercase;
 }
-.texts>h2 {
-  font-weight: 400;
+
+.texts > h2 {
+  font-weight: 200;
   font-size: 28px;
-  margin-bottom: -5px;
+  margin-bottom: 10px; /* Adjusted spacing */
   text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.5);
 }
+
 .texts .address {
-  margin-top: -15px;
+  margin-top: 10px; /* Adjusted spacing */
   text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.4);
 }
-.texts .contactInfo{
-  margin-top: -10px;
+
+.texts .contactInfo {
+  margin-top: 10px; /* Adjusted spacing */
   text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.4);
 }
-.contactInfo>a {
+
+.contactInfo > a {
   text-decoration: none;
   color: white;
 }
+
 .brgy img {
-  height: 50%;
-  width: auto;
-  position: relative;
-  width: 300px;
-  height: 250px;
-  float: right;
+  max-height: 250px;
+  max-width: 300px;
+  object-fit: cover; /* Ensures the image scales properly */
+  margin: 20px auto; /* Centers the image and adds spacing */
 }
-.content button{
-    background-color:#3A8EF6;
-    padding: 12px 28px;
-    color:white;
-    border-radius: 25px;
-    border: 1px solid #3A8EF6;
-    font-size: 16px;
-    font-family: 'Urbanist', sans-serif;
-    margin-top: 15px;
-  }
-  button a {
-    color: white;
-    text-decoration: none;
-  }
-  button #i {
-    margin-left: 5px;
-  }
-  button:hover {
-    background-color: transparent;
-  }
+
+.content button {
+  background-color: #3A8EF6;
+  padding: 12px 28px;
+  color: white;
+  border-radius: 25px;
+  border: 1px solid #3A8EF6;
+  font-size: 16px;
+  font-family: 'Urbanist', sans-serif;
+  margin-top: 15px;
+}
+
+button a {
+  color: white;
+  text-decoration: none;
+}
+
+button #i {
+  margin-left: 5px;
+}
+
+button:hover {
+  background-color: transparent;
+  color: #3A8EF6; /* Ensures text color is visible on hover */
+}
+
 
 /* Responsive Layout */
 @media only screen and (max-width: 768px) {
@@ -594,7 +603,10 @@
 }
 
 .getCont {
-  background-color: rgb(58, 142, 246);
+  /* background-color: rgb(58, 142, 246); */
+  background-color: #74EBD5;
+  background-image: linear-gradient(90deg, #74EBD5 0%, #9FACE6 100%);
+  
   width: 60%;
   height: auto;
   display: flex;
@@ -608,7 +620,7 @@
   display: flex;
   flex-direction: column;
   justify-content: space-around;
-  color: white;
+  color: #36454F;
   width: 60%;
 }
 
