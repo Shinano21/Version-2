@@ -130,8 +130,8 @@ $filterYear = isset($_GET['year']) ? $_GET['year'] : '';
                                     <span class="fa fa-print"></span>&nbsp;&nbsp;Print Records
                                 </button>
                                 <div class="dropdown-content">
-                                    <a href="template/services7.php" target="_blank">Services7</a>
-                                    <a href="template/list7.php" target="_blank">List7</a>
+                                    <a href="template/services7.php" target="_blank">Print Reports</a>
+                                    <a href="template/list7.php" target="_blank">Print Records</a>
                                 </div>
                             </div>
                         </div>

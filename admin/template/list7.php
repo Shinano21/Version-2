@@ -5,6 +5,12 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Prenatal Records</title>
     <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 0;
+            padding: 0;
+        }
+
         .printBtn {
             background-color: #007bff;
             color: white;
@@ -14,27 +20,55 @@
             cursor: pointer;
             border-radius: 4px;
             margin: 20px;
+            float: right;
         }
+
         .printBtn:hover {
             background-color: #0056b3;
         }
+
         @media print {
             .no-print {
                 display: none;
             }
         }
+
+        h1 {
+            text-align: center;
+            font-size: 24px;
+            margin-top: 20px;
+            margin-bottom: 10px;
+        }
+
         table {
             width: 100%;
             border-collapse: collapse;
             margin: 20px 0;
+            font-size: 14px;
         }
+
         th, td {
             border: 1px solid #ddd;
-            padding: 8px;
+            padding: 10px;
+            text-align: center;
         }
+
         th {
             background-color: #f2f2f2;
-            text-align: left;
+            font-weight: bold;
+        }
+
+        tbody tr:nth-child(even) {
+            background-color: #f9f9f9;
+        }
+
+        tbody tr:hover {
+            background-color: #f1f1f1;
+        }
+
+        .header {
+            margin-bottom: 20px;
+            text-align: center;
         }
     </style>
 </head>
@@ -43,7 +77,10 @@
         <button class="printBtn" onclick="window.print()">Print</button>
     </div>
 
-    <h1>Prenatal Records</h1>
+    <div class="header">
+        <h1>Prenatal Records</h1>
+    </div>
+
     <table>
         <thead>
             <tr>
