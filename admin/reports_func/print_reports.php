@@ -40,7 +40,8 @@ if ($result->num_rows > 0) {
         </div>
         <div class="contents" id="docContents">
             <div class="docuHeader">
-                <div class="img"><img src="../src/brgy.png" alt="BrgyLogo"></div>
+                <!-- <div class="img"><img src="../src/techcareLogo2.png" alt="BrgyLogo"></div> -->
+                 <div class="space"></div>
                 <div class="mid">
                     <p class="text">Republic of the Philippines</p>
                     <p class="text">Province of Albay</p>

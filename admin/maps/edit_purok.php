@@ -162,7 +162,7 @@ if (!$purok) {
 
     <script>
     (function() {
-        var map = L.map('map').setView([13.1387, 123.7353], 15);
+        var map = L.map('map').setView([13.1387, 123.7353], 12);
 
         L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
             attribution: '© OpenStreetMap contributors'

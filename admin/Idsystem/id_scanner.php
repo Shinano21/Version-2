@@ -262,7 +262,7 @@ a:hover {
     <h1 class="title">Resident Details</h1>
     <div class="details-row">
         <div class="image-placeholder">
-            <img src="https://via.placeholder.com/150" alt="Resident Image" id="resident-image">
+            <img src="../residents_img/user.png" alt="Resident Image" id="resident-image">
         </div>
         <div class="resident-info">
             <p><strong>Name:</strong> John Doe</p>
@@ -281,8 +281,6 @@ a:hover {
         <p><strong>Citizenship:</strong> Filipino</p>
         <p><strong>Street:</strong> Elm Street</p>
         <p><strong>Zone:</strong> 5</p>
-        <p><strong>Barangay:</strong> Estanza</p>
-        <p><strong>Municipality:</strong> Cityville</p>
         <p><strong>Province:</strong> Province A</p>
         <p><strong>Zip Code:</strong> 12345</p>
         <p><strong>Contact:</strong> +63 912 345 6789</p>
@@ -292,12 +290,10 @@ a:hover {
         <p><strong>Labor Status:</strong> Employed</p>
         <p><strong>Voter Status:</strong> Registered Voter</p>
         <p><strong>PWD Status:</strong> No</p>
-        <p><strong>4P's Member:</strong> No</p>
         <p><strong>Vaccination Status:</strong> Fully Vaccinated</p>
         <p><strong>Status:</strong> Active</p>
         <p><strong>Longitude:</strong> 123.4567</p>
         <p><strong>Latitude:</strong> -12.3456</p>
-        <p><strong>ID Card No:</strong> 123-456-789</p>
     </div>
 
 </div>
