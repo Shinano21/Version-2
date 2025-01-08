@@ -78,7 +78,7 @@ if ($_SERVER["REQUEST_METHOD"] === "POST") {
     $stmt->bind_param("sssssii", $name, $position, $photo_filename, $contact_info, $description, $parent_id, $id);
 
     if ($stmt->execute()) {
-        echo "<script>alert('Member updated successfully!'); window.location.href = 'wsAddNewBNC.php';</script>";
+        echo "<script>alert('Member updated successfully!'); window.location.href = 'wsAboutSettings.php';</script>";
     } else {
         echo "<script>alert('Error updating member: " . htmlspecialchars($stmt->error) . "');</script>";
     }
