@@ -5,7 +5,6 @@ include '../dbcon.php';
 // Fetch hypertension records with resident details
 $query = "
     SELECT 
-        h.hypertension_id, 
         r.fname, 
         r.mname, 
         r.lname, 
@@ -29,52 +28,73 @@ $result = mysqli_query($conn, $query);
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Hypertension Records</title>
     <style>
-        body {
-            font-family: Arial, sans-serif;
-            margin: 20px;
-        }
-        .container {
-            max-width: 900px;
-            margin: auto;
-        }
-        table {
-            width: 100%;
-            border-collapse: collapse;
-            margin-bottom: 20px;
-        }
-        table th, table td {
-            border: 1px solid #ddd;
-            padding: 8px;
-            text-align: center;
-        }
-        table th {
-            background-color: #f4f4f4;
-            font-weight: bold;
-        }
+    body {
+        font-family: Arial, sans-serif;
+        margin: 20px;
+    }
+    .container {
+        width: 100%; /* Make container full-width */
+        margin: auto;
+    }
+    .header {
+        display: flex;
+        justify-content: space-between; /* Align items to the sides */
+        align-items: center; /* Center items vertically */
+        margin-bottom: 20px;
+    }
+    .header h1 {
+        margin: 0 auto; /* Center the title */
+        text-align: center;
+        flex-grow: 1; /* Allow title to take up available space */
+    }
+    .print-btn {
+        padding: 10px 20px;
+        background-color: #007BFF;
+        color: white;
+        text-align: center;
+        text-decoration: none;
+        border-radius: 5px;
+    }
+    .print-btn:hover {
+        background-color: #0056b3;
+    }
+    table {
+        width: 100%; /* Stretch table to full width */
+        border-collapse: collapse;
+        margin-bottom: 20px;
+    }
+    table th, table td {
+        border: 1px solid #ddd;
+        padding: 8px;
+        text-align: center;
+    }
+    table th {
+        background-color: #f4f4f4;
+        font-weight: bold;
+    }
+    table tbody tr:nth-child(even) {
+        background-color: #f9f9f9;
+    }
+    table tbody tr:hover {
+        background-color: #f1f1f1;
+    }
+    @media print {
         .print-btn {
-            display: block;
-            margin: 20px 0;
-            padding: 10px 20px;
-            background-color: #007BFF;
-            color: white;
-            text-align: center;
-            text-decoration: none;
-            border-radius: 5px;
-            width: fit-content;
+            display: none;
         }
-        .print-btn:hover {
-            background-color: #0056b3;
-        }
-    </style>
+    }
+</style>
+
 </head>
 <body>
     <div class="container">
+    <div class="header">
         <h1>Hypertension Records</h1>
         <a href="#" class="print-btn" onclick="window.print(); return false;">Print Records</a>
+    </div>
         <table>
             <thead>
                 <tr>
-                    <th>ID</th>
                     <th>Resident Name</th>
                     <th>Checkup Date</th>
                     <th>Medicine Type</th>
@@ -86,7 +106,6 @@ $result = mysqli_query($conn, $query);
                 <?php if (mysqli_num_rows($result) > 0): ?>
                     <?php while ($row = mysqli_fetch_assoc($result)): ?>
                         <tr>
-                            <td><?= htmlspecialchars($row['hypertension_id']); ?></td>
                             <td>
                                 <?= htmlspecialchars($row['fname'] . ' ' . $row['mname'] . ' ' . $row['lname'] . ' ' . $row['suffix']); ?>
                             </td>
@@ -98,7 +117,7 @@ $result = mysqli_query($conn, $query);
                     <?php endwhile; ?>
                 <?php else: ?>
                     <tr>
-                        <td colspan="6">No records found</td>
+                        <td colspan="5">No records found</td>
                     </tr>
                 <?php endif; ?>
             </tbody>

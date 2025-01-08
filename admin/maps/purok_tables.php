@@ -132,7 +132,9 @@ $conn->close();
 
     <script>
         // Initialize the map
-        var map = L.map('map').setView([13.1387, 123.7353], 15);
+        // var map = L.map('map').setView([13.1387, 123.7353], 15);
+        const map = L.map('map').setView([13.142307, 123.71827], 12); // Set the initial view and zoom level
+
 
         // Add OpenStreetMap tiles
         L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {

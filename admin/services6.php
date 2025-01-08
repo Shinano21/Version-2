@@ -133,8 +133,8 @@ if (isset($_SESSION["user_type"]) && $_SESSION["user_type"] == "System Administr
                                 <span class="fa fa-print"></span>&nbsp;&nbsp;Print Records
                             </button>
                             <div class="dropdown-content">
-                                <a href="template/services6.php" target="_blank">Services6</a>
-                                <a href="template/list6.php" target="_blank">List6</a>
+                                <a href="template/services6.php" target="_blank">Print Reports</a>
+                                <a href="template/list6.php" target="_blank">Print Records</a>
                             </div>
                         </div>
                     </div>

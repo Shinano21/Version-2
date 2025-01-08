@@ -54,7 +54,7 @@ $random_id_card_no = generateUniqueID($conn);
                 <table>
                     <tr>
                         <th rowspan="3">
-                            <img src="src/pp.png" id="previewImage">
+                            <img src="src/user.png" id="previewImage">
                             <input type="file" id="imageUpload" name="image" accept="image/*" style="display:none;">
                         </th>
                         <th>
@@ -369,7 +369,7 @@ $random_id_card_no = generateUniqueID($conn);
                 if (savedImage) {
                     previewImage.src = savedImage;
                 } else {
-                    previewImage.src = 'residents_img/pp.png';
+                    previewImage.src = 'residents_img/user.png';
                 }
 
                 uploadButton.addEventListener('click', function() {
@@ -386,7 +386,7 @@ $random_id_card_no = generateUniqueID($conn);
                         // Display the selected file name
                         fileNameDisplay.textContent = selectedFile.name;
                     } else {
-                        previewImage.src = 'residents_img/pp.png';
+                        previewImage.src = 'residents_img/user.png';
                     }
                 });
                 </script>

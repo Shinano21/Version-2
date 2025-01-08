@@ -177,9 +177,10 @@ if (!isset($_SESSION["user"]) || $_SESSION["user_type"] == "System Administrator
                                 <a href="services/services8.php">
                                     <button class="addBtn"><span class="fa fa-plus"></span>&nbsp;&nbsp;Add Record</button>
                                 </a>
-                                <button class="printBtn" onclick="window.print();">
-                                    <span class="fa fa-print"></span>&nbsp;&nbsp;Print Records
-                                </button>
+                                <a href="template/list8.php" target="_blank">
+                                            <button class="printBtn"><span class="fa fa-print"></span>&nbsp;&nbsp;Print Records</button>
+                                        </a>
+
 
                             </div>
 

@@ -3,7 +3,8 @@ import { filter_by_purok } from "./map_func/filter_purok.js";
 import { filter_by_age } from "./map_func/filter_age.js";
 import { previousBoundaryLayer } from "./map_func/filter_purok.js";
 import { removeLayer } from "./map_func/filter_purok.js";
-const map = L.map("map").setView([13.143991203443381, 123.71526002883913], 16); // Set the initial view and zoom level
+// const map = L.map("map").setView([13.143991203443381, 123.71526002883913], 16); // Set the initial view and zoom level
+const map = L.map('map').setView([13.142307, 123.71827], 12); // Set the initial view and zoom level
 L.tileLayer("https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png").addTo(map); // Add a basemap (OpenStreetMap)
 // Add the fullscreen control
 map.addControl(L.control.fullscreen());
