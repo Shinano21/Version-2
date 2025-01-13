@@ -209,3 +209,19 @@ ALTER TABLE `family_planning`
 ADD PRIMARY KEY (`id`),
 MODIFY `id` int(11) NOT NULL AUTO_INCREMENT;
 
+
+ALTER TABLE `hypertension`
+CHANGE COLUMN `medicine_type` `medicine_name` VARCHAR(255) DEFAULT NULL;
+
+ALTER TABLE `hypertension`
+ADD COLUMN `medicine_type` VARCHAR(255) DEFAULT NULL AFTER `medicine_name`;
+
+CREATE TABLE `medicine_inventory` (
+  `medicine_id` int(11) NOT NULL AUTO_INCREMENT,
+  `medicine_name` varchar(255) NOT NULL,
+  `medicine_type` varchar(255) DEFAULT NULL,
+  `quantity` int(11) NOT NULL,
+  `expiration_date` date DEFAULT NULL,
+  `supplier` varchar(255) DEFAULT NULL,
+  PRIMARY KEY (`medicine_id`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;

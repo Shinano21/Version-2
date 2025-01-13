@@ -36,7 +36,7 @@ $result = mysqli_query($conn, $query);
                 <div class="row" id="header-row">
                     <div class="title-page">
                     <a href="../services8.php">
-                                    <h7><i class="fa fa-long-arrow-left">&nbsp;&nbsp;</i> Back to Animal Bite Records</h7>
+                                    <h7><i class="fa fa-long-arrow-left">&nbsp;&nbsp;</i> Back to Hypertension Records</h7>
                                 </a>
                         <h3>Hypertension Record</h3>
                         <h6>Add New Hypertension Record</h6>

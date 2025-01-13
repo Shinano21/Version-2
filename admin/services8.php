@@ -18,6 +18,49 @@ if (!isset($_SESSION["user"]) || $_SESSION["user_type"] == "System Administrator
     <?php include "partials/head.php"; ?>
     <link rel="stylesheet" href="css/tables.css">
     <style>
+
+
+        .dropdown {
+            position: relative;
+            display: inline-block;
+        }
+
+        .dropdown-toggle {
+            background-color: #007bff;
+            color: white;
+            border: none;
+            padding: 10px 20px;
+            cursor: pointer;
+            font-size: 16px;
+            border-radius: 4px;
+        }
+
+        .dropdown-menu {
+            display: none;
+            position: absolute;
+            background-color: #f9f9f9;
+            min-width: 200px;
+            box-shadow: 0px 8px 16px rgba(0, 0, 0, 0.2);
+            z-index: 1;
+            border-radius: 4px;
+            padding: 10px 0;
+        }
+
+        .dropdown-menu a {
+            color: black;
+            padding: 10px 15px;
+            text-decoration: none;
+            display: block;
+        }
+
+        .dropdown-menu a:hover {
+            background-color: #f1f1f1;
+        }
+
+        .dropdown:hover .dropdown-menu {
+            display: block;
+        }
+
         body {
             background-color: #CDE8E5;
             font-family: Arial, sans-serif;
@@ -173,16 +216,22 @@ if (!isset($_SESSION["user"]) || $_SESSION["user_type"] == "System Administrator
                                 </div>
                             </div>
 
-                            <div class="buttons">
-                                <a href="services/services8.php">
-                                    <button class="addBtn"><span class="fa fa-plus"></span>&nbsp;&nbsp;Add Record</button>
-                                </a>
-                                <a href="template/list8.php" target="_blank">
-                                            <button class="printBtn"><span class="fa fa-print"></span>&nbsp;&nbsp;Print Records</button>
-                                        </a>
+    <div class="buttons">
+                <a href="services/services8.php">
+                    <button class="addBtn"><span class="fa fa-plus"></span>&nbsp;&nbsp;Add Record</button>
+                </a>
+
+                <div class="dropdown">
+                    <button class="printBtn dropdown-toggle">
+                        <span class="fa fa-print"></span>&nbsp;&nbsp;Print Records</button>
+                    <div class="dropdown-menu">
+                        <a href="template/services8.php" target="_blank">Print Reports</a>
+                        <a href="template/list8.php" target="_blank">Print Records</a>
+                    </div>
+            </div>
+    </div>
 
 
-                            </div>
 
                             <div class="tab">
                             <div class="buttons2">
