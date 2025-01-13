@@ -137,10 +137,82 @@ $random_id_card_no = generateUniqueID($conn);
                             </select>
                         </th>
                         <th>
-                            <label>Barangay</label>
-                            <br>
-                            <!-- <input type="text" value="Bagumbayan" readonly name="brgy"> -->
-                            <input type="text" value="" name="brgy">
+                        <label for="brgy">Barangay</label><br>
+<input type="text" id="brgySearch" placeholder="Search Barangay" onkeyup="filterBarangay()">
+<br>
+<select id="brgy" name="brgy" size="10">
+    <option value="Arimbay">Arimbay</option>
+    <option value="Bagacay">Bagacay</option>
+    <option value="Bagong Abre">Bagong Abre</option>
+    <option value="Banquerohan">Banquerohan</option>
+    <option value="EM's Barrio">EM's Barrio</option>
+    <option value="Maoyod Pob.">Maoyod Pob.</option>
+    <option value="Tula-tula">Tula-tula</option>
+    <option value="Ilawod West">Ilawod West</option>
+    <option value="Ilawod">Ilawod</option>
+    <option value="Ilawod East">Ilawod East</option>
+    <option value="Kawit-East Washington Drive">Kawit-East Washington Drive</option>
+    <option value="Rizal Street., Ilawod">Rizal Street., Ilawod</option>
+    <option value="Cabagñan">Cabagñan</option>
+    <option value="EM's Barrio South">EM's Barrio South</option>
+    <option value="Cabagñan West">Cabagñan West</option>
+    <option value="Binanuahan West">Binanuahan West</option>
+    <option value="Binanuahan East">Binanuahan East</option>
+    <option value="Imperial Court Subd">Imperial Court Subd</option>
+    <option value="Cabagñan East">Cabagñan East</option>
+    <option value="Lapu-lapu">Lapu-lapu</option>
+    <option value="Dinagaan">Dinagaan</option>
+    <option value="Victory Village South">Victory Village South</option>
+    <option value="Victory Village North">Victory Village North</option>
+    <option value="Sabang">Sabang</option>
+    <option value="EM's Barrio East">EM's Barrio East</option>
+    <option value="Kapantawan">Kapantawan</option>
+    <option value="Pigcale">Pigcale</option>
+    <option value="Centro-Baybay">Centro-Baybay</option>
+    <option value="PNR-Peñaranda St.-Iraya">PNR-Peñaranda St.-Iraya</option>
+    <option value="Oro Site-Magallanes St.">Oro Site-Magallanes St.</option>
+    <option value="Tinago">Tinago</option>
+    <option value="Bitano">Bitano</option>
+    <option value="Bonot">Bonot</option>
+    <option value="Sagpon Pob.">Sagpon Pob.</option>
+    <option value="Sagmin Pob.">Sagmin Pob.</option>
+    <option value="Bañadero Pob.">Bañadero Pob.</option>
+    <option value="Baño">Baño</option>
+    <option value="Bagumbayan">Bagumbayan</option>
+    <option value="Pinaric">Pinaric</option>
+    <option value="Bariis">Bariis</option>
+    <option value="Bigaa">Bigaa</option>
+    <option value="Bogtong">Bogtong</option>
+    <option value="Bogña">Bogña</option>
+    <option value="Buenavista">Buenavista</option>
+    <option value="Buyuan">Buyuan</option>
+    <option value="Cagbacong">Cagbacong</option>
+    <option value="Cruzada">Cruzada</option>
+    <option value="Dap-dap">Dap-dap</option>
+    <option value="Dita">Dita</option>
+    <option value="Estanza">Estanza</option>
+    <option value="Gogon">Gogon</option>
+    <option value="Homapon">Homapon</option>
+    <option value="Imalnod">Imalnod</option>
+    <option value="Mabinit">Mabinit</option>
+    <option value="Mariawa">Mariawa</option>
+    <option value="Maslog">Maslog</option>
+    <option value="Padang">Padang</option>
+    <option value="Pawa">Pawa</option>
+    <option value="Puro">Puro</option>
+    <option value="Rawis">Rawis</option>
+    <option value="San Francisco">San Francisco</option>
+    <option value="San Joaquin">San Joaquin</option>
+    <option value="San Roque">San Roque</option>
+    <option value="Tamaoyan">Tamaoyan</option>
+    <option value="Taysan">Taysan</option>
+    <option value="Matanag">Matanag</option>
+    <option value="Cabugao">Cabugao</option>
+    <option value="Rizal Street">Rizal Street</option>
+    <option value="Buraguis">Buraguis</option>
+    <option value="Lamba">Lamba</option>
+</select>
+
 
                         </th>
                     </tr>
@@ -765,6 +837,17 @@ $random_id_card_no = generateUniqueID($conn);
             }
         // Event listener for the print button
         document.querySelector('.printBtn').addEventListener('click', printResidents);
+
+        function filterBarangay() {
+    const searchInput = document.getElementById('brgySearch').value.toLowerCase();
+    const select = document.getElementById('brgy');
+    const options = select.options;
+
+    for (let i = 0; i < options.length; i++) {
+        const optionText = options[i].text.toLowerCase();
+        options[i].style.display = optionText.includes(searchInput) ? '' : 'none';
+    }
+}
     </script>
 
     <?php include "partials/scripts.php"; ?>
