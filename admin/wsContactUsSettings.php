@@ -70,9 +70,8 @@ if ($row = mysqli_fetch_assoc($result)) {
     <?php include "../user/data/contact_us.php"; ?>
     <?php include "partials/head.php"; ?>
     <link rel="stylesheet" href="css/wsHome.css">
-    <link rel="stylesheet" href="..leaflet/leaflet.css" />
-<script src="..leaflet//leaflet.js"></script>
-
+    <link href="https://unpkg.com/leaflet@1.7.1/dist/leaflet.css" rel="stylesheet" />
+    <script src="https://unpkg.com/leaflet@1.7.1/dist/leaflet.js"></script>
     <style>
           body{
     background-color: #CDE8E5;
