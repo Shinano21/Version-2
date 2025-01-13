@@ -206,16 +206,75 @@ if (isset($_SESSION["user"])) {
             font-size: 0.9rem;
         }
     }
+
+    /* Error Popup Styling */
+#error-popup {
+    font-family: "Poppins", sans-serif;
+    display: none;
+    position: fixed;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    background-color: #fff0f0; /* Light red background for error */
+    border: 5px solid #ff4d4d; /* Bright red border */
+    padding: 20px 30px;
+    box-shadow: 0 5px 15px rgba(0, 0, 0, 0.2);
+    border-radius: 15px; /* Smooth corners */
+    text-align: center;
+    max-width: 300px; /* Limit popup width */
+    width: 80%; /* Responsive width */
+    box-sizing: border-box;
+    z-index: 1000; /* Ensure it's on top */
+}
+
+#error-popup img {
+    max-width: 60px; /* Fixed size for icon */
+    height: auto; /* Maintain aspect ratio */
+    margin-bottom: 15px; /* Space below the image */
+}
+
+#error-popup h2 {
+    color: #d9534f; /* Darker red for heading */
+    font-size: 24px; /* Larger heading size */
+    margin: 0 0 10px 0; /* Add spacing below the heading */
+}
+
+#error-popup p {
+    font-size: 16px;
+    color: #333;
+    margin: 0 0 20px 0; /* Add spacing below the message */
+    line-height: 1.5; /* Improve readability */
+}
+
+#error-popup button {
+    background-color: #d9534f; /* Dark red button */
+    color: white;
+    border: none;
+    padding: 10px 20px;
+    font-size: 14px;
+    cursor: pointer;
+    border-radius: 5px;
+    transition: background-color 0.3s ease;
+}
+
+#error-popup button:hover {
+    background-color: #c9302c; /* Darker red on hover */
+}
 </style>
 
 
 </head>
 <body>
-    <?php
-    if (isset($_GET["error"])) {
-        echo "<script>alert('" . $_GET["error"] . "')</script>";
-    }
-    ?>
+<?php
+if (isset($_GET["error"])) {
+    echo "<script>
+        document.addEventListener('DOMContentLoaded', function() {
+            showErrorPopup('" . htmlspecialchars($_GET["error"], ENT_QUOTES, 'UTF-8') . "');
+        });
+    </script>";
+}
+?>
+
     
     <main>
     <div class="left">
@@ -246,6 +305,13 @@ if (isset($_SESSION["user"])) {
         </form>
     </div>
 </main>
+<!-- Error Popup -->
+<div id="error-popup">
+    <img src="../src/cross.png" alt="Error Icon" />
+    <p id="error-message"></p>
+    <button onclick="closePopup()">Close</button>
+</div>
+
 </body>
 <script>
     // Toggle password visibility
@@ -253,5 +319,20 @@ if (isset($_SESSION["user"])) {
         const passwordField = document.getElementById('password');
         passwordField.type = this.checked ? 'text' : 'password';
     });
+
+    // JavaScript for the Error Popup
+function showErrorPopup(message) {
+    const errorPopup = document.getElementById("error-popup");
+    const errorMessage = document.getElementById("error-message");
+
+    errorMessage.textContent = message; // Set the error message
+    errorPopup.style.display = "block"; // Show the popup
+}
+
+function closePopup() {
+    const errorPopup = document.getElementById("error-popup");
+    errorPopup.style.display = "none"; // Hide the popup
+}
+
 </script>
 </html>
