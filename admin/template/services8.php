@@ -16,7 +16,7 @@ if (!empty($month) && !empty($year)) {
     $whereClause = "WHERE YEAR(h.checkup_date) = $year";
 }
 
-// Query to fetch data including medicine details
+// Query to fetch data including total quantity
 $sql = "
 SELECT 
     r.zone AS location,
@@ -28,18 +28,34 @@ SELECT
         ELSE '41+ years old'
     END AS age_group,
     h.medicine_type,
-    COUNT(h.medicine_type) AS medicine_count
+    h.medicine_name,
+    SUM(h.quantity) AS total_quantity
 FROM hypertension h
 JOIN residents r ON h.resident_id = r.id
 $whereClause
-GROUP BY r.zone, age_group, h.medicine_type
-ORDER BY r.zone, age_group, medicine_count DESC
+GROUP BY r.zone, age_group, h.medicine_type, h.medicine_name
+ORDER BY r.zone, age_group, total_quantity DESC
 ";
 
 $result = $conn->query($sql);
 
 if (!$result) {
     die("Error executing query: " . $conn->error);
+}
+
+// Query to calculate the overall total quantity for all medicines
+$totalSql = "
+SELECT SUM(h.quantity) AS grand_total
+FROM hypertension h
+$whereClause
+";
+
+$totalResult = $conn->query($totalSql);
+$grandTotal = 0;
+
+if ($totalResult && $totalResult->num_rows > 0) {
+    $grandTotalRow = $totalResult->fetch_assoc();
+    $grandTotal = $grandTotalRow['grand_total'];
 }
 ?>
 
@@ -133,53 +149,34 @@ if (!$result) {
             <tr>
                 <th>Zone (Purok)</th>
                 <th>Age Group</th>
+                <th>Medicine Type</th>
                 <th>Medicine Name</th>
-                <th>Count per Medicine</th>
-                <th>Total Medicines</th>
+                <th>Total Quantity</th>
             </tr>
         </thead>
         <tbody>
             <?php
             if ($result->num_rows > 0) {
-                $previousZone = '';
-                $previousAgeGroup = '';
-                $totalMedicines = 0;
-
                 while ($row = $result->fetch_assoc()) {
-                    $currentZone = $row['location'];
-                    $currentAgeGroup = $row['age_group'];
-
-                    if ($currentZone !== $previousZone || $currentAgeGroup !== $previousAgeGroup) {
-                        if ($previousZone !== '') {
-                            echo "<tr>";
-                            echo "<td colspan='5'><strong>Totals for $previousZone - $previousAgeGroup:</strong> $totalMedicines medicines distributed.</td>";
-                            echo "</tr>";
-                        }
-
-                        $previousZone = $currentZone;
-                        $previousAgeGroup = $currentAgeGroup;
-                        $totalMedicines = 0;
-                    }
-
-                    $totalMedicines += $row['medicine_count'];
-
                     echo "<tr>";
                     echo "<td>" . $row['location'] . "</td>";
                     echo "<td>" . $row['age_group'] . "</td>";
                     echo "<td>" . $row['medicine_type'] . "</td>";
-                    echo "<td>" . $row['medicine_count'] . "</td>";
-                    echo "<td>" . $totalMedicines . "</td>";
+                    echo "<td>" . $row['medicine_name'] . "</td>";
+                    echo "<td>" . $row['total_quantity'] . "</td>";
                     echo "</tr>";
                 }
-
-                echo "<tr>";
-                echo "<td colspan='5'><strong>Totals for $previousZone - $previousAgeGroup:</strong> $totalMedicines medicines distributed.</td>";
-                echo "</tr>";
             } else {
                 echo "<tr><td colspan='5'>No data available</td></tr>";
             }
             ?>
         </tbody>
+        <tfoot>
+            <tr>
+                <td colspan="4" style="text-align: right;"><strong>Grand Total (All Medicines):</strong></td>
+                <td><strong><?php echo $grandTotal; ?></strong></td>
+            </tr>
+        </tfoot>
     </table>
 
     <div class="print-btn">
