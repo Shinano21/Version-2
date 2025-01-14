@@ -236,9 +236,9 @@ if (!isset($_SESSION["user"]) || $_SESSION["user_type"] == "System Administrator
                                     <tr>
                                         <th>
                                         <label for="brgy">Barangay</label><br>
-<input type="text" id="brgySearch" placeholder="Search Barangay" onkeyup="filterBarangay()">
+                                        <input type="text" id="brgySearch" placeholder="Search Barangay" onkeyup="filterBarangay()">
 <br>
-<select id="brgy" name="brgy" size="10">
+<select id="brgy" name="brgy" size="10" onchange="selectBarangay()">
 <option value="Bgy. 1 Em's Barrio" <?php if(isset($brgy) && $brgy == "Bgy. 1 Em's Barrio") echo "selected"; ?>>Bgy. 1 Em's Barrio</option>
     <option value="Bgy. 2 Em's Barrio South" <?php if(isset($brgy) && $brgy == "Bgy. 2 Em's Barrio South") echo "selected"; ?>>Bgy. 2 Em's Barrio South</option>
     <option value="Bgy. 3 Em's Barrio East" <?php if(isset($brgy) && $brgy == "Bgy. 3 Em's Barrio East") echo "selected"; ?>>Bgy. 3 Em's Barrio East</option>
@@ -725,6 +725,25 @@ if (!isset($_SESSION["user"]) || $_SESSION["user_type"] == "System Administrator
 
         // Initial call to start displaying time
         display_c();
+
+           // Function to filter barangays based on input
+    function filterBarangay() {
+        const searchInput = document.getElementById('brgySearch').value.toLowerCase();
+        const select = document.getElementById('brgy');
+        const options = select.options;
+
+        for (let i = 0; i < options.length; i++) {
+            const optionText = options[i].text.toLowerCase();
+            options[i].style.display = optionText.includes(searchInput) ? '' : 'none';
+        }
+    }
+
+    // Function to set selected barangay in the input box
+    function selectBarangay() {
+        const select = document.getElementById('brgy');
+        const input = document.getElementById('brgySearch');
+        input.value = select.options[select.selectedIndex].text;
+    }
     </script>
     <?php include "partials/scripts.php"?>
 </body>

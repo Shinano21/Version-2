@@ -140,7 +140,7 @@ $random_id_card_no = generateUniqueID($conn);
                         <label for="brgy">Barangay</label><br>
 <input type="text" id="brgySearch" placeholder="Search Barangay" onkeyup="filterBarangay()">
 <br>
-<select id="brgy" name="brgy" size="10">
+<select id="brgy" name="brgy" size="10" onchange="selectBarangay()">
 <option value="Bgy. 1 Em's Barrio">Bgy. 1 Em's Barrio</option>
     <option value="Bgy. 2 Em's Barrio South">Bgy. 2 Em's Barrio South</option>
     <option value="Bgy. 3 Em's Barrio East">Bgy. 3 Em's Barrio East</option>
@@ -838,16 +838,24 @@ $random_id_card_no = generateUniqueID($conn);
         // Event listener for the print button
         document.querySelector('.printBtn').addEventListener('click', printResidents);
 
-        function filterBarangay() {
-    const searchInput = document.getElementById('brgySearch').value.toLowerCase();
-    const select = document.getElementById('brgy');
-    const options = select.options;
+          // Function to filter barangays based on input
+    function filterBarangay() {
+        const searchInput = document.getElementById('brgySearch').value.toLowerCase();
+        const select = document.getElementById('brgy');
+        const options = select.options;
 
-    for (let i = 0; i < options.length; i++) {
-        const optionText = options[i].text.toLowerCase();
-        options[i].style.display = optionText.includes(searchInput) ? '' : 'none';
+        for (let i = 0; i < options.length; i++) {
+            const optionText = options[i].text.toLowerCase();
+            options[i].style.display = optionText.includes(searchInput) ? '' : 'none';
+        }
     }
-}
+
+    // Function to set selected barangay in the input box
+    function selectBarangay() {
+        const select = document.getElementById('brgy');
+        const input = document.getElementById('brgySearch');
+        input.value = select.options[select.selectedIndex].text;
+    }
     </script>
 
     <?php include "partials/scripts.php"; ?>
