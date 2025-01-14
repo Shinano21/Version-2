@@ -225,3 +225,6 @@ CREATE TABLE `medicine_inventory` (
   `supplier` varchar(255) DEFAULT NULL,
   PRIMARY KEY (`medicine_id`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+
+ALTER TABLE `animal_bite_records`
+ADD COLUMN `animal_name` VARCHAR(255) DEFAULT NULL AFTER `resident_id`;

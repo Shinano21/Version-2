@@ -33,7 +33,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
     $voterStatus = $_POST["voter"];
     $pwdStatus = $_POST["pwd"];
     $fourPStatus = $_POST["forp"];
-    $covidVaccinationStatus = $_POST["covid"];
+    // $covidVaccinationStatus = $_POST["covid"];
     $status = $_POST["Status"];
 
     // Geographic Information

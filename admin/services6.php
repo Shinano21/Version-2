@@ -157,6 +157,7 @@ if (isset($_SESSION["user_type"]) && $_SESSION["user_type"] == "System Administr
                                 <tr>
                                     <th class="names" style="display: flex; justify-content:center">Full Name</th>
                                     <th>Birth Date</th>
+                                    <th>Animal Name</th>
                                     <th>Bite Date</th>
                                     <th>Bite Location</th>
                                     <th>Bitten Location</th>

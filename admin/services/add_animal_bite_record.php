@@ -12,6 +12,7 @@ if (!isset($_SESSION["user"]) || $_SESSION["user_type"] == "System Administrator
 if ($_SERVER["REQUEST_METHOD"] == "POST") {
     // Sanitize and retrieve form data
     $resident_id = mysqli_real_escape_string($conn, $_POST['resident_name']);
+    $animal_name = mysqli_real_escape_string($conn, $_POST['animal_name']);
       $bitten_location = mysqli_real_escape_string($conn, $_POST['bitten_location']);  // New field
     $bite_date = mysqli_real_escape_string($conn, $_POST['bite_date']);
     $treatment_date = mysqli_real_escape_string($conn, $_POST['treatment_date']);

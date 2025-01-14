@@ -21,6 +21,7 @@ if ($record_id <= 0) {
 if (isset($_POST['update_bite_record'])) {
     $resident_id = mysqli_real_escape_string($conn, $_POST['resident_name']);
     $bite_date = mysqli_real_escape_string($conn, $_POST['bite_date']);
+    $animal_name = mysqli_real_escape_string($conn, $_POST['animal_name']);
     $treatment_date = mysqli_real_escape_string($conn, $_POST['treatment_date']);
     $bite_location = mysqli_real_escape_string($conn, $_POST['bite_location']);
     $bitten_location = mysqli_real_escape_string($conn, $_POST['bitten_location']); // Added bitten_location
@@ -30,7 +31,7 @@ if (isset($_POST['update_bite_record'])) {
     // Update the animal bite record in the database
     $update_query = "
         UPDATE animal_bite_records 
-        SET resident_id = '$resident_id', bite_date = '$bite_date', treatment_date = '$treatment_date', 
+        SET resident_id = '$resident_id', bite_date = '$bite_date', animal_name = '$animal_name', treatment_date = '$treatment_date', 
             bite_location = '$bite_location', bitten_location = '$bitten_location', treatment_center = '$treatment_center', remarks = '$remarks' 
         WHERE id = $record_id";
 
@@ -139,6 +140,11 @@ $residents_result = mysqli_query($conn, $residents_query);
                                         <th>
                                             <label for="bite_date">Bite Date<span class="req">*</span></label><br>
                                             <input type="date" name="bite_date" id="bite_date" value="<?php echo $record['bite_date']; ?>" required>
+                                        </th>
+                                        <th>
+                                            <label for="animal_name">Animal Name<span class="req">*</span></label><br>
+                                            <input type="text" name="animal_name" id="animal_name" placeholder="ex: Dog" value="<?php echo $record['animal_name']; ?>" required>
+                                            </th>
                                         </th>
                                         <th>
                                             <label for="treatment_date">Treatment Date<span class="req">*</span></label><br>

@@ -235,11 +235,83 @@ if (!isset($_SESSION["user"]) || $_SESSION["user_type"] == "System Administrator
                                     </tr>
                                     <tr>
                                         <th>
-                                            <label>Barangay</label>
-                                            <br>
-                                            <input type="text" value="<?php if(isset($_GET["id"])){
-                                                echo $brgy;
-                                            }?>"  name="brgy">
+                                        <label for="brgy">Barangay</label><br>
+<input type="text" id="brgySearch" placeholder="Search Barangay" onkeyup="filterBarangay()">
+<br>
+<select id="brgy" name="brgy" size="10">
+<option value="Bgy. 1 Em's Barrio" <?php if(isset($brgy) && $brgy == "Bgy. 1 Em's Barrio") echo "selected"; ?>>Bgy. 1 Em's Barrio</option>
+    <option value="Bgy. 2 Em's Barrio South" <?php if(isset($brgy) && $brgy == "Bgy. 2 Em's Barrio South") echo "selected"; ?>>Bgy. 2 Em's Barrio South</option>
+    <option value="Bgy. 3 Em's Barrio East" <?php if(isset($brgy) && $brgy == "Bgy. 3 Em's Barrio East") echo "selected"; ?>>Bgy. 3 Em's Barrio East</option>
+    <option value="Bgy. 4 Sagpon Pob." <?php if(isset($brgy) && $brgy == "Bgy. 4 Sagpon Pob.") echo "selected"; ?>>Bgy. 4 Sagpon Pob.</option>
+    <option value="Bgy. 5 Sagmin Pob." <?php if(isset($brgy) && $brgy == "Bgy. 5 Sagmin Pob.") echo "selected"; ?>>Bgy. 5 Sagmin Pob.</option>
+    <option value="Bgy. 6 Bañadero Pob." <?php if(isset($brgy) && $brgy == "Bgy. 6 Bañadero Pob.") echo "selected"; ?>>Bgy. 6 Bañadero Pob.</option>
+    <option value="Bgy. 7 Baño" <?php if(isset($brgy) && $brgy == "Bgy. 7 Baño") echo "selected"; ?>>Bgy. 7 Baño</option>
+    <option value="Bgy. 8 Bagumbayan" <?php if(isset($brgy) && $brgy == "Bgy. 8 Bagumbayan") echo "selected"; ?>>Bgy. 8 Bagumbayan</option>
+    <option value="Bgy. 9 Pinaric" <?php if(isset($brgy) && $brgy == "Bgy. 9 Pinaric") echo "selected"; ?>>Bgy. 9 Pinaric</option>
+    <option value="Bgy. 10 Cabugao" <?php if(isset($brgy) && $brgy == "Bgy. 10 Cabugao") echo "selected"; ?>>Bgy. 10 Cabugao</option>
+    <option value="Bgy. 11 Maoyod Pob." <?php if(isset($brgy) && $brgy == "Bgy. 11 Maoyod Pob.") echo "selected"; ?>>Bgy. 11 Maoyod Pob.</option>
+    <option value="Bgy. 12 Tula-tula" <?php if(isset($brgy) && $brgy == "Bgy. 12 Tula-tula") echo "selected"; ?>>Bgy. 12 Tula-tula</option>
+    <option value="Bgy. 13 Ilawod West Pob." <?php if(isset($brgy) && $brgy == "Bgy. 13 Ilawod West Pob.") echo "selected"; ?>>Bgy. 13 Ilawod West Pob.</option>
+    <option value="Bgy. 14 Ilawod Pob." <?php if(isset($brgy) && $brgy == "Bgy. 14 Ilawod Pob.") echo "selected"; ?>>Bgy. 14 Ilawod Pob.</option>
+    <option value="Bgy. 15 Ilawod East Pob." <?php if(isset($brgy) && $brgy == "Bgy. 15 Ilawod East Pob.") echo "selected"; ?>>Bgy. 15 Ilawod East Pob.</option>
+    <option value="Bgy. 16 Kawit-East Washington Drive" <?php if(isset($brgy) && $brgy == "Bgy. 16 Kawit-East Washington Drive") echo "selected"; ?>>Bgy. 16 Kawit-East Washington Drive</option>
+    <option value="Bgy. 17 Rizal Street., Ilawod" <?php if(isset($brgy) && $brgy == "Bgy. 17 Rizal Street., Ilawod") echo "selected"; ?>>Bgy. 17 Rizal Street., Ilawod</option>
+    <option value="Bgy. 18 Cabagñan West" <?php if(isset($brgy) && $brgy == "Bgy. 18 Cabagñan West") echo "selected"; ?>>Bgy. 18 Cabagñan West</option>
+    <option value="Bgy. 19 Cabagñan" <?php if(isset($brgy) && $brgy == "Bgy. 19 Cabagñan") echo "selected"; ?>>Bgy. 19 Cabagñan</option>
+    <option value="Bgy. 20 Cabagñan East" <?php if(isset($brgy) && $brgy == "Bgy. 20 Cabagñan East") echo "selected"; ?>>Bgy. 20 Cabagñan East</option>
+    <option value="Bgy. 21 Binanuahan West" <?php if(isset($brgy) && $brgy == "Bgy. 21 Binanuahan West") echo "selected"; ?>>Bgy. 21 Binanuahan West</option>
+    <option value="Bgy. 22 Binanuahan East" <?php if(isset($brgy) && $brgy == "Bgy. 22 Binanuahan East") echo "selected"; ?>>Bgy. 22 Binanuahan East</option>
+    <option value="Bgy. 23 Imperial Court Subd." <?php if(isset($brgy) && $brgy == "Bgy. 23 Imperial Court Subd.") echo "selected"; ?>>Bgy. 23 Imperial Court Subd.</option>
+    <option value="Bgy. 24 Rizal Street" <?php if(isset($brgy) && $brgy == "Bgy. 24 Rizal Street") echo "selected"; ?>>Bgy. 24 Rizal Street</option>
+    <option value="Bgy. 25 Lapu-lapu" <?php if(isset($brgy) && $brgy == "Bgy. 25 Lapu-lapu") echo "selected"; ?>>Bgy. 25 Lapu-lapu</option>
+    <option value="Bgy. 26 Dinagaan" <?php if(isset($brgy) && $brgy == "Bgy. 26 Dinagaan") echo "selected"; ?>>Bgy. 26 Dinagaan</option>
+    <option value="Bgy. 27 Victory Village South" <?php if(isset($brgy) && $brgy == "Bgy. 27 Victory Village South") echo "selected"; ?>>Bgy. 27 Victory Village South</option>
+    <option value="Bgy. 28 Victory Village North" <?php if(isset($brgy) && $brgy == "Bgy. 28 Victory Village North") echo "selected"; ?>>Bgy. 28 Victory Village North</option>
+    <option value="Bgy. 29 Sabang" <?php if(isset($brgy) && $brgy == "Bgy. 29 Sabang") echo "selected"; ?>>Bgy. 29 Sabang</option>
+    <option value="Bgy. 30 Pigcale" <?php if(isset($brgy) && $brgy == "Bgy. 30 Pigcale") echo "selected"; ?>>Bgy. 30 Pigcale</option>
+    <option value="Bgy. 31 Centro-Baybay" <?php if(isset($brgy) && $brgy == "Bgy. 31 Centro-Baybay") echo "selected"; ?>>Bgy. 31 Centro-Baybay</option>
+    <option value="Bgy. 32 San Roque" <?php if(isset($brgy) && $brgy == "Bgy. 32 San Roque") echo "selected"; ?>>Bgy. 32 San Roque</option>
+    <option value="Bgy. 33 PNR-Peñaranda St.-Iraya" <?php if(isset($brgy) && $brgy == "Bgy. 33 PNR-Peñaranda St.-Iraya") echo "selected"; ?>>Bgy. 33 PNR-Peñaranda St.-Iraya</option>
+    <option value="Bgy. 34 Oro Site-Magallanes St." <?php if(isset($brgy) && $brgy == "Bgy. 34 Oro Site-Magallanes St.") echo "selected"; ?>>Bgy. 34 Oro Site-Magallanes St.</option>
+    <option value="Bgy. 35 Tinago" <?php if(isset($brgy) && $brgy == "Bgy. 35 Tinago") echo "selected"; ?>>Bgy. 35 Tinago</option>
+    <option value="Bgy. 36 Kapantawan" <?php if(isset($brgy) && $brgy == "Bgy. 36 Kapantawan") echo "selected"; ?>>Bgy. 36 Kapantawan</option>
+    <option value="Bgy. 37 Bitano" <?php if(isset($brgy) && $brgy == "Bgy. 37 Bitano") echo "selected"; ?>>Bgy. 37 Bitano</option>
+    <option value="Bgy. 38 Gogon" <?php if(isset($brgy) && $brgy == "Bgy. 38 Gogon") echo "selected"; ?>>Bgy. 38 Gogon</option>
+    <option value="Bgy. 39 Bonot" <?php if(isset($brgy) && $brgy == "Bgy. 39 Bonot") echo "selected"; ?>>Bgy. 39 Bonot</option>
+    <option value="Bgy. 40 Cruzada" <?php if(isset($brgy) && $brgy == "Bgy. 40 Cruzada") echo "selected"; ?>>Bgy. 40 Cruzada</option>
+    <option value="Bgy. 41 Bogtong" <?php if(isset($brgy) && $brgy == "Bgy. 41 Bogtong") echo "selected"; ?>>Bgy. 41 Bogtong</option>
+    <option value="Bgy. 42 Rawis" <?php if(isset($brgy) && $brgy == "Bgy. 42 Rawis") echo "selected"; ?>>Bgy. 42 Rawis</option>
+    <option value="Bgy. 43 Tamaoyan" <?php if(isset($brgy) && $brgy == "Bgy. 43 Tamaoyan") echo "selected"; ?>>Bgy. 43 Tamaoyan</option>
+    <option value="Bgy. 44 Pawa" <?php if(isset($brgy) && $brgy == "Bgy. 44 Pawa") echo "selected"; ?>>Bgy. 44 Pawa</option>
+    <option value="Bgy. 45 Dita" <?php if(isset($brgy) && $brgy == "Bgy. 45 Dita") echo "selected"; ?>>Bgy. 45 Dita</option>
+    <option value="Bgy. 46 San Joaquin" <?php if(isset($brgy) && $brgy == "Bgy. 46 San Joaquin") echo "selected"; ?>>Bgy. 46 San Joaquin</option>
+<option value="Bgy. 47 Arimbay" <?php if(isset($brgy) && $brgy == "Bgy. 47 Arimbay") echo "selected"; ?>>Bgy. 47 Arimbay</option>
+<option value="Bgy. 48 Bagong Abre" <?php if(isset($brgy) && $brgy == "Bgy. 48 Bagong Abre") echo "selected"; ?>>Bgy. 48 Bagong Abre</option>
+<option value="Bgy. 49 Bigaa" <?php if(isset($brgy) && $brgy == "Bgy. 49 Bigaa") echo "selected"; ?>>Bgy. 49 Bigaa</option>
+<option value="Bgy. 50 Padang" <?php if(isset($brgy) && $brgy == "Bgy. 50 Padang") echo "selected"; ?>>Bgy. 50 Padang</option>
+<option value="Bgy. 51 Buyuan" <?php if(isset($brgy) && $brgy == "Bgy. 51 Buyuan") echo "selected"; ?>>Bgy. 51 Buyuan</option>
+<option value="Bgy. 52 Matanag" <?php if(isset($brgy) && $brgy == "Bgy. 52 Matanag") echo "selected"; ?>>Bgy. 52 Matanag</option>
+<option value="Bgy. 53 Bonga" <?php if(isset($brgy) && $brgy == "Bgy. 53 Bonga") echo "selected"; ?>>Bgy. 53 Bonga</option>
+<option value="Bgy. 54 Mabinit" <?php if(isset($brgy) && $brgy == "Bgy. 54 Mabinit") echo "selected"; ?>>Bgy. 54 Mabinit</option>
+<option value="Bgy. 55 Estanza" <?php if(isset($brgy) && $brgy == "Bgy. 55 Estanza") echo "selected"; ?>>Bgy. 55 Estanza</option>
+<option value="Bgy. 56 Taysan" <?php if(isset($brgy) && $brgy == "Bgy. 56 Taysan") echo "selected"; ?>>Bgy. 56 Taysan</option>
+<option value="Bgy. 57 Dap-dap" <?php if(isset($brgy) && $brgy == "Bgy. 57 Dap-dap") echo "selected"; ?>>Bgy. 57 Dap-dap</option>
+<option value="Bgy. 58 Buragwis" <?php if(isset($brgy) && $brgy == "Bgy. 58 Buragwis") echo "selected"; ?>>Bgy. 58 Buragwis</option>
+<option value="Bgy. 59 Puro" <?php if(isset($brgy) && $brgy == "Bgy. 59 Puro") echo "selected"; ?>>Bgy. 59 Puro</option>
+<option value="Bgy. 60 Lamba" <?php if(isset($brgy) && $brgy == "Bgy. 60 Lamba") echo "selected"; ?>>Bgy. 60 Lamba</option>
+<option value="Bgy. 61 Maslog" <?php if(isset($brgy) && $brgy == "Bgy. 61 Maslog") echo "selected"; ?>>Bgy. 61 Maslog</option>
+<option value="Bgy. 62 Homapon" <?php if(isset($brgy) && $brgy == "Bgy. 62 Homapon") echo "selected"; ?>>Bgy. 62 Homapon</option>
+<option value="Bgy. 63 Mariawa" <?php if(isset($brgy) && $brgy == "Bgy. 63 Mariawa") echo "selected"; ?>>Bgy. 63 Mariawa</option>
+<option value="Bgy. 64 Bagacay" <?php if(isset($brgy) && $brgy == "Bgy. 64 Bagacay") echo "selected"; ?>>Bgy. 64 Bagacay</option>
+<option value="Bgy. 65 Imalnod" <?php if(isset($brgy) && $brgy == "Bgy. 65 Imalnod") echo "selected"; ?>>Bgy. 65 Imalnod</option>
+<option value="Bgy. 66 Banquerohan" <?php if(isset($brgy) && $brgy == "Bgy. 66 Banquerohan") echo "selected"; ?>>Bgy. 66 Banquerohan</option>
+<option value="Bgy. 67 Bariis" <?php if(isset($brgy) && $brgy == "Bgy. 67 Bariis") echo "selected"; ?>>Bgy. 67 Bariis</option>
+<option value="Bgy. 68 San Francisco" <?php if(isset($brgy) && $brgy == "Bgy. 68 San Francisco") echo "selected"; ?>>Bgy. 68 San Francisco</option>
+<option value="Bgy. 69 Buenavista" <?php if(isset($brgy) && $brgy == "Bgy. 69 Buenavista") echo "selected"; ?>>Bgy. 69 Buenavista</option>
+<option value="Bgy. 70 Cagbacong" <?php if(isset($brgy) && $brgy == "Bgy. 70 Cagbacong") echo "selected"; ?>>Bgy. 70 Cagbacong</option>
+
+
+</select>
                                         </th>
                                         <th>
                                             <label>City Municipality</label>
@@ -354,17 +426,18 @@ if (!isset($_SESSION["user"]) || $_SESSION["user_type"] == "System Administrator
                                         
                                     </tr>
                                     <tr>
-                                        <th>
+                                        <!-- <th>
                                             <label>Covid-19 Vaccination Status</label>
                                             <br>
                                             <select name="covid">
-                                                <?php  echo "<option selected value='$covidVaccinationStatus'>" .$covidVaccinationStatus. "</option>"; ?>
+                                               
                                                 <option value="Fully Vaccinated">Fully Vaccinated</option>
                                                 <option value="First Dose Vaccinated">First Dose Vaccinated</option>
                                                 <option value="Unvaccinated">Unvaccinated</option>
                                                 <option value="Not Applicable">Not Applicable</option>
                                             </select>
-                                        </th>
+                                        </th> -->
+                                        
                                         <th>
                                             <label>Status</label>
                                             <br>

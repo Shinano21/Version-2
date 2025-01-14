@@ -141,76 +141,76 @@ $random_id_card_no = generateUniqueID($conn);
 <input type="text" id="brgySearch" placeholder="Search Barangay" onkeyup="filterBarangay()">
 <br>
 <select id="brgy" name="brgy" size="10">
-    <option value="Arimbay">Arimbay</option>
-    <option value="Bagacay">Bagacay</option>
-    <option value="Bagong Abre">Bagong Abre</option>
-    <option value="Banquerohan">Banquerohan</option>
-    <option value="EM's Barrio">EM's Barrio</option>
-    <option value="Maoyod Pob.">Maoyod Pob.</option>
-    <option value="Tula-tula">Tula-tula</option>
-    <option value="Ilawod West">Ilawod West</option>
-    <option value="Ilawod">Ilawod</option>
-    <option value="Ilawod East">Ilawod East</option>
-    <option value="Kawit-East Washington Drive">Kawit-East Washington Drive</option>
-    <option value="Rizal Street., Ilawod">Rizal Street., Ilawod</option>
-    <option value="Cabagñan">Cabagñan</option>
-    <option value="EM's Barrio South">EM's Barrio South</option>
-    <option value="Cabagñan West">Cabagñan West</option>
-    <option value="Binanuahan West">Binanuahan West</option>
-    <option value="Binanuahan East">Binanuahan East</option>
-    <option value="Imperial Court Subd">Imperial Court Subd</option>
-    <option value="Cabagñan East">Cabagñan East</option>
-    <option value="Lapu-lapu">Lapu-lapu</option>
-    <option value="Dinagaan">Dinagaan</option>
-    <option value="Victory Village South">Victory Village South</option>
-    <option value="Victory Village North">Victory Village North</option>
-    <option value="Sabang">Sabang</option>
-    <option value="EM's Barrio East">EM's Barrio East</option>
-    <option value="Kapantawan">Kapantawan</option>
-    <option value="Pigcale">Pigcale</option>
-    <option value="Centro-Baybay">Centro-Baybay</option>
-    <option value="PNR-Peñaranda St.-Iraya">PNR-Peñaranda St.-Iraya</option>
-    <option value="Oro Site-Magallanes St.">Oro Site-Magallanes St.</option>
-    <option value="Tinago">Tinago</option>
-    <option value="Bitano">Bitano</option>
-    <option value="Bonot">Bonot</option>
-    <option value="Sagpon Pob.">Sagpon Pob.</option>
-    <option value="Sagmin Pob.">Sagmin Pob.</option>
-    <option value="Bañadero Pob.">Bañadero Pob.</option>
-    <option value="Baño">Baño</option>
-    <option value="Bagumbayan">Bagumbayan</option>
-    <option value="Pinaric">Pinaric</option>
-    <option value="Bariis">Bariis</option>
-    <option value="Bigaa">Bigaa</option>
-    <option value="Bogtong">Bogtong</option>
-    <option value="Bogña">Bogña</option>
-    <option value="Buenavista">Buenavista</option>
-    <option value="Buyuan">Buyuan</option>
-    <option value="Cagbacong">Cagbacong</option>
-    <option value="Cruzada">Cruzada</option>
-    <option value="Dap-dap">Dap-dap</option>
-    <option value="Dita">Dita</option>
-    <option value="Estanza">Estanza</option>
-    <option value="Gogon">Gogon</option>
-    <option value="Homapon">Homapon</option>
-    <option value="Imalnod">Imalnod</option>
-    <option value="Mabinit">Mabinit</option>
-    <option value="Mariawa">Mariawa</option>
-    <option value="Maslog">Maslog</option>
-    <option value="Padang">Padang</option>
-    <option value="Pawa">Pawa</option>
-    <option value="Puro">Puro</option>
-    <option value="Rawis">Rawis</option>
-    <option value="San Francisco">San Francisco</option>
-    <option value="San Joaquin">San Joaquin</option>
-    <option value="San Roque">San Roque</option>
-    <option value="Tamaoyan">Tamaoyan</option>
-    <option value="Taysan">Taysan</option>
-    <option value="Matanag">Matanag</option>
-    <option value="Cabugao">Cabugao</option>
-    <option value="Rizal Street">Rizal Street</option>
-    <option value="Buraguis">Buraguis</option>
-    <option value="Lamba">Lamba</option>
+<option value="Bgy. 1 Em's Barrio">Bgy. 1 Em's Barrio</option>
+    <option value="Bgy. 2 Em's Barrio South">Bgy. 2 Em's Barrio South</option>
+    <option value="Bgy. 3 Em's Barrio East">Bgy. 3 Em's Barrio East</option>
+    <option value="Bgy. 4 Sagpon Pob.">Bgy. 4 Sagpon Pob.</option>
+    <option value="Bgy. 5 Sagmin Pob.">Bgy. 5 Sagmin Pob.</option>
+    <option value="Bgy. 6 Bañadero Pob.">Bgy. 6 Bañadero Pob.</option>
+    <option value="Bgy. 7 Baño">Bgy. 7 Baño</option>
+    <option value="Bgy. 8 Bagumbayan">Bgy. 8 Bagumbayan</option>
+    <option value="Bgy. 9 Pinaric">Bgy. 9 Pinaric</option>
+    <option value="Bgy. 10 Cabugao">Bgy. 10 Cabugao</option>
+    <option value="Bgy. 11 Maoyod Pob.">Bgy. 11 Maoyod Pob.</option>
+    <option value="Bgy. 12 Tula-tula">Bgy. 12 Tula-tula</option>
+    <option value="Bgy. 13 Ilawod West Pob.">Bgy. 13 Ilawod West Pob.</option>
+    <option value="Bgy. 14 Ilawod Pob.">Bgy. 14 Ilawod Pob.</option>
+    <option value="Bgy. 15 Ilawod East Pob.">Bgy. 15 Ilawod East Pob.</option>
+    <option value="Bgy. 16 Kawit-East Washington Drive">Bgy. 16 Kawit-East Washington Drive</option>
+    <option value="Bgy. 17 Rizal Street., Ilawod">Bgy. 17 Rizal Street., Ilawod</option>
+    <option value="Bgy. 18 Cabagñan West">Bgy. 18 Cabagñan West</option>
+    <option value="Bgy. 19 Cabagñan">Bgy. 19 Cabagñan</option>
+    <option value="Bgy. 20 Cabagñan East">Bgy. 20 Cabagñan East</option>
+    <option value="Bgy. 21 Binanuahan West">Bgy. 21 Binanuahan West</option>
+    <option value="Bgy. 22 Binanuahan East">Bgy. 22 Binanuahan East</option>
+    <option value="Bgy. 23 Imperial Court Subd.">Bgy. 23 Imperial Court Subd.</option>
+    <option value="Bgy. 24 Rizal Street">Bgy. 24 Rizal Street</option>
+    <option value="Bgy. 25 Lapu-lapu">Bgy. 25 Lapu-lapu</option>
+    <option value="Bgy. 26 Dinagaan">Bgy. 26 Dinagaan</option>
+    <option value="Bgy. 27 Victory Village South">Bgy. 27 Victory Village South</option>
+    <option value="Bgy. 28 Victory Village North">Bgy. 28 Victory Village North</option>
+    <option value="Bgy. 29 Sabang">Bgy. 29 Sabang</option>
+    <option value="Bgy. 30 Pigcale">Bgy. 30 Pigcale</option>
+    <option value="Bgy. 31 Centro-Baybay">Bgy. 31 Centro-Baybay</option>
+    <option value="Bgy. 32 San Roque">Bgy. 32 San Roque</option>
+    <option value="Bgy. 33 PNR-Peñaranda St.-Iraya">Bgy. 33 PNR-Peñaranda St.-Iraya</option>
+    <option value="Bgy. 34 Oro Site-Magallanes St.">Bgy. 34 Oro Site-Magallanes St.</option>
+    <option value="Bgy. 35 Tinago">Bgy. 35 Tinago</option>
+    <option value="Bgy. 36 Kapantawan">Bgy. 36 Kapantawan</option>
+    <option value="Bgy. 37 Bitano">Bgy. 37 Bitano</option>
+    <option value="Bgy. 38 Gogon">Bgy. 38 Gogon</option>
+    <option value="Bgy. 39 Bonot">Bgy. 39 Bonot</option>
+    <option value="Bgy. 40 Cruzada">Bgy. 40 Cruzada</option>
+    <option value="Bgy. 41 Bogtong">Bgy. 41 Bogtong</option>
+    <option value="Bgy. 42 Rawis">Bgy. 42 Rawis</option>
+    <option value="Bgy. 43 Tamaoyan">Bgy. 43 Tamaoyan</option>
+    <option value="Bgy. 44 Pawa">Bgy. 44 Pawa</option>
+    <option value="Bgy. 45 Dita">Bgy. 45 Dita</option>
+    <option value="Bgy. 46 San Joaquin">Bgy. 46 San Joaquin</option>
+    <option value="Bgy. 47 Arimbay">Bgy. 47 Arimbay</option>
+    <option value="Bgy. 48 Bagong Abre">Bgy. 48 Bagong Abre</option>
+    <option value="Bgy. 49 Bigaa">Bgy. 49 Bigaa</option>
+    <option value="Bgy. 50 Padang">Bgy. 50 Padang</option>
+    <option value="Bgy. 51 Buyuan">Bgy. 51 Buyuan</option>
+    <option value="Bgy. 52 Matanag">Bgy. 52 Matanag</option>
+    <option value="Bgy. 53 Bonga">Bgy. 53 Bonga</option>
+    <option value="Bgy. 54 Mabinit">Bgy. 54 Mabinit</option>
+    <option value="Bgy. 55 Estanza">Bgy. 55 Estanza</option>
+    <option value="Bgy. 56 Taysan">Bgy. 56 Taysan</option>
+    <option value="Bgy. 57 Dap-dap">Bgy. 57 Dap-dap</option>
+    <option value="Bgy. 58 Buragwis">Bgy. 58 Buragwis</option>
+    <option value="Bgy. 59 Puro">Bgy. 59 Puro</option>
+    <option value="Bgy. 60 Lamba">Bgy. 60 Lamba</option>
+    <option value="Bgy. 61 Maslog">Bgy. 61 Maslog</option>
+    <option value="Bgy. 62 Homapon">Bgy. 62 Homapon</option>
+    <option value="Bgy. 63 Mariawa">Bgy. 63 Mariawa</option>
+    <option value="Bgy. 64 Bagacay">Bgy. 64 Bagacay</option>
+    <option value="Bgy. 65 Imalnod">Bgy. 65 Imalnod</option>
+    <option value="Bgy. 66 Banquerohan">Bgy. 66 Banquerohan</option>
+    <option value="Bgy. 67 Bariis">Bgy. 67 Bariis</option>
+    <option value="Bgy. 68 San Francisco">Bgy. 68 San Francisco</option>
+    <option value="Bgy. 69 Buenavista">Bgy. 69 Buenavista</option>
+    <option value="Bgy. 70 Cagbacong">Bgy. 70 Cagbacong</option>
 </select>
 
 
@@ -314,7 +314,7 @@ $random_id_card_no = generateUniqueID($conn);
                                 <option value="No">No</option>
                             </select>
                         </th>
-                        <th>
+                        <!-- <th>
                             <label>Covid-19 Vaccination Status</label>
                             <br>
                             <select name="covid" required>
@@ -323,7 +323,7 @@ $random_id_card_no = generateUniqueID($conn);
                                 <option value="Unvaccinated">Unvaccinated</option>
                                 <option value="Not Applicable">Not Applicable</option>
                             </select>
-                        </th>
+                        </th> -->
                     </tr>
                     <tr>
                         <th>

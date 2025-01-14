@@ -16,6 +16,7 @@ $query = "SELECT ab.*,
                  r.mname AS middle_name, 
                  r.suffix, 
                  r.bday,
+                 ab.animal_name, -- Include animal_name in the selection
                  ab.bite_date, 
                  ab.bite_location, 
                  ab.bitten_location, 
@@ -64,6 +65,7 @@ if (mysqli_num_rows($result) > 0) {
         echo "<tr>";
         echo "<td style='color: #333;'>{$fullName}</td>";
         echo "<td style='color: #333;'>{$row['bday']}</td>";
+        echo "<td style='color: #333;'>{$row['animal_name']}</td>"; // Display animal_name
         echo "<td style='color: #333;'>{$row['bite_date']}</td>";
         echo "<td style='color: #333;'>{$row['bite_location']}</td>";
         echo "<td style='color: #333;'>{$row['bitten_location']}</td>";
@@ -80,6 +82,6 @@ if (mysqli_num_rows($result) > 0) {
         echo "</tr>";
     }
 } else {
-    echo "<tr><td colspan='8'>No records found.</td></tr>";
+    echo "<tr><td colspan='9'>No records found.</td></tr>";
 }
 ?>
