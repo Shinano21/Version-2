@@ -58,7 +58,7 @@ $random_id_card_no = generateUniqueID($conn);
                             <input type="file" id="imageUpload" name="image" accept="image/*" style="display:none;">
                         </th>
                         <th>
-                            <label>Firstname</label>
+                            <label>Firstname<span class="req">*</span></label>
                             <br>
                             <input type="text" name="fname" required>
                         </th>
@@ -68,7 +68,7 @@ $random_id_card_no = generateUniqueID($conn);
                             <input type="text" name="mname">
                         </th>
                         <th>
-                            <label>Lastname</label>
+                            <label>Lastname<span class="req">*</span></label>
                             <br>
                             <input type="text" name="lname" required>
                         </th>
@@ -76,12 +76,12 @@ $random_id_card_no = generateUniqueID($conn);
                     <tr>
                         <!--<th></th>-->
                         <th>
-                            <label>Suffix</label>
+                            <label>Suffix<span class="req">*</span></label>
                             <br>
                             <input type="text" name="suffix">
                         </th>
                         <th>
-                            <label>Sex</label>
+                            <label>Sex<span class="req">*</span></label>
                             <br>
                             <select name="sex" required>
                                 <option value="Male">Male</option>
@@ -89,7 +89,7 @@ $random_id_card_no = generateUniqueID($conn);
                             </select>
                         </th>
                         <th>
-                            <label>Date of Birth</label>
+                            <label>Date of Birth<span class="req">*</span></label>
                             <br>
                             <input type="date" name="date" required>
                         </th>
@@ -97,7 +97,7 @@ $random_id_card_no = generateUniqueID($conn);
                     <tr>
                         <!--<th></th>-->
                         <th>
-                            <label>Place of Birth</label>
+                            <label>Place of Birth<span class="req">*</span></label>
                             <br>
                             <input type="text" name="bday" required>
                         </th>
@@ -107,7 +107,7 @@ $random_id_card_no = generateUniqueID($conn);
                             <input type="text" name="religion">
                         </th>
                         <th>
-                            <label>Citizenship</label>
+                            <label>Citizenship<span class="req">*</span></label>
                             <br>
                             <input type="text" name="citizenship" required>
                         </th>
@@ -125,7 +125,7 @@ $random_id_card_no = generateUniqueID($conn);
                             <input type="text" name="street">
                         </th>
                         <th>
-                            <label>Zone</label>
+                            <label>Zone<span class="req">*</span></label>
                             <br>
                             <select id="purokSelect" name="zone" required>
                                 <option value="Purok 1">Purok 1</option>
@@ -137,7 +137,7 @@ $random_id_card_no = generateUniqueID($conn);
                             </select>
                         </th>
                         <th>
-                        <label for="brgy">Barangay</label><br>
+                        <label for="brgy">Barangay<span class="req">*</span></label><br>
 <input type="text" id="brgySearch" placeholder="Search Barangay" onkeyup="filterBarangay()">
 <br>
 <select id="brgy" name="brgy" size="10" onchange="selectBarangay()">
@@ -240,7 +240,7 @@ $random_id_card_no = generateUniqueID($conn);
                     </tr>
                     <tr>
                         <th>
-                            <label>Educational Level</label>
+                            <label>Educational Level<span class="req">*</span></label>
                             <br>
                             <select name="educational" required>
                                 <option value="Preschool">Preschool</option>
@@ -262,9 +262,9 @@ $random_id_card_no = generateUniqueID($conn);
                             </select>
                         </th>
                         <th>
-                            <label>Occupation</label>
+                            <label>Occupation <span class="req">*</span></label>
                             <br>
-                            <input type="text" name="occupation">
+                            <input type="text" name="occupation" required>
                         </th>
                         <th>
                             <label>Civil Status</label>
@@ -278,7 +278,7 @@ $random_id_card_no = generateUniqueID($conn);
                             </select>
                         </th>
                         <th>
-                            <label>Labor force status</label>
+                            <label>Labor force status<span class="req">*</span></label>
                             <br>
                             <select name="labor" required>
                                 <option value="Employed">Employed</option>
@@ -290,7 +290,7 @@ $random_id_card_no = generateUniqueID($conn);
                     </tr>
                     <tr>
                         <th>
-                            <label>Voter status</label>
+                            <label>Voter status<span class="req">*</span></label>
                             <br>
                             <select name="voter" required>
                                 <option value="Yes">Yes</option>
@@ -299,7 +299,7 @@ $random_id_card_no = generateUniqueID($conn);
                             </select>
                         </th>
                         <th>
-                            <label>PWD status</label>
+                            <label>PWD status<span class="req">*</span></label>
                             <br>
                             <select name="pwd" required>
                                 <option value="Yes">Yes</option>
@@ -307,7 +307,7 @@ $random_id_card_no = generateUniqueID($conn);
                             </select>
                         </th>
                         <th>
-                            <label>4P's Beneficiary</label>
+                            <label>4P's Beneficiary<span class="req">*</span></label>
                             <br>
                             <select name="forp" required>
                                 <option value="Yes">Yes</option>
@@ -327,7 +327,7 @@ $random_id_card_no = generateUniqueID($conn);
                     </tr>
                     <tr>
                         <th>
-                            <label>Status</label>
+                            <label>Status<span class="req">*</span></label>
                             <br>
                             <select name="Status" required>
                                 <option value="Active">Active</option>
@@ -335,12 +335,12 @@ $random_id_card_no = generateUniqueID($conn);
                             </select>
                         </th>
                         <th>
-                            <label>Longitude</label>
+                            <label>Longitude<span class="req">*</span></label>
                             <br>
                             <input type="text" name="longitude" id="logi" required>
                         </th>
                         <th>
-                            <label>Latitude</label>
+                            <label>Latitude<span class="req">*</span></label>
                             <br>
                             <input type="text" name="Latitude" id="lati" required>
                         </th>
