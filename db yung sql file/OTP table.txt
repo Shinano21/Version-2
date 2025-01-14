@@ -228,3 +228,6 @@ CREATE TABLE `medicine_inventory` (
 
 ALTER TABLE `animal_bite_records`
 ADD COLUMN `animal_name` VARCHAR(255) DEFAULT NULL AFTER `resident_id`;
+
+ALTER TABLE `hypertension`
+ADD COLUMN quantity INT(11) NOT NULL DEFAULT 1;

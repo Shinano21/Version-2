@@ -251,7 +251,9 @@ if (!isset($_SESSION["user"]) || $_SESSION["user_type"] == "System Administrator
                                         <tr>
                                             <th>Full Name</th>
                                             <th>Checkup Date</th>
+                                            <th>Medicine Name</th>
                                             <th>Medicine Type</th>
+                                            <th>Quantity</th>
                                             <th>Blood Pressure</th>
                                             <th>Remarks</th>
                                             <th style="text-align: center;">Action</th>

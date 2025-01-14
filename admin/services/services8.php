@@ -61,21 +61,43 @@ $result = mysqli_query($conn, $query);
                                 <label for="checkup_date">Checkup Date:<span class="req">*</span></label>
                                 <input type="date" id="checkup_date" name="checkup_date" required>
                             </div>
+
                             <div class="form-group">
-                                <label for="medicine_type">Medicine Type:</label>
-                                <input 
-                                    type="text" 
-                                    id="medicine_type" 
-                                    name="medicine_type" 
-                                    list="medicine_options"
-                                    placeholder="Type or select a medicine"
-                                >
-                                <datalist id="medicine_options">
-                                    <option value="Metoprolol"></option>
-                                    <option value="Losartan"></option>
-                                    <option value="Amlodipine"></option>
-                                    <option value="Cinnarizine"></option>
-                                </datalist>
+                            <label for="medicine_name">Medicine Name<span class="req">*</span></label>
+                            <input 
+                                type="text" 
+                                id="medicine_name" 
+                                name="medicine_name" 
+                                value="<?php echo htmlspecialchars($row['medicine_name'], ENT_QUOTES, 'UTF-8'); ?>" 
+                                list="medicine_options" 
+                                placeholder="Type or select a medicine" 
+                                required
+                            >
+                            <datalist id="medicine_options">
+                                <option value="Metoprolol"></option>
+                                <option value="Losartan"></option>
+                                <option value="Amlodipine"></option>
+                                <option value="Cinnarizine"></option>
+                            </datalist>
+                        </div>
+                            <div class="form-group">
+                                <label for="medicine_type">Medicine Type<span class="req">*</span></label>
+                                <select id="medicine_type" name="medicine_type">
+                                    <option value="" disabled selected>Select Medicine Type</option>
+                                    <option value="tablet">Tablet</option>
+                                    <option value="capsule">Capsule</option>
+                                    <option value="syrup">Syrup</option>
+                                    <option value="injection">Injection</option>
+                                    <option value="ointment">Ointment</option>
+                                    <option value="cream">Cream</option>
+                                    <option value="powder">Powder</option>
+                                    <option value="spray">Spray</option>
+                                </select>
+</div>
+                            <div class="form-group">
+                            <label for="quantity">Quantity<span class="req">*</span></label><br>
+        <input type="number" name="quantity" id="quantity" min="1" required>
+    </th>
                             </div>
 
                             <div class="form-group">

@@ -39,20 +39,27 @@ if (isset($_GET['id'])) {
 if ($_SERVER['REQUEST_METHOD'] == 'POST') {
     $resident_id = $_POST['resident_id'];
     $checkup_date = $_POST['checkup_date'];
+    $medicine_name = $_POST['medicine_name'];
     $medicine_type = $_POST['medicine_type'];
+    $quantity = $_POST['quantity'];
     $blood_pressure = $_POST['blood_pressure'];
     $remarks_type = $_POST['remarks_type'];
 
     // Update the hypertension record
-    $update_query = "UPDATE hypertension SET resident_id = ?, checkup_date = ?, medicine_type = ?, blood_pressure = ?, remarks_type = ? WHERE hypertension_id = ?";
+    $update_query = "UPDATE hypertension SET resident_id = ?, checkup_date = ?, medicine_name = ?, medicine_type = ?, quantity = ?, blood_pressure = ?, remarks_type = ? WHERE hypertension_id = ?";
     $update_stmt = $conn->prepare($update_query);
-    $update_stmt->bind_param("issssi", $resident_id, $checkup_date, $medicine_type, $blood_pressure, $remarks_type, $hypertension_id);
-
+    
+    if (!$update_stmt) {
+        die("Prepare failed: " . $conn->error);
+    }
+    
+    $update_stmt->bind_param("issssisi", $resident_id, $checkup_date, $medicine_name, $medicine_type, $quantity, $blood_pressure, $remarks_type, $hypertension_id);
+    
     if ($update_stmt->execute()) {
         header("Location: ../services8.php"); // Redirect after update
         exit();
     } else {
-        echo "Error updating record: " . $conn->error;
+        echo "Error updating record: " . $update_stmt->error;
     }
 }
 ?>
@@ -103,22 +110,55 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
                                 <label for="checkup_date">Checkup Date:<span class="req">*</span></label>
                                 <input type="date" id="checkup_date" name="checkup_date" value="<?php echo $row['checkup_date']; ?>" required>
                             </div>
+
                             <div class="form-group">
-                                    <label for="medicine_type">Medicine Type:</label>
+                                <label for="medicine_name">Medicine Name:</label>
+                                <input 
+                                    type="text" 
+                                    id="medicine_name" 
+                                    name="medicine_name" 
+                                    value="<?php echo htmlspecialchars($row['medicine_name'], ENT_QUOTES, 'UTF-8'); ?>" 
+                                    list="medicine_options" 
+                                    placeholder="Type or select a medicine" 
+                                    required
+                                >
+                                <datalist id="medicine_options">
+                                    <option value="Metoprolol"></option>
+                                    <option value="Losartan"></option>
+                                    <option value="Amlodipine"></option>
+                                    <option value="Cinnarizine"></option>
+                                </datalist>
+                            </div>
+
+                             <div class="form-group">
+                                <label for="medicine_type">Medicine Type:</label>
+                                 <select 
+                                id="medicine_type" 
+                                name="medicine_type" 
+                                required
+                                 >
+                                <option value="" disabled selected>Select Medicine Type</option>
+                                <option value="tablet" <?php echo ($row['medicine_type'] === 'tablet') ? 'selected' : ''; ?>>Tablet</option>
+                                <option value="capsule" <?php echo ($row['medicine_type'] === 'capsule') ? 'selected' : ''; ?>>Capsule</option>
+                                <option value="syrup" <?php echo ($row['medicine_type'] === 'syrup') ? 'selected' : ''; ?>>Syrup</option>
+                                <option value="injection" <?php echo ($row['medicine_type'] === 'injection') ? 'selected' : ''; ?>>Injection</option>
+                                <option value="ointment" <?php echo ($row['medicine_type'] === 'ointment') ? 'selected' : ''; ?>>Ointment</option>
+                                <option value="cream" <?php echo ($row['medicine_type'] === 'cream') ? 'selected' : ''; ?>>Cream</option>
+                                <option value="powder" <?php echo ($row['medicine_type'] === 'powder') ? 'selected' : ''; ?>>Powder</option>
+                                <option value="spray" <?php echo ($row['medicine_type'] === 'spray') ? 'selected' : ''; ?>>Spray</option>
+                                </select>
+                             </div>
+
+                                <div class="form-group">
+                                
+                                    <label for="quantity">Quantity<span class="req">*</span></label><br>
                                     <input 
-                                        type="text" 
-                                        id="medicine_type" 
-                                        name="medicine_type" 
-                                        value="<?php echo htmlspecialchars($row['medicine_type'], ENT_QUOTES, 'UTF-8'); ?>" 
-                                        list="medicine_options" 
-                                        placeholder="Type or select a medicine"
-                                    >
-                                    <datalist id="medicine_options">
-                                        <option value="Metoprolol"></option>
-                                        <option value="Losartan"></option>
-                                        <option value="Amlodipine"></option>
-                                        <option value="Cinnarizine"></option>
-                                    </datalist>
+                                    type="number" 
+                                    name="quantity" 
+                                    id="quantity" 
+                                    value="<?php echo $row['quantity']; ?>"  
+                                    min="1" 
+                                    required>
                                 </div>
 
                             <div class="form-group">

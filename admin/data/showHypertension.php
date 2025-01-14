@@ -6,7 +6,7 @@ $month = isset($_GET['month']) ? intval($_GET['month']) : 0;
 $year = isset($_GET['year']) ? intval($_GET['year']) : 0;
 
 // Construct the SQL query with filtering conditions
-$query = "SELECT h.hypertension_id, CONCAT(r.fname, ' ', r.mname, ' ', r.lname) AS full_name, h.checkup_date, h.medicine_type, h.blood_pressure, h.remarks_type 
+$query = "SELECT h.hypertension_id, CONCAT(r.fname, ' ', r.mname, ' ', r.lname) AS full_name, h.checkup_date, h.medicine_name, h.medicine_type, h.quantity, h.blood_pressure, h.remarks_type 
           FROM hypertension h 
           JOIN residents r ON h.resident_id = r.id";
 
@@ -32,7 +32,9 @@ if ($result->num_rows > 0) {
         echo "<tr>";
         echo "<td style='color: #333; text-align: center;'>" . $row['full_name'] . "</td>";
         echo "<td style='color: #333; text-align: center;'>" . $row['checkup_date'] . "</td>";
+        echo "<td style='color: #333; text-align: center;'>" . $row['medicine_name'] . "</td>";
         echo "<td style='color: #333; text-align: center;'>" . $row['medicine_type'] . "</td>";
+        echo "<td style='color: #333; text-align: center;'>" . $row['quantity'] . "</td>";
         echo "<td style='color: #333; text-align: center;'>" . $row['blood_pressure'] . "</td>";
         echo "<td style='color: #333; text-align: center;'>" . $row['remarks_type'] . "</td>";
         echo "<td style='text-align: center;'>
