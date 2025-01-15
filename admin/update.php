@@ -236,9 +236,11 @@ if (!isset($_SESSION["user"]) || $_SESSION["user_type"] == "System Administrator
                                     <tr>
                                         <th>
                                         <label for="brgy">Barangay</label><br>
-                                        <input type="text" id="brgySearch" placeholder="Search Barangay" onkeyup="filterBarangay()">
+                                        <input type="text" id="brgySearch" placeholder="Search Barangay"  onfocus="showDropdown()"
+    onkeyup="filterBarangay()"
+    onblur="hideDropdown()">
 <br>
-<select id="brgy" name="brgy" size="10" onchange="selectBarangay()">
+<select id="brgy" name="brgy" size="10" onchange="selectBarangay()"  style="display: none; position: absolute; z-index: 10; width: 100%;">
 <option value="Bgy. 1 Em's Barrio" <?php if(isset($brgy) && $brgy == "Bgy. 1 Em's Barrio") echo "selected"; ?>>Bgy. 1 Em's Barrio</option>
     <option value="Bgy. 2 Em's Barrio South" <?php if(isset($brgy) && $brgy == "Bgy. 2 Em's Barrio South") echo "selected"; ?>>Bgy. 2 Em's Barrio South</option>
     <option value="Bgy. 3 Em's Barrio East" <?php if(isset($brgy) && $brgy == "Bgy. 3 Em's Barrio East") echo "selected"; ?>>Bgy. 3 Em's Barrio East</option>
@@ -613,6 +615,10 @@ if (!isset($_SESSION["user"]) || $_SESSION["user_type"] == "System Administrator
                             </div>
                         </form>
                         <style>
+                            body{
+                            background-color: #CDE8E5;
+
+                        }
                         #map {
                             width: 100%;
                             height: 60vh;
@@ -726,7 +732,21 @@ if (!isset($_SESSION["user"]) || $_SESSION["user_type"] == "System Administrator
         // Initial call to start displaying time
         display_c();
 
-           // Function to filter barangays based on input
+ // Show the dropdown when the user focuses on the input field
+ function showDropdown() {
+        const select = document.getElementById('brgy');
+        select.style.display = 'block';
+    }
+
+    // Hide the dropdown when the user blurs (clicks outside) the input field
+    function hideDropdown() {
+        setTimeout(() => {
+            const select = document.getElementById('brgy');
+            select.style.display = 'none';
+        }, 200); // Slight delay to allow the selection to process
+    }
+
+    // Filter barangays based on the input value
     function filterBarangay() {
         const searchInput = document.getElementById('brgySearch').value.toLowerCase();
         const select = document.getElementById('brgy');
@@ -738,11 +758,14 @@ if (!isset($_SESSION["user"]) || $_SESSION["user_type"] == "System Administrator
         }
     }
 
-    // Function to set selected barangay in the input box
+    // Set the selected barangay in the input field and hide the dropdown
     function selectBarangay() {
         const select = document.getElementById('brgy');
         const input = document.getElementById('brgySearch');
         input.value = select.options[select.selectedIndex].text;
+
+        // Hide the dropdown after selection
+        select.style.display = 'none';
     }
     </script>
     <?php include "partials/scripts.php"?>

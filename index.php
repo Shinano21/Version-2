@@ -43,12 +43,8 @@
                         </a>
                     </p>
                     <p class="contactInfo">
-                        <a href="mailto:<?php echo isset($email) ? $email : '#'; ?>">
-                            <?php echo isset($email) ? $email : "Email unavailable"; ?>
-                        </a> /
-                        <a href="tel:<?php echo isset($contact) ? str_replace([' ', '-', '(', ')'], '', $contact) : '#'; ?>">
-                            <?php echo isset($contact) ? $contact : "Contact unavailable"; ?>
-                        </a>
+                      
+                        
                     </p>
                     <button><a href="aboutUs.php">Learn More <i class="fas fa-arrow-right" id="i"></i></a></button>
                 </div>

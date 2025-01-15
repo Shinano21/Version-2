@@ -348,17 +348,6 @@ if (mysqli_num_rows($result) > 0) {
                                     </tr>
                                     <tr>
                                         <th>
-                                            <label>Covid-19 Vaccination Status</label>
-                                            <br>
-                                            <select name="covid">
-                                                <?php  echo "<option selected value='$covidVaccinationStatus'>" .$covidVaccinationStatus. "</option>"; ?>
-                                                <option value="Fully Vaccinated">Fully Vaccinated</option>
-                                                <option value="First Dose Vaccinated">First Dose Vaccinated</option>
-                                                <option value="Unvaccinated">Unvaccinated</option>
-                                                <option value="Not Applicable">Not Applicable</option>
-                                            </select>
-                                        </th>
-                                        <th>
                                             <label>Status</label>
                                             <br>
                                             <select name="Status">
@@ -514,6 +503,10 @@ if (mysqli_num_rows($result) > 0) {
     </div>
 </form>
 <style>
+    body{
+                            background-color: #CDE8E5;
+
+                        }
  #map{
             width:100%;
             height:60vh;
