@@ -52,23 +52,29 @@ $random_id_card_no = generateUniqueID($conn);
             <h4>RESIDENT FORM</h2>
                 <span id="exitas">&#x2715;</span>
                 <table>
+                       <!-- Personal Info Section -->
+            <tr>
+                <th colspan="4" style="text-align: center; font-size: 1.2em; padding: 10px; background-color: #f1f1f1; font-weight: bold;">
+                    Personal Info Section
+                </th>
+            </tr>
                     <tr>
                         <th rowspan="3">
                             <img src="src/user.png" id="previewImage">
                             <input type="file" id="imageUpload" name="image" accept="image/*" style="display:none;">
                         </th>
                         <th>
-                            <label>Firstname<span class="req">*</span></label>
+                        <label>Firstname <span style="color: red;">*</span></label>
                             <br>
                             <input type="text" name="fname" required>
                         </th>
                         <th>
-                            <label>Middlename</label>
+                        <label>Middlename</label>
                             <br>
                             <input type="text" name="mname">
                         </th>
                         <th>
-                            <label>Lastname<span class="req">*</span></label>
+                        <label>Lastname <span style="color: red;">*</span></label>
                             <br>
                             <input type="text" name="lname" required>
                         </th>
@@ -76,12 +82,12 @@ $random_id_card_no = generateUniqueID($conn);
                     <tr>
                         <!--<th></th>-->
                         <th>
-                            <label>Suffix<span class="req">*</span></label>
+                            <label>Suffix</label>
                             <br>
                             <input type="text" name="suffix">
                         </th>
                         <th>
-                            <label>Sex<span class="req">*</span></label>
+                        <label>Sex <span style="color: red;">*</span></label>
                             <br>
                             <select name="sex" required>
                                 <option value="Male">Male</option>
@@ -89,7 +95,7 @@ $random_id_card_no = generateUniqueID($conn);
                             </select>
                         </th>
                         <th>
-                            <label>Date of Birth<span class="req">*</span></label>
+                        <label>Date of Birth <span style="color: red;">*</span></label>
                             <br>
                             <input type="date" name="date" required>
                         </th>
@@ -97,35 +103,46 @@ $random_id_card_no = generateUniqueID($conn);
                     <tr>
                         <!--<th></th>-->
                         <th>
-                            <label>Place of Birth<span class="req">*</span></label>
+                        <label>Place of Birth <span style="color: red;">*</span></label>
                             <br>
                             <input type="text" name="bday" required>
                         </th>
                         <th>
-                            <label>Religion</label>
+                        <label>Religion <span style="color: red;">*</span></label>
                             <br>
                             <input type="text" name="religion">
                         </th>
                         <th>
-                            <label>Citizenship<span class="req">*</span></label>
+                        <label>Citizenship <span style="color: red;">*</span></label>
                             <br>
                             <input type="text" name="citizenship" required>
                         </th>
                     </tr>
+
                     <tr>
                         <th style="margin:10%;">
                             <br>
                             <br>
-                            <button type="button" id="uplBtn">Select Image</button>
+                            <!-- <button type="button" id="uplBtn">Select Image</button> -->
+                            <button type="button" id="uplBtn" style="background-color: #4D869C;">Select Image</button>
                             <input type="file" id="upl" name="image" accept="image/*" style="display: none;">
                         </th>
+                        <tr>
+                        <td colspan="4" style="height: 40px;"></td>
+                    </tr>
+                            <!-- Address Section -->
+            <tr>
+                <th colspan="4" style="text-align: center; font-size: 1.2em; padding: 10px; background-color: #f1f1f1; font-weight: bold;">
+                    Address Section
+                </th>
+            </tr>
                         <th>
-                            <label>Street name</label>
+                        <label>Purok name <span style="color: red;">*</span></label>
                             <br>
                             <input type="text" name="street">
                         </th>
                         <th>
-                            <label>Zone<span class="req">*</span></label>
+                        <label>Zone <span style="color: red;">*</span></label>
                             <br>
                             <select id="purokSelect" name="zone" required>
                                 <option value="Purok 1">Purok 1</option>
@@ -137,10 +154,10 @@ $random_id_card_no = generateUniqueID($conn);
                             </select>
                         </th>
                         <th>
-                        <label for="brgy">Barangay<span class="req">*</span></label><br>
-<input type="text" id="brgySearch" placeholder="Search Barangay" onkeyup="filterBarangay()">
+                        <label for="brgy">Barangay <span style="color: red;">*</span></label><br>
+<input type="text" id="brgySearch" placeholder="Search Barangay" onkeyup="filterBarangay()" onfocus="showDropdown()" onblur="hideDropdown()" >
 <br>
-<select id="brgy" name="brgy" size="10" onchange="selectBarangay()">
+<select id="brgy" name="brgy" size="10" onchange="selectBarangay()"  style="position: absolute; display: none; z-index: 10; width: 100%;">
 <option value="Bgy. 1 Em's Barrio">Bgy. 1 Em's Barrio</option>
     <option value="Bgy. 2 Em's Barrio South">Bgy. 2 Em's Barrio South</option>
     <option value="Bgy. 3 Em's Barrio East">Bgy. 3 Em's Barrio East</option>
@@ -233,14 +250,22 @@ $random_id_card_no = generateUniqueID($conn);
                             <input type="text" value="4500" name="zipcode" readonly>
                         </th>
                         <th>
-                            <label>Contact Number</label>
+                        <label>Contact Number <span style="color: red;">*</span></label>
                             <br>
                             <input type="text" name="contact">
                         </th>
                     </tr>
                     <tr>
+                        <td colspan="4" style="height: 90px;"></td>
+                    </tr>
+                    <tr>
+                <th colspan="4" style="text-align: center; font-size: 1.2em; padding: 10px; background-color: #f1f1f1; margin-top:20px; font-weight: bold;">
+                    Socio-Demographic Section
+                </th>
+            </tr>
+                    <tr>
                         <th>
-                            <label>Educational Level<span class="req">*</span></label>
+                        <label>Educational Level <span style="color: red;">*</span></label>
                             <br>
                             <select name="educational" required>
                                 <option value="Preschool">Preschool</option>
@@ -262,12 +287,12 @@ $random_id_card_no = generateUniqueID($conn);
                             </select>
                         </th>
                         <th>
-                            <label>Occupation <span class="req">*</span></label>
+                        <label>Occupation <span style="color: red;">*</span></label>
                             <br>
-                            <input type="text" name="occupation" required>
+                            <input type="text" name="occupation">
                         </th>
                         <th>
-                            <label>Civil Status</label>
+                        <label>Civil status <span style="color: red;">*</span></label>
                             <br>
                             <select id="civilStatus" name="civilStatus" required>
                                 <option value="Single">Single</option>
@@ -278,7 +303,7 @@ $random_id_card_no = generateUniqueID($conn);
                             </select>
                         </th>
                         <th>
-                            <label>Labor force status<span class="req">*</span></label>
+                        <label>Labor force status <span style="color: red;">*</span></label>
                             <br>
                             <select name="labor" required>
                                 <option value="Employed">Employed</option>
@@ -290,7 +315,7 @@ $random_id_card_no = generateUniqueID($conn);
                     </tr>
                     <tr>
                         <th>
-                            <label>Voter status<span class="req">*</span></label>
+                        <label>Voter status <span style="color: red;">*</span></label>
                             <br>
                             <select name="voter" required>
                                 <option value="Yes">Yes</option>
@@ -299,7 +324,7 @@ $random_id_card_no = generateUniqueID($conn);
                             </select>
                         </th>
                         <th>
-                            <label>PWD status<span class="req">*</span></label>
+                        <label>PWD status <span style="color: red;">*</span></label>
                             <br>
                             <select name="pwd" required>
                                 <option value="Yes">Yes</option>
@@ -307,27 +332,18 @@ $random_id_card_no = generateUniqueID($conn);
                             </select>
                         </th>
                         <th>
-                            <label>4P's Beneficiary<span class="req">*</span></label>
+                        <label>4P's Beneficiary <span style="color: red;">*</span></label>
                             <br>
                             <select name="forp" required>
                                 <option value="Yes">Yes</option>
                                 <option value="No">No</option>
                             </select>
                         </th>
-                        <!-- <th>
-                            <label>Covid-19 Vaccination Status</label>
-                            <br>
-                            <select name="covid" required>
-                                <option value="Fully Vaccinated">Fully Vaccinated</option>
-                                <option value="First Dose Vaccinated">First Dose Vaccinated</option>
-                                <option value="Unvaccinated">Unvaccinated</option>
-                                <option value="Not Applicable">Not Applicable</option>
-                            </select>
-                        </th> -->
+
                     </tr>
                     <tr>
                         <th>
-                            <label>Status<span class="req">*</span></label>
+                        <label>Status <span style="color: red;">*</span></label>
                             <br>
                             <select name="Status" required>
                                 <option value="Active">Active</option>
@@ -335,12 +351,12 @@ $random_id_card_no = generateUniqueID($conn);
                             </select>
                         </th>
                         <th>
-                            <label>Longitude<span class="req">*</span></label>
+                            <label>Longitude</label>
                             <br>
                             <input type="text" name="longitude" id="logi" required>
                         </th>
                         <th>
-                            <label>Latitude<span class="req">*</span></label>
+                            <label>Latitude</label>
                             <br>
                             <input type="text" name="Latitude" id="lati" required>
                         </th>
@@ -352,10 +368,11 @@ $random_id_card_no = generateUniqueID($conn);
                     </tr>
                 </table>
                 <br>
-                <div id="map" style="height: 400px; width: 100%;"></div>
+                <div id="map" style="height: 400px; width: 100%; margin-top:50px;"></div>
                 <br>
-                <button class="aa save" type="submit"> SAVE</button>
-                <button class="aa cancel" id="cancel1"> CANCEL</button>
+
+                <button class="aa save" type="submit" style="background-color: #4D869C;"> SAVE</button>
+                <button class="aa cancel" id="cancel1" style="background-color:#7AB2B2;"> CANCEL</button>
 
                 <!--<p id="coordinates">Coordinates: 13.142307, 123.71827</p>-->
 
@@ -470,6 +487,13 @@ $random_id_card_no = generateUniqueID($conn);
                             background-color: #CDE8E5;
 
                         }
+                        /* Ensures the dropdown looks natural */
+#brgy {
+    background-color: white;
+    border: 1px solid #ccc;
+    box-shadow: 0px 4px 6px rgba(0, 0, 0, 0.1);
+}
+
     #map {
         width: 100%;
         height: 60vh;
@@ -601,7 +625,7 @@ $random_id_card_no = generateUniqueID($conn);
                         <div class="buttons">
                             <button
                                 class="addBtn"
-                                id="add_res"><span class="fa fa-plus"></span>&nbsp;&nbsp;Resident</button>
+                                id="add_res" style="background-color: #4D869C;"><span class="fa fa-plus"></span>&nbsp;&nbsp;Resident</button>
                             <a href="template/residents.php" target="_blank"><button
                                 class="printBtn"><span
                                     class="fa fa-print">&nbsp;&nbsp;</span>Print Records</button></a>
@@ -838,24 +862,37 @@ $random_id_card_no = generateUniqueID($conn);
         // Event listener for the print button
         document.querySelector('.printBtn').addEventListener('click', printResidents);
 
-          // Function to filter barangays based on input
-    function filterBarangay() {
-        const searchInput = document.getElementById('brgySearch').value.toLowerCase();
-        const select = document.getElementById('brgy');
-        const options = select.options;
+        function showDropdown() {
+    document.getElementById('brgy').style.display = 'block';
+}
 
-        for (let i = 0; i < options.length; i++) {
-            const optionText = options[i].text.toLowerCase();
-            options[i].style.display = optionText.includes(searchInput) ? '' : 'none';
+function hideDropdown() {
+    setTimeout(() => {
+        document.getElementById('brgy').style.display = 'none';
+    }, 200); // Timeout ensures blur event doesn't close before selecting
+}
+
+function filterBarangay() {
+    const searchInput = document.getElementById('brgySearch').value.toLowerCase();
+    const dropdown = document.getElementById('brgy');
+    const options = dropdown.getElementsByTagName('option');
+
+    for (let option of options) {
+        if (option.value.toLowerCase().includes(searchInput)) {
+            option.style.display = '';
+        } else {
+            option.style.display = 'none';
         }
     }
+}
 
-    // Function to set selected barangay in the input box
-    function selectBarangay() {
-        const select = document.getElementById('brgy');
-        const input = document.getElementById('brgySearch');
-        input.value = select.options[select.selectedIndex].text;
-    }
+function selectBarangay() {
+    const dropdown = document.getElementById('brgy');
+    const searchInput = document.getElementById('brgySearch');
+    searchInput.value = dropdown.value;
+    dropdown.style.display = 'none';
+}
+
     </script>
 
     <?php include "partials/scripts.php"; ?>

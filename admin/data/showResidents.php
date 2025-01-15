@@ -43,7 +43,7 @@
             echo "<th> " . $rows[$i]['bday'] . "</th>";
             echo "<th> " . $rows[$i]['zone'] . "</th>";
             echo "<th> " . $rows[$i]['contact'] . "</th>";
-            echo "<th> <select style='background-color:#006BDD;color:white;border:none;padding:10px 20px;'  onchange='location = this.value;'>";
+            echo "<th> <select style='background-color:#4D869C;color:white;border:none;padding:10px 20px; border-radius:10px;'  onchange='location = this.value;'>";
             echo "<option value='' selected hidden>Action</option>";
             echo "<option value='view_resident.php?id=" . $rows[$i]['id'] . "'>View</option>";
             echo "<option value='update.php?id=" . $rows[$i]['id'] . "'>Update</option>";
