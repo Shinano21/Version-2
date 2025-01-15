@@ -12,6 +12,14 @@ $query = "SELECT ml.log_id, r.fname, r.lname, ml.medicine_name, ml.medicine_type
           WHERE MONTH(ml.checkup_date) = '$selected_month' AND YEAR(ml.checkup_date) = '$selected_year'
           ORDER BY ml.checkup_date DESC";
 $result = mysqli_query($conn, $query);
+
+// Fetch total quantity
+$total_query = "SELECT SUM(ml.quantity) AS total_quantity
+                FROM medicine_log ml 
+                WHERE MONTH(ml.checkup_date) = '$selected_month' AND YEAR(ml.checkup_date) = '$selected_year'";
+$total_result = mysqli_query($conn, $total_query);
+$total_row = mysqli_fetch_assoc($total_result);
+$total_quantity = $total_row['total_quantity'] ?? 0;
 ?>
 
 <!DOCTYPE html>
@@ -98,6 +106,12 @@ $result = mysqli_query($conn, $query);
                 </tr>
             <?php } ?>
         </tbody>
+        <tfoot>
+            <tr>
+                <td colspan="4" style="text-align: right;"><strong>Total Quantity:</strong></td>
+                <td colspan="2"><strong><?= $total_quantity ?></strong></td>
+            </tr>
+        </tfoot>
     </table>
 </body>
 </html>

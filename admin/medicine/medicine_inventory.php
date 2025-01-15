@@ -88,6 +88,17 @@ if ($stmt = $conn->prepare($query)) {
             background-color: #138496;
         }
 
+        .dropdown-content a {
+    text-decoration: none;
+    color: #333;
+    font-size: 14px;
+}
+
+.dropdown-content a:hover {
+    background-color: #eaeaea;
+}
+
+
     </style>
 </head>
 <body>
@@ -114,14 +125,14 @@ if ($stmt = $conn->prepare($query)) {
                                 <span class="fa fa-plus"></span>&nbsp;&nbsp;Add Medicine
                             </button>
 
-                            <!-- Print Report Dropdown -->
-                            <div class="printBtn action-btn">
-                                Print Report ▼
-                                <div class="dropdown-content" style="display: none; position: absolute; background-color: #f9f9f9; min-width: 150px; box-shadow: 0 8px 16px rgba(0,0,0,0.2); z-index: 1;">
-                                    <a href="medicine_recieved.php" target="_blank" style="display: block; padding: 10px;">Medicine Received</a>
-                                    <a href="medicine_report.php" target="_blank" style="display: block; padding: 10px;">Medicine Report</a>
-                                </div>
-                            </div>
+                           <!-- Print Report Dropdown -->
+<div class="printBtn action-btn" onclick="toggleDropdown()">
+    Print Report ▼
+    <div class="dropdown-content" id="dropdownMenu" style="display: none; position: absolute; background-color: #f9f9f9; min-width: 150px; box-shadow: 0 8px 16px rgba(0,0,0,0.2); z-index: 1;">
+        <a href="medicine_recieved.php" target="_blank" style="display: block; padding: 10px;">Medicine Received</a>
+        <a href="medicine_report.php" target="_blank" style="display: block; padding: 10px;">Medicine Report</a>
+    </div>
+</div>
                         </div>
                     </div>
 
@@ -207,6 +218,28 @@ if ($stmt = $conn->prepare($query)) {
                 window.location.href = `delete_medicine.php?id=${deleteId}`;
             }
         });
+
+        /**
+ * Toggles the visibility of the dropdown menu.
+ */
+function toggleDropdown() {
+    const dropdown = document.getElementById('dropdownMenu');
+    if (dropdown.style.display === 'none' || dropdown.style.display === '') {
+        dropdown.style.display = 'block';
+    } else {
+        dropdown.style.display = 'none';
+    }
+}
+
+// Close dropdown when clicking outside
+document.addEventListener('click', function (event) {
+    const dropdown = document.getElementById('dropdownMenu');
+    const button = document.querySelector('.printBtn');
+    if (!button.contains(event.target)) {
+        dropdown.style.display = 'none';
+    }
+});
+
     </script>
 </body>
 </html>
