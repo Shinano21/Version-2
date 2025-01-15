@@ -116,8 +116,8 @@
                 <p>Back</p>
             </div>
             <div class="details">
-                <p style="font-size: small; margin: 0;"><?php echo $centerName ?></p>
-                <p style="font-size: x-small; color: #888D8F; margin-top: 0;">
+                <p style="font-size: large; margin: 0;"><?php echo $centerName ?></p>
+                <p style="font-size: medium; color: #888D8F; margin-top: 0;">
                     <?php 
                         // Convert military time to 12-hour format
                         $post_datetime_12hr = date("Y-m-d h:i A", strtotime($program['post_date']));
@@ -125,7 +125,7 @@
                     ?>
                 </p>
                 <div class="prDetails">
-                    <h2><?php echo $program['prog_heading']; ?></h2>
+                    <h1><?php echo $program['prog_heading']; ?></h1>
                     <p><?php echo $program['prog_body']; ?></p>
                 </div>
                 <?php

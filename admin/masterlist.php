@@ -47,6 +47,9 @@
                         <tbody id="tableBody">
 
                         </tbody>
+                        <tfoot id="tableFooter">
+
+                        </tfoot>
                     </table>
                     <table class="table table-bordered" id="printTable" style="display: none;">
                         <h6 id="tableName" style="display: none;"></h6>

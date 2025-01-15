@@ -93,8 +93,8 @@ if (isset($_GET['id'])) {
                 <p>Back</p>
             </div>
             <div class="details">
-                <p style="font-size: small; margin: 0;"><?php echo htmlspecialchars($centerName ?? '', ENT_QUOTES, 'UTF-8'); ?></p>
-                <p style="font-size: x-small; color: #888D8F; margin-top: 0;">
+                <p style="font-size: large; margin: 0;"><?php echo htmlspecialchars($centerName ?? '', ENT_QUOTES, 'UTF-8'); ?></p>
+                <p style="font-size: medium; color: #888D8F; margin-top: 0;">
                     <?php 
                         // Convert military time to 12-hour format
                         $post_datetime_12hr = date("Y-m-d h:i A", strtotime($program['post_date']));
@@ -102,7 +102,7 @@ if (isset($_GET['id'])) {
                     ?>
                 </p>
                 <div class="prDetails">
-                    <h2><?php echo htmlspecialchars($program['announce_heading'], ENT_QUOTES, 'UTF-8'); ?></h2>
+                    <h1><?php echo htmlspecialchars($program['announce_heading'], ENT_QUOTES, 'UTF-8'); ?></h1>
                     <p><?php echo nl2br(htmlspecialchars($program['announce_body'], ENT_QUOTES, 'UTF-8')); ?></p>
                 </div>
                 <?php

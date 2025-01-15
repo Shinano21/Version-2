@@ -24,7 +24,8 @@ function generateTableHeader() {
         $lastKey = end($keys);
     ?>
     var headerRow = '<div class="row">';
-    headerRow += '<tr>'
+    headerRow += '<tr>';
+    headerRow += '<th scope="col">No.</th>'; // Add "No." column header
     <?php foreach ($table as $key => $value): ?>
     headerRow +=
         '<th scope="col-4" <?php if ($key === $lastKey): ?>class="address-col" style="text-align: left;" <?php endif; ?>>';
@@ -37,6 +38,20 @@ function generateTableHeader() {
     tableHeader.innerHTML = headerRow;
     printHeader.innerHTML = headerRow;
 }
+
+function generateTableFooter(totalCount) {
+    var tableFooter = document.getElementById('tableFooter');
+    tableFooter.innerHTML = ''; // Clear any existing footer content
+
+    var footerRow = '<tr>';
+    footerRow += '<td colspan="7" style="text-align: right; font-weight: bold; color: black;">Total Residents:</td>'; // Adjust colspan to match the number of columns
+    footerRow += '<td style="font-weight: bold; color: black;">' + totalCount + '</td>';
+    footerRow += '</tr>';
+
+    tableFooter.innerHTML = footerRow; // Append footer to the table
+}
+
+
 
 function generateTableName(data, catSelect, optSelect, catSelect2 = '', optSelect2 = '') {
     var tableName = document.getElementById('tableName');
@@ -155,35 +170,42 @@ function updateTableData(data, counts, catSelect) {
             count += 1;
         }
         for (let i = 0; i < data.length; i++) {
-            if (i == 10)
-                break;
-            // Assuming rowData contains properties like field1, field2, etc.
-            var newRow = '<tr class="table-light">';
-            newRow += '<td style="color: black;">' + `${data[i].fname} ${data[i].mname} ${data[i].lname}` +
-                '</td>';
-            newRow += '<td style="color: black;">' + data[i].sex + '</td>';
-            newRow += '<td style="color: black;">' + calculateAge(data[i].bday) + '</td>';
-            newRow += '<td style="color: black;">' + formatDate(data[i].bday) + '</td>';
-            newRow += '<td style="color: black; text-align: left;" class="address-col">' +
-                `${data[i].street}, ${data[i].zone}, ${data[i].brgy}, ${data[i].mun}, ${data[i].province}` +
-                '</td>';
-            newRow += '</tr>';
-            tableBody.innerHTML += newRow; // Append new row to the table
-        }
-        for (let i = 0; i < data.length; i++) {
-            // Assuming rowData contains properties like field1, field2, etc.
-            var newRow = '<tr class="table-light">';
-            newRow += '<td style="color: black;">' + `${data[i].fname} ${data[i].mname} ${data[i].lname}` +
-                '</td>';
-            newRow += '<td style="color: black;">' + data[i].sex + '</td>';
-            newRow += '<td style="color: black;">' + calculateAge(data[i].bday) + '</td>';
-            newRow += '<td style="color: black;">' + formatDate(data[i].bday) + '</td>';
-            newRow += '<td class="text-left" style="color: black;">' +
-                `${data[i].street}, ${data[i].zone}, ${data[i].brgy}, ${data[i].mun}, ${data[i].province}` +
-                '</td>';
-            newRow += '</tr>';
-            printBody.innerHTML += newRow;
-        }
+    if (i == 10) break;
+    var newRow = '<tr class="table-light">';
+    newRow += '<td style="color: black;">' + (i + 1) + '</td>'; // Add row number
+    newRow += '<td style="color: black;">' + `${data[i].lname}, ${data[i].fname} ${data[i].mname}` + '</td>';
+    newRow += '<td style="color: black;">' + data[i].sex + '</td>';
+    newRow += '<td style="color: black;">' + calculateAge(data[i].bday) + '</td>';
+    newRow += '<td style="color: black;">' + formatDate(data[i].bday) + '</td>';
+    newRow += '<td style="color: black; text-align: left;" class="address-col">' +
+        `${data[i].street}, ${data[i].zone}, ${data[i].brgy}, ${data[i].mun}, ${data[i].province}` +
+        '</td>';
+    newRow += '</tr>';
+    tableBody.innerHTML += newRow;
+}
+// Generate the footer with the total number of rows
+generateTableFooter(data.length);
+
+for (let i = 0; i < data.length; i++) {
+    var newRow = '<tr class="table-light">';
+    newRow += '<td style="color: black;">' + (i + 1) + '</td>'; // Add row number
+    newRow += '<td style="color: black;">' + `${data[i].lname}, ${data[i].fname} ${data[i].mname}` + '</td>';
+    newRow += '<td style="color: black;">' + data[i].sex + '</td>';
+    newRow += '<td style="color: black;">' + calculateAge(data[i].bday) + '</td>';
+    newRow += '<td style="color: black;">' + formatDate(data[i].bday) + '</td>';
+    newRow += '<td class="text-left" style="color: black;">' +
+        `${data[i].street}, ${data[i].zone}, ${data[i].brgy}, ${data[i].mun}, ${data[i].province}` +
+        '</td>';
+    newRow += '</tr>';
+    printBody.innerHTML += newRow;
+}
+// Add the footer row to the print table
+var footerRow = '<tr>';
+footerRow += '<td colspan="7" style="text-align: right; font-weight: bold; color: black;">Total Residents:</td>'; // Adjust colspan
+footerRow += '<td style="font-weight: bold; color: black;">' + data.length + '</td>'; // Total count
+footerRow += '</tr>';
+printBody.innerHTML += footerRow; // Append the footer row
+
 
         if (catSelect.value == 'labor_status') {
             addNewColumn('Labor Force Status');
