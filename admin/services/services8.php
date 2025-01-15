@@ -68,7 +68,6 @@ $result = mysqli_query($conn, $query);
                                 type="text" 
                                 id="medicine_name" 
                                 name="medicine_name" 
-                                value="<?php echo htmlspecialchars($row['medicine_name'], ENT_QUOTES, 'UTF-8'); ?>" 
                                 list="medicine_options" 
                                 placeholder="Type or select a medicine" 
                                 required
@@ -96,7 +95,7 @@ $result = mysqli_query($conn, $query);
 </div>
                             <div class="form-group">
                             <label for="quantity">Quantity<span class="req">*</span></label><br>
-        <input type="number" name="quantity" id="quantity" min="1" required>
+        <input type="number" name="quantity" id="quantity" min="1" placeholder="pcs" required>
     </th>
                             </div>
 
