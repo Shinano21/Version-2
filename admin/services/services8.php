@@ -11,6 +11,12 @@ if (!isset($_SESSION["user"]) || $_SESSION["user_type"] == "System Administrator
 // Query to fetch residents from the database
 $query = "SELECT id, fname, lname FROM residents";
 $result = mysqli_query($conn, $query);
+
+// Query to fetch available medicines from the inventory
+$medicineQuery = "SELECT medicine_name FROM medicine_inventory WHERE quantity > 0";
+$medicineResult = mysqli_query($conn, $medicineQuery);
+?>
+
 ?>
 
 <!DOCTYPE html>
@@ -61,7 +67,6 @@ $result = mysqli_query($conn, $query);
                                 <label for="checkup_date">Checkup Date:<span class="req">*</span></label>
                                 <input type="date" id="checkup_date" name="checkup_date" required>
                             </div>
-
                             <div class="form-group">
                             <label for="medicine_name">Medicine Name<span class="req">*</span></label>
                             <input 
@@ -73,30 +78,40 @@ $result = mysqli_query($conn, $query);
                                 required
                             >
                             <datalist id="medicine_options">
-                                <option value="Metoprolol"></option>
-                                <option value="Losartan"></option>
-                                <option value="Amlodipine"></option>
-                                <option value="Cinnarizine"></option>
+                                <?php
+                                while ($medicine = mysqli_fetch_assoc($medicineResult)) {
+                                    echo '<option value="' . htmlspecialchars($medicine['medicine_name']) . '"></option>';
+                                }
+                                ?>
                             </datalist>
                         </div>
-                            <div class="form-group">
-                                <label for="medicine_type">Medicine Type<span class="req">*</span></label>
-                                <select id="medicine_type" name="medicine_type">
-                                    <option value="" disabled selected>Select Medicine Type</option>
-                                    <option value="tablet">Tablet</option>
-                                    <option value="capsule">Capsule</option>
-                                    <option value="syrup">Syrup</option>
-                                    <option value="injection">Injection</option>
-                                    <option value="ointment">Ointment</option>
-                                    <option value="cream">Cream</option>
-                                    <option value="powder">Powder</option>
-                                    <option value="spray">Spray</option>
-                                </select>
+                        <div class="form-group">
+    <label for="medicine_type">Medicine Type<span class="req">*</span></label>
+    <input 
+        type="text" 
+        id="medicine_type" 
+        name="medicine_type" 
+        list="medicine_type_options" 
+        placeholder="Medicine type will auto-fill if available or can be manually entered" 
+    >
+    <datalist id="medicine_type_options">
+        <option value="Tablet"></option>
+        <option value="Capsule"></option>
+        <option value="Syrup"></option>
+        <option value="Injection"></option>
+        <option value="Ointment"></option>
+        <option value="Cream"></option>
+        <option value="Powder"></option>
+        <option value="Spray"></option>
+    </datalist>
 </div>
+
+
+
                             <div class="form-group">
-                            <label for="quantity">Quantity<span class="req">*</span></label><br>
-        <input type="number" name="quantity" id="quantity" min="1" placeholder="pcs" required>
-    </th>
+                        <label for="quantity">Quantity<span class="req">*</span></label><br>
+                        <input type="number" name="quantity" id="quantity" min="1" placeholder="pcs" required>
+                    </th>
                             </div>
 
                             <div class="form-group">
@@ -192,6 +207,42 @@ $result = mysqli_query($conn, $query);
             document.getElementById('ct').innerHTML = x1;
         }
         display_ct();
+
+        const medicineNameInput = document.getElementById('medicine_name');
+const medicineTypeInput = document.getElementById('medicine_type');
+
+medicineNameInput.addEventListener('input', function () {
+    const medicineName = this.value.trim();
+
+    if (medicineName) {
+        fetch('fetch_medicine_type.php', {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json',
+            },
+            body: JSON.stringify({ medicine_name: medicineName }),
+        })
+        .then(response => response.json())
+        .then(data => {
+            if (data.success) {
+                medicineTypeInput.value = data.medicine_type;
+                medicineTypeInput.setAttribute('readonly', true); // Lock if fetched successfully
+            } else {
+                medicineTypeInput.value = ''; // Clear if no match
+                medicineTypeInput.removeAttribute('readonly'); // Allow manual entry
+            }
+        })
+        .catch(error => {
+            console.error('Error fetching medicine type:', error);
+            alert('An error occurred while fetching the medicine type.');
+            medicineTypeInput.removeAttribute('readonly'); // Allow manual entry
+        });
+    } else {
+        medicineTypeInput.value = ''; // Clear type if no name is entered
+        medicineTypeInput.removeAttribute('readonly'); // Allow manual entry
+    }
+});
+
     </script>
 
     <!-- Script imports -->

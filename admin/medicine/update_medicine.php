@@ -1,6 +1,7 @@
 <?php
 session_start();
-include "../dbcon.php";
+
+include "../dbcon.php"; // Database connection
 
 // Fetch medicine details
 if (isset($_GET['id'])) {
@@ -37,41 +38,161 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
 
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Edit Medicine</title>
-    <?php include "partials/head.php"; ?>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <!-- theme meta -->
+    <meta name="theme-name" content="focus" />
+    <title>Edit Medicine | TechCare</title>
+    <?php include "head.php"; ?>
 </head>
-<body>
-    <?php include "partials/sidebar.php"; ?>
-    <?php include "partials/header.php"; ?>
 
-    <div class="container">
-        <h1>Edit Medicine</h1>
-        <?php if (isset($error)): ?>
-            <div class="error"><?= $error ?></div>
-        <?php endif; ?>
-        <form method="POST">
-            <input type="hidden" name="medicine_id" value="<?= $medicine['medicine_id'] ?>">
+<body onload="display_ct();">
 
-            <label>Medicine Name:</label>
-            <input type="text" name="medicine_name" value="<?= $medicine['medicine_name'] ?>" required>
+    <?php include "header.php"; ?>
+    <?php include "sidebar.php"; ?>
 
-            <label>Medicine Type:</label>
-            <input type="text" name="medicine_type" value="<?= $medicine['medicine_type'] ?>">
+    <div class="content-wrap">
+        <div class="main">
+            <div class="container-fluid">
+                <div class="row">
+                    <div class="col-lg-8 p-r-0 title-margin-right">
+                        <div class="page-header">
+                            <div class="page-title">
+                                <a href="medicine_inventory.php">
+                                    <h7><i class="fa fa-long-arrow-left">&nbsp;&nbsp;</i> Back to Medicine Inventory</h7>
+                                </a>
+                                <h1>Edit Medicine Record</h1>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-lg-4 p-l-0 title-margin-left">
+                        <div class="page-header">
+                            <div class="page-title">
+                                <ol class="breadcrumb">
+                                    <li class="breadcrumb-item"><a href="../home.php">Dashboard</a></li>
+                                    <li class="breadcrumb-item active">Inventory</li>
+                                </ol>
+                            </div>
+                        </div>
+                    </div>
+                </div>
 
-            <label>Quantity:</label>
-            <input type="number" name="quantity" value="<?= $medicine['quantity'] ?>" required>
+                <section id="main-content">
+                    <?php if (isset($error)): ?>
+                        <div class="alert alert-danger"><?= $error ?></div>
+                    <?php endif; ?>
+                    <form action="" method="post">
+                        <div class="row">
+                            <div class="sectioning">
+                                <br>
+                                <p>Update all relevant fields. Fields marked with an asterisk (<span class="req">*</span>) are mandatory.</p>
+                                <hr>
+                                <input type="hidden" name="medicine_id" value="<?= $medicine['medicine_id'] ?>">
 
-            <label>Expiration Date:</label>
-            <input type="date" name="expiration_date" value="<?= $medicine['expiration_date'] ?>">
+                                <table>
+                                    <tr>
+                                        <th><b>Medicine Details</b></th>
+                                    </tr>
+                                    <tr>
+                                        <th>
+                                            <label for="medicine_name">Medicine Name<span class="req">*</span></label><br>
+                                            <input type="text" name="medicine_name" id="medicine_name" value="<?= $medicine['medicine_name'] ?>" required>
+                                        </th>
+                                        <th>
+                                            <label for="medicine_type">Medicine Type<span class="req">*</span></label><br>
+                                            <select name="medicine_type" id="medicine_type" required>
+                                                <option value="" disabled>Select Medicine Type</option>
+                                                <option value="tablet" <?= $medicine['medicine_type'] == 'tablet' ? 'selected' : '' ?>>Tablet</option>
+                                                <option value="capsule" <?= $medicine['medicine_type'] == 'capsule' ? 'selected' : '' ?>>Capsule</option>
+                                                <option value="syrup" <?= $medicine['medicine_type'] == 'syrup' ? 'selected' : '' ?>>Syrup</option>
+                                                <option value="injection" <?= $medicine['medicine_type'] == 'injection' ? 'selected' : '' ?>>Injection</option>
+                                                <option value="ointment" <?= $medicine['medicine_type'] == 'ointment' ? 'selected' : '' ?>>Ointment</option>
+                                                <option value="cream" <?= $medicine['medicine_type'] == 'cream' ? 'selected' : '' ?>>Cream</option>
+                                                <option value="powder" <?= $medicine['medicine_type'] == 'powder' ? 'selected' : '' ?>>Powder</option>
+                                                <option value="spray" <?= $medicine['medicine_type'] == 'spray' ? 'selected' : '' ?>>Spray</option>
+                                            </select>
+                                        </th>
+                                    </tr>
+                                    <tr>
+                                        <th>
+                                            <label for="quantity">Quantity<span class="req">*</span></label><br>
+                                            <input type="number" name="quantity" id="quantity" value="<?= $medicine['quantity'] ?>" required>
+                                        </th>
+                                        <th>
+                                            <label for="expiration_date">Expiration Date<span class="req">*</span></label><br>
+                                            <input type="date" name="expiration_date" id="expiration_date" value="<?= $medicine['expiration_date'] ?>" required>
+                                        </th>
+                                    </tr>
+                                    <tr>
+                                        <th>
+                                            <label for="supplier">Supplier<span class="req">*</span></label><br>
+                                            <input type="text" name="supplier" id="supplier" value="<?= $medicine['supplier'] ?>" required>
+                                        </th>
+                                    </tr>
+                                </table>
+                                <br>
+                                <button type="submit">Update Medicine</button>
+                                <br><br>
+                                <hr>
+                            </div>
+                        </div>
 
-            <label>Supplier:</label>
-            <input type="text" name="supplier" value="<?= $medicine['supplier'] ?>">
+                        <style>
+                            body {
+                                background-color: #CDE8E5;
+                                overflow-x: hidden;
+                            }
+                            button[type="submit"] {
+                                padding: 10px 40px;
+                                border: none;
+                                box-shadow: 0px 0px 3px gray;
+                                color: white;
+                                background-color: rgb(92, 84, 243);
+                                border-radius: 10px;
+                                float: right;
+                                margin: 1%;
+                            }
 
-            <button type="submit">Update Medicine</button>
-        </form>
+                            input, select {
+                                border: none;
+                                box-shadow: 0px 0px 2px gray;
+                                border-radius: 10px;
+                                padding: 7px;
+                                width: 90%;
+                            }
+
+                            .req {
+                                color: red;
+                            }
+
+                            table {
+                                width: 100%;
+                            }
+
+                            th {
+                                padding: 10px;
+                            }
+
+                            .sectioning {
+                                padding: 20px;
+                                background-color: #f9f9fd;
+                                box-shadow: 0px 0px 2px gray;
+                                border-radius: 10px;
+                                width: 100%;
+                            }
+
+                            .row {
+                                position: relative;
+                            }
+                        </style>
+                    </form>
+                </section>
+            </div>
+        </div>
     </div>
 </body>
+
 </html>

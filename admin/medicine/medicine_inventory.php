@@ -59,6 +59,35 @@ if ($stmt = $conn->prepare($query)) {
         .deleteBtn:hover {
             background-color: #c82333;
         }
+        .modal {
+            display: none;
+            position: fixed;
+            z-index: 1050;
+            left: 0;
+            top: 0;
+            width: 100%;
+            height: 100%;
+            overflow: hidden;
+            background-color: rgba(0, 0, 0, 0.5);
+            align-items: center;
+            justify-content: center;
+        }
+        .modal-content {
+            background: white;
+            padding: 20px;
+            border-radius: 8px;
+            text-align: center;
+        }
+        .modal-actions {
+            margin-top: 20px;
+        }
+        .printBtn {
+            background-color: #17a2b8;
+        }
+        .printBtn:hover {
+            background-color: #138496;
+        }
+
     </style>
 </head>
 <body>
@@ -77,11 +106,24 @@ if ($stmt = $conn->prepare($query)) {
                 <section id="main-content">
                     <div class="row">
                         <!-- Add Medicine Button -->
-                        <div class="buttons">
+                        <div class="row no-print">
+                        <!-- Buttons Container -->
+                        <div class="buttons-container">
+                            <!-- Add Medicine Button -->
                             <button class="addBtn action-btn" onclick="location.href='add_medicine.php'">
                                 <span class="fa fa-plus"></span>&nbsp;&nbsp;Add Medicine
                             </button>
+
+                            <!-- Print Report Dropdown -->
+                            <div class="printBtn action-btn">
+                                Print Report ▼
+                                <div class="dropdown-content" style="display: none; position: absolute; background-color: #f9f9f9; min-width: 150px; box-shadow: 0 8px 16px rgba(0,0,0,0.2); z-index: 1;">
+                                    <a href="medicine_recieved.php" target="_blank" style="display: block; padding: 10px;">Medicine Received</a>
+                                    <a href="medicine_report.php" target="_blank" style="display: block; padding: 10px;">Medicine Report</a>
+                                </div>
+                            </div>
                         </div>
+                    </div>
 
                         <!-- Medicine Inventory Table -->
                         <div class="tab">
@@ -106,8 +148,8 @@ if ($stmt = $conn->prepare($query)) {
                                                 <td><?= htmlspecialchars($medicine['expiration_date']) ?></td>
                                                 <td><?= htmlspecialchars($medicine['supplier']) ?></td>
                                                 <td>
-                                                    <button class="editBtn action-btn" onclick="location.href='edit_medicine.php?id=<?= $medicine['medicine_id'] ?>'">Edit</button>
-                                                    <button class="deleteBtn action-btn" onclick="deleteMedicine(<?= $medicine['medicine_id'] ?>)">Delete</button>
+                                                    <button class="editBtn action-btn" onclick="location.href='update_medicine.php?id=<?= $medicine['medicine_id'] ?>'">Edit</button>
+                                                    <button class="deleteBtn action-btn" onclick="showModal(<?= $medicine['medicine_id'] ?>)">Delete</button>
                                                 </td>
                                             </tr>
                                         <?php endforeach; ?>
@@ -125,16 +167,46 @@ if ($stmt = $conn->prepare($query)) {
         </div>
     </div>
 
+    <!-- Delete Confirmation Modal -->
+    <div id="deleteModal" class="modal">
+        <div class="modal-content">
+            <h4>Confirm Deletion</h4>
+            <p>Are you sure you want to delete this medicine?</p>
+            <div class="modal-actions">
+                <button class="action-btn deleteBtn" id="confirmDeleteBtn">Delete</button>
+                <button class="action-btn addBtn" onclick="hideModal()">Cancel</button>
+            </div>
+        </div>
+    </div>
+
     <script>
+        let deleteId = null;
+
         /**
-         * Deletes a medicine after confirmation.
+         * Shows the delete confirmation modal.
          * @param {number} id - The ID of the medicine to delete.
          */
-        function deleteMedicine(id) {
-            if (confirm("Are you sure you want to delete this medicine?")) {
-                window.location.href = `delete_medicine.php?id=${id}`;
-            }
+        function showModal(id) {
+            deleteId = id;
+            document.getElementById('deleteModal').style.display = 'flex';
         }
+
+        /**
+         * Hides the delete confirmation modal.
+         */
+        function hideModal() {
+            deleteId = null;
+            document.getElementById('deleteModal').style.display = 'none';
+        }
+
+        /**
+         * Confirms the deletion and redirects to the delete endpoint.
+         */
+        document.getElementById('confirmDeleteBtn').addEventListener('click', function () {
+            if (deleteId) {
+                window.location.href = `delete_medicine.php?id=${deleteId}`;
+            }
+        });
     </script>
 </body>
 </html>
