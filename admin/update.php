@@ -114,6 +114,11 @@ if (!isset($_SESSION["user"]) || $_SESSION["user_type"] == "System Administrator
                             <div id="resident_form">
 
                                 <table>
+                                <tr>
+                <th colspan="4" style="text-align: center; font-size: 1.2em; padding: 10px; background-color: #f1f1f1; font-weight: bold;">
+                    Personal Info Section
+                </th>
+            </tr>
                                     <tr>
                                         <th rowspan="3">
                                             <img id="previewImage" src="residents_img/pp.png">
@@ -212,6 +217,14 @@ if (!isset($_SESSION["user"]) || $_SESSION["user_type"] == "System Administrator
                                                 echo $citizenship;
                                             }?>">
                                         </th>
+                                        <tr>
+                        <td colspan="4" style="height: 40px;"></td>
+                    </tr>
+                    <tr>
+                <th colspan="4" style="text-align: center; font-size: 1.2em; padding: 10px; background-color: #f1f1f1; font-weight: bold;">
+                    Address Section
+                </th>
+            </tr>
                                         <th>
                                             <label>Street name</label>
                                             <br>
@@ -339,6 +352,14 @@ if (!isset($_SESSION["user"]) || $_SESSION["user_type"] == "System Administrator
                                                 echo $contact;
                                             }?>">
                                         </th>
+                                        <tr>
+                        <td colspan="4" style="height: 40px;"></td>
+                    </tr>
+                    <tr>
+                <th colspan="4" style="text-align: center; font-size: 1.2em; padding: 10px; background-color: #f1f1f1; font-weight: bold;">
+                    Socio-Demographic Section
+                </th>
+            </tr>
                                         <th>
                                             <label>Educational Attainment</label>
                                             <br>
@@ -629,7 +650,7 @@ if (!isset($_SESSION["user"]) || $_SESSION["user_type"] == "System Administrator
                             margin: 0 auto;
                             padding: 20px;
                             width: 80vw;
-                            height: auto;
+                            height: 100%;
 
                             background-color: white;
 

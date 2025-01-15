@@ -19,6 +19,7 @@ if ($result->num_rows > 0) {
     <link rel="stylesheet" href="../css/print.css">
     <link href="../css/lib/bootstrap.min.css" rel="stylesheet">
     <script src="https://rawgit.com/eKoopmans/html2pdf/master/dist/html2pdf.bundle.js"></script>
+    <title>Print File</title>
 </head>
 
 <body>

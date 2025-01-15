@@ -23,6 +23,16 @@ $monthNames = [
 
 $selectedMonthName = isset($monthNames[$selectedMonth]) ? $monthNames[$selectedMonth] : '';
 
+$sql = "SELECT center_name FROM home LIMIT 1";
+$result = $conn->query($sql);
+$centerName = '';
+if ($result->num_rows > 0) {
+    $row = $result->fetch_assoc();
+    $centerName = $row['center_name'];
+} else {
+    $centerName = "No center name found";
+}
+
 ?>
 <!DOCTYPE html>
 <html lang="en">
@@ -41,6 +51,19 @@ $selectedMonthName = isset($monthNames[$selectedMonth]) ? $monthNames[$selectedM
     <div id="contentsContainer">
         <?php include "header.php" ?>
         <div class="table-container">
+        <div class="docuHeader">
+                <!-- <div class="img"><img src="../src/techcareLogo2.png" alt="BrgyLogo"></div> -->
+                 <div class="space"></div>
+                <div class="mid">
+                    <p class="text">Republic of the Philippines</p>
+                    <p class="text">Province of Albay</p>
+                    <p class="text">Municipality of Legazpi</p>
+                    <p class="text" style="font-weight: 600;"><?php echo $centerName; ?></p>
+
+
+                </div>
+                <div class="space"></div>
+            </div>
             <center>
                 <h3>LIST OF RESIDENTS AS OF <?php echo $selectedMonthName . ' ' . $selectedYear; ?></h3>
             </center>
@@ -121,6 +144,26 @@ $selectedMonthName = isset($monthNames[$selectedMonth]) ? $monthNames[$selectedM
     </div>
 
     <style>
+.docuHeader {
+    display: flex;
+    justify-content: center; /* Centers horizontally */
+    align-items: center; /* Centers vertically */
+    text-align: center; /* Ensures text is centered within each <p> tag */
+}
+
+.mid {
+    display: flex;
+    flex-direction: column;
+    align-items: center; /* Centers text block horizontally */
+}
+
+.text {
+    line-height: 1.5; /* Adjusts line spacing */
+    margin-top: 0px; /* Adjusts space above each paragraph */
+    margin-bottom: 10px; /* Adjusts space below each paragraph */
+}
+
+
         @page header {
             display: none;
 

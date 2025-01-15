@@ -1,6 +1,15 @@
 <?php
 // Include the database connection
 include '../dbcon.php';
+$sql = "SELECT center_name FROM home LIMIT 1";
+$result = $conn->query($sql);
+$centerName = '';
+if ($result->num_rows > 0) {
+    $row = $result->fetch_assoc();
+    $centerName = $row['center_name'];
+} else {
+    $centerName = "No center name found";
+}
 
 // Fetch hypertension records with resident details
 $query = "
@@ -28,6 +37,28 @@ $result = mysqli_query($conn, $query);
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Hypertension Records</title>
     <style>
+                    .docuHeader {
+    display: flex;
+    justify-content: center; /* Centers horizontally */
+    align-items: center; /* Centers vertically */
+    text-align: center; /* Ensures text is centered within each <p> tag */
+}
+
+.mid {
+    display: flex;
+    flex-direction: column;
+    align-items: center; /* Centers text block horizontally */
+}
+
+.text {
+    line-height: 1.5; /* Adjusts line spacing */
+    margin-top: 0px; /* Adjusts space above each paragraph */
+    margin-bottom: 10px; /* Adjusts space below each paragraph */
+}
+.no-print { 
+    display: flex; 
+    justify-content: flex-end; /* Positions the button to the right */ 
+}
     body {
         font-family: Arial, sans-serif;
         margin: 20px;
@@ -46,14 +77,17 @@ $result = mysqli_query($conn, $query);
         margin: 0 auto; /* Center the title */
         text-align: center;
         flex-grow: 1; /* Allow title to take up available space */
+        font-size: 25px;
     }
-    .print-btn {
+    .printBtn {
         padding: 10px 20px;
         background-color: #007BFF;
         color: white;
         text-align: center;
         text-decoration: none;
         border-radius: 5px;
+        border: none;
+        display: inline-block;
     }
     .print-btn:hover {
         background-color: #0056b3;
@@ -79,7 +113,7 @@ $result = mysqli_query($conn, $query);
         background-color: #f1f1f1;
     }
     @media print {
-        .print-btn {
+        .no-print {
             display: none;
         }
     }
@@ -88,9 +122,26 @@ $result = mysqli_query($conn, $query);
 </head>
 <body>
     <div class="container">
+    <div class="no-print">
+        <button class="printBtn" onclick="window.print()">Print</button>
+    </div>
+    <div class="docuHeader">
+                <!-- <div class="img"><img src="../src/techcareLogo2.png" alt="BrgyLogo"></div> -->
+                 <div class="space"></div>
+                <div class="mid">
+                    <p class="text">Republic of the Philippines</p>
+                    <p class="text">Province of Albay</p>
+                    <p class="text">Municipality of Legazpi</p>
+                    <p class="text" style="font-weight: 600;"><?php echo $centerName; ?></p>
+
+
+                </div>
+                <div class="space"></div>
+            </div>
+        
     <div class="header">
         <h1>Hypertension Records</h1>
-        <a href="#" class="print-btn" onclick="window.print(); return false;">Print Records</a>
+        <!-- <a href="#" class="print-btn" onclick="window.print(); return false;">Print Records</a> -->
     </div>
         <table>
             <thead>

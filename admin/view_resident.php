@@ -109,6 +109,11 @@ if (mysqli_num_rows($result) > 0) {
      
                             <table>
                             <tr>
+                <th colspan="4" style="text-align: center; font-size: 1.2em; padding: 10px; background-color: #f1f1f1; font-weight: bold;">
+                    Personal Info Section
+                </th>
+            </tr>
+                            <tr>
                                         <th rowspan="3">
                                             <img id="previewImage" src="<?php echo isset($_GET["id"]) ? 'residents_img/' . $pro : ''; ?>">
                                         </th>
@@ -205,6 +210,14 @@ if (mysqli_num_rows($result) > 0) {
                                                 echo $citizenship;
                                             }?>">
                                         </th>
+                                        <tr>
+                        <td colspan="4" style="height: 40px;"></td>
+                    </tr>
+                    <tr>
+                <th colspan="4" style="text-align: center; font-size: 1.2em; padding: 10px; background-color: #f1f1f1; font-weight: bold;">
+                    Address Section
+                </th>
+            </tr>
                                         <th>
                                             <label>Street name</label>
                                             <br>
@@ -258,6 +271,14 @@ if (mysqli_num_rows($result) > 0) {
                                                 echo $contact;
                                             }?>">
                                         </th>
+                                        <tr>
+                        <td colspan="4" style="height: 40px;"></td>
+                    </tr>
+                    <tr>
+                <th colspan="4" style="text-align: center; font-size: 1.2em; padding: 10px; background-color: #f1f1f1; font-weight: bold;">
+                    Socio-Demographic Section
+                </th>
+            </tr>
                                         <th>
                                             <label>Educational Attainment</label>
                                             <br>

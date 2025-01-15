@@ -13,8 +13,6 @@
 
     $result = mysqli_query($conn, $sql);
 
-    $even = 0;
-
     // Check if there are results
     if (mysqli_num_rows($result) > 0) {
         $rows = array(); // Array to store rows
@@ -27,32 +25,29 @@
         echo '<script>var residentData = ' . json_encode($rows) . ';</script>';
 
         // Display all rows
-        for ($i = 0; $i < count($rows); $i++) {
-            echo "<tr ";
-            if ($even % 2 == 1) {
-                echo "style='background-color:rgb(243,244,245);'";
-            }
-            echo "><th class='names'> " . $rows[$i]['lname'] . ", " . $rows[$i]['fname'] . " " . $rows[$i]['mname'] . "</th>";
-            echo "<th> " . $rows[$i]['sex'] . "</th>";
-            $dob = new DateTime($rows[$i]["bday"]);
+        foreach ($rows as $row) {
+            echo "<tr>";
+            echo "<th class='names'> " . $row['lname'] . ", " . $row['fname'] . " " . $row['mname'] . "</th>";
+            echo "<th> " . $row['sex'] . "</th>";
+            $dob = new DateTime($row["bday"]);
             $today = new DateTime();
             $age = $today->diff($dob)->y;
             echo "<th> " . $age . "</th>";
-            echo "<th> " . $rows[$i]['bday'] . "</th>";
-            echo "<th> " . $rows[$i]['zone'] . "</th>";
-            echo "<th> " . $rows[$i]['contact'] . "</th>";
-            echo "<th> <select style='background-color:#006BDD;color:white;border:none;padding:10px 20px;' onchange='handleAction(this.value, " . $rows[$i]['id'] . ")'>";
+            echo "<th> " . $row['bday'] . "</th>";
+            echo "<th> " . $row['zone'] . "</th>";
+            echo "<th> " . $row['contact'] . "</th>";
+            echo "<th> <select style='background-color:#006BDD;color:white;border:none;padding:10px 20px;' onchange='handleAction(this.value, " . $row['id'] . ")'>";
             echo "<option value='' selected hidden>Action</option>";
             echo "<option value='view'>View</option>";
             echo "<option value='update'>Update</option>";
             echo "<option value='delete'>Delete</option>";
             echo "</select> </th></tr>";
-            $even++;
         }
     } else {
         echo "No data found.";
     }
 ?>
+
 
 <!-- Modal -->
 <div id="deleteModal" style="display:none; position:fixed; top:0; left:0; width:100%; height:100%; background-color:rgba(0,0,0,0.5);">
@@ -79,9 +74,11 @@
     }
 
     function closeModal() {
-        document.getElementById("deleteModal").style.display = "none";
-        residentIdToDelete = null;
-    }
+    document.getElementById("deleteModal").style.display = "none";
+    residentIdToDelete = null;
+    window.location.href = "./residents.php"; // Redirect to residents.php
+}
+
 
     document.getElementById("confirmDelete").addEventListener("click", function () {
         if (residentIdToDelete !== null) {
