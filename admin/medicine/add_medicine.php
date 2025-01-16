@@ -10,7 +10,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
     $quantity = $_POST['quantity'];
     $expiration_date = $_POST['expiration_date'];
     $supplier = $_POST['supplier'];
-    $received_date = date('m-d-Y'); // Set the current date as received date
+    $received_date = date('Y-m-d'); // Set the current date as received date
 
     $query = "INSERT INTO medicine_inventory (medicine_name, medicine_type, quantity, expiration_date, supplier, received_date) 
               VALUES ('$medicine_name', '$medicine_type', '$quantity', '$expiration_date', '$supplier', '$received_date')";
@@ -113,7 +113,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
                                     <tr>
                                     <th>
                                         <label for="received_date">Received Date<span class="req">*</span></label><br>
-                                        <input type="date" name="received_date" id="received_date" value="<?= date('m-d-Y') ?>" required>
+                                        <input type="date" name="received_date" id="received_date" value="<?= date('Y-m-d') ?>" required>
                                     </th>
                                 </tr>
 

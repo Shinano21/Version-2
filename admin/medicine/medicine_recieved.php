@@ -58,8 +58,13 @@ foreach ($medicines as $medicine) {
         .report-header h1 {
             margin: 0;
         }
-        .report-header p {
-            margin: 5px 0;
+        .filter-form {
+            text-align: center;
+            margin-bottom: 20px;
+        }
+        .filter-form select, .filter-form button {
+            padding: 8px;
+            margin: 5px;
         }
         .report-table {
             width: 100%;
@@ -86,6 +91,30 @@ foreach ($medicines as $medicine) {
     <div class="report-header">
         <h1>Medicine Received Report</h1>
         <p>Month: <?= date('F', mktime(0, 0, 0, $month, 1)) ?>, Year: <?= $year ?></p>
+    </div>
+
+    <div class="filter-form">
+        <form method="GET" action="">
+            <label for="month">Select Month:</label>
+            <select name="month" id="month">
+                <?php for ($m = 1; $m <= 12; $m++): ?>
+                    <option value="<?= $m ?>" <?= $m == $month ? 'selected' : '' ?>>
+                        <?= date('F', mktime(0, 0, 0, $m, 1)) ?>
+                    </option>
+                <?php endfor; ?>
+            </select>
+
+            <label for="year">Select Year:</label>
+            <select name="year" id="year">
+                <?php for ($y = date('Y') - 10; $y <= date('Y'); $y++): ?>
+                    <option value="<?= $y ?>" <?= $y == $year ? 'selected' : '' ?>>
+                        <?= $y ?>
+                    </option>
+                <?php endfor; ?>
+            </select>
+
+            <button type="submit">Filter</button>
+        </form>
     </div>
 
     <table class="report-table">
