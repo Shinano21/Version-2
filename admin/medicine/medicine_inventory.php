@@ -456,5 +456,25 @@ function display_ct() {
     
     </script>
 
+<script>
+    document.querySelectorAll('.sidebar-sub-toggle').forEach(toggle => {
+    toggle.addEventListener('click', function () {
+        // Toggle the visibility of the next sibling UL
+        const submenu = this.nextElementSibling;
+        if (submenu) {
+            const isVisible = submenu.style.display === 'block';
+            submenu.style.display = isVisible ? 'none' : 'block';
+        }
+
+        // Optional: Add active class for the dropdown indicator (angle icon)
+        const icon = this.querySelector('.sidebar-collapse-icon');
+        if (icon) {
+            icon.classList.toggle('ti-angle-down');
+            icon.classList.toggle('ti-angle-up'); // You can replace this with an upward icon
+        }
+    });
+});
+
+</script>
 </body>
 </html>
