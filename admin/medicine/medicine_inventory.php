@@ -30,66 +30,78 @@ if ($stmt = $conn->prepare($query)) {
     <?php include "head.php"; ?>
     <link rel="stylesheet" href="../css/tables.css">
     
-    <style>
-        body {
-            background-color: #CDE8E5;
-        }
-        .action-btn {
-            padding: 5px 10px;
-            font-size: 14px;
-            color: white;
-            border: none;
-            cursor: pointer;
-            border-radius: 4px;
-        }
-        .addBtn {
-            background-color: #007bff;
-        }
-        .addBtn:hover {
-            background-color: #0056b3;
-        }
-        .editBtn {
-            background-color: #28a745;
-        }
-        .editBtn:hover {
-            background-color: #218838;
-        }
-        .deleteBtn {
-            background-color: #dc3545;
-        }
-        .deleteBtn:hover {
-            background-color: #c82333;
-        }
-        .modal {
-            display: none;
-            position: fixed;
-            z-index: 1050;
-            left: 0;
-            top: 0;
-            width: 100%;
-            height: 100%;
-            overflow: hidden;
-            background-color: rgba(0, 0, 0, 0.5);
-            align-items: center;
-            justify-content: center;
-        }
-        .modal-content {
-            background: white;
-            padding: 20px;
-            border-radius: 8px;
-            text-align: center;
-        }
-        .modal-actions {
-            margin-top: 20px;
-        }
-        .printBtn {
-            background-color: #17a2b8;
-        }
-        .printBtn:hover {
-            background-color: #138496;
-        }
+<style>
+    body {
+    background-color: #CDE8E5;
+}
 
-        .dropdown-content a {
+.action-btn {
+    padding: 5px 10px;
+    font-size: 14px;
+    color: white;
+    border: none;
+    cursor: pointer;
+    border-radius: 4px;
+}
+
+.addBtn {
+    background-color: #007bff;
+}
+
+.addBtn:hover {
+    background-color: #0056b3;
+}
+
+.editBtn {
+    background-color: #28a745;
+}
+
+.editBtn:hover {
+    background-color: #218838;
+}
+
+.deleteBtn {
+    background-color: #dc3545;
+}
+
+.deleteBtn:hover {
+    background-color: #c82333;
+}
+
+.modal {
+    display: none;
+    position: fixed;
+    z-index: 1050;
+    left: 0;
+    top: 0;
+    width: 100%;
+    height: 100%;
+    overflow: hidden;
+    background-color: rgba(0, 0, 0, 0.5);
+    align-items: center;
+    justify-content: center;
+}
+
+.modal-content {
+    background: white;
+    padding: 20px;
+    border-radius: 8px;
+    text-align: center;
+}
+
+.modal-actions {
+    margin-top: 20px;
+}
+
+.printBtn {
+    background-color: #17a2b8;
+}
+
+.printBtn:hover {
+    background-color: #138496;
+}
+
+.dropdown-content a {
     text-decoration: none;
     color: #333;
     font-size: 14px;
@@ -100,53 +112,46 @@ if ($stmt = $conn->prepare($query)) {
 }
 
 /* Table Container */
-.tab {
-    margin-top: 47px;
-    overflow-x: auto; /* Ensures horizontal scrolling for smaller screens */
-    background-color: #ffffff; /* Table background */
-    border-radius: 8px; /* Rounded edges for the table container */
-    padding: 15px; /* Padding around the table */
-    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1); /* Optional: subtle shadow */
-}
+
 
 /* Table Styling */
 #medicineTable {
-    width: 100%; /* Full width of the container */
-    border-collapse: collapse; /* Remove gaps between cells */
-    font-size: 14px; /* Font size for readability */
-    text-align: left; /* Align text to the left */
-    border: 1px solid #ddd; /* Add outer border */
+    width: 100%;
+    border-collapse: collapse;
+    font-size: 14px;
+    text-align: left;
+    border: 1px solid #ddd;
 }
 
 /* Table Header */
 #medicineTable thead th {
-    padding: 12px; /* Space inside header cells */
-    border: 1px solid #ddd; /* Borders for header cells */
-    font-weight: bold; /* Make header text bold */
-    text-align: center; /* Align header text to the left */
+    padding: 12px;
+    border: 1px solid #ddd;
+    font-weight: bold;
+    text-align: center;
 }
 
 /* Table Rows */
 #medicineTable tbody tr {
-    border: 1px solid #ddd; /* Borders around rows */
+    border: 1px solid #ddd;
 }
 
 #medicineTable tbody tr:nth-child(even) {
-    background-color: #f9f9f9; /* Optional: Light background for even rows */
+    background-color: #f9f9f9;
 }
 
 #medicineTable tbody td {
-    padding: 10px; /* Space inside cells */
-    border: 1px solid #ddd; /* Borders for each cell */
-    vertical-align: middle; /* Center-align text vertically */
+    padding: 10px;
+    border: 1px solid #ddd;
+    vertical-align: middle;
     text-align: center;
 }
 
 /* Empty State */
 #medicineTable td[colspan="6"] {
-    text-align: center; /* Center the "No medicines found" message */
-    color: #888; /* Subtle text color */
-    font-style: italic; /* Italicize the message */
+    text-align: center;
+    color: #888;
+    font-style: italic;
 }
 
 /* Actions Buttons */
@@ -174,14 +179,17 @@ if ($stmt = $conn->prepare($query)) {
 #medicineTable .deleteBtn:hover {
     background-color: #c82333;
 }
+
 /* Dropdown button */
 .dropbtn {
-    background-color: #007bff; /* Green */
+    background-color: #007bff;
     color: white;
     padding: 12px;
     font-size: 12px;
     border: none;
     cursor: pointer;
+    display: inline-block;
+    position: relative;
 }
 
 /* Dropdown container (needed to position the dropdown content) */
@@ -195,10 +203,11 @@ if ($stmt = $conn->prepare($query)) {
     display: none;
     position: absolute;
     background-color: #007bff;
-    min-width: 160px;
-    box-shadow: 0px 8px 16px 0px rgba(0,0,0,0.2);
+    min-width: 120px;
+    box-shadow: 0px 8px 16px 0px rgba(0, 0, 0, 0.2);
     z-index: 1;
-    
+    top: 100%; /* Position dropdown below the button */
+    left: 0;
 }
 
 /* Links inside the dropdown */
@@ -210,19 +219,62 @@ if ($stmt = $conn->prepare($query)) {
 }
 
 /* Change color of dropdown links on hover */
-.dropdown-content a:hover {background-color: #f1f1f1; color: black;}
+.dropdown-content a:hover {
+    background-color: #f1f1f1;
+    color: black;
+}
 
-/* Show the dropdown menu on hover */
-.dropdown:hover .dropdown-content {
+/* Show the dropdown menu when the dropdown is active */
+.dropdown.active .dropdown-content {
     display: block;
 }
 
 /* Change the background color of the dropdown button when the dropdown content is shown */
-.dropdown:hover .dropbtn {
+.dropdown.active .dropbtn {
     background-color: #007bff;
 }
 
-    </style>
+/* Print Report Dropdown */
+.printBtn.action-btn {
+    background-color: #17a2b8;
+    color: white;
+    padding: 12px;
+    font-size: 14px;
+    border: none;
+    cursor: pointer;
+    position: relative; /* Makes this container the reference for the dropdown */
+}
+
+.printBtn:hover {
+    background-color: #138496;
+}
+
+/* Dropdown Content */
+#dropdownMenu {
+    display: none;
+    position: absolute; /* Position dropdown content relative to the button */
+    background-color: #f9f9f9;
+    min-width: 150px;
+    box-shadow: 0 8px 16px rgba(0, 0, 0, 0.2);
+    z-index: 1;
+    top: 100%; /* Positions the dropdown directly below the button */
+    left: 0; /* Aligns it with the left side of the button */
+}
+
+/* Links inside the dropdown */
+#dropdownMenu a {
+    color: black;
+    padding: 10px;
+    text-decoration: none;
+    display: block;
+}
+
+/* Change color of dropdown links on hover */
+#dropdownMenu a:hover {
+    background-color: #eaeaea;
+}
+
+</style>
 </head>
 <body onload="display_ct();">
     <?php include "sidebar.php"; ?>
@@ -252,8 +304,8 @@ if ($stmt = $conn->prepare($query)) {
         <div class="printBtn action-btn" onclick="toggleDropdown()">
             Print Report ▼
             <div class="dropdown-content" id="dropdownMenu" style="display: none; position: absolute; background-color: #f9f9f9; min-width: 150px; box-shadow: 0 8px 16px rgba(0,0,0,0.2); z-index: 1;">
-                <a href="medicine_recieved.php" target="_blank" style="display: block; padding: 10px;">Medicine Received</a>
-                <a href="medicine_report.php" target="_blank" style="display: block; padding: 10px;">Medicine Report</a>
+                <a href="medicine_recieved.php" target="_blank" style="display: block; padding: 10px; color:black">Medicine Received</a>
+                <a href="medicine_report.php" target="_blank" style="display: block; padding: 10px; color:black;">Medicine Report</a>
             </div>
         </div>
     </div>
@@ -285,7 +337,7 @@ if ($stmt = $conn->prepare($query)) {
                                                 <td><?= htmlspecialchars($medicine['supplier']) ?></td>
                                                 <td>
     <div class="dropdown">
-        <button class="dropbtn">Action</button>
+        <button class="dropbtn">Action ▼</button>
         <div class="dropdown-content">
             <a href="update_medicine.php?id=<?= $medicine['medicine_id'] ?>">Edit</a>
             <a href="#" onclick="showModal(<?= $medicine['medicine_id'] ?>)">Delete</a>
@@ -320,6 +372,24 @@ if ($stmt = $conn->prepare($query)) {
             </div>
         </div>
     </div>
+
+    <script>
+    document.querySelectorAll('.dropbtn').forEach(button => {
+        button.addEventListener('click', function (event) {
+            let dropdown = this.closest('.dropdown');
+            dropdown.classList.toggle('active');
+        });
+    });
+
+    // Close dropdown if clicked outside
+    window.addEventListener('click', function (event) {
+        if (!event.target.closest('.dropdown')) {
+            document.querySelectorAll('.dropdown.active').forEach(dropdown => {
+                dropdown.classList.remove('active');
+            });
+        }
+    });
+</script>
 
     <script>
         let deleteId = null;
