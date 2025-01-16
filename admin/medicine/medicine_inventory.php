@@ -27,8 +27,9 @@ if ($stmt = $conn->prepare($query)) {
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Medicine Inventory | TechCare</title>
-    <?php include "partials/head.php"; ?>
-    <link rel="stylesheet" href="css/tables.css">
+    <?php include "head.php"; ?>
+    <link rel="stylesheet" href="../css/tables.css">
+    
     <style>
         body {
             background-color: #CDE8E5;
@@ -98,12 +99,134 @@ if ($stmt = $conn->prepare($query)) {
     background-color: #eaeaea;
 }
 
+/* Table Container */
+.tab {
+    margin-top: 47px;
+    overflow-x: auto; /* Ensures horizontal scrolling for smaller screens */
+    background-color: #ffffff; /* Table background */
+    border-radius: 8px; /* Rounded edges for the table container */
+    padding: 15px; /* Padding around the table */
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1); /* Optional: subtle shadow */
+}
+
+/* Table Styling */
+#medicineTable {
+    width: 100%; /* Full width of the container */
+    border-collapse: collapse; /* Remove gaps between cells */
+    font-size: 14px; /* Font size for readability */
+    text-align: left; /* Align text to the left */
+    border: 1px solid #ddd; /* Add outer border */
+}
+
+/* Table Header */
+#medicineTable thead th {
+    padding: 12px; /* Space inside header cells */
+    border: 1px solid #ddd; /* Borders for header cells */
+    font-weight: bold; /* Make header text bold */
+    text-align: center; /* Align header text to the left */
+}
+
+/* Table Rows */
+#medicineTable tbody tr {
+    border: 1px solid #ddd; /* Borders around rows */
+}
+
+#medicineTable tbody tr:nth-child(even) {
+    background-color: #f9f9f9; /* Optional: Light background for even rows */
+}
+
+#medicineTable tbody td {
+    padding: 10px; /* Space inside cells */
+    border: 1px solid #ddd; /* Borders for each cell */
+    vertical-align: middle; /* Center-align text vertically */
+    text-align: center;
+}
+
+/* Empty State */
+#medicineTable td[colspan="6"] {
+    text-align: center; /* Center the "No medicines found" message */
+    color: #888; /* Subtle text color */
+    font-style: italic; /* Italicize the message */
+}
+
+/* Actions Buttons */
+#medicineTable .action-btn {
+    padding: 5px 10px;
+    font-size: 12px;
+    color: white;
+    border: none;
+    cursor: pointer;
+    border-radius: 4px;
+}
+
+#medicineTable .editBtn {
+    background-color: #28a745;
+}
+
+#medicineTable .editBtn:hover {
+    background-color: #218838;
+}
+
+#medicineTable .deleteBtn {
+    background-color: #dc3545;
+}
+
+#medicineTable .deleteBtn:hover {
+    background-color: #c82333;
+}
+/* Dropdown button */
+.dropbtn {
+    background-color: #007bff; /* Green */
+    color: white;
+    padding: 12px;
+    font-size: 12px;
+    border: none;
+    cursor: pointer;
+}
+
+/* Dropdown container (needed to position the dropdown content) */
+.dropdown {
+    position: relative;
+    display: inline-block;
+}
+
+/* Dropdown content (hidden by default) */
+.dropdown-content {
+    display: none;
+    position: absolute;
+    background-color: #007bff;
+    min-width: 160px;
+    box-shadow: 0px 8px 16px 0px rgba(0,0,0,0.2);
+    z-index: 1;
+    
+}
+
+/* Links inside the dropdown */
+.dropdown-content a {
+    color: white;
+    padding: 12px 16px;
+    text-decoration: none;
+    display: block;
+}
+
+/* Change color of dropdown links on hover */
+.dropdown-content a:hover {background-color: #f1f1f1; color: black;}
+
+/* Show the dropdown menu on hover */
+.dropdown:hover .dropdown-content {
+    display: block;
+}
+
+/* Change the background color of the dropdown button when the dropdown content is shown */
+.dropdown:hover .dropbtn {
+    background-color: #007bff;
+}
 
     </style>
 </head>
-<body>
-    <?php include "partials/sidebar.php"; ?>
-    <?php include "partials/header.php"; ?>
+<body onload="display_ct();">
+    <?php include "sidebar.php"; ?>
+    <?php include "header.php"; ?>
 
     <div class="content-wrap">
         <div class="main">
@@ -116,28 +239,30 @@ if ($stmt = $conn->prepare($query)) {
                 </div>
                 <section id="main-content">
                     <div class="row">
-                        <!-- Add Medicine Button -->
-                        <div class="row no-print">
-                        <!-- Buttons Container -->
-                        <div class="buttons-container">
-                            <!-- Add Medicine Button -->
-                            <button class="addBtn action-btn" onclick="location.href='add_medicine.php'">
-                                <span class="fa fa-plus"></span>&nbsp;&nbsp;Add Medicine
-                            </button>
+<!-- Add Medicine Button -->
+<div class="row no-print" style="width: 100%; position: relative;">
+    <!-- Buttons Container -->
+    <div class="buttons-container" style="position: absolute; right: 0; top: 0; display: flex; gap: 10px; margin-bottom: 10px;">
+        <!-- Add Medicine Button -->
+        <button class="addBtn action-btn"  onclick="location.href='add_medicine.php'">
+            <span class="fa fa-plus"></span>&nbsp;&nbsp;Add Medicine
+        </button>
 
-                           <!-- Print Report Dropdown -->
-<div class="printBtn action-btn" onclick="toggleDropdown()">
-    Print Report ▼
-    <div class="dropdown-content" id="dropdownMenu" style="display: none; position: absolute; background-color: #f9f9f9; min-width: 150px; box-shadow: 0 8px 16px rgba(0,0,0,0.2); z-index: 1;">
-        <a href="medicine_recieved.php" target="_blank" style="display: block; padding: 10px;">Medicine Received</a>
-        <a href="medicine_report.php" target="_blank" style="display: block; padding: 10px;">Medicine Report</a>
+        <!-- Print Report Dropdown -->
+        <div class="printBtn action-btn" onclick="toggleDropdown()">
+            Print Report ▼
+            <div class="dropdown-content" id="dropdownMenu" style="display: none; position: absolute; background-color: #f9f9f9; min-width: 150px; box-shadow: 0 8px 16px rgba(0,0,0,0.2); z-index: 1;">
+                <a href="medicine_recieved.php" target="_blank" style="display: block; padding: 10px;">Medicine Received</a>
+                <a href="medicine_report.php" target="_blank" style="display: block; padding: 10px;">Medicine Report</a>
+            </div>
+        </div>
     </div>
 </div>
-                        </div>
-                    </div>
+
+
 
                         <!-- Medicine Inventory Table -->
-                        <div class="tab">
+                        <div class="tab" style="margin-top:47px;">
                             <table id="medicineTable" class="tableResidents">
                                 <thead>
                                     <tr>
@@ -159,9 +284,15 @@ if ($stmt = $conn->prepare($query)) {
                                                 <td><?= htmlspecialchars($medicine['expiration_date']) ?></td>
                                                 <td><?= htmlspecialchars($medicine['supplier']) ?></td>
                                                 <td>
-                                                    <button class="editBtn action-btn" onclick="location.href='update_medicine.php?id=<?= $medicine['medicine_id'] ?>'">Edit</button>
-                                                    <button class="deleteBtn action-btn" onclick="showModal(<?= $medicine['medicine_id'] ?>)">Delete</button>
-                                                </td>
+    <div class="dropdown">
+        <button class="dropbtn">Action</button>
+        <div class="dropdown-content">
+            <a href="update_medicine.php?id=<?= $medicine['medicine_id'] ?>">Edit</a>
+            <a href="#" onclick="showModal(<?= $medicine['medicine_id'] ?>)">Delete</a>
+        </div>
+    </div>
+</td>
+
                                             </tr>
                                         <?php endforeach; ?>
                                     <?php else : ?>
@@ -240,6 +371,20 @@ document.addEventListener('click', function (event) {
     }
 });
 
+
+function display_ct() {
+            var refresh = 1000; // Refresh rate in milliseconds
+            setTimeout(display_ct, refresh);
+            var x = new Date();
+            var options = { timeZone: 'Asia/Manila', hour12: true, hour: '2-digit', minute: '2-digit', second: '2-digit' };
+            var timeString = x.toLocaleTimeString('en-US', options);
+            var datePart = x.toLocaleDateString('en-US', { weekday: 'short', day: '2-digit', month: 'short', year: 'numeric' });
+            var x1 = datePart + ' - ' + timeString;
+            document.getElementById('ct').innerHTML = x1;
+        }
+        display_ct();
+    
     </script>
+
 </body>
 </html>

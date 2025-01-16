@@ -47,7 +47,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
                     <div class="col-lg-8 p-r-0 title-margin-right">
                         <div class="page-header">
                             <div class="page-title">
-                                <a href="../medicine_inventory.php">
+                                <a href="./medicine_inventory.php">
                                     <h7><i class="fa fa-long-arrow-left">&nbsp;&nbsp;</i> Back to Medicine Inventory</h7>
                                 </a>
                                 <h1>New Medicine Record</h1>
