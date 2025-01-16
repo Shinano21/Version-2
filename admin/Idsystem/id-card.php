@@ -10,6 +10,13 @@
         $sql = "SELECT * FROM `residents` WHERE `id_card_no` = '$id_card_no'";
         $result = mysqli_query($conn, $sql);
 
+        // Fetch logo data
+$logo_sql = "SELECT `logo_pic`, `center_name` FROM `logo` LIMIT 1";
+$logo_result = mysqli_query($conn, $logo_sql);
+$logo_row = mysqli_fetch_assoc($logo_result);
+$logo_path = '../uploads/' . $logo_row['logo_pic']; // Adjust the path as needed
+$center_name = $logo_row['center_name']; // Get the center name
+
         if (mysqli_num_rows($result) > 0) {
             $html = "<div class='card' style='width:350px; padding:0;'>";
 
@@ -40,7 +47,10 @@
                         <div class='card-front' id='card-front'>
                             <!-- Full ID Card Content -->
                             <div class='container' style='text-align:left; border:2px dotted black;'>
-                                <div class='header'></div>
+                                <div class='header'>
+                                    <img src='$logo_path' alt='Logo' class='header-logo'>
+                                     <span class='center-name'>$center_name</span>
+                                </div>
             
                                 <div class='container-2'>
                                     <div class='box-1'>
@@ -81,6 +91,7 @@
                                         <div class='email'>
                                             <h4>Address</h4>
                                             <p>$address</p>
+                                            <p><span style='color: #FF8C00; font-size:13px;'>Valid until:</span> 1/16/28</p>
                                         </div>
                                     </div>
                                     <div class='info-4'>
@@ -96,10 +107,10 @@
                      <div class='card-back' id='card-back'>
     <div class='back-content' style='padding: 20px; text-align: center; '>
         <h3>Terms and Conditions</h3>
-        <p><strong>1. Proof of Identity:</strong> This ID card is issued by Barangay of $address and serves as proof of residency for the holder. It is not a substitute for government-issued identification.</p>
-        <p><strong>2. Non-Transferable:</strong> This ID card is strictly personal and cannot be used by anyone other than the authorized holder.</p>
-        <p><strong>3. Purpose:</strong> The card is intended for barangay-related transactions, community services, and emergency identification. It should not be used for commercial or unlawful purposes.</p>
-        <p><strong>4. Loss or Damage:</strong> Report lost, stolen, or damaged cards to the Barangay Office immediately. Replacement fees may apply.</p>
+        <p><strong> Proof of Identity:</strong> This ID card is issued by Barangay of $address and serves as proof of residency for the holder. It is not a substitute for government-issued identification.</p>
+        <p><strong> Non-Transferable:</strong> This ID card is strictly personal and cannot be used by anyone other than the authorized holder.</p>
+        <h3>Incase of Emergency</h3>
+        <p><strong> Loss or Damage:</strong> Report lost, stolen, or damaged cards to the Barangay Office immediately. Replacement fees may apply.</p>
        
     </div>
 </div>
