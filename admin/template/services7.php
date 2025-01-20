@@ -87,15 +87,16 @@ if ($result) {
     justify-content: flex-end; /* Positions the button to the right */ 
 }
 .printBtn {
-            background-color: #007bff;
+            background-color: #6DC066;
             color: white;
             padding: 10px 20px;
             font-size: 16px;
             border: none;
             cursor: pointer;
             border-radius: 4px;
-            margin: 20px;
+            width: 130px;
             display: inline-block;
+
         }
 
         .printBtn:hover {
@@ -154,6 +155,7 @@ if ($result) {
 
         <button class="printBtn" onclick="window.print()">Print</button>
     </div>
+    <hr>
 <div class="docuHeader">
                 <!-- <div class="img"><img src="../src/techcareLogo2.png" alt="BrgyLogo"></div> -->
                  <div class="space"></div>
