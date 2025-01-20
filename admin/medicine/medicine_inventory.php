@@ -274,6 +274,34 @@ if ($stmt = $conn->prepare($query)) {
     background-color: #eaeaea;
 }
 
+ /* Expiration Modal Styles */
+ .modal {
+        display: none;
+        position: fixed;
+        z-index: 1050;
+        left: 0;
+        top: 0;
+        width: 100%;
+        height: 100%;
+        overflow: hidden;
+        background-color: rgba(0, 0, 0, 0.5);
+        align-items: center;
+        justify-content: center;
+    }
+
+    .modal-content {
+        background: white;
+        padding: 20px;
+        border-radius: 8px;
+        text-align: center;
+        max-width: 400px;
+        margin: 0 auto;
+    }
+
+    .modal-actions {
+        margin-top: 20px;
+    }
+
 </style>
 </head>
 <body onload="display_ct();">
@@ -311,7 +339,16 @@ if ($stmt = $conn->prepare($query)) {
     </div>
 </div>
 
-
+<!-- Expiration Notification Modal -->
+<div id="expirationModal" class="modal">
+    <div class="modal-content">
+        <h4>Medicine Expiration Alert</h4>
+        <p id="expirationMessage"></p>
+        <div class="modal-actions">
+            <button class="action-btn addBtn" onclick="hideExpirationModal()">Close</button>
+        </div>
+    </div>
+</div>
 
                         <!-- Medicine Inventory Table -->
                         <div class="tab" style="margin-top:47px;">
@@ -326,33 +363,29 @@ if ($stmt = $conn->prepare($query)) {
                                         <th>Actions</th>
                                     </tr>
                                 </thead>
-                                <tbody>
-                                    <?php if (!empty($medicines)) : ?>
-                                        <?php foreach ($medicines as $medicine) : ?>
-                                            <tr>
-                                                <td><?= htmlspecialchars($medicine['medicine_name']) ?></td>
-                                                <td><?= htmlspecialchars($medicine['medicine_type']) ?></td>
-                                                <td><?= (int)$medicine['quantity'] ?></td>
-                                                <td><?= htmlspecialchars($medicine['expiration_date']) ?></td>
-                                                <td><?= htmlspecialchars($medicine['supplier']) ?></td>
-                                                <td>
-    <div class="dropdown">
-        <button class="dropbtn">Action ▼</button>
-        <div class="dropdown-content">
-            <a href="update_medicine.php?id=<?= $medicine['medicine_id'] ?>">Edit</a>
-            <a href="#" onclick="showModal(<?= $medicine['medicine_id'] ?>)">Delete</a>
-        </div>
-    </div>
-</td>
-
-                                            </tr>
-                                        <?php endforeach; ?>
-                                    <?php else : ?>
-                                        <tr>
-                                            <td colspan="6">No medicines found.</td>
-                                        </tr>
-                                    <?php endif; ?>
-                                </tbody>
+                                <?php foreach ($medicines as $medicine) : ?>
+    <tr>
+        <td><?= htmlspecialchars($medicine['medicine_name']) ?></td>
+        <td><?= htmlspecialchars($medicine['medicine_type']) ?></td>
+        <td><?= (int)$medicine['quantity'] ?></td>
+        <td>
+            <?php 
+                $expirationDate = new DateTime($medicine['expiration_date']);
+                echo $expirationDate->format('F j, Y'); // Formats as "January 1, 2029"
+            ?>
+        </td>
+        <td><?= htmlspecialchars($medicine['supplier']) ?></td>
+        <td>
+            <div class="dropdown">
+                <button class="dropbtn">Action ▼</button>
+                <div class="dropdown-content">
+                    <a href="update_medicine.php?id=<?= $medicine['medicine_id'] ?>">Edit</a>
+                    <a href="#" onclick="showModal(<?= $medicine['medicine_id'] ?>)">Delete</a>
+                </div>
+            </div>
+        </td>
+    </tr>
+<?php endforeach; ?>
                             </table>
                         </div>
                     </div>
@@ -476,5 +509,35 @@ function display_ct() {
 });
 
 </script>
+
+<script>
+    // Function to display the expiration modal
+    function showExpirationModal(message) {
+        document.getElementById('expirationMessage').innerText = message;
+        document.getElementById('expirationModal').style.display = 'flex';
+    }
+
+    // Function to hide the expiration modal
+    function hideExpirationModal() {
+        document.getElementById('expirationModal').style.display = 'none';
+    }
+
+    // Check for medicines expiring tomorrow
+    (function checkMedicineExpirations() {
+        const medicines = <?= json_encode($medicines); ?>;
+        const today = new Date();
+        const tomorrow = new Date(today);
+        tomorrow.setDate(today.getDate() + 1);
+
+        medicines.forEach(medicine => {
+            const expirationDate = new Date(medicine.expiration_date);
+            if (expirationDate.toDateString() === tomorrow.toDateString()) {
+                const message = `The medicine "${medicine.medicine_name}" will expire tomorrow (${expirationDate.toLocaleDateString()}).`;
+                showExpirationModal(message);
+            }
+        });
+    })();
+</script>
+
 </body>
 </html>

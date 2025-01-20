@@ -26,7 +26,7 @@ $query = "SELECT ab.*,
           JOIN residents r ON ab.resident_id = r.id";
 
 // Apply filters and search
-$conditions = [];
+$conditions = ["1"]; // Start with '1' as a condition to simplify appending other conditions
 
 // Add month filter
 if (!empty($filterMonth)) {
@@ -44,9 +44,7 @@ if (!empty($search)) {
 }
 
 // Combine conditions into the query
-if (!empty($conditions)) {
-    $query .= " WHERE " . implode(" AND ", $conditions);
-}
+$query .= " WHERE " . implode(" AND ", $conditions);
 
 // Execute the query
 $result = mysqli_query($conn, $query);
@@ -56,17 +54,27 @@ if (!$result) {
     die("Query failed: " . mysqli_error($conn));
 }
 
+// Function to format dates
+function formatDate($date) {
+    $dateObj = new DateTime($date);
+    return $dateObj->format('F j, Y'); // Formats as "January 1, 2029"
+}
+
 // Check if there are any rows returned
 if (mysqli_num_rows($result) > 0) {
     // Fetch and display the results
     while ($row = mysqli_fetch_assoc($result)) {
         $fullName = $row['first_name'] . ' ' . $row['middle_name'] . ' ' . $row['last_name'] . ' ' . $row['suffix'];
-        
+
+        // Format dates
+        $formattedBday = formatDate($row['bday']);
+        $formattedBiteDate = formatDate($row['bite_date']);
+
         echo "<tr>";
         echo "<td style='color: #333;'>{$fullName}</td>";
-        echo "<td style='color: #333;'>{$row['bday']}</td>";
+        echo "<td style='color: #333;'>{$formattedBday}</td>"; // Display formatted birthdate
         echo "<td style='color: #333;'>{$row['animal_name']}</td>"; // Display animal_name
-        echo "<td style='color: #333;'>{$row['bite_date']}</td>";
+        echo "<td style='color: #333;'>{$formattedBiteDate}</td>"; // Display formatted bite_date
         echo "<td style='color: #333;'>{$row['bite_location']}</td>";
         echo "<td style='color: #333;'>{$row['bitten_location']}</td>";
         echo "<td style='color: #333;'>{$row['treatment_center']}</td>";

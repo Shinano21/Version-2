@@ -42,21 +42,31 @@ if (mysqli_num_rows($result) > 0) {
         $today = date('Y-m-d');
         $diff = date_diff(date_create($data), date_create($today));
         $age = $diff->format('%y');
-        echo "<th>". $age ."</th>";
+        return $age; // Return the age
     }
 
     for ($i = $startIndex; $i < $endIndex; $i++) {
         $row = $rows[$i]; // Fetch the current row
+
+        // Format the vaccination_date and date_of_birth
+        $vaccinationDate = new DateTime($row['vaccination_date']);
+        $formattedVaccinationDate = $vaccinationDate->format('F j, Y'); // Formats as "January 1, 2029"
+
+        $dobDate = new DateTime($row['date_of_birth']);
+        $formattedDobDate = $dobDate->format('F j, Y'); // Formats as "January 1, 2029"
     
         echo "<tr ";
         if ($even % 2 == 1) {
             echo "style='background-color:rgb(243,244,245);'";
         }
         echo "><th class='names'> " . $row['last_name'] . ", " . $row['first_name'] . " " . $row['middle_name']  . "</th>";
-        age($row["date_of_birth"]);
-        echo "<th> " . $row['vaccination_date'] . "</th>";
+        
+        // Call age function with formatted date_of_birth
+        echo "<th>" . age($row['date_of_birth']) . "</th>"; // Display age
+        
+        echo "<th> " . $formattedVaccinationDate . "</th>"; // Display formatted vaccination date
         echo "<th> " . $row['vaccination_site'] . "</th>";
-        echo "<th> " . $row['date_of_birth'] . "</th>";
+        echo "<th> " . $formattedDobDate . "</th>"; // Display formatted date of birth
         echo "<th class='lastCol'> <select style='background-color:#1e80c1;color:white;border:none;padding:10px 20px;'  onchange='location = this.value;' >";
         echo "<option value='' selected hidden>Action</option>";
         echo "<option value='view/view_services4.php?update=".$row['id']."'>View</option>";
@@ -65,7 +75,7 @@ if (mysqli_num_rows($result) > 0) {
         echo "</select> </th></tr>";
         $even++;
     }
-    
+
 } else {
     echo "No data found.";
 }

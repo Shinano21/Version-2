@@ -38,22 +38,34 @@ if (mysqli_num_rows($result) > 0) {
     $startIndex = 0;
     $endIndex = min(15, count($rows));
 
+    // Function to format dates
+    function formatDate($date) {
+        $dateObj = new DateTime($date);
+        return $dateObj->format('F j, Y'); // Formats as "January 1, 2029"
+    }
+
     for ($i = $startIndex; $i < $endIndex; $i++) {
+        $row = $rows[$i]; // Fetch the current row
+
+        // Format the registration date and birth date
+        $formattedRegDate = formatDate($row['reg']);
+        $formattedBday = formatDate($row['bday']);
+
         echo "<tr ";
         if ($even % 2 == 1) {
             echo "style='background-color:rgb(243,244,245);'";
         }
-        echo "><th class='names'> " . $rows[$i]['lname'] . ", " . $rows[$i]['fname'] . " " . $rows[$i]['mname'] . "</th>";
-        echo "<th> " . $rows[$i]['reg'] . "</th>";
-        echo "<th> " . $rows[$i]['bday'] . "</th>";
-        echo "<th> " . $rows[$i]['se_status'] . "</th>";
-        echo "<th> " . $rows[$i]['sex'] . "</th>";
-        echo "<th> " . $rows[$i]['zone'] . "</th>";
+        echo "><th class='names'> " . $row['lname'] . ", " . $row['fname'] . " " . $row['mname'] . "</th>";
+        echo "<th> " . $formattedRegDate . "</th>"; // Display formatted reg date
+        echo "<th> " . $formattedBday . "</th>"; // Display formatted birth date
+        echo "<th> " . $row['se_status'] . "</th>";
+        echo "<th> " . $row['sex'] . "</th>";
+        echo "<th> " . $row['zone'] . "</th>";
         echo "<th class='lastCol'> <select style='background-color:#006BDD;color:white;border:none;padding:10px 20px;'  onchange='location = this.value;' >";
         echo "<option value='' selected hidden>Action</option>";
-        echo "<option value='view/view_services2.php?view=" . $rows[$i]['id'] . "'>View</option>";
-        echo "<option value='view/services2.php?update=" . $rows[$i]['id'] . "'>Update</option>";
-        echo "<option value='view/delete_services2.php?id=" . $rows[$i]['id'] . "'>Delete</option>";
+        echo "<option value='view/view_services2.php?view=" . $row['id'] . "'>View</option>";
+        echo "<option value='view/services2.php?update=" . $row['id'] . "'>Update</option>";
+        echo "<option value='view/delete_services2.php?id=" . $row['id'] . "'>Delete</option>";
         echo "</select> </th></tr>";
         $even++;
     }

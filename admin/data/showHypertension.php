@@ -29,9 +29,13 @@ if (!$result) {
 
 if ($result->num_rows > 0) {
     while ($row = $result->fetch_assoc()) {
+        // Format the checkup date
+        $checkupDate = new DateTime($row['checkup_date']);
+        $formattedDate = $checkupDate->format('F j, Y'); // Formats as "January 1, 2029"
+        
         echo "<tr>";
         echo "<td style='color: #333; text-align: center;'>" . $row['full_name'] . "</td>";
-        echo "<td style='color: #333; text-align: center;'>" . $row['checkup_date'] . "</td>";
+        echo "<td style='color: #333; text-align: center;'>" . $formattedDate . "</td>"; // Display the formatted date
         echo "<td style='color: #333; text-align: center;'>" . $row['medicine_name'] . "</td>";
         echo "<td style='color: #333; text-align: center;'>" . $row['medicine_type'] . "</td>";
         echo "<td style='color: #333; text-align: center;'>" . $row['quantity'] . "</td>";
@@ -47,7 +51,6 @@ if ($result->num_rows > 0) {
               </td>";
         echo "</tr>";
     }
-    
 } else {
     echo "<tr><td colspan='6'>No records found</td></tr>";
 }

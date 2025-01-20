@@ -38,16 +38,26 @@ if (mysqli_num_rows($result) > 0) {
     $startIndex = 0;
     $endIndex = min(15, count($rows));
 
+    // Function to format dates
+    function formatDate($date) {
+        $dateObj = new DateTime($date);
+        return $dateObj->format('F j, Y'); // Formats as "January 1, 2029"
+    }
+
     for ($i = $startIndex; $i < $endIndex; $i++) {
         $row = $rows[$i]; // Fetch the current row
-    
+
+        // Format the registration date and birth date
+        $formattedRegDate = formatDate($row['date_of_registration']);
+        $formattedBday = formatDate($row['date_of_birth']);
+
         echo "<tr ";
         if ($even % 2 == 1) {
             echo "style='background-color:rgb(243,244,245);'";
         }
         echo "><th class='names'> " . $row['last_name'] . ", " . $row['first_name'] . " " . $row['middle_name']  . "</th>";
-        echo "<th> " . $row['date_of_registration'] . "</th>";
-        echo "<th> " . $row['date_of_birth'] . "</th>";
+        echo "<th> " . $formattedRegDate . "</th>"; // Display formatted reg date
+        echo "<th> " . $formattedBday . "</th>"; // Display formatted birth date
         echo "<th> " . $row['se_status'] . "</th>";
         echo "<th> " . $row['zone'] . "</th>";
         echo "<th> " . $row['source'] . "</th>";

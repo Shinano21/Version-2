@@ -39,13 +39,20 @@ if (mysqli_num_rows($result) > 0) {
     $endIndex = min(15, count($rows));
 
     for ($i = $startIndex; $i < $endIndex; $i++) {
+        // Format the reg and bday dates
+        $regDate = new DateTime($rows[$i]['reg']);
+        $formattedRegDate = $regDate->format('F j, Y'); // Formats as "January 1, 2029"
+        
+        $bdayDate = new DateTime($rows[$i]['bday']);
+        $formattedBdayDate = $bdayDate->format('F j, Y'); // Formats as "January 1, 2029"
+
         echo "<tr ";
         if ($even % 2 == 1) {
             echo "style='background-color:rgb(243,244,245);'";
         }
         echo "><th class='names'> " . $rows[$i]['lname'] . ", " . $rows[$i]['fname'] . " " . $rows[$i]['mname'] . "</th>";
-        echo "<th> " . $rows[$i]['reg'] . "</th>";
-        echo "<th> " . $rows[$i]['bday'] . "</th>";
+        echo "<th> " . $formattedRegDate . "</th>"; // Display the formatted reg date
+        echo "<th> " . $formattedBdayDate . "</th>"; // Display the formatted bday date
         echo "<th> " . $rows[$i]['se_status'] . "</th>";
         echo "<th> " . $rows[$i]['sex'] . "</th>";
         echo "<th> " . $rows[$i]['zone'] . "</th>";

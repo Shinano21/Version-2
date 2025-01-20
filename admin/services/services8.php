@@ -48,6 +48,50 @@ $medicineResult = mysqli_query($conn, $medicineQuery);
                         <h6>Add New Hypertension Record</h6>
                     </div>
                 </div>
+<!-- Modal for Quantity Check -->
+<div id="quantityModal" class="modal">
+    <div class="modal-content">
+        <h4>Quantity Exceeded</h4>
+        <p>The requested quantity exceeds the available inventory. Please adjust the quantity.</p>
+        <button id="modalCloseBtn">OK</button>
+    </div>
+</div>
+
+<style>
+    .modal {
+        display: none; 
+        position: fixed; 
+        z-index: 1000; 
+        left: 0; 
+        top: 0; 
+        width: 100%; 
+        height: 100%; 
+        overflow: auto; 
+        background-color: rgb(0, 0, 0); 
+        background-color: rgba(0, 0, 0, 0.4); 
+    }
+    .modal-content {
+        background-color: #fefefe;
+        margin: 15% auto; 
+        padding: 20px; 
+        border: 1px solid #888; 
+        width: 30%;
+        text-align: center;
+        border-radius: 10px;
+    }
+    #modalCloseBtn {
+        margin-top: 10px;
+        padding: 10px 20px;
+        background-color: #007bff;
+        color: white;
+        border: none;
+        border-radius: 5px;
+        cursor: pointer;
+    }
+    #modalCloseBtn:hover {
+        background-color: #0056b3;
+    }
+</style>
 
                 <section id="main-content">
                     <div class="form-container">
@@ -242,6 +286,82 @@ medicineNameInput.addEventListener('input', function () {
         medicineTypeInput.removeAttribute('readonly'); // Allow manual entry
     }
 });
+
+
+// modal
+const form = document.querySelector('form');
+const medicineInput = document.getElementById('medicine_name');
+const quantityInput = document.getElementById('quantity');
+const modal = document.getElementById('quantityModal');
+const closeModal = document.getElementById('modalCloseBtn');
+let availableQuantity = null; // To store the fetched available quantity
+
+// Event to close modal
+closeModal.addEventListener('click', () => (modal.style.display = 'none'));
+
+// Event to fetch available quantity when medicine changes
+medicineInput.addEventListener('input', () => {
+    const medicineName = medicineInput.value.trim();
+
+    if (medicineName) {
+        fetch('check_medicine_inventory.php', {
+            method: 'POST',
+            headers: { 'Content-Type': 'application/json' },
+            body: JSON.stringify({ medicine_name: medicineName }),
+        })
+            .then(response => response.json())
+            .then(data => {
+                if (data.success) {
+                    availableQuantity = data.available_quantity; // Update available quantity
+                } else {
+                    availableQuantity = null; // Reset if no data
+                    alert('Unable to fetch inventory. Please select a valid medicine.');
+                }
+            })
+            .catch(error => {
+                console.error('Error fetching inventory:', error);
+                availableQuantity = null;
+                alert('An error occurred while fetching inventory.');
+            });
+    } else {
+        availableQuantity = null; // Reset if no medicine name
+    }
+});
+
+// Event to validate quantity dynamically when it changes
+quantityInput.addEventListener('input', () => {
+    const quantity = parseInt(quantityInput.value, 10);
+
+    if (availableQuantity !== null && quantity > availableQuantity) {
+        showModal(`The requested quantity exceeds the available stock. Only ${availableQuantity} left.`);
+    }
+});
+
+// Form submission validation
+form.addEventListener('submit', (event) => {
+    const medicineName = medicineInput.value.trim();
+    const quantity = parseInt(quantityInput.value, 10);
+
+    if (!medicineName || availableQuantity === null) {
+        showModal('Please select a valid medicine and wait for the inventory to load.');
+        event.preventDefault();
+        return;
+    }
+
+    if (quantity > availableQuantity) {
+        showModal(`The requested quantity exceeds the available stock. Only ${availableQuantity} left.`);
+        event.preventDefault(); // Stop form submission
+    } else if (availableQuantity === 0) {
+        showModal('This medicine is out of stock.');
+        event.preventDefault(); // Stop form submission
+    }
+});
+
+function showModal(message) {
+    const modalContent = document.querySelector('.modal-content p');
+    modalContent.textContent = message;
+    modal.style.display = 'block';
+}
 
     </script>
 

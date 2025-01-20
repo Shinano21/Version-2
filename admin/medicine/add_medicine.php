@@ -5,22 +5,52 @@ include "../dbcon.php"; // Database connection
 
 /// Check if the form is submitted
 if ($_SERVER["REQUEST_METHOD"] == "POST") {
-    $medicine_name = $_POST['medicine_name'];
-    $medicine_type = $_POST['medicine_type'];
-    $quantity = $_POST['quantity'];
-    $expiration_date = $_POST['expiration_date'];
-    $supplier = $_POST['supplier'];
+    $medicine_name = mysqli_real_escape_string($conn, $_POST['medicine_name']);
+    $medicine_type = mysqli_real_escape_string($conn, $_POST['medicine_type']);
+    $quantity = intval($_POST['quantity']);
+    $expiration_date = mysqli_real_escape_string($conn, $_POST['expiration_date']);
+    $supplier = mysqli_real_escape_string($conn, $_POST['supplier']);
     $received_date = date('Y-m-d'); // Set the current date as received date
 
-    $query = "INSERT INTO medicine_inventory (medicine_name, medicine_type, quantity, expiration_date, supplier, received_date) 
-              VALUES ('$medicine_name', '$medicine_type', '$quantity', '$expiration_date', '$supplier', '$received_date')";
+    // Check if the medicine with the same name, type, and expiration date exists
+    $check_query = "SELECT * FROM medicine_inventory 
+                    WHERE medicine_name = '$medicine_name' 
+                    AND medicine_type = '$medicine_type' 
+                    AND expiration_date = '$expiration_date'";
+    $result = mysqli_query($conn, $check_query);
 
-    if (mysqli_query($conn, $query)) {
-        header("Location: medicine_inventory.php?success=Medicine added successfully");
+    if (!$result) {
+        die("Query failed: " . mysqli_error($conn));
+    }
+
+    if (mysqli_num_rows($result) > 0) {
+        // Medicine exists, update the quantity
+        $update_query = "UPDATE medicine_inventory 
+                         SET quantity = quantity + $quantity 
+                         WHERE medicine_name = '$medicine_name' 
+                         AND medicine_type = '$medicine_type' 
+                         AND expiration_date = '$expiration_date'";
+        if (mysqli_query($conn, $update_query)) {
+            header("Location: medicine_inventory.php?success=Quantity updated successfully");
+            exit;
+        } else {
+            $error = "Error updating quantity: " . mysqli_error($conn);
+        }
     } else {
-        $error = "Error: " . mysqli_error($conn);
+        // Insert a new record
+        $insert_query = "INSERT INTO medicine_inventory 
+                         (medicine_name, medicine_type, quantity, expiration_date, supplier, received_date) 
+                         VALUES ('$medicine_name', '$medicine_type', $quantity, '$expiration_date', '$supplier', '$received_date')";
+        if (mysqli_query($conn, $insert_query)) {
+            header("Location: medicine_inventory.php?success=Medicine added successfully");
+            exit;
+        } else {
+            $error = "Error inserting new record: " . mysqli_error($conn);
+        }
     }
 }
+
+
 ?>
 <!DOCTYPE html>
 <html lang="en">
@@ -83,7 +113,37 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
                                     <tr>
                                         <th>
                                             <label for="medicine_name">Medicine Name<span class="req">*</span></label><br>
-                                            <input type="text" name="medicine_name" id="medicine_name" required>
+                                            <input type="text" name="medicine_name" id="medicine_name" list="medicine_list" required>
+                                            <datalist id="medicine_list">
+                                                <option value="Paracetamol 500mg">
+                                                <option value="Amoxicillin 250mg">
+                                                <option value="Vitamin C 500mg">
+                                                <option value="Cough Syrup 100ml">
+                                                <option value="Ibuprofen 200mg">
+                                                <option value="Oral Rehydration Salts">
+                                                <option value="Metformin 500mg">
+                                                <option value="Losartan 50mg">
+                                                <option value="Salbutamol Inhaler">
+                                                <option value="Cetirizine 10mg">
+                                                <option value="Loperamide 2mg">
+                                                <option value="Aspirin 81mg">
+                                                <option value="Ranitidine 150mg">
+                                                <option value="Omeprazole 20mg">
+                                                <option value="Clotrimazole Cream">
+                                                <option value="Multivitamins Syrup">
+                                                <option value="Iron Tablets">
+                                                <option value="Calcium Tablets">
+                                                <option value="Zinc Tablets">
+                                                <option value="Antacid Suspension">
+                                                <option value="Hydrocortisone Cream">
+                                                <option value="Antifungal Powder">
+                                                <option value="Sterile Saline Solution">
+                                                <option value="Acetaminophen Drops">
+                                                <option value="Diphenhydramine 25mg">
+                                                <option value="Loratadine 10mg">
+                                                <option value="Bismuth Subsalicylate">
+                                             </datalist>
+
                                         </th>
                                         <th>
                                             <label for="medicine_type">Medicine Type<span class="req">*</span></label><br>

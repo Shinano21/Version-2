@@ -47,12 +47,27 @@ if (!$result) {
 if (mysqli_num_rows($result) > 0) {
     $even = 0; // To alternate row colors
 
+    echo '<table>';
+    echo '<thead>';
+    echo '<tr>';
+    echo '<th>Resident Name</th>';
+    echo '<th>Checkup Date</th>';
+    echo '<th>Gestational Age</th>';
+    echo '<th>Blood Pressure</th>';
+    echo '<th>Weight</th>';
+    echo '<th>Fetal Heartbeat</th>';
+    echo '<th>Remarks</th>';
+    echo '<th>Actions</th>';
+    echo '</tr>';
+    echo '</thead>';
+    echo '<tbody>';
+
     // Output each row of data
     while ($row = mysqli_fetch_assoc($result)) {
         $rowColor = $even % 2 == 1 ? "style='background-color: rgb(243, 244, 245);'" : "";
         echo "<tr $rowColor>";
         echo "<td style='color: #333;'>" . htmlspecialchars($row['lname'] . ", " . $row['fname']) . "</td>";
-        echo "<td style='color: #333;'>" . htmlspecialchars($row['checkup_date']) . "</td>";
+        echo "<td style='color: #333;'>" . htmlspecialchars(date('F j, Y', strtotime($row['checkup_date']))) . "</td>";
         echo "<td style='color: #333;'>" . htmlspecialchars($row['gestational_age']) . " weeks</td>";
         echo "<td style='color: #333;'>" . htmlspecialchars($row['blood_pressure']) . "</td>";
         echo "<td style='color: #333;'>" . htmlspecialchars($row['weight']) . " kg</td>";

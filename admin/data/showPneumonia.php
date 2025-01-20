@@ -38,6 +38,12 @@ if (mysqli_num_rows($result) > 0) {
     $startIndex = 0;
     $endIndex = min(15, count($rows));
 
+    // Function to format dates
+    function formatDate($date) {
+        $dateObj = new DateTime($date);
+        return $dateObj->format('F j, Y'); // Formats as "January 1, 2029"
+    }
+
     function age($data){
         $today = date('Y-m-d');
         $diff = date_diff(date_create($data), date_create($today));
@@ -47,6 +53,10 @@ if (mysqli_num_rows($result) > 0) {
 
     for ($i = $startIndex; $i < $endIndex; $i++) {
         $row = $rows[$i]; // Fetch the current row
+
+        // Format the vaccination date and birth date
+        $formattedVaccinationDate = formatDate($row['vaccination_date']);
+        $formattedBday = formatDate($row['date_of_birth']);
         
         echo "<tr ";
         if ($even % 2 == 1) {
@@ -54,9 +64,9 @@ if (mysqli_num_rows($result) > 0) {
         }
         echo "><th class='names'> " . $row['last_name'] . ", " . $row['first_name'] . " " . $row['middle_name']  . "</th>";
         age($row["date_of_birth"]);
-        echo "<th> " . $row['vaccination_date'] . "</th>";
+        echo "<th> " . $formattedVaccinationDate . "</th>"; // Display formatted vaccination date
         echo "<th> " . $row['vaccination_site'] . "</th>";
-        echo "<th> " . $row['date_of_birth'] . "</th>";
+        echo "<th> " . $formattedBday . "</th>"; // Display formatted birth date
         echo "<th class='lastCol'> <select style='background-color:#1e80c1;color:white;border:none;padding:10px 20px;'  onchange='location = this.value;' >";
         echo "<option value='' selected hidden>Action</option>";
         echo "<option value='view/view_services5.php?update=".$row['id']."'>View</option>";
