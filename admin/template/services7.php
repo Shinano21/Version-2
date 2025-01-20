@@ -1,6 +1,14 @@
 <?php 
 include '../dbcon.php'; // Include database connection
 
+// Get the selected year and month from the form submission
+$selectedYear = isset($_GET['year']) ? $_GET['year'] : date('Y');
+$selectedMonth = isset($_GET['month']) ? $_GET['month'] : date('m');
+
+// Get the name of the month for display
+$monthName = date('F', mktime(0, 0, 0, $selectedMonth, 1));
+
+// Query center name
 $sql = "SELECT center_name FROM home LIMIT 1";
 $result = $conn->query($sql);
 $centerName = '';
@@ -10,6 +18,7 @@ if ($result->num_rows > 0) {
 } else {
     $centerName = "No center name found";
 }
+
 // Initialize prenatal statistics
 $prenatalStats = [
     '4_checkups' => 0,
@@ -27,8 +36,9 @@ $prenatalStats = [
     'gestational_diabetes_positive' => 0,
 ];
 
-// Query for prenatal statistics
-$result = $conn->query("SELECT * FROM prenatal");
+// Query for prenatal statistics filtered by year and month
+$query = "SELECT * FROM prenatal WHERE YEAR(checkup_date) = $selectedYear AND MONTH(checkup_date) = $selectedMonth";
+$result = $conn->query($query);
 if ($result) {
     while ($row = $result->fetch_assoc()) {
         if (!empty($row['calcium_supplementation'])) $prenatalStats['calcium_supplementation']++;
@@ -126,6 +136,22 @@ if ($result) {
 </head>
 <body>
 <div class="no-print">
+<form method="GET" action="">
+    <label for="year">Year:</label>
+    <select name="year" id="year">
+        <?php for ($y = 2020; $y <= date('Y'); $y++): ?>
+            <option value="<?php echo $y; ?>" <?php echo ($y == $selectedYear) ? 'selected' : ''; ?>><?php echo $y; ?></option>
+        <?php endfor; ?>
+    </select>
+    <label for="month">Month:</label>
+    <select name="month" id="month">
+        <?php for ($m = 1; $m <= 12; $m++): ?>
+            <option value="<?php echo sprintf('%02d', $m); ?>" <?php echo ($m == $selectedMonth) ? 'selected' : ''; ?>><?php echo date('F', mktime(0, 0, 0, $m, 1)); ?></option>
+        <?php endfor; ?>
+    </select>
+    <button type="submit">Filter</button>
+</form>
+
         <button class="printBtn" onclick="window.print()">Print</button>
     </div>
 <div class="docuHeader">

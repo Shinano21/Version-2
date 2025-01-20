@@ -112,23 +112,37 @@ $medicineResult = mysqli_query($conn, $medicineQuery);
                                 <input type="date" id="checkup_date" name="checkup_date" required>
                             </div>
                             <div class="form-group">
-                            <label for="medicine_name">Medicine Name<span class="req">*</span></label>
-                            <input 
-                                type="text" 
-                                id="medicine_name" 
-                                name="medicine_name" 
-                                list="medicine_options" 
-                                placeholder="Type or select a medicine" 
-                                required
-                            >
-                            <datalist id="medicine_options">
-                                <?php
-                                while ($medicine = mysqli_fetch_assoc($medicineResult)) {
-                                    echo '<option value="' . htmlspecialchars($medicine['medicine_name']) . '"></option>';
-                                }
-                                ?>
-                            </datalist>
-                        </div>
+    <label for="medicine_name">Medicine Name<span class="req">*</span></label>
+    <input 
+        type="text" 
+        id="medicine_name" 
+        name="medicine_name" 
+        list="medicine_options" 
+        placeholder="Type or select a medicine" 
+        required
+    >
+    <datalist id="medicine_options">
+        <?php
+        // Fetch medicines from the database
+        $query = "SELECT medicine_name, expiration_date FROM medicine_inventory";
+        $medicineResult = mysqli_query($conn, $query);
+
+        // Loop through the results
+        while ($medicine = mysqli_fetch_assoc($medicineResult)) {
+            // Format the expiration date
+            $expirationDate = !empty($medicine['expiration_date']) 
+                ? (new DateTime($medicine['expiration_date']))->format('F j, Y') 
+                : 'N/A';
+
+            // Display the medicine name and expiration date
+            echo '<option value="' . htmlspecialchars($medicine['medicine_name']) . '">' 
+                . htmlspecialchars($medicine['medicine_name']) . ' (Expires: ' . $expirationDate . ')</option>';
+        }
+        ?>
+    </datalist>
+</div>
+
+
                         <div class="form-group">
     <label for="medicine_type">Medicine Type<span class="req">*</span></label>
     <input 
