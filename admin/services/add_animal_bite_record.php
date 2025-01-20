@@ -13,7 +13,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
     // Sanitize and retrieve form data
     $resident_id = mysqli_real_escape_string($conn, $_POST['resident_name']);
     $animal_name = mysqli_real_escape_string($conn, $_POST['animal_name']);
-      $bitten_location = mysqli_real_escape_string($conn, $_POST['bitten_location']);  // New field
+    $bitten_location = mysqli_real_escape_string($conn, $_POST['bitten_location']);
     $bite_date = mysqli_real_escape_string($conn, $_POST['bite_date']);
     $treatment_date = mysqli_real_escape_string($conn, $_POST['treatment_date']);
     $bite_location = mysqli_real_escape_string($conn, $_POST['bite_location']);
@@ -21,28 +21,32 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
     $remarks = mysqli_real_escape_string($conn, $_POST['remarks']);
 
     // Validate required fields
-    if (!empty($resident_id) && !empty($bite_date) && !empty($treatment_date) && !empty($bite_location) && !empty($treatment_center)) {
-        // Prepare and execute SQL query to insert the new record
-       // Prepare and execute SQL query to insert the new record, including bitten_location
-$query = "INSERT INTO animal_bite_records (resident_id, bite_date, treatment_date, bite_location, bitten_location, treatment_center, remarks) 
-          VALUES ('$resident_id', '$bite_date', '$treatment_date', '$bite_location', '$bitten_location', '$treatment_center', '$remarks')";
+    if (!empty($resident_id) && !empty($animal_name) && !empty($bitten_location) && 
+        !empty($bite_date) && !empty($treatment_date) && !empty($bite_location) && !empty($treatment_center)) {
+        
+        // Use prepared statements to prevent SQL injection
+        $stmt = $conn->prepare("INSERT INTO animal_bite_records (resident_id, animal_name, bitten_location, bite_date, treatment_date, bite_location, treatment_center, remarks) 
+                                VALUES (?, ?, ?, ?, ?, ?, ?, ?)");
+        $stmt->bind_param("isssssss", $resident_id, $animal_name, $bitten_location, $bite_date, $treatment_date, $bite_location, $treatment_center, $remarks);
 
-
-        if (mysqli_query($conn, $query)) {
+        if ($stmt->execute()) {
             // Redirect to animal bite records page after successful insertion
             $_SESSION['message'] = "Animal Bite Record added successfully!";
             header("Location: ../services6.php");
             exit();
         } else {
             // Handle SQL error
-            echo "Error: " . $query . "<br>" . mysqli_error($conn);
+            $_SESSION['error'] = "Error adding record: " . $stmt->error;
         }
+        $stmt->close();
     } else {
         // Handle missing required fields
         $_SESSION['error'] = "Please fill in all the required fields.";
-        header("Location: services6.php");
-        exit();
     }
+
+    // Redirect back to the form with an error message
+    header("Location: services6.php");
+    exit();
 }
 
 // Close the database connection
