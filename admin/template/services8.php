@@ -119,20 +119,45 @@ if ($totalResult && $totalResult->num_rows > 0) {
             background-color: #f2f2f2;
         }
         .filters {
-            margin-bottom: 20px;
-            text-align: center;
-        }
-        .filters select {
-            padding: 5px;
-            margin-right: 10px;
-        }
-        .filters button {
-            padding: 5px 10px;
-        }
-        .print-btn {
-            text-align: center;
-            margin-top: 20px;
-        }
+    display: flex;
+    justify-content: space-between; /* Align filters to the left and the print button to the right */
+    align-items: center; /* Vertically center items */
+    flex-wrap: wrap; /* Makes the layout responsive */
+    padding: 10px; /* Adds padding around the container */
+    gap: 10px; /* Adds space between elements in smaller screens */
+}
+
+.filters form {
+    display: flex;
+    gap: 10px; /* Adds spacing between filter elements */
+    align-items: center; /* Vertically aligns the form elements */
+}
+
+.filters select,
+.filters button {
+    padding: 5px 10px; /* Adds padding for better appearance */
+    font-size: 14px; /* Ensures text is readable */
+}
+
+.print-btn {
+    margin-left: auto; /* Pushes the Print button to the far right */
+}
+
+.print-btn button {
+    background-color: #6DC066;
+    color: white;
+    border: none;
+    padding: 8px 12px;
+    font-size: 14px;
+    border-radius: 5px;
+    cursor: pointer;
+    width: 130px;
+}
+
+.print-btn button:hover {
+    background-color: #5CA556; /* Slightly darker green on hover */
+}
+
         @media print {
             .print-btn, .filters {
                 display: none;
@@ -141,7 +166,39 @@ if ($totalResult && $totalResult->num_rows > 0) {
     </style>
 </head>
 <body>
+<div class="filters">
+    <!-- Filter Form -->
+    <form method="GET" action="">
+        <select name="month">
+            <option value="">Select Month</option>
+            <?php
+            // Generate month options
+            for ($i = 1; $i <= 12; $i++) {
+                $selected = ($month == $i) ? 'selected' : '';
+                echo "<option value='$i' $selected>" . date('F', mktime(0, 0, 0, $i, 1)) . "</option>";
+            }
+            ?>
+        </select>
+        <select name="year">
+            <option value="">Select Year</option>
+            <?php
+            // Generate year options
+            $currentYear = date('Y');
+            for ($i = $currentYear; $i >= 2000; $i--) {
+                $selected = ($year == $i) ? 'selected' : '';
+                echo "<option value='$i' $selected>$i</option>";
+            }
+            ?>
+        </select>
+    <button type="submit" style="background-color: #4D869C; width:130px; color: white; padding: 10px 20px; border: none; border-radius: 5px; cursor: pointer;">Filter</button>
+    </form>
 
+    <!-- Print Button -->
+    <div class="print-btn">
+        <button onclick="window.print()">Print Report</button>
+    </div>
+</div>
+<hr>
 <div class="container">
 <div class="docuHeader">
                 <!-- <div class="img"><img src="../src/techcareLogo2.png" alt="BrgyLogo"></div> -->
@@ -158,32 +215,6 @@ if ($totalResult && $totalResult->num_rows > 0) {
             </div>
     <h2>Hypertension Report - By Zone, Age Group, and Medicines</h2>
 
-    <div class="filters">
-        <form method="GET" action="">
-            <select name="month">
-                <option value="">Select Month</option>
-                <?php
-                // Generate month options
-                for ($i = 1; $i <= 12; $i++) {
-                    $selected = ($month == $i) ? 'selected' : '';
-                    echo "<option value='$i' $selected>" . date('F', mktime(0, 0, 0, $i, 1)) . "</option>";
-                }
-                ?>
-            </select>
-            <select name="year">
-                <option value="">Select Year</option>
-                <?php
-                // Generate year options
-                $currentYear = date('Y');
-                for ($i = $currentYear; $i >= 2000; $i--) {
-                    $selected = ($year == $i) ? 'selected' : '';
-                    echo "<option value='$i' $selected>$i</option>";
-                }
-                ?>
-            </select>
-            <button type="submit">Filter</button>
-        </form>
-    </div>
 
     <table>
         <thead>
@@ -220,9 +251,7 @@ if ($totalResult && $totalResult->num_rows > 0) {
         </tfoot>
     </table>
 
-    <div class="print-btn">
-        <button onclick="window.print()">Print Report</button>
-    </div>
+   
 </div>
 
 </body>

@@ -47,20 +47,6 @@ if (!$result) {
 if (mysqli_num_rows($result) > 0) {
     $even = 0; // To alternate row colors
 
-    echo '<table>';
-    echo '<thead>';
-    echo '<tr>';
-    echo '<th>Resident Name</th>';
-    echo '<th>Checkup Date</th>';
-    echo '<th>Gestational Age</th>';
-    echo '<th>Blood Pressure</th>';
-    echo '<th>Weight</th>';
-    echo '<th>Fetal Heartbeat</th>';
-    echo '<th>Remarks</th>';
-    echo '<th>Actions</th>';
-    echo '</tr>';
-    echo '</thead>';
-    echo '<tbody>';
 
     // Output each row of data
     while ($row = mysqli_fetch_assoc($result)) {

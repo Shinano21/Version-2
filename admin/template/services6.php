@@ -94,9 +94,12 @@ $result = $stmt->get_result();
             margin-bottom: 20px;
         }
         .filters {
-            text-align: center;
-            margin-bottom: 20px;
-        }
+    display: flex;
+    justify-content: space-between; /* Pushes content to far left and right */
+    align-items: center; /* Vertically aligns the items */
+    padding: 10px; /* Adds some spacing around the container */
+}
+
         .filters select {
             padding: 5px 10px;
             font-size: 14px;
@@ -130,13 +133,14 @@ $result = $stmt->get_result();
             margin-top: 20px;
         }
         button {
-            background-color: #007BFF;
+            background-color: #4D869C;
             color: white;
             border: none;
             padding: 10px 20px;
             font-size: 16px;
             cursor: pointer;
             border-radius: 5px;
+            width: 130px;
         }
         button:hover {
             background-color: #0056b3;
@@ -149,7 +153,34 @@ $result = $stmt->get_result();
     </style>
 </head>
 <body>
+<div class="filters">
+    <form method="GET">
+        <label for="year">Year:</label>
+        <select id="year" name="year">
+            <?php
+            for ($y = 2020; $y <= date('Y'); $y++) {
+                echo "<option value='$y'" . ($y == $selectedYear ? " selected" : "") . ">$y</option>";
+            }
+            ?>
+        </select>
 
+        <label for="month">Month:</label>
+        <select id="month" name="month">
+            <?php
+            for ($m = 1; $m <= 12; $m++) {
+                $monthName = date('F', mktime(0, 0, 0, $m, 1));
+                echo "<option value='$m'" . ($m == $selectedMonth ? " selected" : "") . ">$monthName</option>";
+            }
+            ?>
+        </select>
+
+        <button type="submit">Filter</button>
+    </form>
+
+    <button style="background-color: #6DC066;" onclick="window.print()">Print Report</button>
+</div>
+
+    <hr>
 <div class="container">
 <div class="docuHeader">
                 <!-- <div class="img"><img src="../src/techcareLogo2.png" alt="BrgyLogo"></div> -->
@@ -166,30 +197,7 @@ $result = $stmt->get_result();
             </div>
     <h2>Animal Bite Report</h2>
 
-    <div class="filters">
-        <form method="GET">
-            <label for="year">Year:</label>
-            <select id="year" name="year">
-                <?php
-                for ($y = 2020; $y <= date('Y'); $y++) {
-                    echo "<option value='$y'" . ($y == $selectedYear ? " selected" : "") . ">$y</option>";
-                }
-                ?>
-            </select>
 
-            <label for="month">Month:</label>
-            <select id="month" name="month">
-                <?php
-                for ($m = 1; $m <= 12; $m++) {
-                    $monthName = date('F', mktime(0, 0, 0, $m, 1));
-                    echo "<option value='$m'" . ($m == $selectedMonth ? " selected" : "") . ">$monthName</option>";
-                }
-                ?>
-            </select>
-
-            <button type="submit">Filter</button>
-        </form>
-    </div>
 
     <table>
         <thead>
@@ -216,9 +224,6 @@ $result = $stmt->get_result();
         </tbody>
     </table>
 
-    <div class="print-btn">
-        <button onclick="window.print()">Print Report</button>
-    </div>
 </div>
 
 </body>

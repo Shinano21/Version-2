@@ -46,26 +46,44 @@ $month_name = date('F', mktime(0, 0, 0, $filter_month, 1));
             font-size: 14px;
         }
 
-        .no-print {
-            display: flex;
-            justify-content: center;
-            margin-bottom: 20px;
-        }
+        form {
+    display: flex;
+    justify-content: space-between; /* Ensures elements are spaced to the sides */
+    align-items: center; /* Vertically aligns the items */
+    flex-wrap: wrap; /* Ensures the layout remains responsive */
+    gap: 10px; /* Adds spacing between form elements */
+    padding: 10px; /* Adds padding around the form */
+}
 
-        .printBtn, button {
-            background-color: #add8e6; /* Light blue */
-            color: #000;
-            padding: 10px 20px;
-            font-size: 16px;
-            border: none;
-            cursor: pointer;
-            border-radius: 4px;
-            margin: 5px;
-        }
+form label {
+    margin-right: 5px; /* Adds spacing between the label and its field */
+}
 
-        .printBtn:hover, button:hover {
-            background-color: #87cefa;
-        }
+form select {
+    margin-right: 10px; /* Adds spacing between selects */
+}
+
+form button {
+    margin-left: 10px; /* Adds spacing between the Filter button and Print button */
+}
+
+.no-print {
+    margin-left: auto; /* Pushes the Print button to the far right */
+}
+
+.printBtn {
+    background-color: #6DC066;
+    color: white;
+    border: none;
+    padding: 8px 12px;
+    border-radius: 5px;
+    cursor: pointer;
+    width: 130px;
+}
+
+.printBtn:hover {
+    background-color: #5CA556; /* Darker green on hover */
+}
 
         h1 {
             text-align: center;
@@ -74,13 +92,7 @@ $month_name = date('F', mktime(0, 0, 0, $filter_month, 1));
             margin-bottom: 10px;
         }
 
-        form {
-            display: flex;
-            justify-content: center;
-            align-items: center;
-            margin-bottom: 20px;
-            gap: 10px;
-        }
+   
 
         select, button {
             padding: 8px;
@@ -135,6 +147,40 @@ $month_name = date('F', mktime(0, 0, 0, $filter_month, 1));
     </style>
 </head>
 <body>
+<!-- Filter Form -->
+<form method="GET">
+    <!-- Month Filter -->
+    <label for="month">Month:</label>
+    <select name="month" id="month">
+        <?php for ($m = 1; $m <= 12; $m++): ?>
+            <option value="<?php echo str_pad($m, 2, '0', STR_PAD_LEFT); ?>" 
+                <?php echo ($filter_month == str_pad($m, 2, '0', STR_PAD_LEFT)) ? 'selected' : ''; ?>>
+                <?php echo date('F', mktime(0, 0, 0, $m, 1)); ?>
+            </option>
+        <?php endfor; ?>
+    </select>
+
+    <!-- Year Filter -->
+    <label for="year">Year:</label>
+    <select name="year" id="year">
+        <?php for ($y = date('Y') - 10; $y <= date('Y'); $y++): ?>
+            <option value="<?php echo $y; ?>" 
+                <?php echo ($filter_year == $y) ? 'selected' : ''; ?>>
+                <?php echo $y; ?>
+            </option>
+        <?php endfor; ?>
+    </select>
+
+    <!-- Filter Button -->
+    <button type="submit" style="background-color: #4D869C; width:130px; color: white; padding: 10px 20px; border: none; border-radius: 5px; cursor: pointer;">Filter</button>
+
+    <!-- Print Button -->
+    <div class="no-print">
+        <button class="printBtn" onclick="window.print()">Print</button>
+    </div>
+</form>
+
+    <hr>
     <div class="docuHeader">
         <div class="mid">
             <p>Republic of the Philippines</p>
@@ -147,37 +193,14 @@ $month_name = date('F', mktime(0, 0, 0, $filter_month, 1));
         <h1>Prenatal Records</h1>
     </div>
 
-    <!-- Filter Form -->
-    <form method="GET">
-        <label for="month">Month:</label>
-        <select name="month" id="month">
-            <?php for ($m = 1; $m <= 12; $m++): ?>
-                <option value="<?php echo str_pad($m, 2, '0', STR_PAD_LEFT); ?>" <?php echo ($filter_month == str_pad($m, 2, '0', STR_PAD_LEFT)) ? 'selected' : ''; ?>>
-                    <?php echo date('F', mktime(0, 0, 0, $m, 1)); ?>
-                </option>
-            <?php endfor; ?>
-        </select>
 
-        <label for="year">Year:</label>
-        <select name="year" id="year">
-            <?php for ($y = date('Y') - 10; $y <= date('Y'); $y++): ?>
-                <option value="<?php echo $y; ?>" <?php echo ($filter_year == $y) ? 'selected' : ''; ?>>
-                    <?php echo $y; ?>
-                </option>
-            <?php endfor; ?>
-        </select>
-
-        <button type="submit">Filter</button>
-    </form>
 
     <!-- Filter Info -->
     <div class="filter-info">
         Showing records for: <span><?php echo $month_name . ' ' . $filter_year; ?></span>
     </div>
 
-    <div class="no-print">
-        <button class="printBtn" onclick="window.print()">Print</button>
-    </div>
+   
 
     <table>
         <thead>

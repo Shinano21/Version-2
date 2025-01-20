@@ -2,6 +2,16 @@
 session_start();
 include "../dbcon.php";
 
+$sql = "SELECT center_name FROM home LIMIT 1";
+$result = $conn->query($sql);
+$centerName = '';
+if ($result->num_rows > 0) {
+    $row = $result->fetch_assoc();
+    $centerName = $row['center_name'];
+} else {
+    $centerName = "No center name found";
+}
+
 // Redirect if user is not logged in or user type is System Administrator
 if (!isset($_SESSION["user"]) || $_SESSION["user_type"] == "System Administrator") {
     header("Location: index.php");
@@ -48,6 +58,24 @@ foreach ($medicines as $medicine) {
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Medicine Received Report</title>
     <style>
+             .docuHeader {
+    display: flex;
+    justify-content: center; /* Centers horizontally */
+    align-items: center; /* Centers vertically */
+    text-align: center; /* Ensures text is centered within each <p> tag */
+}
+
+.mid {
+    display: flex;
+    flex-direction: column;
+    align-items: center; /* Centers text block horizontally */
+}
+
+.text {
+    line-height: 1.5; /* Adjusts line spacing */
+    margin-top: 0px; /* Adjusts space above each paragraph */
+    margin-bottom: 10px; /* Adjusts space below each paragraph */
+}
         body {
             font-family: Arial, sans-serif;
         }
@@ -58,14 +86,7 @@ foreach ($medicines as $medicine) {
         .report-header h1 {
             margin: 0;
         }
-        .filter-form {
-            text-align: center;
-            margin-bottom: 20px;
-        }
-        .filter-form select, .filter-form button {
-            padding: 8px;
-            margin: 5px;
-        }
+       
         .report-table {
             width: 100%;
             border-collapse: collapse;
@@ -80,19 +101,68 @@ foreach ($medicines as $medicine) {
             font-weight: bold;
             text-align: right;
         }
-        @media print {
-            .no-print {
-                display: none;
-            }
-        }
+        .filter-container {
+    display: flex;
+    justify-content: space-between; /* Align form to the left and button to the right */
+    align-items: center; /* Vertically align elements */
+    flex-wrap: wrap; /* Allow wrapping on smaller screens */
+    padding: 10px;
+    gap: 20px; /* Adds space between elements when they wrap */
+}
+
+.filter-form form {
+    display: flex;
+    align-items: center; /* Vertically align form elements */
+    gap: 10px; /* Adds spacing between form elements */
+}
+
+.filter-form label {
+    margin-right: 5px; /* Adds space between the label and the dropdown */
+}
+
+.filter-form select {
+    padding: 5px 10px;
+    font-size: 14px;
+}
+
+.filter-form button {
+    padding: 6px 12px;
+    background-color: #007bff;
+    color: white;
+    border: none;
+    border-radius: 4px;
+    cursor: pointer;
+}
+
+.filter-form button:hover {
+    background-color: #0056b3;
+}
+
+.no-print button {
+    background-color: #6DC066;
+    color: white;
+    border: none;
+    padding: 8px 16px;
+    border-radius: 4px;
+    cursor: pointer;
+    width: 130px;
+}
+
+.no-print button:hover {
+    background-color: #5CA556;
+}
+
+@media print {
+    .filter-container {
+        display: none; /* Hides the Print button during printing */
+    }
+}
+
     </style>
 </head>
 <body>
-    <div class="report-header">
-        <h1>Medicine Received Report</h1>
-        <p>Month: <?= date('F', mktime(0, 0, 0, $month, 1)) ?>, Year: <?= $year ?></p>
-    </div>
-
+<div class="filter-container">
+    <!-- Filter Form -->
     <div class="filter-form">
         <form method="GET" action="">
             <label for="month">Select Month:</label>
@@ -113,9 +183,35 @@ foreach ($medicines as $medicine) {
                 <?php endfor; ?>
             </select>
 
-            <button type="submit">Filter</button>
+    <button type="submit" style="background-color: #4D869C; width:130px; color: white; padding: 10px 20px; border: none; border-radius: 5px; cursor: pointer;">Filter</button>
         </form>
     </div>
+
+    <!-- Print Button -->
+    <div class="no-print">
+        <button onclick="window.print()">Print Report</button>
+    </div>
+</div>
+<hr>
+<div class="docuHeader">
+                <!-- <div class="img"><img src="../src/techcareLogo2.png" alt="BrgyLogo"></div> -->
+                 <div class="space"></div>
+                <div class="mid">
+                    <p class="text">Republic of the Philippines</p>
+                    <p class="text">Province of Albay</p>
+                    <p class="text">Municipality of Legazpi</p>
+                    <p class="text" style="font-weight: 600;"><?php echo $centerName; ?></p>
+
+
+                </div>
+                <div class="space"></div>
+            </div>
+    <div class="report-header">
+        <h1>Medicine Received Report</h1>
+        <p>Month: <?= date('F', mktime(0, 0, 0, $month, 1)) ?>, Year: <?= $year ?></p>
+    </div>
+
+
 
     <table class="report-table">
         <thead>
@@ -146,8 +242,6 @@ foreach ($medicines as $medicine) {
         Total Quantity Received: <?= $total_quantity ?>
     </div>
 
-    <div class="no-print" style="text-align: center; margin-top: 20px;">
-        <button onclick="window.print()">Print Report</button>
-    </div>
+  
 </body>
 </html>
