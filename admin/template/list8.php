@@ -69,10 +69,7 @@ $result = mysqli_query($conn, $query);
     margin-top: 0px; /* Adjusts space above each paragraph */
     margin-bottom: 10px; /* Adjusts space below each paragraph */
 }
-.no-print { 
-    display: flex; 
-    justify-content: flex-end; /* Positions the button to the right */ 
-}
+
     body {
         font-family: Arial, sans-serif;
         margin: 20px;
@@ -93,19 +90,7 @@ $result = mysqli_query($conn, $query);
         flex-grow: 1; /* Allow title to take up available space */
         font-size: 25px;
     }
-    .printBtn {
-        padding: 10px 20px;
-        background-color: #007BFF;
-        color: white;
-        text-align: center;
-        text-decoration: none;
-        border-radius: 5px;
-        border: none;
-        display: inline-block;
-    }
-    .print-btn:hover {
-        background-color: #0056b3;
-    }
+ 
     table {
         width: 100%; /* Stretch table to full width */
         border-collapse: collapse;
@@ -131,6 +116,69 @@ $result = mysqli_query($conn, $query);
             display: none;
         }
     }
+    .no-print {
+    display: flex;
+    justify-content: space-between; /* Align form to the left and Print button to the right */
+    align-items: center; /* Vertically center elements */
+    flex-wrap: wrap; /* Allows wrapping for smaller screens */
+    gap: 20px; /* Adds space between form and button on smaller screens */
+    margin-bottom: 20px; /* Keeps consistent spacing below the container */
+}
+
+.no-print form {
+    display: flex;
+    align-items: center; /* Vertically aligns form elements */
+    gap: 10px; /* Adds spacing between form elements */
+    margin: 0; /* Removes any additional margin */
+}
+
+.no-print label {
+    margin-right: 5px; /* Adds spacing between label and select */
+}
+
+.no-print select {
+    padding: 5px 10px; /* Adds padding for better usability */
+    font-size: 14px;
+}
+
+.no-print button {
+    padding: 6px 12px;
+    border: none;
+    border-radius: 4px;
+    cursor: pointer;
+    font-size: 14px;
+}
+
+.no-print button[type="submit"] {
+    background-color: #007bff;
+    color: white;
+}
+
+.no-print button[type="submit"]:hover {
+    background-color: #0056b3;
+}
+
+.printBtn {
+    background-color: #6DC066;
+    width: 130px;
+    color: white;
+    padding: 15px 18px;
+    border: none;
+    border-radius: 4px;
+    cursor: pointer;
+    margin-left: auto; /* Pushes the Print button to the far right */
+}
+
+.printBtn:hover {
+    background-color: #5CA556;
+}
+
+@media print {
+    .no-print {
+        display: none; /* Hides the entire container during printing */
+    }
+}
+
 </style>
 
 </head>
@@ -156,10 +204,12 @@ $result = mysqli_query($conn, $query);
                     </option>
                 <?php endfor; ?>
             </select>
-            <button type="submit">Filter</button>
+            <button type="submit" style="background-color: #4D869C; color: white; padding: 10px 20px; border: none; border-radius: 5px; width:130px;">Filter</button>
+           
         </form>
         <button class="printBtn" onclick="window.print()">Print</button>
     </div>
+    <hr>
     <div class="docuHeader">
                 <!-- <div class="img"><img src="../src/techcareLogo2.png" alt="BrgyLogo"></div> -->
                  <div class="space"></div>

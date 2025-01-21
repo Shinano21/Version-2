@@ -38,8 +38,7 @@
                         </a>
                     </p>
                     <p class="contactInfo">
-                        <a href="mailto:<?php echo $email; ?>"> <?php echo $email; ?></a> /
-                        <a href="tel:<?php echo str_replace([' ', '-', '(', ')'], '', $contact); ?>"><?php echo $contact; ?></a>
+                       
                     </p> 
                     <button><a href="aboutUs.php">Learn More <i class="fas fa-arrow-right" id="i"></i></a></button>
                 </div>

@@ -50,7 +50,7 @@
 
 
 <!-- Modal -->
-<div id="deleteModal" style="display:none; position:fixed; top:0; left:0; width:100%; height:100%; background-color:rgba(0,0,0,0.5);">
+<div id="deleteModal" style="display:none; position:fixed; top:0; left:0; width:100%; height:100%; background-color:rgba(0,0,0,0.5); z-index:10;">
     <div style="position:relative; margin:10% auto; padding:20px; background:white; width:50%; border-radius:8px; text-align:center;">
         <h2>Confirm Delete</h2>
         <p>Are you sure you want to delete this resident?</p>

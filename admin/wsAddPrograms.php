@@ -16,9 +16,9 @@ if (!isset($_SESSION["user"]) || $_SESSION["user_type"] == "System Administrator
     <link rel="stylesheet" href="css/wsHome.css">
     <link href='https://unpkg.com/boxicons@2.1.4/css/boxicons.min.css' rel='stylesheet'>
     <style>
-          body{
-    background-color: #CDE8E5;
-  }
+          body {
+              background-color: #CDE8E5;
+          }
     </style>
 </head>
 
@@ -59,6 +59,24 @@ if (!isset($_SESSION["user"]) || $_SESSION["user_type"] == "System Administrator
                                     <label>Body</label>
                                     <textarea placeholder="Enter data" name="prog_body" required></textarea>
                                 </div>
+                                <!-- Additional Fields -->
+                                <div class="formInput" style="width: 100%;">
+                                    <label for="what">What</label>
+                                    <textarea id="what" name="what" placeholder="What is the program about?" required></textarea>
+                                </div>
+                                <div class="formInput" style="width: 100%;">
+                                    <label for="where">Where</label>
+                                    <input type="text" id="where" name="where" placeholder="Location of the program" required>
+                                </div>
+                                <div class="formInput" style="width: 100%;">
+                                    <label for="when">When</label>
+                                    <input type="datetime-local" id="when" name="when" required>
+                                </div>
+                                <div class="formInput" style="width: 100%;">
+                                    <label for="who">Who</label>
+                                    <input type="text" id="who" name="who" placeholder="Who are the target participants?" required>
+                                </div>
+                                <!-- End of Additional Fields -->
                                 <div class="photo">
                                     <label for="imageInput">Program Image:</label>
                                     <input type="file" id="imageInput" name="prog_pic" accept="image/*" required>
@@ -74,8 +92,6 @@ if (!isset($_SESSION["user"]) || $_SESSION["user_type"] == "System Administrator
                         </form>
 
                     </div>
-
-
                 </section>
             </div>
         </div>

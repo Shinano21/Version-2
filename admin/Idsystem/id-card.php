@@ -91,7 +91,7 @@ $center_name = $logo_row['center_name']; // Get the center name
                                         <div class='email'>
                                             <h4>Address</h4>
                                             <p>$address</p>
-                                            <p><span style='color: #FF8C00; font-size:13px;'>Valid until:</span> 1/16/28</p>
+                                            <p><span style='color: #FF8C00; font-size:13px;'>Valid until:</span> Jan. 1, 2029</p>
                                         </div>
                                     </div>
                                     <div class='info-4'>

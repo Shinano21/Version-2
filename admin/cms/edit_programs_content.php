@@ -6,6 +6,10 @@ if (isset($_POST["submit"])) {
     $programType = $_POST["program_type"];
     $progHeading = $_POST["prog_heading"];
     $progBody = $_POST["prog_body"];
+    $what = $_POST["what"];
+    $where = $_POST["where"];
+    $when = $_POST["when"];
+    $who = $_POST["who"];
     $progPic = $_FILES["prog_pic"]["name"]; // Get the filename
 
     // Set the target directory for uploaded files
@@ -15,16 +19,17 @@ if (isset($_POST["submit"])) {
     // Move the uploaded file to the target directory
     if (move_uploaded_file($_FILES["prog_pic"]["tmp_name"], $targetFile)) {
         // Prepare the SQL query to insert data into the database
-        $sql = "INSERT INTO `programs` (`program_type`, `prog_heading`, `prog_body`, `prog_pic`, `post_date`) 
-                VALUES (?, ?, ?, ?, NOW())";
+        $sql = "INSERT INTO `programs` 
+                (`program_type`, `prog_heading`, `prog_body`, `what`, `where`, `when`, `who`, `prog_pic`, `post_date`) 
+                VALUES (?, ?, ?, ?, ?, ?, ?, ?, NOW())";
         $stmt = mysqli_prepare($conn, $sql);
-        mysqli_stmt_bind_param($stmt, "ssss", $programType, $progHeading, $progBody, $progPic);
+        mysqli_stmt_bind_param($stmt, "ssssssss", $programType, $progHeading, $progBody, $what, $where, $when, $who, $progPic);
 
         // Execute the statement
         if (mysqli_stmt_execute($stmt)) {
             // Success: Display a pop-up message and redirect
             echo '<script>';
-            echo 'alert("Saved successfully!");';
+            echo 'alert("Program saved successfully!");';
             echo 'window.location.href = "../wsProgramSettings.php";';
             echo '</script>';
         } else {
