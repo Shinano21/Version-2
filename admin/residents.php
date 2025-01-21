@@ -647,14 +647,18 @@ $random_id_card_no = generateUniqueID($conn);
                             <table id="residentTable" class="tableResidents">
                                 <thead class="head">
                                 <tr>
-                                    <th class="names" style="padding-left: 10px;">Full Name</th>
-                                    <th>Sex</th>
-                                    <th>Age</th>
-                                    <th>Birthday</th>
-                                    <th>Zone</th>
-                                    <th>Contact number</th>
-                                    <th class="lastCol">Action</th>
-                                </tr>
+    <th class="names" style="padding-left: 10px;">Full Name</th>
+    <th>Sex</th>
+    <th>Age</th>
+    <th>
+        Birthday<br>
+        <span style="font-size: smaller; font-weight: normal;">(yyyy/mm/dd)</span>
+    </th>
+    <th>Zone</th>
+    <th>Contact number</th>
+    <th class="lastCol">Action</th>
+</tr>
+
                                 </thead>
                                 <tbody>
                                 <?php include "data/showResidents.php";?>
