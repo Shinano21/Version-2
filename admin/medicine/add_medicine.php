@@ -151,6 +151,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
                                                 <option value="" disabled selected>Select Medicine Type</option>
                                                 <option value="tablet">Tablet</option>
                                                 <option value="capsule">Capsule</option>
+                                                <option value="liquid_jel">Liquid Jel</option>
                                                 <option value="syrup">Syrup</option>
                                                 <option value="injection">Injection</option>
                                                 <option value="ointment">Ointment</option>
