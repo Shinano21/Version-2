@@ -1,6 +1,8 @@
 <?php
 // Include the database connection
 include '../dbcon.php';
+
+// Fetch center name
 $sql = "SELECT center_name FROM home LIMIT 1";
 $result = $conn->query($sql);
 $centerName = '';
@@ -11,7 +13,11 @@ if ($result->num_rows > 0) {
     $centerName = "No center name found";
 }
 
-// Fetch hypertension records with resident details
+// Get filter inputs
+$filterMonth = isset($_GET['month']) ? $_GET['month'] : '';
+$filterYear = isset($_GET['year']) ? $_GET['year'] : '';
+
+// Build query with filters
 $query = "
     SELECT 
         r.fname, 
@@ -27,8 +33,16 @@ $query = "
     JOIN 
         residents r ON h.resident_id = r.id
 ";
+
+if ($filterMonth && $filterYear) {
+    $query .= " WHERE MONTH(h.checkup_date) = '$filterMonth' AND YEAR(h.checkup_date) = '$filterYear'";
+} elseif ($filterYear) {
+    $query .= " WHERE YEAR(h.checkup_date) = '$filterYear'";
+}
+
 $result = mysqli_query($conn, $query);
 ?>
+
 
 <!DOCTYPE html>
 <html lang="en">
@@ -123,6 +137,27 @@ $result = mysqli_query($conn, $query);
 <body>
     <div class="container">
     <div class="no-print">
+    <form method="GET" style="margin-bottom: 20px;">
+            <label for="month">Month:</label>
+            <select name="month" id="month">
+                <option value="">All</option>
+                <?php for ($m = 1; $m <= 12; $m++): ?>
+                    <option value="<?= $m ?>" <?= $m == $filterMonth ? 'selected' : '' ?>>
+                        <?= date('F', mktime(0, 0, 0, $m, 1)) ?>
+                    </option>
+                <?php endfor; ?>
+            </select>
+            <label for="year">Year:</label>
+            <select name="year" id="year">
+                <option value="">All</option>
+                <?php for ($y = date('Y'); $y >= 2000; $y--): ?>
+                    <option value="<?= $y ?>" <?= $y == $filterYear ? 'selected' : '' ?>>
+                        <?= $y ?>
+                    </option>
+                <?php endfor; ?>
+            </select>
+            <button type="submit">Filter</button>
+        </form>
         <button class="printBtn" onclick="window.print()">Print</button>
     </div>
     <div class="docuHeader">
